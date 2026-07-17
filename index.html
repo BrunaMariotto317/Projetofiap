@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Aprofundamento da Inativação</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: #05080d;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .slide {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(
+          circle at 73% 48%,
+          rgba(39, 72, 184, 0.55) 0,
+          rgba(15, 35, 91, 0.34) 22%,
+          rgba(5, 11, 23, 0) 53%
+        ),
+        radial-gradient(
+          circle at 91% 12%,
+          rgba(25, 85, 94, 0.16),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          #07090d 0%,
+          #05070b 43%,
+          #07101a 100%
+        );
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+      pointer-events: none;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.02) 1px,
+          transparent 1px
+        );
+
+      background-size: 68px 68px;
+    }
+
+    /* Área esquerda */
+
+    .left-content {
+      position: absolute;
+      left: 132px;
+      top: 210px;
+      width: 980px;
+      z-index: 10;
+    }
+
+    .sprint {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-bottom: 45px;
+      font-size: 29px;
+      font-weight: 700;
+    }
+
+    .spark {
+      position: relative;
+      width: 22px;
+      height: 22px;
+      transform: rotate(45deg);
+      background: linear-gradient(
+        135deg,
+        #95cfff,
+        #3467ff
+      );
+      box-shadow: 0 0 25px rgba(65, 123, 255, 0.75);
+    }
+
+    .spark::before,
+    .spark::after {
+      content: "";
+      position: absolute;
+      background: inherit;
+    }
+
+    .spark::before {
+      width: 8px;
+      height: 36px;
+      left: 7px;
+      top: -7px;
+    }
+
+    .spark::after {
+      width: 36px;
+      height: 8px;
+      left: -7px;
+      top: 7px;
+    }
+
+    .small-line {
+      width: 126px;
+      height: 7px;
+      margin-bottom: 76px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        #2b70ff,
+        #2455b7 65%,
+        transparent
+      );
+      box-shadow: 0 0 15px rgba(47, 104, 255, 0.3);
+    }
+
+    h1 {
+      font-size: 92px;
+      line-height: 0.98;
+      letter-spacing: -4px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1 .blue {
+      display: block;
+      margin-top: 15px;
+      color: #4164ff;
+      text-shadow: 0 0 20px rgba(50, 85, 255, 0.25);
+    }
+
+    .description {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      margin-top: 106px;
+    }
+
+    .arrow-circle {
+      position: relative;
+      flex: 0 0 auto;
+      width: 96px;
+      height: 96px;
+      border: 4px solid #425fff;
+      border-radius: 50%;
+      box-shadow:
+        0 0 24px rgba(65, 95, 255, 0.25),
+        inset 0 0 20px rgba(65, 95, 255, 0.08);
+    }
+
+    .arrow-circle::before {
+      content: "";
+      position: absolute;
+      left: 25px;
+      top: 44px;
+      width: 42px;
+      height: 4px;
+      border-radius: 4px;
+      background: #526fff;
+    }
+
+    .arrow-circle::after {
+      content: "";
+      position: absolute;
+      right: 25px;
+      top: 35px;
+      width: 18px;
+      height: 18px;
+      border-top: 4px solid #526fff;
+      border-right: 4px solid #526fff;
+      transform: rotate(45deg);
+    }
+
+    .separator {
+      width: 2px;
+      height: 84px;
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    .description-text {
+      font-size: 31px;
+      line-height: 1.36;
+      color: #f0f1f5;
+    }
+
+    .description-text span {
+      color: #7085ff;
+    }
+
+    /* Área direita */
+
+    .right-stage {
+      position: absolute;
+      right: 90px;
+      top: 90px;
+      width: 790px;
+      height: 900px;
+      z-index: 5;
+    }
+
+    .glow {
+      position: absolute;
+      left: 50px;
+      top: 160px;
+      width: 700px;
+      height: 640px;
+      border-radius: 50%;
+      background:
+        radial-gradient(
+          circle,
+          rgba(52, 86, 210, 0.48) 0,
+          rgba(22, 48, 118, 0.25) 43%,
+          transparent 72%
+        );
+      filter: blur(38px);
+    }
+
+    .wire {
+      position: absolute;
+      border: 1px solid rgba(91, 113, 217, 0.28);
+      transform: rotate(12deg);
+    }
+
+    .wire.one {
+      left: 90px;
+      top: 75px;
+      width: 580px;
+      height: 690px;
+    }
+
+    .wire.two {
+      left: 150px;
+      top: 150px;
+      width: 530px;
+      height: 610px;
+      transform: rotate(-9deg);
+    }
+
+    .wire.three {
+      left: 235px;
+      top: 250px;
+      width: 430px;
+      height: 470px;
+      transform: rotate(19deg);
+    }
+
+    .info-card {
+      position: absolute;
+      border-radius: 22px;
+      border: 1px solid rgba(73, 93, 170, 0.25);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(9, 13, 22, 0.98),
+          rgba(5, 8, 14, 0.94)
+        );
+      box-shadow:
+        0 26px 60px rgba(0, 0, 0, 0.52),
+        inset 0 0 30px rgba(44, 77, 188, 0.05);
+    }
+
+    .small-card {
+      width: 170px;
+      height: 190px;
+      padding: 25px;
+      transform: rotate(-4deg);
+    }
+
+    .small-card.top {
+      left: 260px;
+      top: 25px;
+    }
+
+    .small-card.right {
+      right: 10px;
+      top: 170px;
+      transform: rotate(2deg);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 24px;
+      border-radius: 10px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(39, 92, 171, 0.38),
+          rgba(13, 24, 52, 0.6)
+        );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ec5ff;
+      font-size: 25px;
+    }
+
+    .small-card p {
+      font-size: 18px;
+      line-height: 1.45;
+      color: #d5d7df;
+    }
+
+    .objective-card {
+      left: 75px;
+      top: 290px;
+      width: 360px;
+      height: 190px;
+      padding: 32px;
+      transform: rotate(-3deg);
+    }
+
+    .objective-card h2 {
+      margin-bottom: 18px;
+      color: #5b75ff;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .objective-card p {
+      color: #b8bbc6;
+      font-size: 22px;
+      line-height: 1.4;
+    }
+
+    .confidence-card {
+      right: 55px;
+      bottom: 100px;
+      width: 300px;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(1deg);
+    }
+
+    .progress {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          #7365ee 0deg,
+          #3b93ff 178deg,
+          #17b6e8 290deg,
+          #7567ef 360deg
+        );
+
+      box-shadow:
+        0 0 34px rgba(45, 107, 255, 0.35);
+    }
+
+    .progress::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 50%;
+      background: #070a10;
+    }
+
+    .progress-content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .progress-number {
+      font-size: 46px;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .progress-label {
+      width: 140px;
+      margin-top: 12px;
+      font-size: 18px;
+      line-height: 1.25;
+      color: #e3e5eb;
+    }
+
+    /* Responsividade para visualização */
+
+    @media (max-width: 1920px) {
+      .slide {
+        width: 100vw;
+        height: 56.25vw;
+        transform-origin: top left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="slide">
+
+    <section class="left-content">
+
+      <div class="sprint">
+        <span class="spark"></span>
+        <span>SPRINT 2</span>
+      </div>
+
+      <div class="small-line"></div>
+
+      <h1>
+        Aprofundamento
+        <span class="blue">da inativação</span>
+      </h1>
+
+      <div class="description">
+
+        <div class="arrow-circle"></div>
+
+        <div class="separator"></div>
+
+        <p class="description-text">
+          Investigação dos fatores que impactam<br>
+          <span>a ativação do cartão Carrefour.</span>
+        </p>
+
+      </div>
+
+    </section>
+
+    <section class="right-stage">
+
+      <div class="glow"></div>
+
+      <div class="wire one"></div>
+      <div class="wire two"></div>
+      <div class="wire three"></div>
+
+      <article class="info-card small-card top">
+        <div class="card-icon">↗</div>
+
+        <p>
+          Análise profunda<br>
+          dos dados e jornadas
+        </p>
+      </article>
+
+      <article class="info-card small-card right">
+        <div class="card-icon">⌂</div>
+
+        <p>
+          Foco nos pontos<br>
+          de inatividade
+        </p>
+      </article>
+
+      <article class="info-card objective-card">
+        <h2>Objetivo</h2>
+
+        <p>
+          Entender, validar e agir<br>
+          nos principais fatores.
+        </p>
+      </article>
+
+      <article class="info-card confidence-card">
+
+        <div class="progress">
+
+          <div class="progress-content">
+            <span class="progress-number">100%</span>
+
+            <span class="progress-label">
+              Confiança nos<br>
+              nossos dados
+            </span>
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
