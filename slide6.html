@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Slide 6 — Limite Médio</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: #f5f8fc;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .slide {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #111429;
+
+      background:
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(125, 151, 230, 0.08),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          #f4f8fc 0%,
+          #ffffff 72%,
+          #f8faff 100%
+        );
+    }
+
+    /* Logo */
+
+    .logo {
+      position: absolute;
+      left: 90px;
+      top: 42px;
+      width: 95px;
+      height: 62px;
+    }
+
+    .logo::before,
+    .logo::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 42px;
+      height: 62px;
+      background: #4a62f3;
+    }
+
+    .logo::before {
+      left: 0;
+      clip-path: polygon(
+        100% 0,
+        43% 50%,
+        100% 100%,
+        63% 100%,
+        0 50%,
+        63% 0
+      );
+    }
+
+    .logo::after {
+      right: 0;
+      clip-path: polygon(
+        0 0,
+        57% 50%,
+        0 100%,
+        37% 100%,
+        100% 50%,
+        37% 0
+      );
+    }
+
+    /* Abas */
+
+    .tabs {
+      position: absolute;
+      left: 665px;
+      top: 45px;
+      width: 675px;
+      height: 98px;
+      padding: 12px;
+      border-radius: 999px;
+      background: #020b20;
+      display: flex;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .tab {
+      width: 50%;
+      height: 74px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 27px;
+      font-weight: 400;
+    }
+
+    .tab.active {
+      background: #4a5ff2;
+      box-shadow: 0 10px 26px rgba(61, 82, 224, 0.3);
+    }
+
+    /* Cabeçalho */
+
+    .heading {
+      position: absolute;
+      left: 66px;
+      top: 170px;
+    }
+
+    .heading h1 {
+      color: #111429;
+      font-size: 62px;
+      line-height: 1;
+      letter-spacing: -2px;
+      font-weight: 500;
+    }
+
+    .heading p {
+      margin-top: 12px;
+      color: #5268ed;
+      font-size: 27px;
+    }
+
+    .date-pill {
+      position: absolute;
+      right: 80px;
+      top: 205px;
+      height: 56px;
+      padding: 0 25px 0 13px;
+      border: 1px solid #d9dbe5;
+      border-radius: 999px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: #777b8f;
+      font-size: 19px;
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .calendar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #a8abb6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 22px;
+    }
+
+    /* Card do limite */
+
+    .limit-card {
+      position: absolute;
+      left: 60px;
+      top: 292px;
+      width: 655px;
+      height: 520px;
+      border-radius: 48px;
+      border: 1px solid #d9dde7;
+      background: #ffffff;
+      padding: 48px 48px 35px;
+      box-shadow: 0 18px 46px rgba(25, 42, 90, 0.05);
+    }
+
+    .limit-label {
+      color: #666b7e;
+      font-size: 24px;
+    }
+
+    .limit-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 50px;
+    }
+
+    .limit-number {
+      color: #4a5ff2;
+      font-size: 80px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -3px;
+    }
+
+    .warning {
+      position: relative;
+      width: 78px;
+      height: 70px;
+      background: #cbd4d6;
+      clip-path: polygon(50% 0, 100% 86%, 0 86%);
+    }
+
+    .warning::before {
+      content: "!";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 18px;
+      color: #ffffff;
+      text-align: center;
+      font-size: 35px;
+      font-weight: 500;
+    }
+
+    .limit-base {
+      margin-top: 32px;
+      color: #5f6575;
+      font-size: 27px;
+    }
+
+    .people-box {
+      position: absolute;
+      left: 130px;
+      right: 130px;
+      bottom: 40px;
+      height: 150px;
+      border-radius: 18px;
+      background: #eef1ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 78px;
+      height: 78px;
+      margin-left: -14px;
+      border-radius: 50%;
+      border: 4px solid #eef1ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .avatar:first-child {
+      margin-left: 0;
+    }
+
+    .a1 { background: #253d63; }
+    .a2 { background: #cf9671; }
+    .a3 { background: #7b818d; }
+    .a4 { background: #c9a98d; }
+
+    /* Gráfico */
+
+    .chart-card {
+      position: absolute;
+      right: 58px;
+      top: 292px;
+      width: 1115px;
+      height: 520px;
+      border-radius: 48px;
+      border: 1px solid #d9dde7;
+      background: #ffffff;
+      padding: 45px 45px 26px;
+      box-shadow: 0 18px 46px rgba(25, 42, 90, 0.05);
+    }
+
+    .chart-title {
+      color: #50566c;
+      font-size: 26px;
+      font-weight: 400;
+    }
+
+    .chart-title strong {
+      color: #3f465f;
+      font-weight: 700;
+    }
+
+    .chart-pill {
+      position: absolute;
+      right: 35px;
+      top: 38px;
+      height: 50px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: #f2f3f8;
+      display: flex;
+      align-items: center;
+      color: #545a6d;
+      font-size: 18px;
+    }
+
+    .chart-area {
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      bottom: 35px;
+      height: 350px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      border-bottom: 1px solid #aeb1ba;
+    }
+
+    .bar-item {
+      position: relative;
+      width: 180px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-direction: column;
+    }
+
+    .percent {
+      margin-bottom: 20px;
+      color: #465cf0;
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .bar {
+      position: relative;
+      width: 130px;
+      border-radius: 20px 20px 0 0;
+      background: #4a5ff2;
+      box-shadow: 0 12px 24px rgba(69, 89, 224, 0.12);
+    }
+
+    .bar.b1 { height: 250px; }
+    .bar.b2 { height: 196px; }
+    .bar.b3 { height: 172px; }
+    .bar.b4 { height: 148px; }
+    .bar.b5 { height: 144px; }
+
+    .bar-icon {
+      position: absolute;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a5ff2;
+      font-size: 31px;
+    }
+
+    .gold {
+      color: #e7b92f;
+    }
+
+    .label {
+      position: absolute;
+      top: calc(100% + 18px);
+      width: 190px;
+      color: #474c5d;
+      font-size: 17px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Faixa inferior */
+
+    .context-card {
+      position: absolute;
+      left: 68px;
+      right: 58px;
+      bottom: 42px;
+      height: 190px;
+      border-radius: 42px;
+      border: 1px solid #d8dbe5;
+      background: #ffffff;
+      box-shadow:
+        10px 12px 0 #8393f3,
+        20px 20px 0 rgba(103, 123, 235, 0.16);
+      display: grid;
+      grid-template-columns: 430px 1fr 1fr 1fr;
+      align-items: center;
+      padding: 28px 45px;
+    }
+
+    .context-intro h2 {
+      color: #4560ee;
+      font-size: 38px;
+      line-height: 0.95;
+      letter-spacing: -1px;
+    }
+
+    .context-intro p {
+      margin-top: 20px;
+      width: 360px;
+      color: #555b6d;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .metric {
+      min-height: 105px;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-left: 1px solid #d0d3dc;
+    }
+
+    .metric-icon {
+      flex: 0 0 auto;
+      width: 70px;
+      height: 70px;
+      border-radius: 12px;
+      background: #4a5ff2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 35px;
+    }
+
+    .metric-copy small {
+      display: block;
+      color: #4e5362;
+      font-size: 17px;
+    }
+
+    .metric-copy strong {
+      display: block;
+      margin-top: 4px;
+      color: #4a5ff2;
+      font-size: 36px;
+      line-height: 1;
+    }
+
+    .metric-copy span {
+      display: block;
+      margin-top: 7px;
+      color: #9296a3;
+      font-size: 17px;
+      line-height: 1.2;
+    }
+
+    @media (max-width: 1920px) {
+      .slide {
+        width: 100vw;
+        height: 56.25vw;
+        transform-origin: top left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="slide">
+
+    <div class="logo"></div>
+
+    <nav class="tabs">
+      <div class="tab active">Limite Medio</div>
+      <div class="tab">Erros Sistêmicos</div>
+    </nav>
+
+    <section class="heading">
+      <h1>DADOS DA JORNADA</h1>
+
+      <p>
+        Distribuição por faixa de limite concedido
+      </p>
+    </section>
+
+    <div class="date-pill">
+      <div class="calendar">▦</div>
+      <span>Atualização: Abr/2026</span>
+    </div>
+
+    <section class="limit-card">
+
+      <p class="limit-label">
+        Limite médio concedido
+      </p>
+
+      <div class="limit-main">
+        <span class="limit-number">R$ 909</span>
+        <div class="warning"></div>
+      </div>
+
+      <p class="limit-base">
+        Base: Nunca Ativos (Abr/2026)
+      </p>
+
+      <div class="people-box">
+        <div class="avatars">
+          <div class="avatar a1">1</div>
+          <div class="avatar a2">2</div>
+          <div class="avatar a3">3</div>
+          <div class="avatar a4">4</div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="chart-card">
+
+      <h2 class="chart-title">
+        Distribuição dos <strong>nunca ativos</strong>
+        por faixa de limite
+      </h2>
+
+      <div class="chart-pill">
+        % de nunca ativos
+      </div>
+
+      <div class="chart-area">
+
+        <article class="bar-item">
+          <span class="percent">30,4%</span>
+
+          <div class="bar b1">
+            <div class="bar-icon gold">♛</div>
+          </div>
+
+          <span class="label">R$ 801 R$ 1.500</span>
+        </article>
+
+        <article class="bar-item">
+          <span class="percent">20,1%</span>
+
+          <div class="bar b2">
+            <div class="bar-icon">↗</div>
+          </div>
+
+          <span class="label">Acima de R$ 2.500</span>
+        </article>
+
+        <article class="bar-item">
+          <span class="percent">18,0%</span>
+
+          <div class="bar b3">
+            <div class="bar-icon">↓</div>
+          </div>
+
+          <span class="label">Até R$ 600</span>
+        </article>
+
+        <article class="bar-item">
+          <span class="percent">16,0%</span>
+
+          <div class="bar b4">
+            <div class="bar-icon">$</div>
+          </div>
+
+          <span class="label">R$ 600 – R$ 800</span>
+        </article>
+
+        <article class="bar-item">
+          <span class="percent">15,5%</span>
+
+          <div class="bar b5">
+            <div class="bar-icon">↙</div>
+          </div>
+
+          <span class="label">R$ 1.501 R$ 2.500</span>
+        </article>
+
+      </div>
+
+    </section>
+
+    <section class="context-card">
+
+      <div class="context-intro">
+        <h2>
+          CONTEXTO DA<br>
+          CARTEIRA
+        </h2>
+
+        <p>
+          Entendendo o comportamento financeiro do
+          público nunca ativo
+        </p>
+      </div>
+
+      <article class="metric">
+
+        <div class="metric-icon">▥</div>
+
+        <div class="metric-copy">
+          <small>Gasto médio mensal</small>
+          <strong>R$ 2.021</strong>
+          <span>2,2x acima do limite médio</span>
+        </div>
+
+      </article>
+
+      <article class="metric">
+
+        <div class="metric-icon">🛒</div>
+
+        <div class="metric-copy">
+          <small>Ticket médio por compra</small>
+          <strong>R$ 184</strong>
+          <span>Consistência de consumo</span>
+        </div>
+
+      </article>
+
+      <article class="metric">
+
+        <div class="metric-icon">▦</div>
+
+        <div class="metric-copy">
+          <small>% com gasto acima do limite</small>
+          <strong>68%</strong>
+          <span>Mesmo com limite inferior ao gasto</span>
+        </div>
+
+      </article>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
