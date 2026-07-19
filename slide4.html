@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Slide 4 — Matriz GUT</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: #02040b;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .slide {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 58% 55%,
+          rgba(29, 60, 155, 0.36) 0,
+          rgba(13, 29, 83, 0.18) 32%,
+          transparent 64%
+        ),
+        radial-gradient(
+          circle at 82% 38%,
+          rgba(30, 56, 135, 0.22),
+          transparent 32%
+        ),
+        linear-gradient(
+          145deg,
+          #03050b 0%,
+          #030612 48%,
+          #05091a 100%
+        );
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      pointer-events: none;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,0.015) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.012) 1px,
+          transparent 1px
+        );
+
+      background-size: 74px 74px;
+    }
+
+    .topbar {
+      position: absolute;
+      left: 90px;
+      right: 90px;
+      top: 38px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #9297aa;
+      font-size: 17px;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo {
+      position: relative;
+      width: 52px;
+      height: 52px;
+    }
+
+    .logo::before,
+    .logo::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      width: 25px;
+      height: 44px;
+      background: #ffffff;
+    }
+
+    .logo::before {
+      left: 0;
+      clip-path: polygon(
+        100% 0,
+        45% 50%,
+        100% 100%,
+        62% 100%,
+        0 50%,
+        62% 0
+      );
+    }
+
+    .logo::after {
+      right: 0;
+      clip-path: polygon(
+        0 0,
+        55% 50%,
+        0 100%,
+        38% 100%,
+        100% 50%,
+        38% 0
+      );
+    }
+
+    .center-label {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .year {
+      color: #a2a6b5;
+    }
+
+    .intro {
+      position: absolute;
+      left: 140px;
+      top: 175px;
+      width: 320px;
+      color: #b0b4c4;
+      font-size: 23px;
+      line-height: 1.28;
+      z-index: 5;
+    }
+
+    .intro strong {
+      color: #899fff;
+      font-weight: 500;
+    }
+
+    .title {
+      position: absolute;
+      left: 480px;
+      top: 115px;
+      width: 1020px;
+      text-align: center;
+      z-index: 5;
+    }
+
+    .title h1 {
+      font-size: 72px;
+      line-height: 1.05;
+      letter-spacing: -3px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .title h2 {
+      margin-top: 12px;
+      color: #465dff;
+      font-size: 68px;
+      line-height: 1;
+      letter-spacing: -2px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .table-wrap {
+      position: absolute;
+      left: 350px;
+      top: 310px;
+      width: 1320px;
+      height: 545px;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(84, 106, 190, 0.34);
+      box-shadow:
+        0 30px 70px rgba(0,0,0,0.38),
+        0 0 50px rgba(30, 67, 196, 0.14);
+      z-index: 5;
+    }
+
+    .gut-table {
+      width: 100%;
+      height: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .gut-table th,
+    .gut-table td {
+      border-right: 1px solid rgba(100, 113, 161, 0.18);
+      border-bottom: 1px solid rgba(100, 113, 161, 0.16);
+    }
+
+    .gut-table th:last-child,
+    .gut-table td:last-child {
+      border-right: none;
+    }
+
+    .gut-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .gut-table thead th {
+      height: 112px;
+      padding: 18px 20px;
+      background:
+        linear-gradient(
+          180deg,
+          #22469a 0%,
+          #173777 100%
+        );
+      color: #d6d9e6;
+      font-size: 20px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .gut-table thead th:first-child {
+      background:
+        linear-gradient(
+          180deg,
+          #080c18 0%,
+          #050914 100%
+        );
+    }
+
+    .gut-table thead th:last-child {
+      background:
+        linear-gradient(
+          180deg,
+          #2e59d3 0%,
+          #2248aa 100%
+        );
+      color: #b7c3f1;
+    }
+
+    .gut-table tbody td {
+      height: 108px;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(4, 9, 18, 0.98),
+          rgba(3, 8, 15, 0.98)
+        );
+      color: #e3e5eb;
+      text-align: center;
+      font-size: 36px;
+      font-weight: 300;
+    }
+
+    .gut-table tbody td:first-child {
+      padding: 16px 26px;
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.18;
+      color: #c7cad4;
+    }
+
+    .gut-table tbody td:last-child {
+      color: #8197ff;
+      font-size: 42px;
+      font-weight: 700;
+    }
+
+    .problem-cell {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .problem-icon {
+      flex: 0 0 auto;
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background:
+        linear-gradient(
+          145deg,
+          #121824,
+          #0b101a
+        );
+      border: 1px solid rgba(94, 111, 180, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4265ff;
+      font-size: 25px;
+      box-shadow: inset 0 0 18px rgba(61, 90, 201, 0.08);
+    }
+
+    .head-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      margin-right: 8px;
+      color: #eef1ff;
+      font-size: 25px;
+      vertical-align: middle;
+    }
+
+    .formula {
+      position: absolute;
+      left: 780px;
+      bottom: 76px;
+      width: 800px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: #e2e5ef;
+      font-size: 23px;
+      z-index: 5;
+    }
+
+    .formula-icon {
+      flex: 0 0 auto;
+      width: 58px;
+      height: 58px;
+      border: 3px solid #3f61ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5a76ff;
+      font-size: 34px;
+      box-shadow: 0 0 22px rgba(53, 89, 255, 0.2);
+    }
+
+    .formula strong {
+      font-size: 28px;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+
+    .formula-line {
+      flex: 1;
+      height: 1px;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(72, 97, 199, 0.35),
+          rgba(72, 97, 199, 0)
+        );
+    }
+
+    @media (max-width: 1920px) {
+      .slide {
+        width: 100vw;
+        height: 56.25vw;
+        transform-origin: top left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="slide">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo"></div>
+        <span>Análises</span>
+      </div>
+
+      <span class="center-label">Visão analítica</span>
+
+      <span class="year">2026</span>
+    </header>
+
+    <p class="intro">
+      Utilizamos a Matriz GUT para priorizar os problemas
+      <strong>com base no impacto e na urgência de resolução.</strong>
+    </p>
+
+    <section class="title">
+      <h1>Priorização dos problemas</h1>
+      <h2>Matriz GUT</h2>
+    </section>
+
+    <section class="table-wrap">
+
+      <table class="gut-table">
+
+        <colgroup>
+          <col style="width: 30%">
+          <col style="width: 17.5%">
+          <col style="width: 17.5%">
+          <col style="width: 20%">
+          <col style="width: 15%">
+        </colgroup>
+
+        <thead>
+          <tr>
+            <th>Problema</th>
+
+            <th>
+              <span class="head-icon">⬡</span>
+              Gravidade (G)
+            </th>
+
+            <th>
+              <span class="head-icon">◷</span>
+              Urgência (U)
+            </th>
+
+            <th>
+              <span class="head-icon">↗</span>
+              Tendência (T)
+            </th>
+
+            <th>
+              GxUxT=<br>
+              Prioridade
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>
+              <div class="problem-cell">
+                <div class="problem-icon">!</div>
+
+                <span>
+                  Alta taxa de<br>
+                  cancelamento de contratos
+                </span>
+              </div>
+            </td>
+
+            <td>5</td>
+            <td>5</td>
+            <td>4</td>
+            <td>100</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="problem-cell">
+                <div class="problem-icon">◇</div>
+
+                <span>
+                  Falta de<br>
+                  treinamento
+                </span>
+              </div>
+            </td>
+
+            <td>4</td>
+            <td>4</td>
+            <td>5</td>
+            <td>80</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="problem-cell">
+                <div class="problem-icon">⋯</div>
+
+                <span>
+                  Reclamações sobre<br>
+                  atendimento
+                </span>
+              </div>
+            </td>
+
+            <td>4</td>
+            <td>4</td>
+            <td>4</td>
+            <td>64</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="problem-cell">
+                <div class="problem-icon">●</div>
+
+                <span>
+                  Ausência de<br>
+                  sistema de CRM
+                </span>
+              </div>
+            </td>
+
+            <td>3</td>
+            <td>3</td>
+            <td>3</td>
+            <td>27</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </section>
+
+    <section class="formula">
+
+      <div class="formula-icon">×</div>
+
+      <strong>G × U × T =</strong>
+
+      <span>
+        Quanto maior a pontuação,<br>
+        maior a prioridade.
+      </span>
+
+      <div class="formula-line"></div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>a
