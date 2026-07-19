@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Slide 3 — Investigação completa</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: #f4f4f4;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .slide {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 20% 10%,
+          rgba(255, 213, 191, 0.9),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 14% 55%,
+          rgba(93, 111, 255, 0.58),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 42% 45%,
+          rgba(0, 54, 148, 0.5),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          #0c1f5d 0%,
+          #051a48 42%,
+          #020913 100%
+        );
+
+      color: #ffffff;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border-radius: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    .top-label {
+      position: absolute;
+      left: 72px;
+      top: 62px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 24px;
+      font-weight: 700;
+      z-index: 5;
+    }
+
+    .back-pill {
+      position: relative;
+      width: 92px;
+      height: 46px;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      border-radius: 999px;
+    }
+
+    .back-pill::before {
+      content: "";
+      position: absolute;
+      left: 23px;
+      top: 20px;
+      width: 28px;
+      height: 3px;
+      background: #ffffff;
+      border-radius: 3px;
+    }
+
+    .back-pill::after {
+      content: "";
+      position: absolute;
+      left: 21px;
+      top: 14px;
+      width: 12px;
+      height: 12px;
+      border-left: 3px solid #ffffff;
+      border-bottom: 3px solid #ffffff;
+      transform: rotate(45deg);
+    }
+
+    .spark {
+      width: 16px;
+      height: 16px;
+      transform: rotate(45deg);
+      background: #ffffff;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+    }
+
+    .small-line {
+      position: absolute;
+      left: 84px;
+      top: 142px;
+      width: 75px;
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        #4161ff,
+        rgba(65, 97, 255, 0.2)
+      );
+    }
+
+    .left-copy {
+      position: absolute;
+      left: 92px;
+      top: 220px;
+      width: 720px;
+      z-index: 5;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 86px;
+      line-height: 1.02;
+      letter-spacing: -4px;
+      font-weight: 500;
+    }
+
+    .consulted-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 72px;
+      padding: 18px 28px;
+      border-radius: 999px;
+      background: rgba(4, 18, 54, 0.82);
+      border: 1px solid rgba(109, 143, 255, 0.18);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .people-icon {
+      position: relative;
+      width: 34px;
+      height: 28px;
+    }
+
+    .people-icon::before,
+    .people-icon::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+
+    .people-icon::before {
+      width: 10px;
+      height: 10px;
+      left: 4px;
+      top: 2px;
+      box-shadow: 15px 0 0 #ffffff;
+    }
+
+    .people-icon::after {
+      width: 13px;
+      height: 10px;
+      left: 2px;
+      bottom: 0;
+      border-radius: 8px 8px 3px 3px;
+      box-shadow: 16px 0 0 #ffffff;
+    }
+
+    .network {
+      position: absolute;
+      right: 110px;
+      top: 125px;
+      width: 930px;
+      height: 720px;
+      z-index: 4;
+    }
+
+    .orbit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border: 1px solid rgba(79, 112, 214, 0.28);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .orbit.one {
+      width: 340px;
+      height: 340px;
+    }
+
+    .orbit.two {
+      width: 500px;
+      height: 500px;
+    }
+
+    .orbit.three {
+      width: 660px;
+      height: 660px;
+    }
+
+    .center-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 440px;
+      height: 110px;
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(10, 22, 53, 0.98),
+          rgba(3, 12, 29, 0.98)
+        );
+      border: 1px solid #3e5dff;
+      box-shadow:
+        0 0 30px rgba(57, 91, 255, 0.35),
+        inset 0 0 28px rgba(49, 78, 198, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 28px;
+      z-index: 3;
+    }
+
+    .cursor-symbol {
+      position: relative;
+      width: 38px;
+      height: 38px;
+    }
+
+    .cursor-symbol::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 15px solid #ffffff;
+      border-top: 25px solid transparent;
+      border-bottom: 7px solid transparent;
+      transform: rotate(-20deg);
+      left: 6px;
+      top: 4px;
+    }
+
+    .cursor-symbol::after {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 24px;
+      width: 6px;
+      height: 18px;
+      background: #ffffff;
+      transform: rotate(-35deg);
+      border-radius: 3px;
+    }
+
+    .node {
+      position: absolute;
+      width: 105px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .node-circle {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background:
+        radial-gradient(
+          circle at 40% 30%,
+          #18366e,
+          #061124 70%
+        );
+      border: 1px solid rgba(64, 102, 255, 0.8);
+      box-shadow:
+        0 0 20px rgba(45, 86, 255, 0.24),
+        inset 0 0 20px rgba(53, 81, 157, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    .node-label {
+      font-size: 19px;
+      line-height: 1.2;
+    }
+
+    .risk {
+      left: 160px;
+      top: 80px;
+    }
+
+    .crm {
+      left: 520px;
+      top: 0;
+    }
+
+    .ti {
+      right: 25px;
+      top: 275px;
+    }
+
+    .design {
+      right: 135px;
+      bottom: 25px;
+    }
+
+    .research {
+      left: 425px;
+      bottom: 0;
+    }
+
+    .dva {
+      left: 105px;
+      bottom: 80px;
+    }
+
+    .analytics {
+      left: 10px;
+      top: 315px;
+    }
+
+    .fake-cursor {
+      position: absolute;
+      left: 700px;
+      top: 410px;
+      width: 60px;
+      height: 80px;
+      z-index: 6;
+      transform: rotate(-18deg);
+    }
+
+    .fake-cursor::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 28px solid #ffffff;
+      border-top: 45px solid transparent;
+      border-bottom: 14px solid transparent;
+      filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.4));
+    }
+
+    .fake-cursor::after {
+      content: "";
+      position: absolute;
+      left: 28px;
+      top: 43px;
+      width: 10px;
+      height: 34px;
+      background: #ffffff;
+      transform: rotate(-31deg);
+      border-radius: 4px;
+    }
+
+    .footer-copy {
+      position: absolute;
+      left: 390px;
+      right: 320px;
+      bottom: 72px;
+      font-size: 24px;
+      line-height: 1.35;
+      color: #eef0f5;
+      text-align: center;
+      z-index: 5;
+    }
+
+    .footer-copy strong {
+      font-weight: 800;
+    }
+
+    @media (max-width: 1920px) {
+      .slide {
+        width: 100vw;
+        height: 56.25vw;
+        transform-origin: top left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="slide">
+
+    <div class="top-label">
+      <span class="back-pill"></span>
+      <span class="spark"></span>
+      <span>SPRINT 2</span>
+    </div>
+
+    <div class="small-line"></div>
+
+    <section class="left-copy">
+      <h1>
+        Tudo o que fizemos<br>
+        para entender<br>
+        o problema
+      </h1>
+
+      <div class="consulted-pill">
+        <span class="people-icon"></span>
+        <span>Áreas consultadas</span>
+      </div>
+    </section>
+
+    <section class="network">
+
+      <div class="orbit one"></div>
+      <div class="orbit two"></div>
+      <div class="orbit three"></div>
+
+      <div class="center-card">
+        <span class="cursor-symbol"></span>
+        <span>Investigação completa</span>
+      </div>
+
+      <article class="node risk">
+        <div class="node-circle">✓</div>
+        <div class="node-label">Risco</div>
+      </article>
+
+      <article class="node crm">
+        <div class="node-circle">●●●</div>
+        <div class="node-label">CRM</div>
+      </article>
+
+      <article class="node ti">
+        <div class="node-circle">▣</div>
+        <div class="node-label">TI</div>
+      </article>
+
+      <article class="node design">
+        <div class="node-circle">⌁</div>
+        <div class="node-label">Pesquisa / Design</div>
+      </article>
+
+      <article class="node research">
+        <div class="node-circle">⌕</div>
+        <div class="node-label">Pesquisa</div>
+      </article>
+
+      <article class="node dva">
+        <div class="node-circle">▤</div>
+        <div class="node-label">DVA</div>
+      </article>
+
+      <article class="node analytics">
+        <div class="node-circle">▥</div>
+        <div class="node-label">Analytics</div>
+      </article>
+
+      <div class="fake-cursor"></div>
+
+    </section>
+
+    <p class="footer-copy">
+      Conversamos com todas as áreas envolvidas para mapear causas,
+      identificar gaps e <strong>entender a jornada de ativação de ponta a ponta.</strong>
+    </p>
+
+  </main>
+
+</body>
+</html>
