@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Slide 9 — A insatisfação é evidente</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: #071426;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .slide {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 83% 20%,
+          rgba(248, 222, 205, 0.85) 0%,
+          rgba(180, 190, 224, 0.52) 28%,
+          transparent 52%
+        ),
+        radial-gradient(
+          circle at 53% 54%,
+          rgba(32, 105, 202, 0.65) 0%,
+          rgba(15, 61, 125, 0.42) 36%,
+          transparent 66%
+        ),
+        linear-gradient(
+          130deg,
+          #051427 0%,
+          #082342 50%,
+          #274d80 100%
+        );
+    }
+
+    /* Cabeçalho */
+
+    .top-label {
+      position: absolute;
+      left: 64px;
+      top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      z-index: 7;
+    }
+
+    .back-pill {
+      position: relative;
+      width: 88px;
+      height: 42px;
+      border: 2px solid #ffffff;
+      border-radius: 999px;
+    }
+
+    .back-pill::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 18px;
+      width: 30px;
+      height: 2px;
+      background: #ffffff;
+    }
+
+    .back-pill::after {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 12px;
+      width: 11px;
+      height: 11px;
+      border-left: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      transform: rotate(45deg);
+    }
+
+    .spark {
+      width: 14px;
+      height: 14px;
+      background: #ffffff;
+      transform: rotate(45deg);
+    }
+
+    .top-label span:last-child {
+      font-size: 23px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Título */
+
+    .heading {
+      position: absolute;
+      left: 78px;
+      top: 205px;
+      width: 620px;
+      z-index: 5;
+    }
+
+    .heading h1 {
+      font-size: 66px;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .heading h1 span {
+      display: block;
+      margin-top: 8px;
+      color: #5472e8;
+    }
+
+    .heading p {
+      margin-top: 55px;
+      width: 560px;
+      color: #f1f3f7;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .heading p strong {
+      font-weight: 800;
+    }
+
+    /* Card da nota */
+
+    .rating-card {
+      position: absolute;
+      left: 80px;
+      top: 560px;
+      width: 500px;
+      height: 260px;
+      border-radius: 24px;
+      border: 1px solid rgba(157, 181, 236, 0.55);
+      background: rgba(8, 29, 61, 0.68);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      align-items: center;
+      padding: 32px;
+      backdrop-filter: blur(10px);
+      z-index: 5;
+    }
+
+    .star-circle {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 52px;
+
+      background:
+        radial-gradient(
+          circle at 40% 35%,
+          #244f99,
+          #0c2b5b 72%
+        );
+
+      box-shadow: inset 0 0 22px rgba(95, 143, 255, 0.22);
+    }
+
+    .rating-copy strong {
+      display: block;
+      font-size: 68px;
+      line-height: 1;
+      letter-spacing: -3px;
+      font-weight: 700;
+    }
+
+    .rating-copy span {
+      display: block;
+      margin-top: 10px;
+      color: #d7dce7;
+      font-size: 20px;
+    }
+
+    .rating-copy small {
+      display: block;
+      margin-top: 12px;
+      color: #b9c1d1;
+      font-size: 18px;
+    }
+
+    /* Fonte */
+
+    .source {
+      position: absolute;
+      left: 92px;
+      bottom: 75px;
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      z-index: 5;
+    }
+
+    .source-icon {
+      width: 52px;
+      height: 52px;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .source-copy {
+      color: #ffffff;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    /* Celular */
+
+    .phone-glow {
+      position: absolute;
+      left: 620px;
+      top: 150px;
+      width: 800px;
+      height: 820px;
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(64, 126, 231, 0.42) 0%,
+          rgba(25, 76, 150, 0.22) 42%,
+          transparent 72%
+        );
+    }
+
+    .phone {
+      position: absolute;
+      left: 850px;
+      top: 110px;
+      width: 410px;
+      height: 790px;
+      border: 14px solid #08090c;
+      border-radius: 64px;
+      background: #f8fbff;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.34);
+      overflow: hidden;
+      z-index: 6;
+      transform: rotate(1deg);
+    }
+
+    .speaker {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 132px;
+      height: 34px;
+      border-radius: 22px;
+      background: #07080c;
+    }
+
+    .status {
+      position: absolute;
+      top: 26px;
+      left: 34px;
+      color: #171923;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .app {
+      position: absolute;
+      inset: 70px 22px 22px;
+      border-radius: 34px;
+      background: #ffffff;
+      padding: 26px;
+    }
+
+    .brand {
+      color: #5b9b45;
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 28px;
+    }
+
+    .search {
+      position: absolute;
+      right: 28px;
+      top: 28px;
+      font-size: 28px;
+      color: #11131b;
+    }
+
+    .company {
+      font-size: 24px;
+      font-weight: 700;
+      color: #20232b;
+    }
+
+    .category {
+      margin-top: 6px;
+      color: #3f62a6;
+      font-size: 15px;
+    }
+
+    .score-row {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .ra-circle {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: #1f4fb7;
+      border: 6px solid #d4e1ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 22px;
+    }
+
+    .score-copy strong {
+      display: block;
+      color: #171a23;
+      font-size: 30px;
+    }
+
+    .score-copy span {
+      display: block;
+      color: #252934;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .score-copy small {
+      display: block;
+      color: #667083;
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .section-title {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid #d9dee8;
+      color: #2f3440;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .problem {
+      margin-top: 18px;
+    }
+
+    .problem-head {
+      display: flex;
+      justify-content: space-between;
+      color: #303540;
+      font-size: 14px;
+    }
+
+    .problem-bar {
+      margin-top: 8px;
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: #e0e5ee;
+      overflow: hidden;
+    }
+
+    .problem-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: #2829c8;
+    }
+
+    .f1 { width: 71%; }
+    .f2 { width: 18%; }
+    .f3 { width: 7%; }
+    .f4 { width: 4%; }
+
+    .see-all {
+      margin-top: 26px;
+      height: 55px;
+      border: 1px solid #d7dce5;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      color: #244488;
+      font-size: 14px;
+    }
+
+    /* Mão em imagem aproximada com CSS */
+
+    .hand {
+      position: absolute;
+      left: 650px;
+      bottom: -160px;
+      width: 760px;
+      height: 680px;
+      border-radius: 48% 52% 20% 20%;
+      transform: rotate(10deg);
+      z-index: 4;
+
+      background:
+        radial-gradient(
+          circle at 60% 22%,
+          #a06650 0%,
+          #704331 34%,
+          #3f241d 66%,
+          #1f1512 100%
+        );
+
+      filter: blur(0.2px);
+      opacity: 0.96;
+    }
+
+    /* Card 71% */
+
+    .small-card {
+      position: absolute;
+      border: 1px solid rgba(210, 221, 243, 0.45);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+      z-index: 7;
+    }
+
+    .percent-card {
+      left: 610px;
+      top: 450px;
+      width: 190px;
+      height: 275px;
+      border-radius: 24px;
+      padding: 28px;
+    }
+
+    .bars-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: rgba(27, 68, 136, 0.8);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 5px;
+      padding-bottom: 14px;
+    }
+
+    .bars-icon i {
+      display: block;
+      width: 9px;
+      background: #d6e4ff;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .bars-icon i:nth-child(1) { height: 18px; }
+    .bars-icon i:nth-child(2) { height: 30px; }
+    .bars-icon i:nth-child(3) { height: 42px; }
+
+    .percent-card strong {
+      display: block;
+      margin-top: 20px;
+      font-size: 55px;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .percent-card span {
+      display: block;
+      margin-top: 16px;
+      color: #dfe5ef;
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    /* Cards laterais */
+
+    .side-card {
+      right: 70px;
+      width: 320px;
+      min-height: 175px;
+      border-radius: 24px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 85px 1fr;
+      align-items: center;
+      color: #17203a;
+    }
+
+    .side-card.top {
+      top: 245px;
+    }
+
+    .side-card.bottom {
+      top: 505px;
+    }
+
+    .side-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 38px;
+    }
+
+    .red {
+      background: #df3f4d;
+    }
+
+    .blue {
+      background: #4e7de2;
+    }
+
+    .side-copy strong {
+      display: block;
+      color: #16213d;
+      font-size: 48px;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .side-copy span {
+      display: block;
+      margin-top: 12px;
+      color: #25304a;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    /* Linhas pontilhadas */
+
+    .connector {
+      position: absolute;
+      height: 2px;
+      border-top: 2px dashed rgba(235, 239, 248, 0.65);
+      z-index: 5;
+    }
+
+    .c1 {
+      left: 1280px;
+      top: 330px;
+      width: 145px;
+    }
+
+    .c2 {
+      left: 1260px;
+      top: 600px;
+      width: 155px;
+    }
+
+    .c3 {
+      left: 790px;
+      top: 555px;
+      width: 80px;
+    }
+
+    @media (max-width: 1920px) {
+      .slide {
+        width: 100vw;
+        height: 56.25vw;
+        transform-origin: top left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="slide">
+
+    <header class="top-label">
+      <div class="back-pill"></div>
+      <div class="spark"></div>
+      <span>SPRINT 2</span>
+    </header>
+
+    <section class="heading">
+      <h1>
+        A insatisfação
+        <span>é evidente</span>
+      </h1>
+
+      <p>
+        As reclamações mostram que a jornada de
+        ativação do cartão ainda gera frustração,
+        <strong>perda de confiança e abandono durante o processo.</strong>
+      </p>
+    </section>
+
+    <section class="rating-card">
+      <div class="star-circle">★</div>
+
+      <div class="rating-copy">
+        <strong>5,3/10</strong>
+        <span>Nota no ReclameAQUI</span>
+        <small>Baseado em 2.842 reclamações</small>
+      </div>
+    </section>
+
+    <section class="source">
+      <div class="source-icon">!</div>
+
+      <div class="source-copy">
+        Fonte: ReclameAQUI<br>
+        Período: Últimos 12 meses
+      </div>
+    </section>
+
+    <div class="phone-glow"></div>
+    <div class="hand"></div>
+
+    <section class="phone">
+
+      <div class="speaker"></div>
+      <span class="status">9:41</span>
+
+      <div class="app">
+
+        <div class="brand">ReclameAQUI</div>
+        <div class="search">⌕</div>
+
+        <div class="company">Cartão Carrefour</div>
+        <div class="category">Banco / Cartão de crédito</div>
+
+        <div class="score-row">
+          <div class="ra-circle">RA</div>
+
+          <div class="score-copy">
+            <strong>5,3<small>/10</small></strong>
+            <span>Regular</span>
+            <small>2.842 reclamações</small>
+          </div>
+        </div>
+
+        <div class="section-title">
+          Principais problemas
+        </div>
+
+        <div class="problem">
+          <div class="problem-head">
+            <span>Não ativação</span>
+            <span>71%</span>
+          </div>
+
+          <div class="problem-bar">
+            <div class="problem-fill f1"></div>
+          </div>
+        </div>
+
+        <div class="problem">
+          <div class="problem-head">
+            <span>Código não recebido</span>
+            <span>18%</span>
+          </div>
+
+          <div class="problem-bar">
+            <div class="problem-fill f2"></div>
+          </div>
+        </div>
+
+        <div class="problem">
+          <div class="problem-head">
+            <span>Falhas na validação</span>
+            <span>7%</span>
+          </div>
+
+          <div class="problem-bar">
+            <div class="problem-fill f3"></div>
+          </div>
+        </div>
+
+        <div class="problem">
+          <div class="problem-head">
+            <span>Outros problemas</span>
+            <span>4%</span>
+          </div>
+
+          <div class="problem-bar">
+            <div class="problem-fill f4"></div>
+          </div>
+        </div>
+
+        <div class="see-all">
+          <span>Ver todas as reclamações</span>
+          <span>›</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <article class="small-card percent-card">
+
+      <div class="bars-icon">
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+
+      <strong>71%</strong>
+
+      <span>
+        Das reclamações<br>
+        são sobre<br>
+        não ativação
+      </span>
+
+    </article>
+
+    <article class="small-card side-card top">
+
+      <div class="side-icon red">♙</div>
+
+      <div class="side-copy">
+        <strong>28%</strong>
+        <span>Não voltaria a fazer negócio</span>
+      </div>
+
+    </article>
+
+    <article class="small-card side-card bottom">
+
+      <div class="side-icon blue">◇</div>
+
+      <div class="side-copy">
+        <strong>56%</strong>
+        <span>Índice de resolução</span>
+      </div>
+
+    </article>
+
+    <div class="connector c1"></div>
+    <div class="connector c2"></div>
+    <div class="connector c3"></div>
+
+  </main>
+
+</body>
+</html>
