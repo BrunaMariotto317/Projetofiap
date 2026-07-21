@@ -1,870 +1,703 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Aqui começa a nossa parceria!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqui começa a nossa parceria</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      padding: 32px 12px;
+      padding: 0;
       background: #eeeeee;
       font-family: Arial, Helvetica, sans-serif;
-      color: #172b4d;
+      color: #1f2f4d;
     }
 
-    .email-container {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      background: #ffffff;
-      overflow: hidden;
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
     }
 
-    .preheader {
-      padding: 12px 24px;
-      background: #f7f7f7;
-      color: #555555;
-      font-size: 10px;
-      line-height: 1.4;
-      text-align: center;
-    }
-
-    .logo-area {
-      padding: 18px 24px;
-      background: #ffffff;
-      text-align: center;
-    }
-
-    .logo-area img {
+    img {
       display: block;
-      width: 130px;
-      max-width: 100%;
-      height: auto;
-      margin: 0 auto;
-    }
-
-    .hero {
-      position: relative;
-      min-height: 390px;
-      overflow: hidden;
-      background:
-        radial-gradient(
-          circle at 85% 15%,
-          rgba(225, 0, 117, 0.16) 0,
-          rgba(225, 0, 117, 0.16) 80px,
-          transparent 81px
-        ),
-        linear-gradient(135deg, #d8f4ff 0%, #bcecff 56%, #ffd6e9 100%);
-    }
-
-    .hero-copy {
-      position: relative;
-      z-index: 3;
-      width: 60%;
-      padding: 44px 0 0 38px;
-    }
-
-    .hero-eyebrow {
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 7px 12px;
-      background: #ffffff;
-      color: #0050b5;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
-    }
-
-    .hero-title {
-      margin: 0;
-      color: #0756be;
-      font-size: 39px;
-      line-height: 0.98;
-      font-weight: 800;
-      letter-spacing: -1.4px;
-    }
-
-    .hero-title span {
-      display: block;
-      color: #d90072;
-    }
-
-    .hero-description {
-      max-width: 270px;
-      margin: 18px 0 0;
-      color: #17365d;
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .hero-person {
-      position: absolute;
-      z-index: 2;
-      right: -18px;
-      bottom: -6px;
-      width: 58%;
-      max-width: 355px;
-      height: auto;
-    }
-
-    .hero-decoration {
-      position: absolute;
-      top: 40px;
-      right: 32px;
-      width: 88px;
-      height: 88px;
-      border: 2px solid rgba(7, 86, 190, 0.25);
-      border-radius: 50%;
-    }
-
-    .wave-divider {
-      position: relative;
-      z-index: 5;
-      height: 72px;
-      margin-top: -55px;
-      overflow: hidden;
-    }
-
-    .wave-divider svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .content {
-      padding: 32px 38px 38px;
-      background: #ffffff;
-    }
-
-    .intro {
-      max-width: 500px;
-      margin: 0 auto 28px;
-      text-align: left;
-    }
-
-    .intro h2 {
-      margin: 0 0 14px;
-      color: #0756be;
-      font-size: 24px;
-      line-height: 1.15;
-    }
-
-    .intro p {
-      margin: 0 0 12px;
-      color: #4f6071;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .intro strong {
-      color: #172b4d;
-    }
-
-    .benefits {
-      display: grid;
-      gap: 22px;
-    }
-
-    .coupon-card {
-      position: relative;
-      overflow: hidden;
-      padding: 28px;
-      background: #e30074;
-      color: #ffffff;
-    }
-
-    .coupon-card::before,
-    .coupon-card::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 30px;
-      height: 30px;
-      margin-top: -15px;
-      background: #ffffff;
-      border-radius: 50%;
-    }
-
-    .coupon-card::before {
-      left: -15px;
-    }
-
-    .coupon-card::after {
-      right: -15px;
-    }
-
-    .coupon-grid {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1fr 150px;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .coupon-label {
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 6px 10px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      color: #ffffff;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
-    }
-
-    .coupon-card h3 {
-      margin: 0;
-      font-size: 27px;
-      line-height: 1.04;
-      font-weight: 800;
-    }
-
-    .coupon-card h3 span {
-      color: #fff35d;
-    }
-
-    .coupon-card p {
-      margin: 12px 0 0;
-      color: #ffffff;
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .discount-seal {
-      display: flex;
-      width: 130px;
-      height: 130px;
-      align-items: center;
-      justify-content: center;
-      border: 7px solid #ffffff;
-      border-radius: 50%;
-      background: #fff35d;
-      color: #0756be;
-      text-align: center;
-      transform: rotate(7deg);
-      box-shadow: 0 10px 0 rgba(74, 0, 56, 0.12);
-    }
-
-    .discount-seal strong {
-      display: block;
-      font-size: 34px;
-      line-height: 0.9;
-    }
-
-    .discount-seal small {
-      display: block;
-      margin-top: 5px;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .coupon-code {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: center;
-      margin-top: 22px;
-      padding: 13px 14px 13px 18px;
-      background: #ffffff;
-      border-left: 7px solid #fff35d;
-    }
-
-    .coupon-code small {
-      display: block;
-      margin-bottom: 3px;
-      color: #6f7782;
-      font-size: 10px;
-      text-transform: uppercase;
-    }
-
-    .coupon-code strong {
-      color: #0756be;
-      font-size: 22px;
-      letter-spacing: 1.5px;
-    }
-
-    .copy-button {
-      display: inline-block;
-      padding: 11px 14px;
       border: 0;
-      background: #0756be;
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      text-decoration: none;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    .coupon-note {
-      position: relative;
-      z-index: 2;
-      margin: 12px 0 0;
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 10px;
-      line-height: 1.4;
-    }
-
-    .limit-card {
-      position: relative;
-      min-height: 255px;
-      overflow: hidden;
-      padding: 30px;
-      background: #0756be;
-      color: #ffffff;
-    }
-
-    .limit-card::before {
-      content: "";
-      position: absolute;
-      right: -75px;
-      top: -85px;
-      width: 260px;
-      height: 260px;
-      border: 38px solid rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
-    }
-
-    .limit-card::after {
-      content: "";
-      position: absolute;
-      right: 90px;
-      bottom: -110px;
-      width: 210px;
-      height: 210px;
-      background: #e30074;
-      border-radius: 50%;
-      opacity: 0.95;
-    }
-
-    .limit-content {
-      position: relative;
-      z-index: 3;
-      width: 58%;
-    }
-
-    .limit-label {
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 6px 10px;
-      background: #d8f4ff;
-      color: #0756be;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
-    }
-
-    .limit-card h3 {
-      margin: 0 0 12px;
-      font-size: 27px;
-      line-height: 1.06;
-      font-weight: 800;
-    }
-
-    .limit-card p {
-      margin: 0;
-      color: #e8f4ff;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .limit-highlight {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 10px 14px;
-      background: #ffffff;
-      color: #0756be;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .limit-card-image {
-      position: absolute;
-      z-index: 4;
-      right: 22px;
-      bottom: 18px;
-      width: 205px;
-      max-width: 42%;
-      height: auto;
-      transform: rotate(-8deg);
-      filter: drop-shadow(0 14px 14px rgba(0, 28, 80, 0.35));
-    }
-
-    .limit-note {
-      margin: 12px 0 0;
-      color: #6b7785;
-      font-size: 10px;
-      line-height: 1.45;
-    }
-
-    .cta-area {
-      padding: 30px 0 6px;
-      text-align: center;
-    }
-
-    .main-button {
-      display: inline-block;
-      min-width: 230px;
-      padding: 15px 25px;
-      background: #0756be;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-      text-align: center;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-
-    .closing-text {
-      max-width: 460px;
-      margin: 22px auto 0;
-      color: #4f6071;
-      font-size: 13px;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    .closing-text strong {
-      color: #0756be;
-    }
-
-    .app-strip {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 20px;
-      align-items: center;
-      padding: 22px 34px;
-      background: #d8f4ff;
-    }
-
-    .app-strip h4 {
-      margin: 0 0 5px;
-      color: #0756be;
-      font-size: 18px;
-    }
-
-    .app-strip p {
-      margin: 0;
-      color: #3e5875;
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
-    .app-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .app-buttons img {
-      width: 100px;
-      height: auto;
-    }
-
-    .footer {
-      padding: 30px 34px;
-      background: #213f7c;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    .footer-logo {
-      width: 120px;
       max-width: 100%;
-      margin-bottom: 18px;
     }
 
-    .footer-title {
-      margin: 0 0 10px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
+    a {
+      text-decoration: none;
     }
 
-    .footer-text {
+    .wrapper {
+      width: 100%;
+      background: #eeeeee;
+      padding: 20px 0;
+    }
+
+    .email {
+      width: 600px;
+      max-width: 600px;
+      background: #ffffff;
       margin: 0 auto;
-      color: rgba(255, 255, 255, 0.84);
-      font-size: 9px;
-      line-height: 1.55;
     }
 
-    .footer-divider {
-      height: 1px;
-      margin: 20px 0;
-      background: rgba(255, 255, 255, 0.25);
+    .desktop-padding {
+      padding-left: 42px;
+      padding-right: 42px;
     }
 
-    .legal {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 8px;
-      line-height: 1.55;
-      text-align: justify;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 0;
+    @media only screen and (max-width: 620px) {
+      .wrapper {
+        padding: 0 !important;
       }
 
-      .hero {
-        min-height: 520px;
+      .email {
+        width: 100% !important;
+      }
+
+      .desktop-padding {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+      }
+
+      .hero-copy,
+      .hero-image {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
       }
 
       .hero-copy {
-        width: 100%;
-        padding: 34px 24px 0;
+        padding: 32px 24px 12px !important;
       }
 
-      .hero-title {
-        max-width: 350px;
-        font-size: 36px;
+      .hero-image img {
+        width: 88% !important;
+        margin: 0 auto !important;
       }
 
-      .hero-person {
-        right: -40px;
-        width: 82%;
-        max-width: 380px;
+      .card-column {
+        display: block !important;
+        width: 100% !important;
       }
 
-      .content {
-        padding: 30px 20px;
+      .card-image {
+        width: 145px !important;
       }
 
-      .coupon-grid {
-        grid-template-columns: 1fr 105px;
-        gap: 10px;
+      .benefit-item {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
       }
 
-      .discount-seal {
-        width: 100px;
-        height: 100px;
-        border-width: 5px;
+      .app-column {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
       }
 
-      .discount-seal strong {
-        font-size: 27px;
-      }
-
-      .coupon-code {
-        grid-template-columns: 1fr;
-      }
-
-      .copy-button {
-        text-align: center;
-      }
-
-      .limit-card {
-        min-height: 385px;
-      }
-
-      .limit-content {
-        width: 100%;
-      }
-
-      .limit-card-image {
-        right: 25px;
-        bottom: 18px;
-        width: 220px;
-        max-width: 70%;
-      }
-
-      .app-strip {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .app-buttons {
-        justify-content: center;
+      .app-column img {
+        margin: 0 auto !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="email-container">
 
-    <div class="preheader">
-      APROVADO! Ganhe 5% OFF na 1ª compra + Dicas de Limite
-    </div>
+<table role="presentation" width="100%" class="wrapper">
+  <tr>
+    <td align="center">
 
-    <header class="logo-area">
-      <img
-        src="URL-DO-LOGO-CARREFOUR.png"
-        alt="Carrefour Soluções Financeiras"
-      />
-    </header>
+      <table role="presentation" class="email" width="600">
 
-    <section class="hero">
+        <!-- SUBJECT -->
+        <tr>
+          <td style="background:#f5f5f5; padding:10px 20px; text-align:center; font-size:10px; color:#565656;">
+            <strong>APROVADO!</strong> Ganhe 5% OFF na 1ª compra + Dicas de Limite
+          </td>
+        </tr>
 
-      <div class="hero-decoration"></div>
-
-      <div class="hero-copy">
-        <span class="hero-eyebrow">Seu cartão foi aprovado</span>
-
-        <h1 class="hero-title">
-          Aqui começa
-          <span>a nossa parceria!</span>
-        </h1>
-
-        <p class="hero-description">
-          Mais praticidade, economia e benefícios para acompanhar todos
-          os momentos da sua rotina.
-        </p>
-      </div>
-
-      <img
-        class="hero-person"
-        src="URL-DA-IMAGEM-DA-PESSOA-COM-CARTAO.png"
-        alt="Cliente segurando o Cartão Carrefour"
-      />
-
-    </section>
-
-    <div class="wave-divider">
-      <svg
-        viewBox="0 0 600 90"
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M0,28 C120,74 210,5 340,42 C435,70 514,64 600,18 L600,90 L0,90 Z"
-          fill="#f6c6df"
-        />
-
-        <path
-          d="M0,48 C118,85 230,19 344,54 C455,88 525,53 600,37 L600,90 L0,90 Z"
-          fill="#d8f4ff"
-        />
-
-        <path
-          d="M0,66 C135,92 240,43 360,69 C450,88 525,69 600,58 L600,90 L0,90 Z"
-          fill="#ffffff"
-        />
-      </svg>
-    </div>
-
-    <section class="content">
-
-      <div class="intro">
-        <h2>Parabéns, %%PRINOME%%!</h2>
-
-        <p>Olá, %%PRINOME%%!</p>
-
-        <p>
-          Parceria de verdade é assim: está sempre ao seu lado para
-          oferecer mais praticidade, economia e facilidades para a sua rotina.
-        </p>
-
-        <p>
-          Pensando nisso, reunimos <strong>duas oportunidades especiais</strong>
-          para você aproveitar ao máximo o seu Cartão Carrefour:
-        </p>
-      </div>
-
-      <div class="benefits">
-
-        <section class="coupon-card">
-
-          <div class="coupon-grid">
-
-            <div>
-              <span class="coupon-label">Oferta especial</span>
-
-              <h3>
-                Ganhe <span>5% OFF</span><br />
-                na sua compra
-              </h3>
-
-              <p>
-                Use o cupom abaixo para garantir o desconto nas compras elegíveis.
-              </p>
-            </div>
-
-            <div class="discount-seal">
-              <div>
-                <strong>5%</strong>
-                <small>OFF</small>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="coupon-code">
-            <div>
-              <small>Seu código promocional</small>
-              <strong id="codigoCupom">PARCEIRAO5</strong>
-            </div>
-
-            <button
-              class="copy-button"
-              type="button"
-              onclick="copiarCupom()"
+        <!-- LOGO -->
+        <tr>
+          <td align="center" style="padding:20px 20px 18px;">
+            <img
+              src="URL-LOGO-CARREFOUR-SOLUCOES-FINANCEIRAS.png"
+              width="130"
+              alt="Carrefour Soluções Financeiras"
             >
-              Copiar cupom
-            </button>
-          </div>
+          </td>
+        </tr>
 
-          <p class="coupon-note">
-            *Aplicável no valor total das compras elegíveis, conforme
-            regulamento vigente.
-          </p>
+        <!-- HERO -->
+        <tr>
+          <td style="background:linear-gradient(135deg,#073b9c 0%,#1637b0 55%,#90206e 100%);">
+            <table role="presentation" width="100%">
+              <tr>
 
-        </section>
+                <td
+                  class="hero-copy"
+                  width="48%"
+                  valign="middle"
+                  style="padding:42px 10px 36px 34px;"
+                >
+                  <div
+                    style="
+                      display:inline-block;
+                      border:1px solid rgba(255,255,255,.7);
+                      padding:6px 10px;
+                      color:#ffffff;
+                      font-size:10px;
+                      font-weight:bold;
+                      letter-spacing:.5px;
+                    "
+                  >
+                    SEU CARTÃO FOI APROVADO
+                  </div>
 
-        <section class="limit-card">
+                  <h1
+                    style="
+                      margin:18px 0 12px;
+                      color:#ffffff;
+                      font-size:36px;
+                      line-height:1;
+                      font-weight:800;
+                    "
+                  >
+                    Aqui começa<br>
+                    <span style="color:#ffffff;">a nossa parceria!</span>
+                  </h1>
 
-          <div class="limit-content">
-            <span class="limit-label">Seu cartão acompanha você</span>
+                  <p
+                    style="
+                      margin:0;
+                      color:#ffffff;
+                      font-size:13px;
+                      line-height:1.45;
+                    "
+                  >
+                    Mais praticidade, economia e benefícios para acompanhar todos
+                    os momentos da sua rotina.
+                  </p>
+                </td>
 
-            <h3>
-              Seu limite pode evoluir junto com a sua rotina
-            </h3>
+                <td
+                  class="hero-image"
+                  width="52%"
+                  valign="bottom"
+                  align="right"
+                  style="padding:18px 20px 0 0;"
+                >
+                  <img
+                    src="URL-IMAGEM-PESSOA-COM-CARTAO.png"
+                    width="300"
+                    alt="Cliente segurando Cartão Carrefour"
+                  >
+                </td>
 
-            <p>
-              Mantemos seu cadastro sempre atualizado para avaliar novas
-              oportunidades de limite de forma automática.
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ONDAS -->
+        <tr>
+          <td style="line-height:0; background:#ffffff;">
+            <svg
+              width="600"
+              height="44"
+              viewBox="0 0 600 44"
+              xmlns="http://www.w3.org/2000/svg"
+              style="display:block; width:100%; height:auto;"
+            >
+              <path
+                d="M0 5 C130 38, 240 0, 370 19 C470 35, 530 26, 600 10 L600 44 L0 44 Z"
+                fill="#e50072"
+              />
+              <path
+                d="M0 15 C130 44, 245 10, 370 27 C470 42, 535 32, 600 18 L600 44 L0 44 Z"
+                fill="#0052b8"
+              />
+              <path
+                d="M0 26 C130 45, 250 20, 380 34 C485 46, 540 39, 600 30 L600 44 L0 44 Z"
+                fill="#ffffff"
+              />
+            </svg>
+          </td>
+        </tr>
+
+        <!-- INTRO -->
+        <tr>
+          <td class="desktop-padding" style="padding-top:28px; padding-bottom:26px;">
+
+            <h2
+              style="
+                margin:0 0 12px;
+                color:#0052b8;
+                font-size:26px;
+                line-height:1.15;
+              "
+            >
+              Parabéns, <span style="color:#e50072;">%%PRINOME%%!</span>
+            </h2>
+
+            <p style="margin:0 0 12px; font-size:15px; line-height:1.5; color:#36455d;">
+              Olá, %%PRINOME%%!
             </p>
 
-            <span class="limit-highlight">
-              Reavaliação periódica
-            </span>
-          </div>
+            <p style="margin:0 0 12px; font-size:15px; line-height:1.5; color:#36455d;">
+              Parceria de verdade é assim: está sempre ao seu lado para oferecer
+              mais praticidade, economia e facilidades para a sua rotina.
+            </p>
 
-          <img
-            class="limit-card-image"
-            src="URL-DA-IMAGEM-DO-CARTAO.png"
-            alt="Cartão Carrefour"
-          />
+            <p style="margin:0; font-size:15px; line-height:1.5; color:#36455d;">
+              Pensando nisso, reunimos
+              <strong style="color:#0052b8;">duas oportunidades especiais</strong>
+              para você aproveitar ao máximo o seu Cartão Carrefour:
+            </p>
 
-        </section>
+          </td>
+        </tr>
 
-        <p class="limit-note">
-          *A reavaliação periódica do limite é realizada exclusivamente
-          para clientes que deram o aceite prévio nos termos de consentimento
-          do cartão e está sujeita à análise de crédito.
-        </p>
+        <!-- CUPOM -->
+        <tr>
+          <td class="desktop-padding" style="padding-bottom:14px;">
 
-      </div>
+            <table
+              role="presentation"
+              width="100%"
+              style="
+                background:#e50072;
+                border-radius:14px;
+                overflow:hidden;
+              "
+            >
+              <tr>
 
-      <div class="cta-area">
-        <a
-          class="main-button"
-          href="URL-DO-BLOG-OU-SITE"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Quero conferir
-        </a>
-      </div>
+                <td class="card-column" width="62%" valign="middle" style="padding:24px 8px 20px 24px;">
 
-      <p class="closing-text">
-        Aproveite essas facilidades e fique por dentro de todas as dicas
-        de uso do seu cartão no nosso blog.
-        <strong>O Parceirão do seu bolso</strong> está pronto para ajudar
-        você a economizar mais.
-      </p>
+                  <div
+                    style="
+                      display:inline-block;
+                      border:1px solid rgba(255,255,255,.7);
+                      color:#ffffff;
+                      padding:5px 9px;
+                      font-size:9px;
+                      font-weight:bold;
+                    "
+                  >
+                    OFERTA ESPECIAL
+                  </div>
 
-    </section>
+                  <h3
+                    style="
+                      margin:12px 0 7px;
+                      color:#ffffff;
+                      font-size:24px;
+                      line-height:1.05;
+                    "
+                  >
+                    Ganhe <span style="color:#fff45e;">5% OFF</span><br>
+                    na sua compra
+                  </h3>
 
-    <section class="app-strip">
+                  <p
+                    style="
+                      margin:0;
+                      color:#ffffff;
+                      font-size:12px;
+                      line-height:1.4;
+                    "
+                  >
+                    Use o cupom abaixo para garantir o desconto nas compras elegíveis.
+                  </p>
 
-      <div>
-        <h4>Tenha o cartão sempre com você</h4>
+                </td>
 
-        <p>
-          Baixe o aplicativo do Cartão Carrefour e acompanhe tudo de forma
-          simples e prática.
-        </p>
-      </div>
+                <td class="card-column" width="38%" align="center" valign="middle" style="padding:18px 20px 10px 5px;">
+                  <img
+                    class="card-image"
+                    src="URL-IMAGEM-CARTAO-CARREFOUR.png"
+                    width="155"
+                    alt="Cartão Carrefour"
+                    style="transform:rotate(-10deg);"
+                  >
+                </td>
 
-      <div class="app-buttons">
-        <a href="URL-GOOGLE-PLAY" target="_blank">
-          <img
-            src="URL-SELO-GOOGLE-PLAY.png"
-            alt="Baixar na Google Play"
-          />
-        </a>
+              </tr>
 
-        <a href="URL-APP-STORE" target="_blank">
-          <img
-            src="URL-SELO-APP-STORE.png"
-            alt="Baixar na App Store"
-          />
-        </a>
-      </div>
+              <tr>
+                <td colspan="2" style="padding:0 24px 22px;">
 
-    </section>
+                  <table role="presentation" width="100%" style="background:#ffffff;">
+                    <tr>
+                      <td style="padding:12px 14px;">
+                        <div style="font-size:9px; color:#6e7783; text-transform:uppercase;">
+                          Seu código promocional
+                        </div>
 
-    <footer class="footer">
+                        <div
+                          style="
+                            margin-top:3px;
+                            color:#0052b8;
+                            font-size:20px;
+                            font-weight:bold;
+                            letter-spacing:1px;
+                          "
+                        >
+                          PARCEIRAO5
+                        </div>
+                      </td>
 
-      <img
-        class="footer-logo"
-        src="URL-DO-LOGO-CARREFOUR-BRANCO.png"
-        alt="Carrefour Soluções Financeiras"
-      />
+                      <td align="right" style="padding:12px;">
+                        <a
+                          href="URL-CUPOM"
+                          style="
+                            display:inline-block;
+                            background:#0052b8;
+                            color:#ffffff;
+                            font-size:10px;
+                            font-weight:bold;
+                            padding:10px 13px;
+                          "
+                        >
+                          COPIAR CUPOM
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
 
-      <p class="footer-title">
-        Central de Relacionamento Cartão Carrefour
-      </p>
+                  <p
+                    style="
+                      margin:10px 0 0;
+                      color:rgba(255,255,255,.85);
+                      font-size:9px;
+                      line-height:1.4;
+                    "
+                  >
+                    *Aplicável no valor total das compras elegíveis, conforme regulamento vigente.
+                  </p>
 
-      <p class="footer-text">
-        Consulte no site os canais de atendimento, telefones e horários.
-      </p>
+                </td>
+              </tr>
+            </table>
 
-      <div class="footer-divider"></div>
+          </td>
+        </tr>
 
-      <div class="legal">
-        Condições sujeitas à análise de crédito e aos termos de uso do
-        produto. O desconto de 5% é aplicável mediante o uso do cupom
-        informado nas lojas e canais participantes, conforme regulamento
-        vigente. A reavaliação de limite de crédito ocorre periodicamente,
-        mediante aceite prévio do cliente, atualização cadastral e análise
-        de crédito. A concessão ou o aumento de limite não são garantidos.
-        Utilize seu crédito de forma consciente.
-      </div>
+        <!-- LIMITE -->
+        <tr>
+          <td class="desktop-padding" style="padding-top:6px; padding-bottom:14px;">
 
-    </footer>
+            <table
+              role="presentation"
+              width="100%"
+              style="
+                background:#0052b8;
+                border-radius:14px;
+                overflow:hidden;
+              "
+            >
+              <tr>
 
-  </main>
+                <td class="card-column" width="60%" valign="middle" style="padding:24px 8px 24px 24px;">
 
-  <script>
-    function copiarCupom() {
-      const codigo = document
-        .getElementById("codigoCupom")
-        .innerText
-        .trim();
+                  <div
+                    style="
+                      display:inline-block;
+                      background:#d9f2ff;
+                      color:#0052b8;
+                      padding:5px 9px;
+                      font-size:9px;
+                      font-weight:bold;
+                    "
+                  >
+                    SEU CARTÃO ACOMPANHA VOCÊ
+                  </div>
 
-      navigator.clipboard
-        .writeText(codigo)
-        .then(function () {
-          const botao = document.querySelector(".copy-button");
-          const textoOriginal = botao.innerText;
+                  <h3
+                    style="
+                      margin:12px 0 8px;
+                      color:#ffffff;
+                      font-size:23px;
+                      line-height:1.08;
+                    "
+                  >
+                    Seu limite pode evoluir junto com a sua rotina
+                  </h3>
 
-          botao.innerText = "Cupom copiado";
+                  <p
+                    style="
+                      margin:0 0 14px;
+                      color:#ffffff;
+                      font-size:12px;
+                      line-height:1.45;
+                    "
+                  >
+                    Mantemos seu cadastro sempre atualizado para avaliar novas
+                    oportunidades de limite de forma automática.
+                  </p>
 
-          setTimeout(function () {
-            botao.innerText = textoOriginal;
-          }, 2000);
-        })
-        .catch(function () {
-          alert("Código do cupom: " + codigo);
-        });
-    }
-  </script>
+                  <span
+                    style="
+                      display:inline-block;
+                      background:#ffffff;
+                      color:#0052b8;
+                      padding:9px 12px;
+                      font-size:9px;
+                      font-weight:bold;
+                    "
+                  >
+                    REAVALIAÇÃO PERIÓDICA
+                  </span>
+
+                </td>
+
+                <td
+                  class="card-column"
+                  width="40%"
+                  align="center"
+                  valign="bottom"
+                  style="background:#eb0076; padding:18px 15px 0;"
+                >
+                  <img
+                    src="URL-IMAGEM-PESSOA-LIMITE.png"
+                    width="170"
+                    alt="Cliente Carrefour"
+                  >
+                </td>
+
+              </tr>
+            </table>
+
+            <p
+              style="
+                margin:10px 2px 0;
+                color:#6b7480;
+                font-size:9px;
+                line-height:1.45;
+              "
+            >
+              *A reavaliação periódica do limite está sujeita à análise de crédito
+              e é realizada exclusivamente para clientes que deram o aceite prévio.
+            </p>
+
+          </td>
+        </tr>
+
+        <!-- CTA -->
+        <tr>
+          <td align="center" class="desktop-padding" style="padding-top:20px; padding-bottom:22px;">
+
+            <a
+              href="URL-DO-BLOG"
+              style="
+                display:inline-block;
+                background:#0052b8;
+                color:#ffffff;
+                padding:14px 34px;
+                font-size:11px;
+                font-weight:bold;
+                text-transform:uppercase;
+              "
+            >
+              Quero conferir
+            </a>
+
+            <p
+              style="
+                max-width:430px;
+                margin:20px auto 0;
+                color:#4c596d;
+                font-size:12px;
+                line-height:1.5;
+              "
+            >
+              Aproveite essas facilidades e fique por dentro de todas as dicas de uso
+              do seu cartão no nosso blog.
+              <strong style="color:#0052b8;">O Parceirão do seu bolso</strong>
+              está pronto para ajudar você a economizar mais.
+            </p>
+
+          </td>
+        </tr>
+
+        <!-- DIVISOR -->
+        <tr>
+          <td style="height:1px; background:#dce2e8;"></td>
+        </tr>
+
+        <!-- BENEFÍCIOS -->
+        <tr>
+          <td class="desktop-padding" style="padding-top:30px; padding-bottom:28px;">
+
+            <h2
+              style="
+                margin:0 0 26px;
+                color:#0052b8;
+                font-size:21px;
+                text-align:center;
+              "
+            >
+              Confira os benefícios e aproveite:
+            </h2>
+
+            <table role="presentation" width="100%">
+
+              <tr>
+                <td class="benefit-item" align="center" style="padding:0 10px 25px;">
+                  <img src="URL-ICONE-ANUIDADE.png" width="54" alt="">
+                  <p style="margin:10px 0 0; font-size:13px; line-height:1.4; color:#243653;">
+                    <strong>Use 1x no mês em qualquer Carrefour</strong><br>
+                    e zere a parcela de anuidade.
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="benefit-item" align="center" style="padding:0 10px 25px;">
+                  <img src="URL-ICONE-DESCONTO.png" width="54" alt="">
+                  <p style="margin:10px 0 0; font-size:13px; line-height:1.4; color:#243653;">
+                    <strong>Descontos exclusivos</strong><br>
+                    nas lojas e no site Carrefour.
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="benefit-item" align="center" style="padding:0 10px 25px;">
+                  <img src="URL-ICONE-PARCELAMENTO.png" width="54" alt="">
+                  <p style="margin:10px 0 0; font-size:13px; line-height:1.4; color:#243653;">
+                    Parcelamento em até <strong>24x sem juros</strong><br>
+                    nas lojas e no site.
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="benefit-item" align="center" style="padding:0 10px 25px;">
+                  <img src="URL-ICONE-PRAZO.png" width="54" alt="">
+                  <p style="margin:10px 0 0; font-size:13px; line-height:1.4; color:#243653;">
+                    <strong>Mais prazo</strong> para pagar<br>
+                    nos Postos e nas Drogarias Carrefour.
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="benefit-item" align="center" style="padding:0 10px;">
+                  <img src="URL-ICONE-LOCAL.png" width="54" alt="">
+                  <p style="margin:10px 0 0; font-size:13px; line-height:1.4; color:#243653;">
+                    <strong>Aceito em qualquer estabelecimento</strong><br>
+                    físico e on-line, mesmo fora da rede Carrefour.
+                  </p>
+                </td>
+              </tr>
+
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- SEGURANÇA -->
+        <tr>
+          <td class="desktop-padding" style="padding-top:0; padding-bottom:28px; text-align:center;">
+
+            <div style="height:1px; background:#cfd7df; margin-bottom:20px;"></div>
+
+            <p style="margin:0 0 6px; color:#263a58; font-size:12px; font-weight:bold;">
+              Dica de segurança:
+            </p>
+
+            <p style="margin:0; color:#637083; font-size:10px; line-height:1.5;">
+              Suas informações bancárias são pessoais e intransferíveis.
+              Não compartilhe com estranhos. Isso evitará possíveis prejuízos financeiros.
+            </p>
+
+          </td>
+        </tr>
+
+        <!-- APP -->
+        <tr>
+          <td style="background:#0052b8; padding:18px 26px;">
+
+            <table role="presentation" width="100%">
+              <tr>
+
+                <td class="app-column" width="55%" valign="middle">
+                  <p style="margin:0 0 8px; color:#ffffff; font-size:12px; font-weight:bold;">
+                    Baixe o APP do Cartão Carrefour
+                  </p>
+
+                  <table role="presentation">
+                    <tr>
+                      <td style="padding-right:6px;">
+                        <img src="URL-GOOGLE-PLAY.png" width="90" alt="Google Play">
+                      </td>
+                      <td>
+                        <img src="URL-APP-STORE.png" width="90" alt="App Store">
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+
+                <td class="app-column" width="45%" align="right" valign="middle">
+                  <p style="margin:0; color:#ffffff; font-size:10px; line-height:1.4;">
+                    Ou, se preferir,<br>
+                    <strong>fale com a Carina!</strong>
+                  </p>
+                </td>
+
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="background:#f2f2f2; padding:26px 30px 20px; text-align:center;">
+
+            <img
+              src="URL-LOGO-CARREFOUR-CINZA.png"
+              width="110"
+              alt="Carrefour Soluções Financeiras"
+              style="margin:0 auto 18px;"
+            >
+
+            <p style="margin:0 0 12px; color:#4c4c4c; font-size:9px; line-height:1.5;">
+              <strong>CENTRAL DE RELACIONAMENTO CARTÃO CARREFOUR</strong><br>
+              Consulte no site os canais de atendimento e horários.
+            </p>
+
+            <div style="height:1px; background:#c7c7c7; margin:18px 0;"></div>
+
+            <p
+              style="
+                margin:0;
+                color:#777777;
+                font-size:7px;
+                line-height:1.55;
+                text-align:justify;
+              "
+            >
+              Condições sujeitas à análise de crédito e aos termos de uso do produto.
+              O desconto de 5% é aplicável mediante o uso do cupom informado nas lojas
+              e canais participantes, conforme regulamento vigente. A reavaliação de
+              limite de crédito ocorre periodicamente mediante aceite prévio do cliente,
+              atualização cadastral e análise de crédito. A concessão ou aumento de
+              limite não são garantidos. Utilize seu crédito de forma consciente.
+            </p>
+
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
 
 </body>
 </html>
