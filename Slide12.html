@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Antes e Depois do E-mail</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:#edf3fb;
+font-family:'Poppins',sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+
+}
+
+.slide{
+
+width:1600px;
+height:900px;
+
+background:
+radial-gradient(circle at top right,#dbe9ff 0%,transparent 30%),
+linear-gradient(180deg,#ffffff,#f6f9ff);
+
+border-radius:28px;
+
+position:relative;
+overflow:hidden;
+
+box-shadow:
+0 30px 70px rgba(0,0,0,.12);
+
+padding:70px;
+
+}
+
+.titulo{
+
+font-size:54px;
+font-weight:800;
+color:#08204d;
+
+}
+
+.subtitulo{
+
+margin-top:10px;
+
+font-size:22px;
+
+color:#4e6fa7;
+
+}
+
+.comparacao{
+
+margin-top:60px;
+
+display:grid;
+
+grid-template-columns:1fr 120px 1fr;
+
+align-items:center;
+
+}
+
+.coluna{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.tag{
+
+padding:14px 34px;
+
+border-radius:999px;
+
+font-weight:700;
+
+font-size:18px;
+
+margin-bottom:25px;
+
+}
+
+.antigo{
+
+background:#eef2f8;
+
+color:#666;
+
+}
+
+.novo{
+
+background:#0057d8;
+
+color:white;
+
+}
+
+.mockup{
+
+width:330px;
+
+height:680px;
+
+background:#111;
+
+border-radius:48px;
+
+padding:12px;
+
+position:relative;
+
+box-shadow:
+
+0 30px 50px rgba(0,0,0,.20);
+
+}
+
+.mockup::before{
+
+content:"";
+
+position:absolute;
+
+top:12px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:120px;
+
+height:28px;
+
+background:black;
+
+border-radius:20px;
+
+z-index:5;
+
+}
+
+.tela{
+
+width:100%;
+
+height:100%;
+
+background:white;
+
+border-radius:40px;
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+.status{
+
+height:38px;
+
+display:flex;
+
+justify-content:space-between;
+
+padding:14px 18px;
+
+font-size:13px;
+
+font-weight:700;
+
+}
+
+.placeholder{
+
+position:absolute;
+
+left:18px;
+
+right:18px;
+
+top:58px;
+
+bottom:18px;
+
+border:3px dashed #d5dce7;
+
+border-radius:20px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+color:#9ca8b8;
+
+font-weight:600;
+
+font-size:18px;
+
+line-height:30px;
+
+}
+
+.seta{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.circulo{
+
+width:82px;
+
+height:82px;
+
+border-radius:50%;
+
+background:white;
+
+border:3px solid #0057d8;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:42px;
+
+color:#0057d8;
+
+font-weight:700;
+
+box-shadow:0 10px 30px rgba(0,87,216,.20);
+
+}
+
+.logo{
+
+position:absolute;
+
+right:60px;
+
+bottom:45px;
+
+font-size:30px;
+
+font-weight:800;
+
+color:#0057d8;
+
+}
+
+.decoracao1{
+
+position:absolute;
+
+width:280px;
+
+height:280px;
+
+background:#0a66ff;
+
+border-radius:50%;
+
+top:-180px;
+
+right:-120px;
+
+opacity:.15;
+
+}
+
+.decoracao2{
+
+position:absolute;
+
+width:340px;
+
+height:340px;
+
+background:#7db2ff;
+
+border-radius:50%;
+
+top:-210px;
+
+right:-40px;
+
+opacity:.18;
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="slide">
+
+<div class="decoracao1"></div>
+<div class="decoracao2"></div>
+
+<div class="titulo">
+Antes e Depois do E-mail
+</div>
+
+<div class="subtitulo">
+Comparação entre a comunicação atual e a nova proposta visual.
+</div>
+
+<div class="comparacao">
+
+<div class="coluna">
+
+<div class="tag antigo">
+E-mail Atual
+</div>
+
+<div class="mockup">
+
+<div class="tela">
+
+<div class="status">
+<span>9:41</span>
+<span>📶 5G 🔋</span>
+</div>
+
+<div class="placeholder">
+INSIRA AQUI<br>
+O PRINT OU VÍDEO<br>
+DO E-MAIL ATUAL
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="seta">
+
+<div class="circulo">
+→
+</div>
+
+</div>
+
+<div class="coluna">
+
+<div class="tag novo">
+Novo E-mail
+</div>
+
+<div class="mockup">
+
+<div class="tela">
+
+<div class="status">
+<span>9:41</span>
+<span>📶 5G 🔋</span>
+</div>
+
+<div class="placeholder">
+INSIRA AQUI<br>
+O PRINT OU VÍDEO<br>
+DO NOVO E-MAIL
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="logo">
+Carrefour
+</div>
+
+</div>
+
+</body>
+
+</html>
