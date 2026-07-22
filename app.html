@@ -1,94 +1,887 @@
-</style>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Antes e Depois do E-mail</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --azul: #0754c9;
+      --azul-escuro: #063b94;
+      --azul-claro: #edf4ff;
+      --vermelho: #df1d2f;
+      --preto: #071022;
+      --texto: #111318;
+      --cinza: #687386;
+      --linha: #d7dce4;
+      --fundo: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: #e9eef5;
+      font-family: "Poppins", Arial, sans-serif;
+      color: var(--texto);
+    }
+
+    .slide {
+      width: min(1600px, 100%);
+      aspect-ratio: 16 / 9;
+      min-height: 780px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 92% 8%,
+          rgba(62, 132, 238, 0.08),
+          transparent 27%
+        ),
+        linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #fbfcff 100%
+        );
+      box-shadow: 0 28px 80px rgba(22, 44, 81, 0.18);
+    }
+
+    .top-wave {
+      position: absolute;
+      top: -125px;
+      left: -165px;
+      width: 510px;
+      height: 245px;
+      border-radius: 0 0 100% 0;
+      background: #0b58c9;
+      transform: rotate(-8deg);
+      z-index: 1;
+    }
+
+    .header {
+      position: absolute;
+      top: 38px;
+      left: 80px;
+      z-index: 10;
+    }
+
+    .title {
+      font-size: clamp(44px, 4.4vw, 70px);
+      line-height: 1.02;
+      letter-spacing: -2.8px;
+      font-weight: 800;
+      color: var(--preto);
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: clamp(21px, 1.75vw, 31px);
+      line-height: 1.3;
+      font-weight: 500;
+      color: var(--azul-escuro);
+    }
+
+    .brand {
+      position: absolute;
+      top: 49px;
+      right: 75px;
+      width: 92px;
+      height: 66px;
+      z-index: 10;
+    }
+
+    .logo-left {
+      position: absolute;
+      left: 0;
+      top: 13px;
+      width: 35px;
+      height: 42px;
+      background: var(--vermelho);
+      clip-path: polygon(
+        100% 0,
+        48% 50%,
+        100% 100%,
+        70% 100%,
+        0 50%,
+        70% 0
+      );
+    }
+
+    .logo-right {
+      position: absolute;
+      right: 0;
+      top: 8px;
+      width: 55px;
+      height: 51px;
+      background: var(--azul);
+      clip-path: polygon(
+        0 0,
+        53% 0,
+        100% 50%,
+        53% 100%,
+        0 100%,
+        33% 50%
+      );
+    }
+
+    .logo-center {
+      position: absolute;
+      left: 35px;
+      top: 13px;
+      width: 29px;
+      height: 42px;
+      border-radius: 50%;
+      background: #ffffff;
+      z-index: 3;
+    }
+
+    .logo-center::after {
+      content: "";
+      position: absolute;
+      right: -12px;
+      top: 12px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--azul);
+    }
+
+    .content-grid {
+      position: absolute;
+      top: 148px;
+      left: 72px;
+      right: 72px;
+      bottom: 30px;
+      z-index: 5;
+
+      display: grid;
+      grid-template-columns:
+        210px
+        minmax(290px, 365px)
+        100px
+        minmax(290px, 365px)
+        220px;
+
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .side-panel {
+      height: 76%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .side-heading {
+      margin-bottom: 22px;
+      font-size: clamp(19px, 1.45vw, 27px);
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .side-heading.old {
+      color: var(--vermelho);
+    }
+
+    .side-heading.new {
+      color: var(--azul);
+    }
+
+    .point {
+      min-height: 116px;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--linha);
+    }
+
+    .point:last-child {
+      border-bottom: none;
+    }
+
+    .point-icon {
+      width: 37px;
+      height: 37px;
+      margin-top: 1px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-family: Arial, sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .point-icon.error {
+      color: var(--vermelho);
+      background: #ffffff;
+      border: 2px solid #f0bbc3;
+    }
+
+    .point-icon.success {
+      color: #ffffff;
+      background: var(--azul);
+      font-size: 22px;
+      box-shadow: 0 5px 14px rgba(7, 84, 201, 0.18);
+    }
+
+    .point-text {
+      font-size: clamp(15px, 1.12vw, 20px);
+      line-height: 1.55;
+      font-weight: 500;
+      color: #15171c;
+    }
+
+    .phone-wrapper {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone {
+      width: min(100%, 355px);
+      aspect-ratio: 9 / 19.35;
+      position: relative;
+      padding: 13px;
+      border-radius: 61px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #626262 0%,
+          #1d1d1d 12%,
+          #030303 51%,
+          #3d3d3d 100%
+        );
+
+      box-shadow:
+        0 34px 45px rgba(17, 31, 55, 0.22),
+        0 8px 18px rgba(17, 31, 55, 0.13),
+        inset 0 0 0 2px #858585,
+        inset 0 0 0 5px #090909;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 50%;
+      width: 88%;
+      height: 10px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.17);
+      filter: blur(4px);
+    }
+
+    .phone::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      width: 78%;
+      height: 19px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(25, 38, 61, 0.2);
+      filter: blur(11px);
+      z-index: -1;
+    }
+
+    .button-left-top,
+    .button-left-middle,
+    .button-left-bottom,
+    .button-right {
+      position: absolute;
+      z-index: 2;
+      background: linear-gradient(180deg, #444444, #101010);
+      border-radius: 4px;
+    }
+
+    .button-left-top {
+      left: -4px;
+      top: 126px;
+      width: 5px;
+      height: 34px;
+    }
+
+    .button-left-middle {
+      left: -4px;
+      top: 180px;
+      width: 5px;
+      height: 64px;
+    }
+
+    .button-left-bottom {
+      left: -4px;
+      top: 257px;
+      width: 5px;
+      height: 64px;
+    }
+
+    .button-right {
+      right: -4px;
+      top: 190px;
+      width: 5px;
+      height: 95px;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #8a8a8a;
+      border-radius: 49px;
+      background: #ffffff;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      top: 17px;
+      left: 50%;
+      width: 112px;
+      height: 31px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: #050505;
+      box-shadow: inset 0 0 0 1px #191919;
+      z-index: 8;
+    }
+
+    .dynamic-island::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #07121f;
+      box-shadow: 0 0 0 2px #111b27;
+    }
+
+    .status-bar {
+      height: 57px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 16px 20px 0;
+      position: relative;
+      z-index: 6;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #080808;
+    }
+
+    .time {
+      margin-left: 6px;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-right: 4px;
+    }
+
+    .signal {
+      width: 18px;
+      height: 14px;
+      display: flex;
+      gap: 2px;
+      align-items: flex-end;
+    }
+
+    .signal span {
+      display: block;
+      width: 3px;
+      border-radius: 2px 2px 0 0;
+      background: #111111;
+    }
+
+    .signal span:nth-child(1) {
+      height: 5px;
+    }
+
+    .signal span:nth-child(2) {
+      height: 8px;
+    }
+
+    .signal span:nth-child(3) {
+      height: 11px;
+    }
+
+    .signal span:nth-child(4) {
+      height: 14px;
+    }
+
+    .wifi {
+      width: 17px;
+      height: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wifi::before,
+    .wifi::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 2px solid #111111;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-radius: 50%;
+    }
+
+    .wifi::before {
+      top: 0;
+      width: 17px;
+      height: 17px;
+    }
+
+    .wifi::after {
+      top: 5px;
+      width: 9px;
+      height: 9px;
+    }
+
+    .wifi-dot {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 3px;
+      height: 3px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: #111111;
+    }
+
+    .battery {
+      width: 24px;
+      height: 12px;
+      position: relative;
+      padding: 2px;
+      border: 1.8px solid #111111;
+      border-radius: 3px;
+    }
+
+    .battery::before {
+      content: "";
+      position: absolute;
+      right: -4px;
+      top: 3px;
+      width: 2px;
+      height: 5px;
+      border-radius: 0 2px 2px 0;
+      background: #111111;
+    }
+
+    .battery::after {
+      content: "";
+      display: block;
+      width: 76%;
+      height: 100%;
+      border-radius: 1px;
+      background: #111111;
+    }
+
+    .empty-screen {
+      position: absolute;
+      top: 57px;
+      left: 0;
+      right: 0;
+      bottom: 20px;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #ffffff 78%,
+          #fbfbfc 100%
+        );
+    }
+
+    .empty-screen::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 9px;
+      width: 106px;
+      height: 5px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: #111111;
+    }
+
+    .center-column {
+      height: 100%;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .vertical-line {
+      position: absolute;
+      top: 4%;
+      bottom: 4%;
+      left: 50%;
+      width: 1px;
+      transform: translateX(-50%);
+      background: #cbd4df;
+    }
+
+    .arrow-circle {
+      width: 85px;
+      height: 85px;
+      position: relative;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--azul);
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 12px 25px rgba(7, 76, 181, 0.1);
+    }
+
+    .arrow {
+      width: 43px;
+      height: 27px;
+      position: relative;
+    }
+
+    .arrow::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 36px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--azul);
+    }
+
+    .arrow::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 2px;
+      width: 18px;
+      height: 18px;
+      border-top: 5px solid var(--azul);
+      border-right: 5px solid var(--azul);
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+
+    @media (max-width: 1180px) {
+      body {
+        padding: 0;
+        align-items: flex-start;
+      }
+
+      .slide {
+        width: 100%;
+        min-height: 100vh;
+        aspect-ratio: auto;
+        padding-bottom: 60px;
+      }
+
+      .header {
+        position: relative;
+        top: auto;
+        left: auto;
+        padding: 42px 30px 0;
+      }
+
+      .brand {
+        top: 28px;
+        right: 28px;
+        transform: scale(0.78);
+        transform-origin: top right;
+      }
+
+      .content-grid {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin-top: 44px;
+        padding: 0 24px;
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+
+      .side-panel {
+        width: min(500px, 100%);
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .phone {
+        width: min(345px, 88vw);
+      }
+
+      .center-column {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <main class="slide">
 
-<div class="slide">
+    <div class="top-wave"></div>
 
-<div class="decoracao1"></div>
-<div class="decoracao2"></div>
+    <header class="header">
+      <h1 class="title">
+        Antes e Depois do E-mail
+      </h1>
 
-<div class="titulo">
-Antes e Depois do E-mail
-</div>
+      <p class="subtitle">
+        Mais claro, relevante e focado no cliente
+      </p>
+    </header>
 
-<div class="subtitulo">
-Comparação entre a comunicação atual e a nova proposta visual.
-</div>
+    <div class="brand" aria-label="Logo Carrefour">
+      <span class="logo-left"></span>
+      <span class="logo-right"></span>
+      <span class="logo-center"></span>
+    </div>
 
-<div class="comparacao">
+    <section class="content-grid">
 
-<div class="coluna">
+      <aside class="side-panel">
 
-<div class="tag antigo">
-E-mail Atual
-</div>
+        <h2 class="side-heading old">
+          E-MAIL ATUAL
+        </h2>
 
-<div class="mockup">
+        <div class="point">
+          <div class="point-icon error">×</div>
 
-<div class="tela">
+          <p class="point-text">
+            Muito texto<br>
+            e informações<br>
+            pouco relevantes
+          </p>
+        </div>
 
-<div class="status">
-<span>9:41</span>
-<span>📶 5G 🔋</span>
-</div>
+        <div class="point">
+          <div class="point-icon error">×</div>
 
-<div class="placeholder">
-INSIRA AQUI<br>
-O PRINT OU VÍDEO<br>
-DO E-MAIL ATUAL
-</div>
+          <p class="point-text">
+            Layout poluído<br>
+            e sem hierarquia
+          </p>
+        </div>
 
-</div>
+        <div class="point">
+          <div class="point-icon error">×</div>
 
-</div>
+          <p class="point-text">
+            CTA pouco<br>
+            visível
+          </p>
+        </div>
 
-</div>
+        <div class="point">
+          <div class="point-icon error">×</div>
 
-<div class="seta">
+          <p class="point-text">
+            Comunicação<br>
+            genérica e<br>
+            distante
+          </p>
+        </div>
 
-<div class="circulo">
-→
-</div>
+      </aside>
 
-</div>
+      <div class="phone-wrapper">
 
-<div class="coluna">
+        <div class="phone">
 
-<div class="tag novo">
-Novo E-mail
-</div>
+          <span class="button-left-top"></span>
+          <span class="button-left-middle"></span>
+          <span class="button-left-bottom"></span>
+          <span class="button-right"></span>
 
-<div class="mockup">
+          <div class="screen">
 
-<div class="tela">
+            <div class="dynamic-island"></div>
 
-<div class="status">
-<span>9:41</span>
-<span>📶 5G 🔋</span>
-</div>
+            <div class="status-bar">
 
-<div class="placeholder">
-INSIRA AQUI<br>
-O PRINT OU VÍDEO<br>
-DO NOVO E-MAIL
-</div>
+              <span class="time">
+                9:41
+              </span>
 
-</div>
+              <div class="status-icons">
 
-</div>
+                <div class="signal">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
 
-</div>
+                <div class="wifi">
+                  <span class="wifi-dot"></span>
+                </div>
 
-</div>
+                <div class="battery"></div>
 
-<div class="logo">
-Carrefour
-</div>
+              </div>
+            </div>
 
-</div>
+            <div class="empty-screen"></div>
 
+          </div>
+        </div>
+      </div>
+
+      <div class="center-column">
+
+        <div class="vertical-line"></div>
+
+        <div class="arrow-circle">
+          <div class="arrow"></div>
+        </div>
+
+      </div>
+
+      <div class="phone-wrapper">
+
+        <div class="phone">
+
+          <span class="button-left-top"></span>
+          <span class="button-left-middle"></span>
+          <span class="button-left-bottom"></span>
+          <span class="button-right"></span>
+
+          <div class="screen">
+
+            <div class="dynamic-island"></div>
+
+            <div class="status-bar">
+
+              <span class="time">
+                9:41
+              </span>
+
+              <div class="status-icons">
+
+                <div class="signal">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div class="wifi">
+                  <span class="wifi-dot"></span>
+                </div>
+
+                <div class="battery"></div>
+
+              </div>
+            </div>
+
+            <div class="empty-screen"></div>
+
+          </div>
+        </div>
+      </div>
+
+      <aside class="side-panel">
+
+        <h2 class="side-heading new">
+          NOVO E-MAIL
+        </h2>
+
+        <div class="point">
+          <div class="point-icon success">✓</div>
+
+          <p class="point-text">
+            Hierarquia visual<br>
+            clara
+          </p>
+        </div>
+
+        <div class="point">
+          <div class="point-icon success">✓</div>
+
+          <p class="point-text">
+            Benefícios<br>
+            em destaque
+          </p>
+        </div>
+
+        <div class="point">
+          <div class="point-icon success">✓</div>
+
+          <p class="point-text">
+            CTA mais<br>
+            evidente
+          </p>
+        </div>
+
+        <div class="point">
+          <div class="point-icon success">✓</div>
+
+          <p class="point-text">
+            Comunicação<br>
+            objetiva e próxima
+          </p>
+        </div>
+
+      </aside>
+
+    </section>
+
+  </main>
 </body>
-
 </html>
