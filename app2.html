@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Limite — Carrefour</title>
+  <style>
+    :root{
+      --blue-900:#082f8f;
+      --blue-800:#0b43bd;
+      --blue-700:#1458e8;
+      --blue-100:#edf3ff;
+      --green:#46d78b;
+      --green-dark:#17944e;
+      --text:#102d68;
+      --muted:#6e7b96;
+      --border:#e6eaf2;
+      --bg:#f7f9fd;
+      --card:#ffffff;
+      --shadow:0 10px 30px rgba(16,45,104,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:#e9edf5;
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      color:var(--text);
+      display:flex;
+      justify-content:center;
+      padding:24px 0;
+    }
+
+    .phone{
+      width:390px;
+      min-height:844px;
+      background:var(--bg);
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.18);
+      position:relative;
+    }
+
+    .statusbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 22px 10px;
+      font-weight:700;
+      color:#111;
+      background:#fff;
+    }
+
+    .status-icons{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:14px;
+    }
+
+    .topbar{
+      height:64px;
+      display:grid;
+      grid-template-columns:48px 1fr 48px;
+      align-items:center;
+      padding:0 16px;
+      background:#fff;
+      border-bottom:1px solid #f0f2f6;
+    }
+
+    .topbar h1{
+      margin:0;
+      text-align:center;
+      font-size:22px;
+      color:#0c2f73;
+    }
+
+    .icon-btn{
+      border:none;
+      background:transparent;
+      color:var(--blue-700);
+      font-size:31px;
+      line-height:1;
+      cursor:pointer;
+    }
+
+    .help{
+      width:30px;height:30px;
+      border:2px solid var(--blue-700);
+      border-radius:50%;
+      display:grid;place-items:center;
+      font-size:18px;
+      font-weight:700;
+      margin-left:auto;
+    }
+
+    main{
+      padding:16px 16px 96px;
+    }
+
+    .limit-card{
+      background:linear-gradient(135deg,#0d49c7 0%,#082f8f 72%,#06236c 100%);
+      color:#fff;
+      border-radius:22px;
+      padding:22px 18px 18px;
+      box-shadow:var(--shadow);
+    }
+
+    .limit-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+
+    .label{
+      font-size:16px;
+      opacity:.92;
+      margin-bottom:4px;
+    }
+
+    .amount{
+      margin:0;
+      font-size:38px;
+      line-height:1.1;
+      letter-spacing:-1px;
+    }
+
+    .available{
+      margin-top:8px;
+      font-size:18px;
+      opacity:.92;
+    }
+
+    .outline-button{
+      border:1.5px solid rgba(255,255,255,.9);
+      color:#fff;
+      background:transparent;
+      border-radius:22px;
+      padding:10px 14px;
+      font-weight:700;
+      cursor:pointer;
+      white-space:nowrap;
+      margin-top:20px;
+    }
+
+    .slider-wrap{
+      margin-top:28px;
+    }
+
+    .slider{
+      width:100%;
+      accent-color:var(--green);
+      cursor:pointer;
+    }
+
+    input[type="range"]{
+      appearance:none;
+      height:8px;
+      border-radius:999px;
+      background:linear-gradient(
+        to right,
+        var(--green) 0%,
+        var(--green) var(--progress, 97%),
+        rgba(255,255,255,.28) var(--progress, 97%),
+        rgba(255,255,255,.28) 100%
+      );
+      outline:none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb{
+      appearance:none;
+      width:34px;height:34px;
+      border-radius:50%;
+      background:#1cab58;
+      border:3px solid #fff;
+      box-shadow:0 4px 12px rgba(0,0,0,.22);
+    }
+
+    .slider-values{
+      display:flex;
+      justify-content:space-between;
+      font-size:14px;
+      margin-top:10px;
+      opacity:.95;
+    }
+
+    .slider-info{
+      margin-top:16px;
+      border:1px solid rgba(255,255,255,.35);
+      border-radius:16px;
+      padding:14px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      background:rgba(255,255,255,.05);
+    }
+
+    .shield{
+      min-width:36px;height:36px;
+      border:2px solid #fff;
+      border-radius:12px;
+      display:grid;place-items:center;
+      font-size:18px;
+    }
+
+    .slider-info strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:16px;
+    }
+
+    .slider-info p{
+      margin:0;
+      line-height:1.45;
+      opacity:.9;
+      font-size:14px;
+    }
+
+    .section-title{
+      font-size:21px;
+      margin:20px 0 12px;
+    }
+
+    .shortcuts{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+    }
+
+    .shortcut{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      min-height:132px;
+      padding:16px 9px 12px;
+      text-align:center;
+      box-shadow:0 6px 18px rgba(16,45,104,.05);
+      cursor:pointer;
+    }
+
+    .shortcut-icon{
+      width:42px;height:42px;
+      margin:0 auto 12px;
+      border:2px solid var(--blue-700);
+      border-radius:50%;
+      display:grid;place-items:center;
+      color:var(--blue-700);
+      font-size:21px;
+      font-weight:700;
+    }
+
+    .shortcut span{
+      display:block;
+      font-size:14px;
+      line-height:1.3;
+      font-weight:700;
+    }
+
+    .info-card{
+      margin-top:14px;
+      border-radius:20px;
+      padding:18px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      box-shadow:0 6px 18px rgba(16,45,104,.04);
+    }
+
+    .analysis{
+      background:linear-gradient(90deg,#eef4ff,#f8fbff);
+    }
+
+    .tips{
+      background:linear-gradient(90deg,#effaf3,#f7fcf9);
+      color:#0f7d3f;
+    }
+
+    .round-icon{
+      width:48px;height:48px;
+      flex:0 0 48px;
+      border-radius:50%;
+      display:grid;place-items:center;
+      background:#dfeaff;
+      color:var(--blue-700);
+      font-size:22px;
+    }
+
+    .tips .round-icon{
+      background:#ddf4e5;
+      color:#168b49;
+    }
+
+    .card-content{
+      flex:1;
+    }
+
+    .card-content strong{
+      display:block;
+      font-size:17px;
+      margin-bottom:4px;
+    }
+
+    .card-content p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.45;
+      font-size:14px;
+    }
+
+    .tips .card-content p{
+      color:#4d7a60;
+    }
+
+    .chevron{
+      color:var(--blue-700);
+      font-size:30px;
+      line-height:1;
+    }
+
+    .bottom-nav{
+      position:absolute;
+      left:0;right:0;bottom:0;
+      height:78px;
+      background:#fff;
+      border-top:1px solid var(--border);
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      align-items:center;
+      padding:8px 8px 10px;
+    }
+
+    .nav-item{
+      text-align:center;
+      color:#77839b;
+      font-size:11px;
+    }
+
+    .nav-icon{
+      font-size:21px;
+      margin-bottom:4px;
+    }
+
+    .nav-item.active{
+      color:var(--blue-700);
+      font-weight:700;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(8,20,50,.45);
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      padding:20px;
+      z-index:20;
+    }
+
+    .modal.open{display:flex}
+
+    .modal-card{
+      width:min(390px,100%);
+      background:#fff;
+      border-radius:24px;
+      padding:22px;
+      box-shadow:0 18px 50px rgba(0,0,0,.25);
+    }
+
+    .modal-card h2{margin:0 0 8px}
+    .modal-card p{color:var(--muted);line-height:1.5}
+
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .btn{
+      flex:1;
+      border:none;
+      border-radius:14px;
+      padding:14px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .btn.primary{
+      background:var(--blue-700);
+      color:#fff;
+    }
+
+    .btn.secondary{
+      background:#eef2f8;
+      color:var(--text);
+    }
+
+    @media (max-width:430px){
+      body{padding:0;background:#fff}
+      .phone{width:100%;min-height:100vh;border-radius:0;box-shadow:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="statusbar">
+      <span>9:41</span>
+      <div class="status-icons"><span>▮▮▮</span><span>⌁</span><span>100%</span></div>
+    </div>
+
+    <header class="topbar">
+      <button class="icon-btn" aria-label="Voltar">‹</button>
+      <h1>Meu Limite</h1>
+      <div class="help">?</div>
+    </header>
+
+    <main>
+      <section class="limit-card">
+        <div class="limit-row">
+          <div>
+            <div class="label">Limite aprovado ⓘ</div>
+            <h2 class="amount">R$ 26.000,00</h2>
+            <div class="available">Disponível: <strong id="availableText">R$ 25.416,62</strong></div>
+          </div>
+          <button class="outline-button" id="increaseBtn">Solicitar aumento</button>
+        </div>
+
+        <div class="slider-wrap">
+          <input
+            class="slider"
+            id="limitSlider"
+            type="range"
+            min="0"
+            max="26000"
+            step="100"
+            value="25400"
+            aria-label="Ajustar limite disponível para uso"
+          />
+          <div class="slider-values">
+            <span>R$ 0,00</span>
+            <span>R$ 26.000,00</span>
+          </div>
+        </div>
+
+        <div class="slider-info">
+          <div class="shield">✓</div>
+          <div>
+            <strong>Ajuste seu limite de uso</strong>
+            <p>Arraste a barra para definir quanto do seu limite ficará disponível para uso no dia a dia.</p>
+          </div>
+        </div>
+      </section>
+
+      <h2 class="section-title">Atalhos</h2>
+      <section class="shortcuts">
+        <button class="shortcut" id="shortcutIncrease">
+          <div class="shortcut-icon">↑</div>
+          <span>Solicitar aumento</span>
+        </button>
+
+        <button class="shortcut">
+          <div class="shortcut-icon">◴</div>
+          <span>Carrefour Score</span>
+        </button>
+
+        <button class="shortcut">
+          <div class="shortcut-icon">↗</div>
+          <span>Evolução do limite</span>
+        </button>
+
+        <button class="shortcut">
+          <div class="shortcut-icon">💡</div>
+          <span>Dicas para você</span>
+        </button>
+      </section>
+
+      <section class="info-card analysis">
+        <div class="round-icon">▣</div>
+        <div class="card-content">
+          <strong>Próxima análise de limite</strong>
+          <p>Sua próxima análise está prevista para <b style="color:#1458e8">15 de agosto de 2025</b>.</p>
+        </div>
+        <div class="chevron">›</div>
+      </section>
+
+      <section class="info-card tips">
+        <div class="round-icon">💡</div>
+        <div class="card-content">
+          <strong>Melhore suas chances de aumento</strong>
+          <p>✓ Pague suas faturas em dia<br>✓ Utilize seu cartão com frequência<br>✓ Mantenha seus dados atualizados</p>
+        </div>
+        <div class="chevron" style="color:#168b49">⌄</div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <div class="nav-item"><div class="nav-icon">⌂</div>Início</div>
+      <div class="nav-item"><div class="nav-icon">▭</div>Cartão</div>
+      <div class="nav-item active"><div class="nav-icon">▦</div>Serviços</div>
+      <div class="nav-item"><div class="nav-icon">◇</div>Benefícios</div>
+      <div class="nav-item"><div class="nav-icon">•••</div>Mais</div>
+    </nav>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <h2>Solicitar aumento</h2>
+      <p>Sua solicitação passará por uma análise. O retorno será exibido no aplicativo.</p>
+      <div class="modal-actions">
+        <button class="btn secondary" id="cancelBtn">Agora não</button>
+        <button class="btn primary" id="confirmBtn">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('limitSlider');
+    const availableText = document.getElementById('availableText');
+    const modal = document.getElementById('modal');
+    const openButtons = [
+      document.getElementById('increaseBtn'),
+      document.getElementById('shortcutIncrease')
+    ];
+
+    function formatBRL(value){
+      return new Intl.NumberFormat('pt-BR', {
+        style:'currency',
+        currency:'BRL'
+      }).format(value);
+    }
+
+    function updateSlider(){
+      const value = Number(slider.value);
+      const max = Number(slider.max);
+      const progress = (value / max) * 100;
+      slider.style.setProperty('--progress', progress + '%');
+      availableText.textContent = formatBRL(value);
+    }
+
+    slider.addEventListener('input', updateSlider);
+    updateSlider();
+
+    openButtons.forEach(btn => btn.addEventListener('click', () => {
+      modal.classList.add('open');
+    }));
+
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+      modal.classList.remove('open');
+    });
+
+    document.getElementById('confirmBtn').addEventListener('click', () => {
+      alert('Solicitação enviada para análise.');
+      modal.classList.remove('open');
+    });
+
+    modal.addEventListener('click', (event) => {
+      if(event.target === modal) modal.classList.remove('open');
+    });
+  </script>
+</body>
+</html>
