@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Hipóteses investigadas</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #d9d9d9;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .slide {
+      position: relative;
+      width: 1600px;
+      height: 900px;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 79% 87%,
+          rgba(184, 71, 255, 0.32) 0%,
+          rgba(205, 125, 255, 0.19) 18%,
+          rgba(255, 255, 255, 0) 43%
+        ),
+        #ffffff;
+      color: #090909;
+    }
+
+    /* TOPO */
+
+    .top-left {
+      position: absolute;
+      top: 31px;
+      left: 74px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .top-line {
+      width: 77px;
+      height: 2px;
+      background: #6514df;
+    }
+
+    .page-number {
+      position: absolute;
+      top: 31px;
+      right: 59px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* TÍTULO */
+
+    .title {
+      position: absolute;
+      top: 118px;
+      left: 92px;
+      width: 700px;
+      font-size: 54px;
+      line-height: 1.12;
+      letter-spacing: -2.5px;
+      font-weight: 700;
+    }
+
+    .title-highlight {
+      color: #6514df;
+    }
+
+    /* BLOCO ESQUERDO */
+
+    .left-metric {
+      position: absolute;
+      top: 458px;
+      left: 92px;
+      width: 410px;
+    }
+
+    .left-percent {
+      margin: 0 0 10px;
+      color: #6514df;
+      font-size: 82px;
+      line-height: 0.95;
+      letter-spacing: -4px;
+      font-weight: 700;
+    }
+
+    .metric-label {
+      margin: 0 0 7px;
+      color: #6514df;
+      font-size: 27px;
+      font-weight: 700;
+    }
+
+    .metric-description {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.24;
+      font-weight: 400;
+    }
+
+    .left-impact {
+      position: absolute;
+      top: 720px;
+      left: 92px;
+      width: 410px;
+      font-size: 24px;
+      line-height: 1.26;
+    }
+
+    /* BLOCO DIREITO */
+
+    .right-top {
+      position: absolute;
+      top: 124px;
+      left: 1035px;
+      width: 245px;
+    }
+
+    .right-percent {
+      position: absolute;
+      top: 115px;
+      right: 80px;
+      margin: 0;
+      color: #6514df;
+      font-size: 102px;
+      line-height: 1;
+      letter-spacing: -5px;
+      font-weight: 700;
+    }
+
+    .right-impact {
+      position: absolute;
+      top: 310px;
+      left: 1035px;
+      width: 430px;
+      font-size: 25px;
+      line-height: 1.35;
+    }
+
+    /* GRÁFICO */
+
+    .graph {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .line-low {
+      position: absolute;
+      left: 0;
+      top: 683px;
+      width: 616px;
+      height: 3px;
+      background: #6514df;
+    }
+
+    .curve-svg {
+      position: absolute;
+      left: 590px;
+      top: 250px;
+      width: 455px;
+      height: 438px;
+      overflow: visible;
+    }
+
+    .line-high {
+      position: absolute;
+      left: 1036px;
+      top: 264px;
+      width: 564px;
+      height: 3px;
+      background: #6514df;
+    }
+
+    .circle-low,
+    .circle-high {
+      position: absolute;
+      width: 23px;
+      height: 23px;
+      background: #ffffff;
+      border: 3px solid #6514df;
+      border-radius: 50%;
+    }
+
+    .circle-low {
+      left: 84px;
+      top: 672px;
+    }
+
+    .circle-high {
+      left: 1025px;
+      top: 253px;
+    }
+
+    /* MARCA */
+
+    .brand {
+      position: absolute;
+      right: 94px;
+      bottom: 89px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-circle {
+      width: 84px;
+      height: 84px;
+      border: 3px solid #6514df;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6514df;
+      font-size: 34px;
+      font-weight: 700;
+    }
+
+    .brand-text {
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    .brand-name {
+      color: #6514df;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="slide">
+
+    <!-- Cabeçalho -->
+    <div class="top-left">
+      <span>Sprint 2</span>
+      <span class="top-line"></span>
+      <span>Cartão Carrefour</span>
+    </div>
+
+    <div class="page-number">02</div>
+
+    <!-- Título -->
+    <div class="title">
+      Dois grandes grupos<br />
+      de hipóteses investigadas<br />
+      para entender a
+      <span class="title-highlight">baixa<br />ativação dos cartões</span>
+    </div>
+
+    <!-- Erros sistêmicos -->
+    <section class="left-metric">
+      <p class="left-percent">40%</p>
+      <p class="metric-label">ERROS SISTÊMICOS</p>
+      <p class="metric-description">
+        Menor potencial de<br />
+        atuação pelo produto.
+      </p>
+    </section>
+
+    <div class="left-impact">
+      Impactam a jornada de ativação,<br />
+      mas dependem de integrações,<br />
+      fornecedores e outras áreas.
+    </div>
+
+    <!-- Limite -->
+    <section class="right-top">
+      <p class="metric-label">LIMITE</p>
+      <p class="metric-description">
+        Maior potencial de<br />
+        impacto na ativação.
+      </p>
+    </section>
+
+    <p class="right-percent">60%</p>
+
+    <div class="right-impact">
+      Influencia diretamente a percepção<br />
+      de valor do cartão e a decisão<br />
+      de mantê-lo ativo.
+    </div>
+
+    <!-- Linha gráfica -->
+    <div class="graph">
+      <div class="line-low"></div>
+
+      <svg
+        class="curve-svg"
+        viewBox="0 0 455 438"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="
+            M 0 435
+            L 25 435
+            C 55 435, 62 420, 78 393
+            L 300 40
+            C 319 10, 340 2, 370 2
+            L 435 2
+          "
+          stroke="#6514DF"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+
+        <path
+          d="M 424 -7 L 438 2 L 424 13"
+          stroke="#6514DF"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      <div class="line-high"></div>
+      <div class="circle-low"></div>
+      <div class="circle-high"></div>
+    </div>
+
+    <!-- Marca -->
+    <div class="brand">
+      <div class="brand-circle">CC</div>
+
+      <div class="brand-text">
+        <div class="brand-name">Cartão Carrefour</div>
+        <div>Análise estratégica</div>
+      </div>
+    </div>
+
+  </main>
+</body>
+</html>
