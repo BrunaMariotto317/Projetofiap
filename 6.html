@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meu Score</title>
+<style>
+:root{
+  --navy:#07174f;
+  --blue:#0e4fe8;
+  --blue-dark:#063fca;
+  --green:#13a83f;
+  --orange:#ff8600;
+  --muted:#6d7895;
+  --line:#e5e9f1;
+  --track:#e8ebf2;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:#eef2f8;
+  color:var(--navy);
+}
+body{
+  display:flex;
+  justify-content:center;
+  padding:24px;
+}
+.phone{
+  width:430px;
+  min-height:930px;
+  background:#fff;
+  border-radius:40px;
+  overflow:hidden;
+  box-shadow:0 20px 58px rgba(13,37,92,.16);
+  padding:16px 18px 24px;
+}
+.status{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 10px 12px;
+  color:#000;
+  font-size:18px;
+  font-weight:800;
+}
+.signal{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.header{
+  display:grid;
+  grid-template-columns:46px 1fr 46px;
+  align-items:center;
+  margin:4px 0 8px;
+}
+.header h1{
+  margin:0;
+  text-align:center;
+  font-size:25px;
+  font-weight:800;
+}
+.icon-button{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border:0;
+  background:transparent;
+  color:var(--navy);
+}
+.icon-button.help{
+  border:1px solid #dbe1ec;
+  border-radius:50%;
+}
+svg{
+  display:block;
+}
+.hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:18px;
+}
+.score-ring{
+  width:300px;
+  height:300px;
+  position:relative;
+  border-radius:50%;
+  background:conic-gradient(
+    from 0deg,
+    var(--blue) 0deg 158deg,
+    #e9eefb 158deg 360deg
+  );
+  display:grid;
+  place-items:center;
+}
+.score-ring::before{
+  content:"";
+  width:274px;
+  height:274px;
+  border-radius:50%;
+  background:#fff;
+}
+.score-content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.score-number{
+  font-size:82px;
+  line-height:.9;
+  font-weight:800;
+  letter-spacing:-4px;
+}
+.score-total{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:20px;
+}
+.score-badge{
+  margin-top:15px;
+  padding:10px 17px;
+  border-radius:999px;
+  background:#eef3ff;
+  color:var(--blue);
+  font-weight:800;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.updated{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:14px;
+}
+.growth{
+  display:grid;
+  grid-template-columns:58px 1fr 24px;
+  gap:14px;
+  align-items:center;
+  padding:22px 0 22px;
+  margin-top:8px;
+  border-bottom:1px solid var(--line);
+}
+.icon-circle{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#eef3ff;
+  color:var(--blue);
+}
+.growth h2{
+  margin:0 0 5px;
+  font-size:20px;
+}
+.growth p{
+  margin:0;
+  font-size:18px;
+  color:var(--muted);
+}
+.growth b{color:var(--green)}
+.section-title{
+  font-size:21px;
+  margin:24px 0 12px;
+}
+.factor{
+  display:grid;
+  grid-template-columns:52px 1fr auto 20px;
+  gap:12px;
+  align-items:center;
+  min-height:86px;
+  border-bottom:1px solid var(--line);
+}
+.factor-main strong{
+  display:block;
+  font-size:18px;
+  font-weight:500;
+}
+.progress{
+  height:6px;
+  border-radius:999px;
+  background:var(--track);
+  margin-top:10px;
+  overflow:hidden;
+}
+.progress > span{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:var(--navy);
+}
+.factor-status{
+  font-size:16px;
+  white-space:nowrap;
+}
+.next{
+  display:grid;
+  grid-template-columns:52px 1fr 20px;
+  gap:12px;
+  align-items:center;
+  padding:20px 0 18px;
+}
+.next h3{
+  margin:0 0 5px;
+  font-size:17px;
+  font-weight:500;
+}
+.next p{
+  margin:0;
+  color:var(--blue);
+  font-size:21px;
+  font-weight:800;
+}
+.cta{
+  display:grid;
+  grid-template-columns:58px 1fr 24px;
+  gap:14px;
+  align-items:center;
+  border-radius:22px;
+  background:linear-gradient(100deg,#073ec6,#0d53ee);
+  color:#fff;
+  padding:18px 18px;
+  margin-top:4px;
+}
+.cta .icon-circle{
+  background:rgba(0,25,110,.35);
+  color:#fff;
+}
+.cta h3{
+  margin:0 0 4px;
+  font-size:19px;
+}
+.cta p{
+  margin:0;
+  color:#edf3ff;
+  font-size:15px;
+}
+.homebar{
+  width:128px;
+  height:5px;
+  background:#000;
+  border-radius:999px;
+  margin:20px auto 0;
+}
+.chevron{
+  color:var(--navy);
+}
+@media(max-width:520px){
+  body{padding:0;background:#fff}
+  .phone{
+    width:100%;
+    min-height:100vh;
+    border-radius:0;
+    box-shadow:none;
+  }
+}
+</style>
+</head>
+<body>
+<main class="phone">
+  <div class="status">
+    <span>9:41</span>
+    <div class="signal">
+      <svg width="24" height="16" viewBox="0 0 24 16" fill="none" aria-hidden="true">
+        <rect x="1" y="10" width="3" height="5" rx="1" fill="black"/>
+        <rect x="6" y="7" width="3" height="8" rx="1" fill="black"/>
+        <rect x="11" y="4" width="3" height="11" rx="1" fill="black"/>
+        <rect x="16" y="1" width="3" height="14" rx="1" fill="black"/>
+      </svg>
+      <svg width="21" height="16" viewBox="0 0 21 16" fill="none" aria-hidden="true">
+        <path d="M2 5.5C6.6 1.2 14.4 1.2 19 5.5" stroke="black" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M5.2 9C8.1 6.4 12.9 6.4 15.8 9" stroke="black" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="10.5" cy="13" r="1.6" fill="black"/>
+      </svg>
+      <svg width="27" height="14" viewBox="0 0 27 14" fill="none" aria-hidden="true">
+        <rect x=".8" y=".8" width="23" height="12.4" rx="3" stroke="black" stroke-width="1.6"/>
+        <rect x="3" y="3" width="18" height="8" rx="1.8" fill="black"/>
+        <rect x="24.5" y="4.5" width="2" height="5" rx="1" fill="black"/>
+      </svg>
+    </div>
+  </div>
+
+  <header class="header">
+    <button class="icon-button" aria-label="Voltar">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <h1>Meu Score</h1>
+    <button class="icon-button help" aria-label="Ajuda">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M9.2 9a3 3 0 115.5 1.6c-.9 1.3-2.7 1.7-2.7 3.4" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+        <circle cx="12" cy="18" r="1.1" fill="currentColor"/>
+      </svg>
+    </button>
+  </header>
+
+  <section class="hero">
+    <div class="score-ring">
+      <div class="score-content">
+        <div class="score-number">782</div>
+        <div class="score-total">de 1.000 pontos</div>
+        <div class="score-badge">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.8l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 2.8z"/>
+          </svg>
+          Muito bom
+        </div>
+      </div>
+    </div>
+    <div class="updated">Última atualização: 14 de maio, 13:54</div>
+  </section>
+
+  <section class="growth">
+    <div class="icon-circle">
+      <svg width="29" height="29" viewBox="0 0 24 24" fill="none">
+        <path d="M4 17L9 12L13 16L20 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15 8H20V13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <h2>Seu score aumentou</h2>
+      <p><b>+32 pontos</b> este mês</p>
+    </div>
+    <svg class="chevron" width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </section>
+
+  <h2 class="section-title">O que mais influencia seu score</h2>
+
+  <section>
+    <article class="factor">
+      <div class="icon-circle">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 3V7M16 3V7M4 9H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8.5 14L11 16.5L15.5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="factor-main">
+        <strong>Pagamentos</strong>
+        <div class="progress"><span style="width:78%"></span></div>
+      </div>
+      <span class="factor-status" style="color:var(--green)">Ótimo</span>
+      <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </article>
+
+    <article class="factor">
+      <div class="icon-circle">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none">
+          <rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M3.5 9H20.5" stroke="currentColor" stroke-width="2"/>
+          <path d="M7 15H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="factor-main">
+        <strong>Uso do cartão</strong>
+        <div class="progress"><span style="width:57%"></span></div>
+      </div>
+      <span class="factor-status" style="color:var(--blue)">Bom</span>
+      <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </article>
+
+    <article class="factor">
+      <div class="icon-circle">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none">
+          <rect x="3.5" y="5" width="17" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8.5" cy="11" r="2" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M5.8 16C6.5 13.8 10.5 13.8 11.2 16M14 10H18M14 14H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="factor-main">
+        <strong>Cadastro e renda</strong>
+        <div class="progress"><span style="width:31%"></span></div>
+      </div>
+      <span class="factor-status" style="color:var(--orange)">Precisa melhorar</span>
+      <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </article>
+  </section>
+
+  <section class="next">
+    <div class="icon-circle">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <path d="M4 19V13M9 19V9M14 19V5M19 19V2" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <h3>Próxima análise de limite</h3>
+      <p>15 de agosto de 2025</p>
+    </div>
+    <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </section>
+
+  <section class="cta">
+    <div class="icon-circle">
+      <svg width="29" height="29" viewBox="0 0 24 24" fill="none">
+        <path d="M4 17L9 12L13 16L20 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15 8H20V13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <h3>Como aumentar meu score</h3>
+      <p>Dicas práticas para evoluir ainda mais</p>
+    </div>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M9 6L15 12L9 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </section>
+
+  <div class="homebar"></div>
+</main>
+</body>
+</html>
