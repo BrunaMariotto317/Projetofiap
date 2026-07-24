@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Carrefour Score</title>
+<style>
+:root{--navy:#0b1758;--blue:#0b4ee6;--green:#11aa49;--orange:#f59a00;--line:#e8edf7}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#eef3fb;font-family:Arial,Helvetica,sans-serif;color:var(--navy)}
+body{display:flex;justify-content:center;padding:24px}.phone{width:430px;min-height:920px;background:linear-gradient(180deg,#fbfcff,#f8faff);border-radius:42px;box-shadow:0 18px 55px rgba(22,54,120,.16);overflow:hidden;padding:18px 18px 24px}
+.status{display:flex;justify-content:space-between;font-weight:700;font-size:18px;padding:2px 8px 10px}.header{display:grid;grid-template-columns:52px 1fr 52px;align-items:center;margin:6px 0 12px}.round{width:46px;height:46px;border:0;border-radius:16px;background:#fff;box-shadow:0 8px 24px rgba(20,54,120,.08);font-size:26px;color:var(--navy)}.title{text-align:center;font-size:25px;font-weight:800}
+.score{padding:18px 0 6px;display:flex;justify-content:center}.ring{width:300px;height:300px;border-radius:50%;position:relative;display:grid;place-items:center}.dots{position:absolute;inset:0}.dot{--a:0deg;--c:#dce4f4;position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;background:var(--c);transform:rotate(var(--a)) translateY(-140px) rotate(calc(-1 * var(--a)));transform-origin:center}.score-center{text-align:center;z-index:2}.score-number{font-size:80px;line-height:.9;font-weight:800;letter-spacing:-4px}.score-sub{margin-top:12px;font-size:20px;color:#6c7896}.badge{display:inline-flex;gap:8px;align-items:center;margin-top:14px;padding:10px 16px;border-radius:999px;background:#edf2ff;color:var(--blue);font-size:19px;font-weight:800}
+.card{background:#fff;border-radius:24px;box-shadow:0 12px 34px rgba(28,57,121,.07)}.growth{margin-top:14px;display:grid;grid-template-columns:62px 1fr 54px;gap:14px;align-items:center;padding:18px}.icon-soft{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#eef2ff;color:var(--blue);font-size:28px;font-weight:800}.growth h3{margin:0 0 4px;font-size:20px}.growth p{margin:0;font-size:18px;color:#5f6b88}.growth b{color:var(--green)}.up{background:#e9f8ef;color:var(--green)}
+.factors{margin-top:14px;padding:18px 14px 14px}.factors h2{margin:0 0 14px 6px;font-size:20px}.factor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.factor{text-align:center;border-radius:18px;background:#fff;border:1px solid var(--line);padding:14px 8px 12px}.factor .icon-soft{margin:0 auto 10px;width:50px;height:50px;font-size:24px}.factor strong{display:block;font-size:15px;line-height:1.2}.factor span{display:block;margin-top:7px;font-size:16px;font-weight:800}.green{color:var(--green)}.blue{color:var(--blue)}.orange{color:var(--orange)}.chev{margin-top:8px;font-size:24px!important}
+.next{margin-top:14px;padding:16px 18px;display:grid;grid-template-columns:56px 1fr 26px;gap:14px;align-items:center;background:linear-gradient(90deg,#eef3ff,#f7f9ff);border:1px solid #dce6ff}.next h3{margin:0 0 4px;font-size:18px}.next p{margin:0;font-size:19px;color:var(--blue);font-weight:800}.cta{margin-top:14px;border-radius:22px;padding:18px;display:grid;grid-template-columns:58px 1fr 26px;gap:14px;align-items:center;background:linear-gradient(100deg,#0b43c9,#0b53ea);color:#fff}.cta .icon-soft{background:rgba(0,0,80,.22);color:#fff}.cta h3{margin:0 0 4px;font-size:19px}.cta p{margin:0;color:#e8efff;font-size:15px}.homebar{width:130px;height:5px;background:#000;border-radius:999px;margin:20px auto 0}@media(max-width:520px){body{padding:0;background:#fff}.phone{width:100%;min-height:100vh;border-radius:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="phone">
+<div class="status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+<header class="header"><button class="round">‹</button><div class="title">Carrefour Score</div><button class="round">?</button></header>
+<section class="score"><div class="ring"><div class="dots" id="dots"></div><div class="score-center"><div class="score-number">782</div><div class="score-sub">de 1.000 pontos</div><div class="badge">★ Muito bom</div></div></div></section>
+<section class="card growth"><div class="icon-soft">↗</div><div><h3>Seu score aumentou</h3><p><b>+32 pontos</b> este mês</p></div><div class="icon-soft up">↑</div></section>
+<section class="card factors"><h2>Fatores que influenciam seu score</h2><div class="factor-grid">
+<article class="factor"><div class="icon-soft" style="background:#e9f8ef;color:#11aa49">✓</div><strong>Pagamentos</strong><span class="green">Ótimo</span><span class="chev green">›</span></article>
+<article class="factor"><div class="icon-soft">▭</div><strong>Uso do cartão</strong><span class="blue">Bom</span><span class="chev blue">›</span></article>
+<article class="factor"><div class="icon-soft" style="background:#fff5df;color:#f59a00">▣</div><strong>Cadastro e renda</strong><span class="orange">Atenção</span><span class="chev orange">›</span></article>
+</div></section>
+<section class="card next"><div class="icon-soft">▣</div><div><h3>Próxima análise de limite</h3><p>15 de agosto de 2025</p></div><div style="font-size:30px;color:#0b4ee6">›</div></section>
+<section class="cta"><div class="icon-soft">↗</div><div><h3>Como aumentar meu score</h3><p>Dicas práticas para evoluir ainda mais</p></div><div style="font-size:30px">›</div></section>
+<div class="homebar"></div>
+</main>
+<script>
+const dots=document.getElementById('dots');const total=44;for(let i=0;i<total;i++){const d=document.createElement('span');d.className='dot';const a=(360/total)*i;let c='#dfe5f2';if(i<21)c=i<9?'#234fe7':'#6d7df0';if(i>=21&&i<29)c='#ffb000';d.style.setProperty('--a',a+'deg');d.style.setProperty('--c',c);dots.appendChild(d)}
+</script>
+</body>
+</html>
