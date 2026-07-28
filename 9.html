@@ -1,90 +1,505 @@
 <!DOCTYPE html>
-Guia CRF — Comparação e Impacto
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia CRF — Comparação entre clientes</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #edf2f8;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #0b1741;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 24px 0;
+    }
+
+    .guia {
+      width: 393px;
+      max-width: 393px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .pagina {
+      width: 393px;
+      background: #ffffff;
+      border: 1px solid #e5ebf5;
+      border-radius: 28px;
+      padding: 22px 18px;
+      box-shadow: 0 14px 34px rgba(12, 39, 99, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cabecalho {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+    }
+
+    .numero {
+      width: 60px;
+      min-width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #082a86, #1253cf);
+      color: #ffffff;
+      font-size: 27px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cabecalho-texto {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding-top: 2px;
+    }
+
+    .titulo {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.02;
+      letter-spacing: -0.7px;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .subtitulo {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .azul {
+      color: #1253cf;
+      font-weight: 800;
+    }
+
+    .icone-topo {
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #eef4ff;
+      color: #1253cf;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .texto-intro {
+      margin: 0;
+      padding: 13px 14px;
+      border-radius: 15px;
+      background: #f6f8fc;
+      border: 1px solid #e2e8f3;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #48536c;
+    }
+
+    .perfil {
+      width: 100%;
+      border: 1px solid #dfe7f4;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .perfil-cabecalho {
+      min-height: 58px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .perfil-inativo .perfil-cabecalho {
+      color: #5a2fc2;
+      background: #f5f1ff;
+    }
+
+    .perfil-ativo .perfil-cabecalho {
+      color: #1f8a4c;
+      background: #eff9f3;
+    }
+
+    .perfil-avatar {
+      width: 36px;
+      min-width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.65);
+      font-size: 19px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .perfil-corpo {
+      padding: 7px 14px 14px 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metrica {
+      width: 100%;
+      padding: 13px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #dfe7f4;
+    }
+
+    .metrica:last-child {
+      border-bottom: 0;
+    }
+
+    .metrica-icone {
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #f5f7fc;
+      font-size: 21px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .perfil-inativo .metrica-icone {
+      color: #5a2fc2;
+      background: #f5f1ff;
+    }
+
+    .perfil-ativo .metrica-icone {
+      color: #1f8a4c;
+      background: #eff9f3;
+    }
+
+    .metrica-conteudo {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .metrica-rotulo {
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .metrica-valor {
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .perfil-inativo .metrica-valor {
+      color: #5a2fc2;
+    }
+
+    .perfil-ativo .metrica-valor {
+      color: #1f8a4c;
+    }
+
+    .metrica-apoio {
+      margin-top: 2px;
+      font-size: 12px;
+      line-height: 1.35;
+      color: #657088;
+    }
+
+    .vs {
+      width: 48px;
+      height: 48px;
+      margin: -2px auto;
+      border-radius: 50%;
+      border: 1px solid #dfe7f4;
+      background: #ffffff;
+      color: #0b1741;
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(18, 47, 110, 0.08);
+    }
+
+    .comparacao-chave {
+      width: 100%;
+      border-radius: 18px;
+      padding: 16px;
+      background: #0b2f91;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .comparacao-titulo {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .comparacao-numeros {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .comparacao-bloco {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      text-align: center;
+    }
+
+    .comparacao-valor {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .comparacao-label {
+      font-size: 11px;
+      line-height: 1.25;
+      opacity: 0.85;
+    }
+
+    .comparacao-seta {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .comparacao-gap {
+      border-top: 1px solid rgba(255,255,255,0.22);
+      padding-top: 11px;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .insight {
+      width: 100%;
+      border: 1px solid #e7def9;
+      border-radius: 18px;
+      padding: 16px;
+      background: #f5f1ff;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .insight-verde {
+      border-color: #d4ecd9;
+      background: #eff9f3;
+    }
+
+    .insight-icone {
+      width: 46px;
+      min-width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #5a2fc2;
+      color: #ffffff;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .insight-verde .insight-icone {
+      background: #1f8a4c;
+    }
+
+    .insight-texto {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .insight-titulo {
+      margin: 0;
+      font-size: 16px;
+      color: #5a2fc2;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .insight-verde .insight-titulo {
+      color: #1f8a4c;
+    }
+
+    .insight-paragrafo {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.47;
+    }
+
+    .fluxo {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .fluxo-card {
+      width: 100%;
+      min-height: 78px;
+      border: 1px solid #dfe7f4;
+      border-radius: 16px;
+      padding: 14px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .fluxo-icone {
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #f5f1ff;
+      color: #5a2fc2;
+      font-size: 21px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fluxo-texto {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .fluxo-valor {
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 800;
+      color: #5a2fc2;
+    }
+
+    .fluxo-label {
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .seta {
+      height: 18px;
+      color: #5a2fc2;
+      font-size: 22px;
+      line-height: 18px;
+      text-align: center;
+    }
+
+    .nota {
+      width: 100%;
+      border: 1px solid #dfe7f4;
+      background: #f7f9fd;
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: #5e6881;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        background: #ffffff;
+      }
+
+      .pagina {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="guia">
+
     <section class="pagina">
       <header class="cabecalho">
         <div class="numero">06</div>
 
-        <div>
+        <div class="cabecalho-texto">
           <h1 class="titulo">O que muda entre quem ativa e quem não ativa?</h1>
-          <p class="subtitulo">
-            Mesmo perfil de consumo, <span class="destaque-azul">limites diferentes.</span>
-          </p>
+          <p class="subtitulo">Mesmo patamar de consumo, <span class="azul">limites diferentes.</span></p>
         </div>
 
-        <div class="icone-topo">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3v18"></path>
-            <path d="M5 6h14"></path>
-            <path d="M7 6l-3 6h6L7 6z"></path>
-            <path d="M17 6l-3 6h6l-3-6z"></path>
-            <path d="M8 21h8"></path>
-          </svg>
-        </div>
+        <div class="icone-topo">⚖</div>
       </header>
+
+      <p class="texto-intro">
+        Para tornar a comparação equivalente, analisamos clientes ativos que apresentam
+        gasto interno próximo ao gasto externo médio dos clientes nunca ativos.
+      </p>
 
       <article class="perfil perfil-inativo">
         <div class="perfil-cabecalho">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="8" r="4"></circle>
-            <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
-          </svg>
+          <div class="perfil-avatar">👤</div>
           Cliente nunca ativo
         </div>
 
         <div class="perfil-corpo">
           <div class="metrica">
-            <div class="metrica-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                <path d="M3 9h18"></path>
-                <path d="M7 15h4"></path>
-              </svg>
-            </div>
-            <div>
-              <div class="metrica-rotulo">Limite Carrefour</div>
+            <div class="metrica-icone">💳</div>
+            <div class="metrica-conteudo">
+              <div class="metrica-rotulo">Limite médio Carrefour</div>
               <div class="metrica-valor">R$ 892</div>
             </div>
           </div>
 
           <div class="metrica">
-            <div class="metrica-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="9" cy="20" r="1"></circle>
-                <circle cx="19" cy="20" r="1"></circle>
-                <path d="M3 4h2l2.4 10.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 8H7"></path>
-              </svg>
-            </div>
-            <div>
-              <div class="metrica-rotulo">Gasto médio no mercado</div>
+            <div class="metrica-icone">🛒</div>
+            <div class="metrica-conteudo">
+              <div class="metrica-rotulo">Gasto médio externo</div>
               <div class="metrica-valor">R$ 2.206</div>
+              <div class="metrica-apoio">Referência usada para selecionar o grupo comparável.</div>
             </div>
           </div>
 
           <div class="metrica">
-            <div class="metrica-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 10h18"></path>
-                <path d="M5 10V20"></path>
-                <path d="M9 10V20"></path>
-                <path d="M15 10V20"></path>
-                <path d="M19 10V20"></path>
-                <path d="M2 20h20"></path>
-                <path d="M12 3l9 5H3l9-5z"></path>
-              </svg>
-            </div>
-            <div>
-              <div class="metrica-rotulo">Limite em outras instituições</div>
+            <div class="metrica-icone">🏦</div>
+            <div class="metrica-conteudo">
+              <div class="metrica-rotulo">Limite médio em outras instituições</div>
               <div class="metrica-valor">R$ 6.953</div>
             </div>
-          </div>
-
-          <div class="status">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3L2 21h20L12 3z"></path>
-              <path d="M12 9v4"></path>
-              <path d="M12 17h.01"></path>
-            </svg>
-            <span>Não utiliza o Cartão Carrefour como principal meio de pagamento.</span>
           </div>
         </div>
       </article>
@@ -93,66 +508,62 @@ Guia CRF — Comparação e Impacto
 
       <article class="perfil perfil-ativo">
         <div class="perfil-cabecalho">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="8" r="4"></circle>
-            <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
-          </svg>
-          Cliente ativo
+          <div class="perfil-avatar">👤</div>
+          Cliente ativo comparável
         </div>
 
         <div class="perfil-corpo">
           <div class="metrica">
-            <div class="metrica-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                <path d="M3 9h18"></path>
-                <path d="M7 15h4"></path>
-              </svg>
-            </div>
-            <div>
-              <div class="metrica-rotulo">Limite Carrefour</div>
-              <div class="metrica-valor">R$ 4.500</div>
+            <div class="metrica-icone">🛒</div>
+            <div class="metrica-conteudo">
+              <div class="metrica-rotulo">Gasto interno analisado</div>
+              <div class="metrica-valor">≈ R$ 2.206</div>
+              <div class="metrica-apoio">Mesmo patamar de consumo usado na comparação.</div>
             </div>
           </div>
 
           <div class="metrica">
-            <div class="metrica-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="9" cy="20" r="1"></circle>
-                <circle cx="19" cy="20" r="1"></circle>
-                <path d="M3 4h2l2.4 10.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 8H7"></path>
-              </svg>
+            <div class="metrica-icone">💳</div>
+            <div class="metrica-conteudo">
+              <div class="metrica-rotulo">Limite médio Carrefour</div>
+              <div class="metrica-valor">R$ 4.500</div>
             </div>
-            <div>
-              <div class="metrica-rotulo">Mesmo patamar de consumo</div>
-              <div class="metrica-valor">R$ 2.206</div>
-            </div>
-          </div>
-
-          <div class="status">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"></circle>
-              <path d="M8 12l3 3 5-6"></path>
-            </svg>
-            <span>Utiliza o Cartão Carrefour como principal meio de pagamento.</span>
           </div>
         </div>
       </article>
 
-      <div class="insight">
-        <div class="insight-icone">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18h6"></path>
-            <path d="M10 22h4"></path>
-            <path d="M8 14a6 6 0 1 1 8 0c-1.3 1-2 2-2 4h-4c0-2-.7-3-2-4z"></path>
-          </svg>
+      <div class="comparacao-chave">
+        <div class="comparacao-titulo">Diferença de limite entre os grupos</div>
+
+        <div class="comparacao-numeros">
+          <div class="comparacao-bloco">
+            <div class="comparacao-valor">R$ 892</div>
+            <div class="comparacao-label">Nunca ativos</div>
+          </div>
+
+          <div class="comparacao-seta">→</div>
+
+          <div class="comparacao-bloco">
+            <div class="comparacao-valor">R$ 4.500</div>
+            <div class="comparacao-label">Ativos comparáveis</div>
+          </div>
         </div>
-        <div>
-          <h3>Insight</h3>
-          <p>
-            Clientes com perfil de consumo semelhante utilizam o Cartão Carrefour quando possuem um limite significativamente maior.
-            Enquanto os nunca ativos recebem, em média, <strong>R$ 892</strong>, clientes ativos com consumo equivalente possuem cerca de
-            <strong>R$ 4.500</strong> de limite — um gap de aproximadamente <strong>5 vezes</strong>.
+
+        <div class="comparacao-gap">
+          Os clientes ativos possuem um limite médio de aproximadamente
+          <strong>5 vezes</strong> o limite dos nunca ativos.
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-icone">💡</div>
+
+        <div class="insight-texto">
+          <h3 class="insight-titulo">Insight</h3>
+          <p class="insight-paragrafo">
+            Ao comparar públicos em um patamar semelhante de consumo, observamos uma diferença
+            expressiva no limite concedido. O resultado reforça que o limite inicial pode reduzir
+            a capacidade de o Cartão Carrefour absorver o consumo desse cliente.
           </p>
         </div>
       </div>
@@ -162,125 +573,78 @@ Guia CRF — Comparação e Impacto
       <header class="cabecalho">
         <div class="numero">07</div>
 
-        <div>
+        <div class="cabecalho-texto">
           <h2 class="titulo">Qual o impacto?</h2>
           <p class="subtitulo">
-            Se apenas <span class="destaque-azul">0,5%</span> dos nunca ativos fossem convertidos...
+            Se apenas <span class="azul">0,5%</span> dos clientes nunca ativos fossem convertidos...
           </p>
         </div>
 
-        <div class="icone-topo">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19V9"></path>
-            <path d="M10 19V5"></path>
-            <path d="M16 19v-7"></path>
-            <path d="M3 4l6 5 5-5 7 4"></path>
-          </svg>
-        </div>
+        <div class="icone-topo">↗</div>
       </header>
 
       <div class="fluxo">
         <div class="fluxo-card">
-          <div class="fluxo-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="9" cy="8" r="3"></circle>
-              <circle cx="17" cy="9" r="3"></circle>
-              <path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"></path>
-              <path d="M14 16c3.4 0 6 1.7 6 4"></path>
-            </svg>
-          </div>
-          <div>
+          <div class="fluxo-icone">👥</div>
+
+          <div class="fluxo-texto">
             <div class="fluxo-valor">1.020</div>
-            <div class="fluxo-label">clientes</div>
+            <div class="fluxo-label">clientes convertidos</div>
           </div>
         </div>
 
-        <div class="seta">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 4v16"></path>
-            <path d="M7 15l5 5 5-5"></path>
-          </svg>
-        </div>
+        <div class="seta">↓</div>
 
         <div class="fluxo-card">
-          <div class="fluxo-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <ellipse cx="12" cy="6" rx="7" ry="3"></ellipse>
-              <path d="M5 6v4c0 1.7 3.1 3 7 3s7-1.3 7-3V6"></path>
-              <path d="M5 10v4c0 1.7 3.1 3 7 3s7-1.3 7-3v-4"></path>
-              <path d="M5 14v4c0 1.7 3.1 3 7 3s7-1.3 7-3v-4"></path>
-            </svg>
-          </div>
-          <div>
+          <div class="fluxo-icone">●</div>
+
+          <div class="fluxo-texto">
             <div class="fluxo-valor">R$ 2,25 milhões</div>
-            <div class="fluxo-label">em movimentação mensal</div>
+            <div class="fluxo-label">em movimentação mensal estimada</div>
           </div>
         </div>
 
-        <div class="seta">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 4v16"></path>
-            <path d="M7 15l5 5 5-5"></path>
-          </svg>
-        </div>
+        <div class="seta">↓</div>
 
         <div class="fluxo-card">
-          <div class="fluxo-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="16" rx="2"></rect>
-              <path d="M16 3v4"></path>
-              <path d="M8 3v4"></path>
-              <path d="M3 10h18"></path>
-            </svg>
-          </div>
-          <div>
+          <div class="fluxo-icone">▣</div>
+
+          <div class="fluxo-texto">
             <div class="fluxo-valor">R$ 13,5 milhões</div>
             <div class="fluxo-label">em 6 meses</div>
           </div>
         </div>
 
-        <div class="seta">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 4v16"></path>
-            <path d="M7 15l5 5 5-5"></path>
-          </svg>
-        </div>
+        <div class="seta">↓</div>
 
         <div class="fluxo-card">
-          <div class="fluxo-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19V9"></path>
-              <path d="M10 19V5"></path>
-              <path d="M16 19v-7"></path>
-              <path d="M3 4l6 5 5-5 7 4"></path>
-            </svg>
-          </div>
-          <div>
+          <div class="fluxo-icone">↗</div>
+
+          <div class="fluxo-texto">
             <div class="fluxo-valor">R$ 27 milhões</div>
             <div class="fluxo-label">em 12 meses</div>
           </div>
         </div>
       </div>
 
-      <div class="insight verde">
-        <div class="insight-icone">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="8"></circle>
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 12l7-7"></path>
-            <path d="M16 5h3v3"></path>
-          </svg>
-        </div>
-        <div>
-          <h3>Conclusão</h3>
-          <p>
-            Pequenos ganhos na ativação podem gerar milhões em movimentação, reforçando o potencial financeiro de revisar a estratégia de
-            limite inicial e aumentar a atratividade do cartão para esse público.
+      <div class="insight insight-verde">
+        <div class="insight-icone">◎</div>
+
+        <div class="insight-texto">
+          <h3 class="insight-titulo">Conclusão</h3>
+          <p class="insight-paragrafo">
+            Uma pequena evolução na ativação representa um potencial financeiro relevante.
+            O cenário reforça a oportunidade de revisar a estratégia de limite inicial e tornar
+            o cartão mais compatível com o comportamento de consumo desse público.
           </p>
         </div>
       </div>
 
       <div class="nota">
-        Cenário hipotético considerando 0,5% da base de 203.993 clientes e gasto médio mensal de R$ 2.206.
+        Cenário hipotético calculado com 0,5% da base de 203.993 clientes e gasto médio mensal de R$ 2.206.
       </div>
     </section>
+
+  </main>
+</body>
+</html>
