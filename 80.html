@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roteiro dos Apês — Guarujá</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+    :root {
+      --pink: #f24f8b;
+      --pink-dark: #c83069;
+      --pink-soft: #ffd8e7;
+      --blush: #fff3f7;
+      --silver: #a59aa0;
+      --ink: #3b2730;
+      --white: #fffdfd;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 36px 12px;
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      background:
+        radial-gradient(circle at 15% 5%, #fff 0 6%, transparent 25%),
+        linear-gradient(135deg, #f3e9ed, #fafafa 42%, #eadfe4);
+    }
+
+    .poster {
+      position: relative;
+      width: 900px;
+      min-height: 1900px;
+      overflow: hidden;
+      padding: 72px 64px 64px;
+      background:
+        radial-gradient(circle at 83% 6%, rgba(255,255,255,.92) 0 3px, transparent 4px),
+        radial-gradient(circle at 72% 10%, rgba(255,255,255,.75) 0 2px, transparent 3px),
+        radial-gradient(circle at 92% 15%, rgba(255,255,255,.85) 0 3px, transparent 4px),
+        linear-gradient(150deg, rgba(255,255,255,.92), rgba(255,239,246,.86)),
+        repeating-linear-gradient(25deg, rgba(242,79,139,.035) 0 2px, transparent 2px 7px);
+      border: 1px solid rgba(184, 104, 135, .18);
+      box-shadow: 0 30px 80px rgba(84, 44, 60, .24);
+    }
+
+    .poster::before,
+    .poster::after {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      pointer-events: none;
+      filter: blur(1px);
+      background: radial-gradient(circle, rgba(255,170,204,.55), rgba(255,227,238,.25) 46%, transparent 70%);
+    }
+    .poster::before { top: -165px; left: -140px; }
+    .poster::after { right: -170px; bottom: -130px; }
+
+    .sparkles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, #fff 0 2px, transparent 3px),
+        radial-gradient(circle, #f9a2c3 0 2px, transparent 3px);
+      background-size: 91px 91px, 137px 137px;
+      background-position: 17px 36px, 53px 11px;
+      opacity: .42;
+      mask-image: linear-gradient(to bottom, #000, transparent 30%, transparent 76%, #000);
+    }
+
+    .top-jewel {
+      position: relative;
+      width: 155px;
+      height: 46px;
+      margin: 0 auto -6px;
+      text-align: center;
+      font-size: 54px;
+      line-height: 42px;
+      color: #f35c93;
+      text-shadow:
+        -2px -2px 0 #fff,
+        2px 2px 0 #b9a8af,
+        0 0 14px rgba(242,79,139,.38);
+    }
+    .top-jewel::before,
+    .top-jewel::after {
+      content: "✧";
+      position: absolute;
+      top: 4px;
+      color: #cfc3c8;
+      font-size: 28px;
+    }
+    .top-jewel::before { left: 5px; }
+    .top-jewel::after { right: 5px; }
+
+    header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 62px;
+    }
+
+    h1 {
+      margin: 0;
+      text-transform: uppercase;
+      font-family: "Bodoni Moda", serif;
+      font-size: 87px;
+      line-height: .93;
+      letter-spacing: -4px;
+      font-weight: 700;
+    }
+
+    h1 .pink {
+      display: block;
+      color: #f0719e;
+      text-shadow:
+        0 1px 0 #fff,
+        0 2px 0 #f9b7ce,
+        0 4px 0 #bd416f,
+        0 7px 16px rgba(191,55,104,.23);
+    }
+
+    h1 .silver {
+      display: block;
+      color: #b7abb0;
+      text-shadow:
+        0 1px 0 #fff,
+        0 2px 0 #e9e2e5,
+        0 4px 0 #74666c,
+        0 7px 16px rgba(88,70,77,.21);
+    }
+
+    .subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      padding: 11px 28px;
+      border: 2px solid rgba(242,79,139,.35);
+      border-radius: 18px;
+      color: var(--pink-dark);
+      background: rgba(255,255,255,.72);
+      box-shadow: inset 0 0 18px rgba(255,182,210,.28), 0 7px 18px rgba(115,61,81,.08);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .subtitle::after { content: "✦"; color: #9f9298; }
+
+    .route {
+      position: absolute;
+      z-index: 0;
+      top: 520px;
+      left: 72px;
+      width: 12px;
+      height: 895px;
+      border-radius: 20px;
+      background: linear-gradient(#ff7ba9, #ff4f8f);
+      border: 3px solid #ffd6e5;
+      box-shadow:
+        0 0 0 2px #fff,
+        0 0 0 5px rgba(242,79,139,.35),
+        inset 0 0 10px #fff,
+        0 0 16px rgba(242,79,139,.45);
+    }
+
+    .stop {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 345px 1fr;
+      gap: 42px;
+      align-items: center;
+      margin-bottom: 82px;
+    }
+
+    .number {
+      position: absolute;
+      top: -50px;
+      left: -20px;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      width: 98px;
+      height: 98px;
+      border-radius: 50%;
+      color: var(--pink-dark);
+      background:
+        radial-gradient(circle, #fff 0 54%, #fbd1e0 55% 62%, #a79ba0 63% 67%, #f7f2f4 68%);
+      border: 2px solid white;
+      box-shadow:
+        0 0 0 4px #d7cbd0,
+        0 0 0 8px #fff,
+        0 0 0 11px rgba(242,79,139,.25),
+        0 10px 20px rgba(94,45,64,.2);
+      font-family: "Bodoni Moda", serif;
+      font-size: 57px;
+      font-weight: 700;
+    }
+
+    .number::after {
+      content: "✦";
+      position: absolute;
+      right: -17px;
+      top: 7px;
+      color: white;
+      font-size: 27px;
+      text-shadow: 0 0 8px #f24f8b;
+    }
+
+    .photo {
+      position: relative;
+      height: 405px;
+      overflow: hidden;
+      border: 3px solid #ff84ae;
+      border-radius: 34px;
+      background: #f4e8ed;
+      box-shadow:
+        0 0 0 7px rgba(255,255,255,.94),
+        0 0 0 10px rgba(242,79,139,.22),
+        0 18px 32px rgba(96,45,65,.18);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .card {
+      min-height: 405px;
+      padding: 0 25px 16px;
+      border: 2px solid rgba(242,79,139,.62);
+      border-radius: 28px;
+      background: rgba(255,255,255,.84);
+      box-shadow:
+        inset 0 0 28px rgba(255,210,227,.38),
+        0 18px 35px rgba(94,45,65,.14);
+      backdrop-filter: blur(4px);
+    }
+
+    .card h2 {
+      margin: 0 -25px 5px;
+      padding: 16px 16px 13px;
+      border-radius: 26px 26px 0 0;
+      border-bottom: 1px solid rgba(242,79,139,.22);
+      color: var(--pink-dark);
+      background: linear-gradient(90deg, rgba(255,220,233,.9), rgba(255,246,249,.82));
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 25px;
+      letter-spacing: -.6px;
+    }
+
+    .info {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      align-items: center;
+      min-height: 60px;
+      border-bottom: 1px dashed rgba(196,95,133,.32);
+    }
+    .info:last-child { border-bottom: 0; }
+
+    .icon {
+      color: var(--pink);
+      font-size: 24px;
+      filter: drop-shadow(0 2px 1px rgba(242,79,139,.18));
+    }
+
+    .value {
+      font-size: 17px;
+      line-height: 1.3;
+    }
+    .value strong { font-weight: 700; }
+
+    .gem {
+      position: absolute;
+      z-index: 5;
+      right: -28px;
+      bottom: -24px;
+      font-size: 67px;
+      transform: rotate(-10deg);
+      filter: drop-shadow(0 8px 6px rgba(86,40,57,.2));
+    }
+
+    .note {
+      position: relative;
+      z-index: 2;
+      width: 610px;
+      margin: -10px auto 0;
+      padding: 17px 28px 17px 78px;
+      border: 2px solid rgba(226,100,147,.52);
+      border-radius: 24px;
+      background: rgba(255,255,255,.82);
+      box-shadow:
+        0 0 0 5px rgba(255,220,232,.75),
+        0 14px 28px rgba(104,51,71,.13);
+      font-size: 17px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .note::before {
+      content: "💖";
+      position: absolute;
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 34px;
+    }
+
+    .corner-gem {
+      position: absolute;
+      right: 22px;
+      bottom: 18px;
+      z-index: 1;
+      font-size: 72px;
+      transform: rotate(17deg);
+      filter: drop-shadow(0 10px 8px rgba(104,51,71,.18));
+    }
+
+    .perfume {
+      position: absolute;
+      left: 25px;
+      bottom: 18px;
+      z-index: 1;
+      font-size: 74px;
+      filter: drop-shadow(0 8px 8px rgba(104,51,71,.16));
+    }
+
+    .editable-note {
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      z-index: 10;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #8f3d60;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(242,79,139,.22);
+      font-size: 12px;
+      opacity: .78;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 0; background: #fff; }
+      .poster {
+        width: 100%;
+        min-height: auto;
+        padding: 54px 26px 70px;
+        box-shadow: none;
+      }
+      h1 { font-size: clamp(52px, 14vw, 82px); letter-spacing: -3px; }
+      .stop { grid-template-columns: 1fr; gap: 25px; margin-bottom: 100px; }
+      .photo { height: 390px; }
+      .route { display: none; }
+      .number { left: 6px; }
+      .note { width: calc(100% - 26px); }
+      .editable-note { display: none; }
+    }
+
+    @media print {
+      @page { size: 900px 1900px; margin: 0; }
+      body { padding: 0; background: white; }
+      .poster { box-shadow: none; }
+      .editable-note { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster">
+    <div class="sparkles"></div>
+    <div class="editable-note">Textos editáveis no HTML ✦</div>
+
+    <header>
+      <div class="top-jewel">💎</div>
+      <h1>
+        <span class="pink">Roteiro</span>
+        <span class="silver">dos apês</span>
+      </h1>
+      <div class="subtitle">Visita aos apartamentos • Guarujá</div>
+    </header>
+
+    <div class="route"></div>
+
+    <section class="stop">
+      <div class="number">1</div>
+      <figure class="photo">
+        <img
+          src="https://buuixuqdndbuuobbwshg.supabase.co/storage/v1/object/public/imoveis-fotos-wm/4c601777da16-ev6/w1200/AP2226_HEXUS/0.jpg"
+          alt="Sala do apartamento da Hexus na região da Brunella"
+        />
+      </figure>
+
+      <article class="card">
+        <h2>Parada 1 • Brunella</h2>
+        <div class="info">
+          <span class="icon">📍</span>
+          <span class="value"><strong>Endereço:</strong> Av. Venezuela, 597 — Enseada</span>
+        </div>
+        <div class="info">
+          <span class="icon">📐</span>
+          <span class="value"><strong>Área:</strong> 90 m²</span>
+        </div>
+        <div class="info">
+          <span class="icon">🏷</span>
+          <span class="value"><strong>Valor:</strong> R$ 400.000</span>
+        </div>
+        <div class="info">
+          <span class="icon">🌊</span>
+          <span class="value"><strong>Praia:</strong> aprox. 800 m</span>
+        </div>
+        <div class="info">
+          <span class="icon">🏢</span>
+          <span class="value"><strong>Imobiliária:</strong> Hexus</span>
+        </div>
+        <span class="gem">💗</span>
+      </article>
+    </section>
+
+    <section class="stop">
+      <div class="number">2</div>
+      <figure class="photo">
+        <img
+          src="https://lh3.googleusercontent.com/p_Hclac3P0tKKJ4xvPVZdxfuLRAJbnR50D2SYzywMuDnnZAE19k4n0-o2yYZHx7hQEiZdDhGkZ79CksUPsF2eMoffMI5X6N1-peNh7ccm0IsO7l8UoW05vY=s0"
+          alt="Sala do apartamento da QVista em Tortuga"
+        />
+      </figure>
+
+      <article class="card">
+        <h2>Parada 2 • Tortuga</h2>
+        <div class="info">
+          <span class="icon">📍</span>
+          <span class="value"><strong>Endereço:</strong> Rua Bandeirantes — Enseada</span>
+        </div>
+        <div class="info">
+          <span class="icon">📐</span>
+          <span class="value"><strong>Área:</strong> 98 m²</span>
+        </div>
+        <div class="info">
+          <span class="icon">🏷</span>
+          <span class="value"><strong>Valor:</strong> R$ 320.000</span>
+        </div>
+        <div class="info">
+          <span class="icon">🌊</span>
+          <span class="value"><strong>Praia:</strong> 250 m</span>
+        </div>
+        <div class="info">
+          <span class="icon">🏢</span>
+          <span class="value"><strong>Imobiliária:</strong> QVista • Victoria</span>
+        </div>
+      </article>
+    </section>
+
+    <aside class="note">
+      Confirmar com a Victoria o número do imóvel da Rua Bandeirantes.
+    </aside>
+
+    <div class="perfume">🧴</div>
+    <div class="corner-gem">💎</div>
+  </main>
+</body>
+</html>
