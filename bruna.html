@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taxa Dupla - Linha do Tempo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #1f1f1f;
+      padding: 36px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #173f73;
+      font-size: 28px;
+      margin-bottom: 22px;
+    }
+
+    .intro {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 34px;
+    }
+
+    .year-block {
+      margin-bottom: 42px;
+      position: relative;
+    }
+
+    .year-title {
+      background: #d8d8d8;
+      text-align: center;
+      font-size: 23px;
+      font-weight: bold;
+      padding: 10px;
+      border: 1px solid #c6c6c6;
+    }
+
+    .months {
+      display: grid;
+      grid-template-columns: 130px repeat(12, 1fr);
+      border-left: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+    }
+
+    .month,
+    .empty-label {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 130px repeat(12, 1fr);
+      min-height: 82px;
+      border-left: 1px solid #ddd;
+    }
+
+    .row-label,
+    .cell {
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .row-label {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .cell {
+      position: relative;
+    }
+
+    .bar {
+      height: 44px;
+      align-self: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 15px;
+      border-radius: 8px;
+      margin-top: 18px;
+      z-index: 2;
+    }
+
+    .test-2025 {
+      grid-column: 5 / 14;
+      background: linear-gradient(
+        90deg,
+        #a8cbed,
+        #91bce3
+      );
+      color: #173f73;
+    }
+
+    .test-2026 {
+      grid-column: 2 / 4;
+      background: linear-gradient(
+        90deg,
+        #a8cbed,
+        #91bce3
+      );
+      color: #173f73;
+    }
+
+    .bau-2026 {
+      grid-column: 4 / 14;
+      background: linear-gradient(
+        90deg,
+        #c9e8b5,
+        #b6dd9b
+      );
+      color: #215a25;
+    }
+
+    .timeline-overlay {
+      display: grid;
+      grid-template-columns: 130px repeat(12, 1fr);
+      position: absolute;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+    }
+
+    .timeline-row.has-bar {
+      position: relative;
+    }
+
+    .bar-layer {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 130px repeat(12, 1fr);
+      pointer-events: none;
+    }
+
+    .milestone {
+      position: absolute;
+      left: calc(
+        130px + ((100% - 130px) / 12) * 2
+      );
+      top: 44px;
+      bottom: 0;
+      border-left: 2px dashed #255a92;
+      z-index: 4;
+    }
+
+    .diamond {
+      width: 18px;
+      height: 18px;
+      background: #174c84;
+      transform: rotate(45deg);
+      position: absolute;
+      left: -10px;
+      top: -9px;
+    }
+
+    .milestone-label {
+      position: absolute;
+      left: 12px;
+      top: -5px;
+      width: 180px;
+      color: #173f73;
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: bold;
+    }
+
+    .milestone-label span {
+      display: block;
+      color: #353535;
+      font-weight: normal;
+    }
+
+    .legend {
+      max-width: 1050px;
+      margin: 10px auto 0;
+      border: 1px solid #d2d2d2;
+      border-radius: 14px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .legend-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 5px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .blue {
+      background: #a8cbed;
+    }
+
+    .green {
+      background: #bfe1a9;
+    }
+
+    .legend-diamond-wrap {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .legend-diamond {
+      width: 22px;
+      height: 22px;
+      background: #174c84;
+      transform: rotate(45deg);
+    }
+
+    .legend-text strong {
+      font-size: 15px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .legend-text p {
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 16px;
+      }
+
+      .container {
+        min-width: 1050px;
+      }
+
+      body {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>TAXA DUPLA – LINHA DO TEMPO</h1>
+
+    <div class="intro">
+      Teste da Taxa Dupla entre Abril/2025 e Fevereiro/2026.<br>
+      A partir de Março/2026, Taxa Dupla se torna o padrão (BAU).
+    </div>
+
+    <!-- 2024 -->
+    <section class="year-block">
+      <div class="year-title">2024</div>
+
+      <div class="months">
+        <div class="empty-label"></div>
+        <div class="month">Janeiro</div>
+        <div class="month">Fevereiro</div>
+        <div class="month">Março</div>
+        <div class="month">Abril</div>
+        <div class="month">Maio</div>
+        <div class="month">Junho</div>
+        <div class="month">Julho</div>
+        <div class="month">Agosto</div>
+        <div class="month">Setembro</div>
+        <div class="month">Outubro</div>
+        <div class="month">Novembro</div>
+        <div class="month">Dezembro</div>
+      </div>
+
+      <div class="timeline-row">
+        <div class="row-label"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+    </section>
+
+    <!-- 2025 -->
+    <section class="year-block">
+
+      <div class="year-title">2025</div>
+
+      <div class="months">
+        <div class="empty-label"></div>
+        <div class="month">Janeiro</div>
+        <div class="month">Fevereiro</div>
+        <div class="month">Março</div>
+        <div class="month">Abril</div>
+        <div class="month">Maio</div>
+        <div class="month">Junho</div>
+        <div class="month">Julho</div>
+        <div class="month">Agosto</div>
+        <div class="month">Setembro</div>
+        <div class="month">Outubro</div>
+        <div class="month">Novembro</div>
+        <div class="month">Dezembro</div>
+      </div>
+
+      <div class="timeline-row has-bar">
+
+        <div class="row-label">
+          Taxa Dupla
+        </div>
+
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="bar-layer">
+          <div class="bar test-2025">
+            TESTE TAXA DUPLA
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2026 -->
+    <section class="year-block">
+
+      <div class="year-title">2026</div>
+
+      <div class="months">
+        <div class="empty-label"></div>
+        <div class="month">Janeiro</div>
+        <div class="month">Fevereiro</div>
+        <div class="month">Março</div>
+        <div class="month">Abril</div>
+        <div class="month">Maio</div>
+        <div class="month">Junho</div>
+        <div class="month">Julho</div>
+        <div class="month">Agosto</div>
+        <div class="month">Setembro</div>
+        <div class="month">Outubro</div>
+        <div class="month">Novembro</div>
+        <div class="month">Dezembro</div>
+      </div>
+
+      <!-- Teste -->
+      <div class="timeline-row has-bar">
+
+        <div class="row-label">
+          Taxa Dupla<br>
+          <span style="font-style:italic; color:#173f73;">
+            (Teste)
+          </span>
+        </div>
+
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="bar-layer">
+          <div class="bar test-2026"></div>
+        </div>
+
+        <div class="milestone">
+          <div class="diamond"></div>
+
+          <div class="milestone-label">
+            MAR/2026
+            <span>
+              Implementação<br>
+              início BAU
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BAU -->
+      <div class="timeline-row has-bar">
+
+        <div class="row-label">
+          Taxa Dupla<br>
+          <span style="font-style:italic; color:#173f73;">
+            (Padrão - BAU)
+          </span>
+        </div>
+
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="bar-layer">
+          <div class="bar bau-2026">
+            TAXA DUPLA PADRÃO (BAU)
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- LEGENDA -->
+    <div class="legend">
+
+      <div class="legend-item">
+        <div class="legend-box blue"></div>
+
+        <div class="legend-text">
+          <strong>Teste Taxa Dupla</strong>
+          <p>
+            Período de testes e validações<br>
+            Abril/2025 a Fevereiro/2026
+          </p>
+        </div>
+      </div>
+
+      <div class="legend-item">
+        <div class="legend-diamond-wrap">
+          <div class="legend-diamond"></div>
+        </div>
+
+        <div class="legend-text">
+          <strong>Implementação</strong>
+          <p>
+            Março/2026<br>
+            Taxa Dupla se torna padrão
+          </p>
+        </div>
+      </div>
+
+      <div class="legend-item">
+        <div class="legend-box green"></div>
+
+        <div class="legend-text">
+          <strong>Taxa Dupla Padrão (BAU)</strong>
+          <p>
+            Operante como majoritária<br>
+            A partir de Março/2026
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
