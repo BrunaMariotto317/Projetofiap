@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produto & UX</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #f5f7fa;
+  color: #102d55;
+}
+
+.dashboard {
+  width: 1440px;
+  min-height: 900px;
+  display: flex;
+  background: #f7f9fc;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 205px;
+  min-height: 900px;
+  background: #102f4e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  height: 92px;
+  padding: 25px 25px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #163a5e;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.brand-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: #a9bfd2;
+  margin-top: 3px;
+}
+
+.menu {
+  padding-top: 18px;
+}
+
+.menu-item {
+  height: 64px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #e2ebf3;
+  font-size: 14px;
+}
+
+.menu-icon {
+  width: 24px;
+  text-align: center;
+  font-size: 19px;
+}
+
+.menu-item.active {
+  background: #0874d7;
+  color: white;
+  font-weight: 700;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 25px;
+  color: #9fb5c9;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+  flex: 1;
+}
+
+/* TOP BAR */
+
+.topbar {
+  height: 92px;
+  background: #153754;
+  display: flex;
+  align-items: center;
+  padding: 0 42px;
+  gap: 22px;
+}
+
+.top-title {
+  margin-right: auto;
+  color: white;
+}
+
+.top-title strong {
+  display: block;
+  font-size: 18px;
+}
+
+.top-title span {
+  font-size: 13px;
+  color: #b5c7d7;
+}
+
+.filter {
+  width: 205px;
+  height: 52px;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 9px;
+  padding: 8px 14px;
+  color: white;
+}
+
+.filter-label {
+  font-size: 10px;
+  color: #b8cad9;
+  margin-bottom: 6px;
+}
+
+.filter-value {
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+  padding: 42px 42px 30px;
+}
+
+.hero {
+  display: flex;
+  gap: 42px;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.hero-main {
+  flex: 1;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #8ca4c2;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 1;
+  color: #102d55;
+  margin-bottom: 12px;
+}
+
+.hero-description {
+  font-size: 17px;
+  line-height: 1.55;
+  max-width: 720px;
+  color: #29496c;
+}
+
+/* INFO */
+
+.info-box {
+  width: 470px;
+  background: #eaf3ff;
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  gap: 16px;
+}
+
+.info-icon {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #609ce5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+.info-title {
+  font-weight: 700;
+  color: #12529b;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.info-text {
+  color: #25476c;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* =========================
+   PRODUCT CARDS
+========================= */
+
+.products {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.product-card {
+  min-height: 430px;
+  border-radius: 18px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card.parcele {
+  background: linear-gradient(135deg,#edf5ff,#e2efff);
+}
+
+.product-card.acordo {
+  background: linear-gradient(135deg,#effaf4,#e4f6eb);
+}
+
+.product-header {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(20,60,100,.13);
+}
+
+.product-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.parcele .product-icon {
+  background: #d6eaff;
+}
+
+.acordo .product-icon {
+  background: #d9f1e2;
+}
+
+.product-name {
+  font-size: 28px;
+  font-weight: 750;
+  color: #102d55;
+  margin-bottom: 8px;
+}
+
+.product-description {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #29496c;
+}
+
+/* ITEMS */
+
+.features {
+  padding: 20px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.feature-icon {
+  width: 42px;
+  font-size: 25px;
+}
+
+.parcele .feature-icon {
+  color: #1777d2;
+}
+
+.acordo .feature-icon {
+  color: #218552;
+}
+
+.feature-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #15385e;
+  margin-bottom: 3px;
+}
+
+.feature-description {
+  font-size: 12px;
+  color: #59718c;
+}
+
+/* BUTTONS */
+
+.access-button {
+  margin-top: auto;
+  height: 60px;
+  border: none;
+  border-radius: 13px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.parcele .access-button {
+  background: #0875d1;
+}
+
+.acordo .access-button {
+  background: #21834d;
+}
+
+.access-button:hover {
+  opacity: .92;
+  transform: translateY(-1px);
+}
+
+/* =========================
+   TIP
+========================= */
+
+.tip {
+  margin-top: 28px;
+  background: #edf5ff;
+  border: 1px solid #d7e6f7;
+  min-height: 82px;
+  border-radius: 16px;
+  padding: 18px 25px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.tip-icon {
+  font-size: 28px;
+}
+
+.tip strong {
+  display: block;
+  color: #155aa7;
+  margin-bottom: 6px;
+}
+
+.tip p {
+  color: #31577f;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="logo">C</div>
+      <div>
+        <div class="brand-title">Cartões Carrefour</div>
+        <div class="brand-subtitle">Customer Intelligence</div>
+      </div>
+    </div>
+
+    <nav class="menu">
+
+      <div class="menu-item">
+        <div class="menu-icon">⌂</div>
+        <div>Visão Geral</div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-icon">▥</div>
+        <div>Inadimplência<br>e Risco</div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-icon">▽</div>
+        <div>Conversão e<br>Elegibilidade</div>
+      </div>
+
+      <div class="menu-item active">
+        <div class="menu-icon">▦</div>
+        <div>Produto & UX</div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-icon">▤</div>
+        <div>Análises<br>Complementares</div>
+      </div>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      Customer Intelligence<br>
+      Cartões Carrefour
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <div class="top-title">
+        <strong>Cartões Carrefour</strong>
+        <span>Customer Intelligence</span>
+      </div>
+
+      <div class="filter">
+        <div class="filter-label">Mês de Referência</div>
+        <div class="filter-value">
+          Todos
+          <span>⌄</span>
+        </div>
+      </div>
+
+      <div class="filter">
+        <div class="filter-label">Rede / Empresa</div>
+        <div class="filter-value">
+          Todos
+          <span>⌄</span>
+        </div>
+      </div>
+
+      <div class="filter">
+        <div class="filter-label">BU</div>
+        <div class="filter-value">
+          Todos
+          <span>⌄</span>
+        </div>
+      </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <div class="hero">
+
+        <div class="hero-main">
+          <div class="eyebrow">Jornada Digital</div>
+
+          <h1>Produto & UX</h1>
+
+          <p class="hero-description">
+            Aprofunde a análise da jornada dos produtos nos painéis de Martech.
+            Aqui você encontra os acessos para as visões completas de conversão,
+            comportamento, abandono e ações pós-contratação.
+          </p>
+        </div>
+
+        <div class="info-box">
+          <div class="info-icon">i</div>
+
+          <div>
+            <div class="info-title">
+              Por que acessar os dashboards de Martech?
+            </div>
+
+            <div class="info-text">
+              Os painéis de Martech concentram as análises detalhadas da jornada
+              dos produtos, com maior profundidade de dados, filtros e
+              segmentações. O direcionamento evita duplicidade de informações
+              e mantém a performance deste dashboard.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCTS -->
+      <div class="products">
+
+        <!-- PARCELE -->
+        <div class="product-card parcele">
+
+          <div class="product-header">
+            <div class="product-icon">▤</div>
+
+            <div>
+              <div class="product-name">Parcele Fácil</div>
+
+              <div class="product-description">
+                Acesse a visão completa da jornada de contratação e utilização
+                do Parcele Fácil.
+              </div>
+            </div>
+          </div>
+
+          <div class="features">
+
+            <div class="feature">
+              <div class="feature-icon">↳</div>
+              <div>
+                <div class="feature-title">Funil de contratação</div>
+                <div class="feature-description">
+                  Etapas, conversão e abandono
+                </div>
+              </div>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">◎</div>
+              <div>
+                <div class="feature-title">Comportamento da jornada</div>
+                <div class="feature-description">
+                  Interações e evolução do cliente no fluxo
+                </div>
+              </div>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">↗</div>
+              <div>
+                <div class="feature-title">Pós-contratação</div>
+                <div class="feature-description">
+                  Antecipação de parcelas e demais interações
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TROQUE # PELO LINK REAL -->
+          <button
+            class="access-button"
+            onclick="window.open('#','_blank')">
+            Acessar dashboard de Parcele Fácil
+            <span>↗</span>
+          </button>
+
+        </div>
+
+
+        <!-- ACORDO -->
+        <div class="product-card acordo">
+
+          <div class="product-header">
+            <div class="product-icon">⇄</div>
+
+            <div>
+              <div class="product-name">Acordo</div>
+
+              <div class="product-description">
+                Acesse a visão completa da jornada de negociação, contratação
+                e quitação de acordos.
+              </div>
+            </div>
+          </div>
+
+          <div class="features">
+
+            <div class="feature">
+              <div class="feature-icon">↳</div>
+              <div>
+                <div class="feature-title">Funil de contratação</div>
+                <div class="feature-description">
+                  Etapas, conversão e abandono
+                </div>
+              </div>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">◎</div>
+              <div>
+                <div class="feature-title">Comportamento da jornada</div>
+                <div class="feature-description">
+                  Evolução do cliente durante a negociação
+                </div>
+              </div>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">↗</div>
+              <div>
+                <div class="feature-title">Pós-contratação</div>
+                <div class="feature-description">
+                  Antecipação e quitação de acordos
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TROQUE # PELO LINK REAL -->
+          <button
+            class="access-button"
+            onclick="window.open('#','_blank')">
+            Acessar dashboard de Acordo
+            <span>↗</span>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- TIP -->
+      <div class="tip">
+
+        <div class="tip-icon">💡</div>
+
+        <div>
+          <strong>Visões por BU</strong>
+          <p>
+            Nos painéis de Martech é possível acessar as visões disponíveis
+            para Carrefour, Atacadão e Sam's Club, além dos filtros e
+            segmentações específicos de cada produto.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>
