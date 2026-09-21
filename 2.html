@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>09 · Da pergunta à leitura</title>
+<title>Encerramento · Dashboard de Retenção</title>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
@@ -15,8 +14,8 @@
 html,body{
   margin:0;
   padding:0;
-  background:#eef1f6;
-  font-family:Inter, Arial, Helvetica, sans-serif;
+  background:#d9d9d9;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
@@ -34,936 +33,242 @@ body{
 .slide{
   width:1600px;
   height:900px;
+
   position:relative;
   overflow:hidden;
   flex:none;
 
-  color:#07133f;
-
-  background:
-    radial-gradient(
-      circle at 50% 47%,
-      #ffffff 0%,
-      #fbfdff 48%,
-      #f4f8ff 100%
-    );
+  background:#050505;
+  color:#f0f0f0;
 }
 
 /* =====================================================
-   HEADER
+   BIG TYPOGRAPHY
 ===================================================== */
 
-.header{
-  position:absolute;
-  top:50px;
-  left:65px;
-  right:65px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  z-index:20;
-}
-
-.header-left,
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:25px;
-
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:.30em;
-}
-
-.header-line{
-  width:48px;
-  height:1px;
-  background:#07133f;
-}
-
-/* =====================================================
-   CONCENTRIC CIRCLES
-===================================================== */
-
-.orbit{
-  position:absolute;
-  left:50%;
-  top:49%;
-
-  transform:translate(-50%,-50%);
-
-  border:1px solid rgba(63,111,224,.15);
-  border-radius:50%;
-
-  pointer-events:none;
-}
-
-.o1{
-  width:520px;
-  height:520px;
-}
-
-.o2{
-  width:760px;
-  height:760px;
-}
-
-.o3{
-  width:1020px;
-  height:1020px;
-}
-
-.o4{
-  width:1280px;
-  height:1280px;
-}
-
-.o5{
-  width:1500px;
-  height:1500px;
-}
-
-/* pequenos trechos azuis */
-.orbit-accent{
+.big-title{
   position:absolute;
 
-  width:190px;
-  height:190px;
+  left:-22px;
+  top:-80px;
 
-  border:1.5px solid transparent;
-  border-left-color:#6f9dff;
+  width:1160px;
 
-  border-radius:50%;
+  font-size:235px;
+  line-height:.79;
 
-  opacity:.65;
-}
-
-.accent-left{
-  left:282px;
-  top:288px;
-  transform:rotate(8deg);
-}
-
-.accent-right{
-  right:280px;
-  top:288px;
-  transform:rotate(188deg);
-}
-
-/* =====================================================
-   CENTRAL QUESTION
-===================================================== */
-
-.center{
-  position:absolute;
-
-  width:680px;
-
-  left:50%;
-  top:96px;
-
-  transform:translateX(-50%);
-
-  text-align:center;
-
-  z-index:10;
-}
-
-.kicker{
-  font-size:11px;
-  letter-spacing:.38em;
-  font-weight:700;
-  color:#3978ef;
-
-  margin-bottom:20px;
-}
-
-.question{
-  margin:0 auto;
-
-  max-width:670px;
-
-  font-size:43px;
-  line-height:1.08;
-
-  letter-spacing:-.045em;
-  font-weight:700;
-}
-
-.question .blue{
-  color:#3978ef;
-}
-
-.description{
-  width:560px;
-
-  margin:18px auto 0;
-
-  color:#626d91;
-
-  font-size:15px;
-  line-height:1.45;
-}
-
-/* =====================================================
-   CTA
-===================================================== */
-
-.cta{
-  margin:20px auto 0;
-
-  width:240px;
-  height:52px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  padding-left:28px;
-  padding-right:7px;
-
-  color:white;
-
-  border-radius:999px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #07133f,
-      #0d1b58
-    );
-
-  box-shadow:
-    0 12px 25px rgba(26,70,180,.18);
-
-  font-size:13px;
-}
-
-.cta-arrow{
-  width:40px;
-  height:40px;
-
-  border-radius:50%;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:#3978ef;
-
-  font-size:23px;
-}
-
-/* =====================================================
-   SIDE CONTENT
-===================================================== */
-
-.side-item{
-  position:absolute;
-
-  width:240px;
-
-  z-index:8;
-}
-
-.side-number{
-  color:#164bb9;
-
-  font-size:13px;
-  letter-spacing:.17em;
+  letter-spacing:-.085em;
   font-weight:800;
 
-  margin-bottom:12px;
+  color:#e4e4e4;
+
+  text-transform:uppercase;
 }
 
-.side-question{
+.big-title span{
+  display:block;
+}
+
+/* =====================================================
+   SMALL COPY
+===================================================== */
+
+.copy{
+  position:absolute;
+
+  left:90px;
+  bottom:105px;
+
+  width:890px;
+
+  color:#dedede;
+
   font-size:15px;
-  line-height:1.38;
-
-  color:#27345e;
-}
-
-.side-answer{
-  margin-top:12px;
-
-  font-size:13px;
-  line-height:1.45;
-
-  color:#727d9f;
-}
-
-/* positions */
-
-.carteira{
-  left:100px;
-  top:150px;
-}
-
-.risco{
-  left:100px;
-  top:380px;
-}
-
-.conversao{
-  left:100px;
-  top:615px;
-}
-
-.mercado{
-  right:90px;
-  top:150px;
-}
-
-.leitura{
-  right:90px;
-  top:380px;
-}
-
-.martech{
-  right:90px;
-  top:615px;
-}
-
-/* =====================================================
-   ICON NODES
-===================================================== */
-
-.node{
-  position:absolute;
-
-  width:92px;
-  height:92px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  border:1px solid #dce7fb;
-
-  box-shadow:
-    0 13px 30px rgba(31,79,173,.14);
-
-  z-index:9;
-
-  color:#164ca9;
-}
-
-.node::after{
-  content:"";
-
-  position:absolute;
-
-  width:9px;
-  height:9px;
-
-  border-radius:50%;
-
-  background:#3978ef;
-}
-
-/* node positions */
-
-.n1{
-  left:300px;
-  top:145px;
-}
-
-.n1::after{
-  right:-5px;
-}
-
-.n2{
-  left:280px;
-  top:370px;
-}
-
-.n2::after{
-  right:-5px;
-}
-
-.n3{
-  left:320px;
-  top:610px;
-}
-
-.n3::after{
-  right:-5px;
-}
-
-.n4{
-  right:300px;
-  top:145px;
-}
-
-.n4::after{
-  left:-5px;
-}
-
-.n5{
-  right:280px;
-  top:370px;
-}
-
-.n5::after{
-  left:-5px;
-}
-
-.n6{
-  right:320px;
-  top:610px;
-
-  border-style:dashed;
-
-  background:rgba(255,255,255,.65);
-}
-
-.n6::after{
-  left:-5px;
-  background:#1c4d9d;
-}
-
-/* =====================================================
-   SIMPLE CSS ICONS
-===================================================== */
-
-.people-icon{
-  width:37px;
-  height:27px;
-  position:relative;
-}
-
-.people-icon:before,
-.people-icon:after{
-  content:"";
-  position:absolute;
-
-  width:11px;
-  height:11px;
-
-  border:3px solid #164ca9;
-  border-radius:50%;
-
-  top:0;
-}
-
-.people-icon:before{
-  left:4px;
-}
-
-.people-icon:after{
-  right:4px;
-}
-
-.people-icon span{
-  position:absolute;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:14px;
-
-  border:3px solid #164ca9;
-  border-bottom:0;
-
-  border-radius:15px 15px 0 0;
-}
-
-.chart-icon{
-  width:40px;
-  height:42px;
-
-  display:flex;
-  align-items:flex-end;
-  gap:5px;
-}
-
-.chart-icon i{
-  display:block;
-  width:6px;
-
-  border:3px solid #164ca9;
-  border-bottom:0;
-}
-
-.chart-icon i:nth-child(1){
-  height:14px;
-}
-
-.chart-icon i:nth-child(2){
-  height:25px;
-}
-
-.chart-icon i:nth-child(3){
-  height:34px;
-}
-
-.chart-icon i:nth-child(4){
-  height:42px;
-}
-
-.funnel-icon{
-  width:39px;
-  height:34px;
-
-  position:relative;
-
-  border:3px solid #164ca9;
-
-  clip-path:polygon(
-    0 0,
-    100% 0,
-    63% 50%,
-    63% 100%,
-    39% 100%,
-    39% 50%
-  );
-}
-
-.database-icon{
-  width:35px;
-  height:40px;
-
-  border:3px solid #164ca9;
-  border-radius:50% / 15%;
-
-  position:relative;
-}
-
-.database-icon:before,
-.database-icon:after{
-  content:"";
-
-  position:absolute;
-  left:-3px;
-
-  width:35px;
-  height:11px;
-
-  border:3px solid #164ca9;
-  border-radius:50%;
-}
-
-.database-icon:before{
-  top:8px;
-}
-
-.database-icon:after{
-  top:20px;
-}
-
-.document-icon{
-  width:32px;
-  height:40px;
-
-  border:3px solid #164ca9;
-  border-radius:3px;
-
-  position:relative;
-}
-
-.document-icon:before,
-.document-icon:after{
-  content:"";
-
-  position:absolute;
-  left:7px;
-
-  width:15px;
-  height:2px;
-
-  background:#164ca9;
-}
-
-.document-icon:before{
-  top:14px;
-}
-
-.document-icon:after{
-  top:22px;
-}
-
-.external-icon{
-  width:35px;
-  height:35px;
-
-  border:3px solid #164ca9;
-
-  position:relative;
-}
-
-.external-icon:before{
-  content:"↗";
-
-  position:absolute;
-
-  right:-8px;
-  top:-16px;
-
-  background:white;
-
-  font-size:31px;
-  line-height:1;
-
-  color:#164ca9;
-}
-
-/* =====================================================
-   MINI DASHBOARD
-===================================================== */
-
-.dashboard-wrap{
-  position:absolute;
-
-  left:50%;
-  top:490px;
-
-  transform:translateX(-50%);
-
-  width:650px;
-  height:265px;
-
-  z-index:12;
-}
-
-/* faded side screens */
-
-.screen-side{
-  position:absolute;
-
-  top:30px;
-
-  width:220px;
-  height:185px;
-
-  border-radius:8px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(106,150,255,.38),
-      rgba(35,84,189,.13)
-    );
-
-  border:1px solid rgba(83,125,221,.20);
-
-  color:#4d75c5;
-
-  font-size:10px;
-
-  padding:20px;
-}
-
-.screen-left{
-  left:0;
-  transform:perspective(600px) rotateY(14deg);
-}
-
-.screen-right{
-  right:0;
-  transform:perspective(600px) rotateY(-14deg);
-}
-
-/* main screen */
-
-.main-screen{
-  position:absolute;
-
-  left:100px;
-  top:0;
-
-  width:450px;
-  height:220px;
-
-  border-radius:10px;
-
-  color:white;
-
-  padding:18px 20px;
-
-  background:
-    radial-gradient(
-      circle at 85% 10%,
-      rgba(64,118,255,.30),
-      transparent 35%
-    ),
-    linear-gradient(
-      145deg,
-      #173878,
-      #0b255c
-    );
-
-  box-shadow:
-    0 25px 45px rgba(23,70,165,.22);
-}
-
-.screen-title{
-  font-size:8px;
-  letter-spacing:.15em;
-
-  color:#cbd9ff;
-}
-
-.screen-cols{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-
-  margin-top:20px;
-
-  height:150px;
-}
-
-.screen-col{
-  padding:0 16px;
-
-  border-left:1px solid rgba(255,255,255,.14);
-}
-
-.screen-col:first-child{
-  border-left:0;
-  padding-left:0;
-}
-
-.screen-num{
-  font-size:9px;
-  color:#83a8ff;
-
-  margin-bottom:8px;
-}
-
-.screen-name{
-  font-size:12px;
-
-  margin-bottom:20px;
-}
-
-/* risk chart */
-
-.risk-chart{
-  height:55px;
-
-  position:relative;
-
-  border-bottom:1px solid rgba(255,255,255,.18);
-}
-
-.risk-chart svg{
-  width:100%;
-  height:100%;
-}
-
-/* conversion bars */
-
-.bars{
-  height:58px;
-
-  display:flex;
-  align-items:flex-end;
-  gap:7px;
-}
-
-.bars i{
-  display:block;
-
-  width:11px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #4c89ff,
-      #1c438a
-    );
-}
-
-.bars i:nth-child(1){height:18px;}
-.bars i:nth-child(2){height:24px;}
-.bars i:nth-child(3){height:30px;}
-.bars i:nth-child(4){height:38px;}
-.bars i:nth-child(5){height:46px;}
-.bars i:nth-child(6){height:56px;}
-
-/* donut */
-
-.mini-donut{
-  width:70px;
-  height:70px;
-
-  margin:auto;
-
-  border-radius:50%;
-
-  background:
-    conic-gradient(
-      #407cff 0 28%,
-      #2556b4 28% 60%,
-      #173b7c 60% 100%
-    );
-
-  position:relative;
-}
-
-.mini-donut:after{
-  content:"";
-
-  position:absolute;
-
-  inset:17px;
-
-  border-radius:50%;
-
-  background:#0d285e;
-}
-
-/* =====================================================
-   RESULT
-===================================================== */
-
-.result-line{
-  position:absolute;
-
-  width:1px;
-  height:40px;
-
-  left:50%;
-  top:708px;
-
-  background:#3978ef;
-
-  z-index:6;
-}
-
-.result-line:after{
-  content:"";
-
-  position:absolute;
-
-  width:8px;
-  height:8px;
-
-  left:-3.5px;
-  bottom:-4px;
-
-  border-radius:50%;
-
-  background:#3978ef;
-}
-
-.result{
-  position:absolute;
-
-  left:50%;
-  bottom:38px;
-
-  transform:translateX(-50%);
-
-  width:500px;
-  min-height:82px;
-
-  display:flex;
-  align-items:center;
-
-  padding:16px 24px;
-
-  border-radius:16px;
-
-  background:rgba(255,255,255,.93);
-
-  box-shadow:
-    0 16px 35px rgba(29,76,171,.10);
-
-  z-index:12;
-}
-
-.check{
-  width:55px;
-  height:55px;
-
-  flex:none;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  margin-right:20px;
-
-  border-radius:50%;
-
-  background:#3978ef;
-
-  color:white;
-
-  font-size:27px;
-}
-
-.result-kicker{
-  color:#3978ef;
-
-  font-size:9px;
-  letter-spacing:.27em;
-
-  margin-bottom:7px;
-}
-
-.result-text{
-  color:#12245a;
-
-  font-size:16px;
   line-height:1.25;
+  letter-spacing:-.01em;
+}
+
+.copy strong{
+  color:#fff;
+  font-weight:600;
 }
 
 /* =====================================================
-   BOTTOM CORNERS
+   CONTACT LINE
 ===================================================== */
 
-.bottom-left{
+.contacts{
   position:absolute;
 
-  left:65px;
-  bottom:35px;
+  left:90px;
+  bottom:58px;
+
+  width:900px;
 
   display:flex;
-  align-items:flex-start;
-  gap:20px;
+  align-items:center;
+  gap:60px;
 
-  color:#69769c;
+  color:#e5e5e5;
 
-  font-size:10px;
-  line-height:1.5;
-
-  letter-spacing:.20em;
+  font-size:14px;
 }
 
-.bottom-right{
+.contacts span{
+  white-space:nowrap;
+}
+
+/* =====================================================
+   QR AREA
+===================================================== */
+
+.qr-area{
   position:absolute;
 
-  right:65px;
-  bottom:35px;
+  right:72px;
+  bottom:52px;
+
+  width:385px;
+  height:385px;
+
+  background:#090909;
 
   display:flex;
-  align-items:flex-start;
-  gap:20px;
-
-  color:#69769c;
-
-  font-size:10px;
-  line-height:1.5;
-
-  letter-spacing:.20em;
+  align-items:center;
+  justify-content:center;
 }
 
-.bottom-small-line{
-  width:45px;
-  height:1px;
+/* =====================================================
+   FAKE QR PLACEHOLDER
+   Troque depois por uma imagem real
+===================================================== */
 
-  margin-top:5px;
+.qr{
+  width:340px;
+  height:340px;
 
-  background:#07133f;
+  position:relative;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 18px,
+      #e9e9e9 18px,
+      #e9e9e9 29px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #e9e9e9 0px,
+      #e9e9e9 13px,
+      transparent 13px,
+      transparent 29px
+    );
+
+  overflow:hidden;
+}
+
+/* mistura para deixar com aparência de QR */
+.qr::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0px,
+      transparent 21px,
+      #050505 21px,
+      #050505 34px
+    );
+
+  mix-blend-mode:multiply;
+}
+
+/* =====================================================
+   QR CORNERS
+===================================================== */
+
+.qr-corner{
+  position:absolute;
+
+  width:86px;
+  height:86px;
+
+  border:12px solid #ededed;
+
+  background:#050505;
+
+  z-index:4;
+}
+
+.qr-corner::after{
+  content:"";
+
+  position:absolute;
+
+  width:34px;
+  height:34px;
+
+  left:14px;
+  top:14px;
+
+  background:#ededed;
+}
+
+.q1{
+  left:10px;
+  top:10px;
+}
+
+.q2{
+  right:10px;
+  top:10px;
+}
+
+.q3{
+  left:10px;
+  bottom:10px;
+}
+
+/* =====================================================
+   LITTLE LABEL ABOVE QR
+===================================================== */
+
+.qr-label{
+  position:absolute;
+
+  right:72px;
+  bottom:450px;
+
+  width:385px;
+
+  color:#8d8d8d;
+
+  font-size:10px;
+  font-weight:700;
+
+  letter-spacing:.25em;
+
+  text-align:right;
+}
+
+/* =====================================================
+   RESPONSIVE PREVIEW
+===================================================== */
+
+@media(max-width:1650px){
+
+  body{
+    padding:0;
+  }
+
+  .slide{
+    transform-origin:top center;
+  }
+
 }
 
 </style>
@@ -973,369 +278,64 @@ body{
 
 <main class="slide">
 
-  <!-- ORBITS -->
-  <div class="orbit o1"></div>
-  <div class="orbit o2"></div>
-  <div class="orbit o3"></div>
-  <div class="orbit o4"></div>
-  <div class="orbit o5"></div>
-
-  <div class="orbit-accent accent-left"></div>
-  <div class="orbit-accent accent-right"></div>
-
-  <!-- HEADER -->
-  <header class="header">
-
-    <div class="header-left">
-      <span class="header-line"></span>
-      <span>09 · DA PERGUNTA À LEITURA</span>
-    </div>
-
-    <div class="header-right">
-      <span class="header-line"></span>
-      <span>09 / 09</span>
-    </div>
-
-  </header>
-
-  <!-- CENTER -->
-  <section class="center">
-
-    <div class="kicker">
-      UMA BASE DE CLIENTES
-    </div>
-
-    <h1 class="question">
-      Quais são os clientes com
-      <span class="blue">maior risco de inadimplência</span>
-      e como isso se compara ao mercado?
-    </h1>
-
-    <p class="description">
-      Com o dashboard, você integra dados, cruza informações
-      e transforma essa pergunta em uma leitura completa.
-    </p>
-
-    <div class="cta">
-      <span>Explorar o dashboard</span>
-
-      <div class="cta-arrow">
-        →
-      </div>
-    </div>
-
-  </section>
-
-  <!-- =================================================
-       LEFT
-  ================================================== -->
-
-  <div class="side-item carteira">
-
-    <div class="side-number">
-      01 · CARTEIRA
-    </div>
-
-    <div class="side-question">
-      Quem são os clientes<br>
-      que estou analisando?
-    </div>
-
-    <div class="side-answer">
-      BU · Produto · Safra
-    </div>
-
+  <!-- BIG TITLE -->
+  <div class="big-title">
+    <span>OBRI</span>
+    <span>GADA.</span>
   </div>
 
-  <div class="node n1">
 
-    <div class="people-icon">
-      <span></span>
-    </div>
+  <!-- TEXT -->
+  <div class="copy">
+
+    <strong>Dashboard de Retenção · Parcele &amp; Acordo</strong><br>
+
+    Este case apresenta a construção de uma visão integrada
+    para conectar risco, conversão e contexto de mercado em
+    uma leitura mais clara da carteira.
+
+    <br><br>
+
+    Da pergunta ao dado. Do dado à leitura.
+    <strong>Da leitura à decisão.</strong>
 
   </div>
 
 
-  <div class="side-item risco">
-
-    <div class="side-number">
-      02 · RISCO
-    </div>
-
-    <div class="side-question">
-      Essa carteira está<br>
-      apresentando sinais<br>
-      de deterioração?
-    </div>
-
-    <div class="side-answer">
-      Over 30 · Over 60 ·<br>
-      Over 97 · Evolução por MOB
-    </div>
-
-  </div>
-
-  <div class="node n2">
-
-    <div class="chart-icon">
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-    </div>
-
-  </div>
-
-
-  <div class="side-item conversao">
-
-    <div class="side-number">
-      03 · CONVERSÃO
-    </div>
-
-    <div class="side-question">
-      Quem poderia contratar<br>
-      e quem realmente<br>
-      converteu?
-    </div>
-
-    <div class="side-answer">
-      Elegíveis · Convertidos ·<br>
-      Taxa de conversão
-    </div>
-
-  </div>
-
-  <div class="node n3">
-    <div class="funnel-icon"></div>
-  </div>
-
-
-  <!-- =================================================
-       RIGHT
-  ================================================== -->
-
-  <div class="side-item mercado">
-
-    <div class="side-number">
-      04 · MERCADO
-    </div>
-
-    <div class="side-question">
-      O risco está concentrado<br>
-      só conosco ou também<br>
-      fora?
-    </div>
-
-    <div class="side-answer">
-      Exposição interna ×<br>
-      BACEN/SCR
-    </div>
-
-  </div>
-
-  <div class="node n4">
-    <div class="database-icon"></div>
-  </div>
-
-
-  <div class="side-item leitura">
-
-    <div class="side-number">
-      05 · LEITURA
-    </div>
-
-    <div class="side-question">
-      Qual é a conclusão<br>
-      e o próximo passo?
-    </div>
-
-    <div class="side-answer">
-      Grupos que exigem atenção ·<br>
-      Comportamentos críticos ·<br>
-      Direcionamento da ação
-    </div>
-
-  </div>
-
-  <div class="node n5">
-    <div class="document-icon"></div>
-  </div>
-
-
-  <div class="side-item martech">
-
-    <div class="side-number">
-      PRODUTO &amp; UX
-    </div>
-
-    <div class="side-question">
-      A jornada precisa<br>
-      ser aprofundada?
-    </div>
-
-    <div class="side-answer">
-      Integração com<br>
-      Martech
-    </div>
-
-  </div>
-
-  <div class="node n6">
-    <div class="external-icon"></div>
-  </div>
-
-
-  <!-- =================================================
-       MINI DASHBOARD
-  ================================================== -->
-
-  <section class="dashboard-wrap">
-
-    <div class="screen-side screen-left">
-      CARTEIRA<br><br>
-      Cliente<br><br>
-      Produto<br><br>
-      Safra
-    </div>
-
-    <div class="screen-side screen-right">
-      MERCADO<br><br>
-      Pop. Interna<br><br>
-      BACEN<br><br>
-      SCR
-    </div>
-
-    <div class="main-screen">
-
-      <div class="screen-title">
-        DASHBOARD DE RETENÇÃO
-      </div>
-
-      <div class="screen-cols">
-
-        <!-- RISCO -->
-        <div class="screen-col">
-
-          <div class="screen-num">
-            01
-          </div>
-
-          <div class="screen-name">
-            Risco
-          </div>
-
-          <div class="risk-chart">
-
-            <svg viewBox="0 0 120 55">
-              <polyline
-                points="0,48 18,31 36,38 55,19 72,27 91,10 120,3"
-                fill="none"
-                stroke="#4787ff"
-                stroke-width="2"/>
-
-              <polyline
-                points="0,52 18,43 36,46 55,35 72,39 91,27 120,20"
-                fill="none"
-                stroke="#7fa9ff"
-                stroke-width="1.5"/>
-            </svg>
-
-          </div>
-
-        </div>
-
-        <!-- CONVERSÃO -->
-        <div class="screen-col">
-
-          <div class="screen-num">
-            02
-          </div>
-
-          <div class="screen-name">
-            Conversão
-          </div>
-
-          <div class="bars">
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-          </div>
-
-        </div>
-
-        <!-- MERCADO -->
-        <div class="screen-col">
-
-          <div class="screen-num">
-            03
-          </div>
-
-          <div class="screen-name">
-            Mercado
-          </div>
-
-          <div class="mini-donut"></div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- RESULT -->
-  <div class="result-line"></div>
-
-  <section class="result">
-
-    <div class="check">
-      ✓
-    </div>
-
-    <div>
-
-      <div class="result-kicker">
-        DO DADO À DECISÃO
-      </div>
-
-      <div class="result-text">
-        Uma visão integrada para priorizar ações,<br>
-        reduzir risco e gerar mais resultado.
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- FOOTER -->
-  <div class="bottom-left">
-
-    <span class="bottom-small-line"></span>
+  <!-- CONTACTS -->
+  <div class="contacts">
 
     <span>
-      MESMA CARTEIRA.<br>
-      TRÊS REALIDADES.<br>
-      MAIS DECISÕES.
+      BRUNA MARIOTTO
+    </span>
+
+    <span>
+      CUSTOMER INTELLIGENCE
+    </span>
+
+    <span>
+      2026
     </span>
 
   </div>
 
-  <div class="bottom-right">
 
-    <span>
-      DA COMPLEXIDADE<br>
-      ÀS RESPOSTAS.<br>
-      MAIS CLARAS.
-    </span>
+  <!-- QR LABEL -->
+  <div class="qr-label">
+    ACESSE O CASE / DASHBOARD
+  </div>
 
-    <span class="bottom-small-line"></span>
+
+  <!-- QR -->
+  <div class="qr-area">
+
+    <div class="qr">
+
+      <div class="qr-corner q1"></div>
+      <div class="qr-corner q2"></div>
+      <div class="qr-corner q3"></div>
+
+    </div>
 
   </div>
 
