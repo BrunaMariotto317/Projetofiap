@@ -1,9 +1,9 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Verde</title>
+<title>07 · Sustentabilidade</title>
 
 <style>
 *{
@@ -13,7 +13,7 @@ l<!DOCTYPE html>
 html,body{
   margin:0;
   padding:0;
-  background:#1d1d1d;
+  background:#eef0f4;
   font-family:Arial, Helvetica, sans-serif;
 }
 
@@ -22,56 +22,62 @@ body{
   display:flex;
   justify-content:center;
   align-items:flex-start;
-  padding:58px 20px 70px;
+  padding:40px;
 }
 
-/* ======================================================
-   FRAME
-====================================================== */
-
-.dashboard{
+.slide{
+  position:relative;
   width:1600px;
   height:900px;
-  position:relative;
   overflow:hidden;
-  border-radius:0;
+  flex:none;
+  color:#fff;
 
   background:
-    radial-gradient(
-      circle at 54% 38%,
-      rgba(125,145,65,.40),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 12% 75%,
-      rgba(22,54,19,.65),
-      transparent 32%
-    ),
-    linear-gradient(
-      120deg,
-      #243817 0%,
-      #53632a 48%,
-      #263b16 100%
-    );
+    radial-gradient(circle at 92% 5%,
+      rgba(100,83,255,.56) 0%,
+      rgba(67,73,210,.28) 18%,
+      transparent 40%),
+    radial-gradient(circle at 12% 95%,
+      rgba(41,101,255,.80) 0%,
+      rgba(34,72,194,.35) 32%,
+      transparent 55%),
+    linear-gradient(135deg,
+      #06133d 0%,
+      #0a1c55 45%,
+      #16266b 100%);
 }
 
-/* textura de fundo */
-.dashboard::before{
-  content:"";
+/* linhas decorativas de fundo */
+.bg-line{
   position:absolute;
-  inset:0;
+  height:1px;
+  background:rgba(146,180,255,.40);
+  transform-origin:left center;
+  z-index:0;
+}
 
-  background:
-    repeating-linear-gradient(
-      115deg,
-      rgba(255,255,255,.018) 0px,
-      rgba(255,255,255,.018) 1px,
-      transparent 1px,
-      transparent 11px
-    );
+.line1{
+  width:1800px;
+  left:-30px;
+  top:790px;
+  transform:rotate(-27deg);
+}
 
+.line2{
+  width:1850px;
+  left:-40px;
+  top:835px;
+  transform:rotate(-21deg);
   opacity:.65;
-  pointer-events:none;
+}
+
+.line3{
+  width:1700px;
+  left:-30px;
+  top:850px;
+  transform:rotate(-9deg);
+  opacity:.45;
 }
 
 /* ======================================================
@@ -80,787 +86,680 @@ body{
 
 .header{
   position:absolute;
-  top:22px;
-  left:28px;
-  right:28px;
-  height:58px;
+  left:90px;
+  right:90px;
+  top:50px;
+  height:55px;
 
   display:grid;
-  grid-template-columns:320px 1fr 330px;
+  grid-template-columns:360px 1fr 200px;
   align-items:center;
 
   z-index:10;
 }
 
-.header-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.label{
+  justify-self:start;
 
-.mini-icon{
-  width:34px;
-  height:34px;
-  border-radius:5px;
+  padding:13px 29px;
+  border-radius:999px;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:rgba(245,246,237,.94);
-  color:#243020;
-
-  font-size:14px;
-  font-weight:bold;
-}
-
-.top-pill{
-  height:34px;
-  padding:0 19px;
-
-  display:flex;
-  align-items:center;
-
-  background:#f5f5ee;
-  color:#273024;
-
-  border-radius:6px;
-
-  font-size:10px;
-  font-weight:700;
-  text-transform:uppercase;
-}
-
-.header-title{
-  text-align:center;
-
-  color:white;
-
-  font-size:25px;
-  font-weight:500;
-  letter-spacing:-.03em;
-}
-
-.header-right{
-  justify-self:end;
-
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.company{
-  height:34px;
-  padding:0 18px;
-
-  display:flex;
-  align-items:center;
-
-  background:#f4f4ed;
-  color:#293027;
-
-  border-radius:6px;
-
-  font-size:10px;
-  font-weight:700;
-}
-
-.number{
-  width:42px;
-  height:34px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:#f4f4ed;
-  color:#293027;
-
-  border-radius:6px;
+  background:#fff;
+  color:#07153c;
 
   font-size:11px;
-  font-weight:bold;
+  font-weight:700;
+  letter-spacing:.22em;
 }
 
-.menu{
-  width:54px;
-  height:34px;
+.title{
+  text-align:center;
 
-  border:2px solid #f4f4ed;
-  border-radius:6px;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:5px;
+  font-size:29px;
+  font-weight:400;
+  letter-spacing:-.02em;
 }
 
-.menu span{
-  width:27px;
-  height:2px;
-  background:white;
-}
+.page{
+  justify-self:end;
 
-/* ======================================================
-   CARD BASE
-====================================================== */
-
-.glass{
-  position:absolute;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(53,65,35,.88),
-      rgba(64,76,39,.79)
-    );
-
-  border:1px solid rgba(240,244,220,.18);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.06),
-    0 8px 30px rgba(7,12,5,.13);
-
-  border-radius:22px;
-
-  color:white;
-  overflow:hidden;
-}
-
-.card-header{
+  min-width:126px;
   height:48px;
 
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
 
-  border-bottom:1px solid rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:999px;
 
-  font-size:13px;
-  font-weight:500;
+  background:rgba(255,255,255,.07);
+
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.22em;
 }
 
 /* ======================================================
-   LEFT METRICS
+   GENERAL CARD
 ====================================================== */
 
-.metrics{
-  left:38px;
-  top:105px;
-
-  width:350px;
-  height:440px;
-}
-
-.metrics .card-header{
-  justify-content:flex-start;
-  padding-left:24px;
-}
-
-.metric{
-  height:130px;
-
-  padding:23px 24px 14px;
-
-  border-bottom:1px solid rgba(255,255,255,.14);
-}
-
-.metric:last-child{
-  border-bottom:0;
-}
-
-.metric-value{
-  display:flex;
-  align-items:flex-start;
-  gap:7px;
-}
-
-.metric-value strong{
-  font-size:50px;
-  line-height:.88;
-  font-weight:300;
-  letter-spacing:-.055em;
-}
-
-.metric-value .unit{
-  padding-top:5px;
-
-  font-size:12px;
-  font-weight:600;
-  color:rgba(255,255,255,.82);
-}
-
-.metric-label{
-  margin-top:10px;
-
-  font-size:10px;
-  color:rgba(255,255,255,.68);
-}
-
-.change{
+.card{
   position:absolute;
 
-  margin-left:70px;
-  margin-top:-43px;
+  border-radius:24px;
 
-  font-size:9px;
-  color:rgba(255,255,255,.62);
-}
-
-/* ======================================================
-   LEFT PHOTO PLACEHOLDER
-====================================================== */
-
-.photo-left{
-  position:absolute;
-
-  left:38px;
-  bottom:38px;
-
-  width:350px;
-  height:245px;
-
-  border-radius:23px;
+  border:1px solid rgba(255,255,255,.28);
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.14),
-      rgba(255,255,255,.035)
+      rgba(255,255,255,.10),
+      rgba(255,255,255,.055)
     );
 
-  border:1px solid rgba(255,255,255,.20);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05);
 
-  overflow:hidden;
+  backdrop-filter:blur(4px);
+
+  z-index:2;
 }
 
-.photo-left::before{
-  content:"";
-  position:absolute;
-  inset:0;
-
-  background:
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(154,176,86,.25),
-      transparent 65%
-    );
+.eyebrow{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.28em;
+  color:#d8e1ff;
 }
 
-.photo-placeholder{
-  position:absolute;
-  inset:0;
+/* ======================================================
+   LEFT TOP
+====================================================== */
+
+.documentation{
+  left:90px;
+  top:165px;
+
+  width:360px;
+  height:275px;
+
+  padding:40px 38px;
+}
+
+.doc-number-row{
+  display:flex;
+  align-items:flex-end;
+  gap:24px;
+
+  margin-top:35px;
+}
+
+.doc-number{
+  font-size:64px;
+  line-height:.8;
+  font-weight:300;
+}
+
+.doc-small{
+  font-size:15px;
+  padding-bottom:3px;
+  color:#f0f3ff;
+}
+
+.documentation p{
+  margin:14px 0 0;
+
+  max-width:265px;
+
+  font-size:13px;
+  line-height:1.35;
+  color:#d5dcf2;
+}
+
+/* ======================================================
+   LEFT BOTTOM — DOCUMENT
+====================================================== */
+
+.document-card{
+  left:90px;
+  top:455px;
+
+  width:360px;
+  height:350px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.paper{
+  width:264px;
+  height:275px;
+
+  padding:29px 25px;
+
+  border-radius:11px;
+
+  background:#f8f8fb;
+
+  box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+.paper-title{
+  width:135px;
+  height:13px;
+
+  border-radius:8px;
+
+  background:#3c6cf4;
+
+  margin-bottom:18px;
+}
+
+.paper-line{
+  height:9px;
+
+  border-radius:999px;
+
+  background:#c9d4f4;
+
+  margin-bottom:10px;
+}
+
+.paper-line:nth-child(2){
+  width:100%;
+}
+
+.paper-line:nth-child(3){
+  width:83%;
+}
+
+.paper-line:nth-child(4){
+  width:94%;
+}
+
+.paper-pills{
+  display:flex;
+  gap:8px;
+
+  margin:20px 0 23px;
+}
+
+.paper-pill{
+  min-width:68px;
+  height:29px;
+
+  padding:0 12px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  color:rgba(255,255,255,.35);
+  border-radius:999px;
 
-  font-size:11px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
+  border:1px solid #ccd6ef;
+  background:#edf1fb;
+
+  color:#17254c;
+
+  font-size:9px;
+  font-weight:700;
 }
+
+.paper .bottom-line{
+  height:8px;
+
+  background:#cbd5ef;
+  border-radius:999px;
+
+  margin-top:10px;
+}
+
+.paper .b1{width:95%;}
+.paper .b2{width:80%;}
+.paper .b3{width:91%;}
+.paper .b4{width:69%;}
 
 /* ======================================================
-   CENTRAL MODULE
+   CENTRAL CARD
 ====================================================== */
 
-.central{
-  left:420px;
-  top:105px;
+.guide-card{
+  left:465px;
+  top:165px;
 
-  width:740px;
-  height:702px;
+  width:665px;
+  height:640px;
+
+  padding:40px 45px;
 }
 
-.central-content{
-  padding:44px 30px 25px;
-}
-
-.big-number{
+.guide-rule{
   position:absolute;
 
-  left:30px;
-  top:90px;
+  top:89px;
+  left:45px;
+  right:45px;
 
-  font-size:78px;
+  height:1px;
+
+  background:rgba(255,255,255,.13);
+}
+
+/* 3 */
+.guide-count{
+  position:absolute;
+  left:45px;
+  top:140px;
+}
+
+.guide-count strong{
+  display:block;
+
+  font-size:83px;
   line-height:1;
-
   font-weight:300;
-  letter-spacing:-.06em;
 }
 
-.big-number span{
-  font-size:44px;
-}
+.guide-count p{
+  width:235px;
 
-.big-copy{
-  position:absolute;
+  margin-top:15px;
 
-  left:34px;
-  top:185px;
+  font-size:13px;
+  line-height:1.3;
 
-  width:180px;
-
-  color:rgba(255,255,255,.74);
-
-  font-size:10px;
-  line-height:1.45;
+  color:#d7def1;
 }
 
 /* ======================================================
-   DONUT
+   CIRCLE GUIDE
 ====================================================== */
 
-.donut-wrap{
+.guide-ring{
   position:absolute;
 
-  width:330px;
-  height:330px;
+  width:260px;
+  height:260px;
 
-  left:205px;
-  top:92px;
+  right:57px;
+  top:118px;
 }
 
-.donut{
+.arc{
+  position:absolute;
+
+  width:118px;
+  height:118px;
+
+  border:21px solid transparent;
+}
+
+.arc1{
+  left:13px;
+  top:13px;
+
+  border-left-color:#edf2ff;
+  border-top-color:#edf2ff;
+
+  border-radius:100% 0 0 0;
+
+  transform:rotate(-15deg);
+}
+
+.arc2{
+  right:12px;
+  top:13px;
+
+  border-right-color:#3478ff;
+  border-top-color:#3478ff;
+
+  border-radius:0 100% 0 0;
+
+  transform:rotate(14deg);
+}
+
+.arc3{
+  left:17px;
+  bottom:12px;
+
+  border-left-color:#86a8ff;
+  border-bottom-color:#86a8ff;
+
+  border-radius:0 0 0 100%;
+
+  transform:rotate(13deg);
+}
+
+.arc4{
+  right:18px;
+  bottom:12px;
+
+  border-right-color:#85a7ff;
+  border-bottom-color:#85a7ff;
+
+  border-radius:0 0 100% 0;
+
+  transform:rotate(-13deg);
+}
+
+.guide-word{
   position:absolute;
   inset:0;
 
-  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
-  background:
-    conic-gradient(
-      #d6ff55 0deg 30deg,
-      #efff6c 30deg 90deg,
-      #a6d827 90deg 190deg,
-      #51b83c 190deg 250deg,
-      #29a947 250deg 294deg,
-      #ef9d68 294deg 319deg,
-      #fff56b 319deg 347deg,
-      #2e3824 347deg 360deg
-    );
-}
-
-.donut::after{
-  content:"";
-
-  position:absolute;
-  inset:16px;
-
-  border-radius:50%;
-
-  background:#4b5d2c;
-}
-
-/* central diagonal object approximation */
-.stem{
-  position:absolute;
-
-  width:430px;
-  height:14px;
-
-  left:115px;
-  top:270px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #ead886,
-      #f4c95d,
-      #d3a743
-    );
-
-  border-radius:999px;
-
-  transform:rotate(-37deg);
-
-  box-shadow:0 2px 5px rgba(0,0,0,.25);
-
-  z-index:4;
-}
-
-.stem::after{
-  content:"";
-
-  position:absolute;
-
-  width:190px;
-  height:55px;
-
-  right:-5px;
-  top:-21px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(240,194,83,.75),
-      rgba(226,172,53,.95)
-    );
-
-  clip-path:polygon(
-    0 46%,
-    14% 10%,
-    26% 42%,
-    40% 0,
-    51% 40%,
-    65% 5%,
-    74% 41%,
-    90% 13%,
-    100% 50%,
-    90% 87%,
-    75% 60%,
-    64% 96%,
-    50% 61%,
-    37% 100%,
-    26% 62%,
-    13% 91%
-  );
+  font-size:20px;
+  font-weight:700;
 }
 
 /* ======================================================
-   BOTTOM VALUES CENTRAL
+   CONCEPTS
 ====================================================== */
 
-.products{
+.concepts{
   position:absolute;
 
-  left:30px;
-  right:30px;
-  bottom:34px;
+  left:45px;
+  right:45px;
+  bottom:37px;
 
   display:grid;
   grid-template-columns:repeat(3,1fr);
-
-  column-gap:35px;
-  row-gap:32px;
+  gap:27px;
 }
 
-.product{
-  min-height:65px;
+.concept-dot{
+  width:14px;
+  height:14px;
+
+  border-radius:50%;
+  display:inline-block;
+
+  margin-right:10px;
 }
 
-.product-top{
+.over{
+  background:#377bf4;
+}
+
+.mob{
+  background:#82a8ff;
+}
+
+.safra{
+  background:#d9e6ff;
+}
+
+.concept-title{
   display:flex;
   align-items:center;
-  gap:10px;
+
+  font-size:18px;
+  margin-bottom:16px;
 }
 
-.bullet{
-  width:13px;
-  height:13px;
-  border-radius:50%;
-  background:#a5d52b;
-}
+.concept p{
+  margin:0;
 
-.yellow{background:#f3f353}
-.green{background:#26bd40}
-.orange{background:#ef9a6c}
-.dark-dot{background:#23311f}
-.soft{background:#9fc02f}
+  font-size:11px;
+  line-height:1.35;
 
-.product strong{
-  font-size:34px;
-  font-weight:300;
-  letter-spacing:-.04em;
-}
-
-.product sup{
-  margin-left:5px;
-
-  font-size:9px;
-  color:rgba(255,255,255,.55);
-}
-
-.product p{
-  margin:5px 0 0 24px;
-
-  font-size:9px;
-  color:rgba(255,255,255,.66);
+  color:#c9d2e8;
 }
 
 /* ======================================================
    RIGHT TOP
 ====================================================== */
 
-.people{
-  right:38px;
-  top:105px;
+.autonomy{
+  left:1145px;
+  top:165px;
 
-  width:350px;
-  height:185px;
+  width:365px;
+  height:320px;
+
+  padding:40px 36px;
 }
 
-.people .card-header{
-  justify-content:flex-start;
-  padding-left:24px;
+.autonomy h2{
+  margin:38px 0 0;
+
+  max-width:250px;
+
+  font-size:25px;
+  line-height:1.18;
+  font-weight:400;
 }
 
-.people-number{
-  padding:29px 24px 0;
-
-  font-size:47px;
-  font-weight:300;
-  letter-spacing:-.04em;
-}
-
-.people-number span{
-  margin-left:8px;
-
-  font-size:13px;
-  color:rgba(255,255,255,.75);
-}
-
-.people-copy{
-  padding:5px 24px;
-
-  font-size:9px;
-  color:rgba(255,255,255,.64);
-}
-
-/* ======================================================
-   RIGHT PHOTO
-====================================================== */
-
-.photo-right{
+.autonomy p{
   position:absolute;
 
-  right:38px;
-  top:325px;
+  left:36px;
+  bottom:57px;
 
-  width:350px;
-  height:260px;
+  margin:0;
 
-  border-radius:24px;
+  font-size:13px;
+  line-height:1.35;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(235,240,219,.28),
-      rgba(255,255,255,.06)
-    );
-
-  border:1px solid rgba(255,255,255,.22);
-
-  overflow:hidden;
+  color:#c8d2e9;
 }
 
 /* ======================================================
    RIGHT BOTTOM
 ====================================================== */
 
-.position{
-  right:38px;
-  bottom:38px;
+.continuity{
+  left:1145px;
+  top:500px;
 
-  width:350px;
-  height:180px;
+  width:365px;
+  height:305px;
+
+  padding:40px 36px;
 }
 
-.position .card-header{
-  justify-content:flex-start;
-  padding-left:24px;
+.continuity h2{
+  margin:38px 0 0;
+
+  max-width:265px;
+
+  font-size:24px;
+  line-height:1.18;
+  font-weight:400;
 }
 
-.rank{
-  padding:28px 24px 0;
+.continuity p{
+  position:absolute;
 
-  font-size:43px;
-  font-weight:300;
+  left:36px;
+  bottom:55px;
+
+  max-width:265px;
+
+  margin:0;
+
+  font-size:13px;
+  line-height:1.35;
+
+  color:#c8d2e9;
 }
 
-.rank-copy{
-  padding:5px 24px;
-
-  font-size:9px;
-  line-height:1.4;
-
-  color:rgba(255,255,255,.65);
-}
-
-/* ======================================================
-   RESPONSIVE PREVIEW ONLY
-====================================================== */
-
-@media(max-width:1640px){
-  body{
-    align-items:flex-start;
-  }
-
-  .dashboard{
-    transform-origin:top center;
-  }
-}
 </style>
 </head>
 
 <body>
 
-<div class="dashboard">
+<div class="slide">
+
+  <!-- background lines -->
+  <div class="bg-line line1"></div>
+  <div class="bg-line line2"></div>
+  <div class="bg-line line3"></div>
 
   <!-- HEADER -->
   <header class="header">
 
-    <div class="header-left">
-      <div class="mini-icon">▧</div>
-
-      <div class="top-pill">
-        КЛЮЧЕВЫЕ РЕЗУЛЬТАТЫ 2025 ГОДА
-      </div>
+    <div class="label">
+      07 · SUSTENTABILIDADE
     </div>
 
-    <div class="header-title">
-      Сельскохозяйственный бизнес
+    <div class="title">
+      Um dashboard que se explica
     </div>
 
-    <div class="header-right">
-
-      <div class="company">
-        О ГРУППЕ «РУСАГРО»
-      </div>
-
-      <div class="number">
-        25
-      </div>
-
-      <div class="menu">
-        <span></span>
-        <span></span>
-      </div>
-
+    <div class="page">
+      07 / 09
     </div>
 
   </header>
 
-  <!-- LEFT METRICS -->
-  <section class="glass metrics">
+  <!-- LEFT TOP -->
+  <section class="card documentation">
 
-    <div class="card-header">
-      Финансовые показатели
+    <div class="eyebrow">
+      DOCUMENTAÇÃO
     </div>
 
-    <div class="metric">
-      <div class="metric-value">
-        <strong>51</strong>
-        <div class="unit">+11%<br>МЛРД ₽</div>
+    <div class="doc-number-row">
+
+      <div class="doc-number">
+        1
       </div>
 
-      <div class="metric-label">
-        Выручка
+      <div class="doc-small">
+        guia de apoio
       </div>
+
     </div>
 
-    <div class="metric">
-      <div class="metric-value">
-        <strong>8</strong>
-        <div class="unit">+54%<br>МЛРД ₽</div>
+    <p>
+      Conceitos e leitura do dashboard,<br>
+      escritos para quem não o construiu.
+    </p>
+
+  </section>
+
+  <!-- LEFT BOTTOM -->
+  <section class="card document-card">
+
+    <div class="paper">
+
+      <div class="paper-title"></div>
+
+      <div class="paper-line"></div>
+      <div class="paper-line"></div>
+      <div class="paper-line"></div>
+
+      <div class="paper-pills">
+
+        <div class="paper-pill">
+          Over
+        </div>
+
+        <div class="paper-pill">
+          MOB
+        </div>
+
+        <div class="paper-pill">
+          Safra
+        </div>
+
       </div>
 
-      <div class="metric-label">
-        Скорректированная EBITDA
-      </div>
-    </div>
+      <div class="bottom-line b1"></div>
+      <div class="bottom-line b2"></div>
+      <div class="bottom-line b3"></div>
+      <div class="bottom-line b4"></div>
 
-    <div class="metric">
-      <div class="metric-value">
-        <strong>15</strong>
-        <div class="unit">+15 п.п.<br>%</div>
-      </div>
-
-      <div class="metric-label">
-        рентабельность<br>
-        по скорректированной EBITDA
-      </div>
     </div>
 
   </section>
 
-  <!-- LEFT IMAGE PLACEHOLDER -->
-  <div class="photo-left">
-    <div class="photo-placeholder">
-      espaço da imagem
-    </div>
-  </div>
-
   <!-- CENTRAL -->
-  <section class="glass central">
+  <section class="card guide-card">
 
-    <div class="card-header">
-      Структура продаж, тыс. т
+    <div class="eyebrow">
+      CONCEITOS-CHAVE DO GUIA
     </div>
 
-    <div class="big-number">
-      74<span>%</span>
+    <div class="guide-rule"></div>
+
+    <div class="guide-count">
+
+      <strong>
+        3
+      </strong>
+
+      <p>
+        conceitos que qualquer<br>
+        pessoa precisa dominar para<br>
+        ler o dashboard
+      </p>
+
     </div>
 
-    <div class="big-copy">
-      продукция<br>
-      сельскохозяйственного<br>
-      бизнеса занимает<br>
-      сильную позицию
+    <div class="guide-ring">
+
+      <div class="arc arc1"></div>
+      <div class="arc arc2"></div>
+      <div class="arc arc3"></div>
+      <div class="arc arc4"></div>
+
+      <div class="guide-word">
+        Guia
+      </div>
+
     </div>
 
-    <div class="donut-wrap">
-      <div class="donut"></div>
-    </div>
+    <div class="concepts">
 
-    <div class="stem"></div>
+      <div class="concept">
 
-    <div class="products">
-
-      <div class="product">
-        <div class="product-top">
-          <span class="bullet"></span>
-          <strong>4 070</strong>
-          <sup>+45%</sup>
+        <div class="concept-title">
+          <span class="concept-dot over"></span>
+          Over
         </div>
-        <p>Сахарная свекла</p>
+
+        <p>
+          Atraso da carteira por<br>
+          faixa: Over 30, Over<br>
+          60.
+        </p>
+
       </div>
 
-      <div class="product">
-        <div class="product-top">
-          <span class="bullet yellow"></span>
-          <strong>767</strong>
-          <sup>+19%</sup>
+      <div class="concept">
+
+        <div class="concept-title">
+          <span class="concept-dot mob"></span>
+          MOB
         </div>
-        <p>Пшеница</p>
+
+        <p>
+          Meses desde a<br>
+          originação do contrato.
+        </p>
+
       </div>
 
-      <div class="product">
-        <div class="product-top">
-          <span class="bullet green"></span>
-          <strong>347</strong>
-          <sup>+32%</sup>
-        </div>
-        <p>Соя</p>
-      </div>
+      <div class="concept">
 
-      <div class="product">
-        <div class="product-top">
-          <span class="bullet orange"></span>
-          <strong>172</strong>
-          <sup>-3%</sup>
+        <div class="concept-title">
+          <span class="concept-dot safra"></span>
+          Safra
         </div>
-        <p>Кукуруза</p>
-      </div>
 
-      <div class="product">
-        <div class="product-top">
-          <span class="bullet soft"></span>
-          <strong>67</strong>
-          <sup>-51%</sup>
-        </div>
-        <p>Подсолнечник</p>
-      </div>
+        <p>
+          Contratos agrupados<br>
+          pelo mês de<br>
+          originação.
+        </p>
 
-      <div class="product">
-        <div class="product-top">
-          <span class="bullet dark-dot"></span>
-          <strong>47</strong>
-          <sup>-55%</sup>
-        </div>
-        <p>Ячмень</p>
       </div>
 
     </div>
@@ -868,45 +767,40 @@ body{
   </section>
 
   <!-- RIGHT TOP -->
-  <section class="glass people">
+  <section class="card autonomy">
 
-    <div class="card-header">
-      Человеческий капитал
+    <div class="eyebrow">
+      AUTONOMIA
     </div>
 
-    <div class="people-number">
-      3,9
-      <span>тыс. чел.</span>
-    </div>
+    <h2>
+      Quem lê entende o<br>
+      que vê.
+    </h2>
 
-    <div class="people-copy">
-      Среднесписочная численность сотрудников
-    </div>
+    <p>
+      Sem depender de quem<br>
+      construiu.
+    </p>
 
   </section>
 
-  <!-- RIGHT IMAGE PLACEHOLDER -->
-  <div class="photo-right">
-    <div class="photo-placeholder">
-      espaço da imagem
-    </div>
-  </div>
-
   <!-- RIGHT BOTTOM -->
-  <section class="glass position">
+  <section class="card continuity">
 
-    <div class="card-header">
-      Позиции на рынке России
+    <div class="eyebrow">
+      CONTINUIDADE
     </div>
 
-    <div class="rank">
-      № 4
-    </div>
+    <h2>
+      Pensado para quem<br>
+      vem depois.
+    </h2>
 
-    <div class="rank-copy">
-      Позиция среди<br>
-      землевладельцев в России
-    </div>
+    <p>
+      Uso e manutenção sem partir do<br>
+      zero.
+    </p>
 
   </section>
 
