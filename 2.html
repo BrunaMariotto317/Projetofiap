@@ -4,270 +4,738 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Encerramento · Dashboard de Retenção</title>
+<title>Dashboard de Retenção — Slides 06, 07 e 08</title>
 
 <style>
+
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 html,body{
-  margin:0;
-  padding:0;
-  background:#d9d9d9;
-  font-family:Arial, Helvetica, sans-serif;
+    margin:0;
+    padding:0;
+    background:#e9edf3;
+    font-family:Inter, Arial, Helvetica, sans-serif;
+    color:#07113d;
 }
 
 body{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  padding:35px;
+    padding:40px 0;
 }
 
-/* =====================================================
-   SLIDE
-===================================================== */
+.deck{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:40px;
+}
+
+/* =========================================================
+   BASE
+========================================================= */
 
 .slide{
-  width:1600px;
-  height:900px;
+    width:1600px;
+    height:900px;
+    position:relative;
+    overflow:hidden;
+    flex:none;
 
-  position:relative;
-  overflow:hidden;
-  flex:none;
+    background:
+        radial-gradient(circle at 73% 25%,rgba(219,232,255,.5),transparent 32%),
+        linear-gradient(135deg,#ffffff 0%,#f8faff 100%);
 
-  background:#050505;
-  color:#f0f0f0;
+    box-shadow:0 20px 70px rgba(10,17,40,.12);
 }
 
-/* =====================================================
-   BIG TYPOGRAPHY
-===================================================== */
+.header{
+    position:absolute;
+    top:40px;
+    left:50px;
+    right:50px;
 
-.big-title{
-  position:absolute;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-  left:-22px;
-  top:-80px;
-
-  width:1160px;
-
-  font-size:235px;
-  line-height:.79;
-
-  letter-spacing:-.085em;
-  font-weight:800;
-
-  color:#e4e4e4;
-
-  text-transform:uppercase;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.16em;
 }
 
-.big-title span{
-  display:block;
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
 }
 
-/* =====================================================
-   SMALL COPY
-===================================================== */
-
-.copy{
-  position:absolute;
-
-  left:90px;
-  bottom:105px;
-
-  width:890px;
-
-  color:#dedede;
-
-  font-size:15px;
-  line-height:1.25;
-  letter-spacing:-.01em;
+.header-line{
+    width:53px;
+    height:1px;
+    background:#07113d;
 }
 
-.copy strong{
-  color:#fff;
-  font-weight:600;
+.page{
+    font-size:12px;
+    letter-spacing:.18em;
 }
 
-/* =====================================================
-   CONTACT LINE
-===================================================== */
+.footer-left{
+    position:absolute;
+    left:50px;
+    bottom:43px;
 
-.contacts{
-  position:absolute;
+    display:flex;
+    align-items:center;
+    gap:18px;
 
-  left:90px;
-  bottom:58px;
-
-  width:900px;
-
-  display:flex;
-  align-items:center;
-  gap:60px;
-
-  color:#e5e5e5;
-
-  font-size:14px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.18em;
+    color:#4d5b80;
 }
 
-.contacts span{
-  white-space:nowrap;
+.footer-left::before{
+    content:"";
+    width:53px;
+    height:1px;
+    background:#07113d;
 }
 
-/* =====================================================
-   QR AREA
-===================================================== */
+.footer-right{
+    position:absolute;
+    right:55px;
+    bottom:43px;
 
-.qr-area{
-  position:absolute;
-
-  right:72px;
-  bottom:52px;
-
-  width:385px;
-  height:385px;
-
-  background:#090909;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    font-size:9px;
+    letter-spacing:.18em;
+    color:#8190ad;
 }
 
-/* =====================================================
-   FAKE QR PLACEHOLDER
-   Troque depois por uma imagem real
-===================================================== */
 
-.qr{
-  width:340px;
-  height:340px;
+/* =========================================================
+   SLIDE 06
+========================================================= */
 
-  position:relative;
-
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 18px,
-      #e9e9e9 18px,
-      #e9e9e9 29px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      #e9e9e9 0px,
-      #e9e9e9 13px,
-      transparent 13px,
-      transparent 29px
-    );
-
-  overflow:hidden;
+.s06-left{
+    position:absolute;
+    left:52px;
+    top:130px;
+    width:370px;
 }
 
-/* mistura para deixar com aparência de QR */
-.qr::before{
-  content:"";
+.eyebrow{
+    display:inline-block;
+    padding:12px 19px;
 
-  position:absolute;
-  inset:0;
+    border-radius:999px;
 
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0px,
-      transparent 21px,
-      #050505 21px,
-      #050505 34px
-    );
+    background:#e8f1ff;
+    color:#1670eb;
 
-  mix-blend-mode:multiply;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.12em;
 }
 
-/* =====================================================
-   QR CORNERS
-===================================================== */
+.s06-title{
+    margin-top:68px;
 
-.qr-corner{
-  position:absolute;
-
-  width:86px;
-  height:86px;
-
-  border:12px solid #ededed;
-
-  background:#050505;
-
-  z-index:4;
+    font-size:66px;
+    line-height:1.02;
+    letter-spacing:-.055em;
+    font-weight:700;
 }
 
-.qr-corner::after{
-  content:"";
-
-  position:absolute;
-
-  width:34px;
-  height:34px;
-
-  left:14px;
-  top:14px;
-
-  background:#ededed;
+.blue{
+    color:#2d7df4;
 }
 
-.q1{
-  left:10px;
-  top:10px;
+.s06-copy{
+    width:335px;
+    margin-top:45px;
+
+    font-size:22px;
+    line-height:1.42;
+    color:#506084;
 }
 
-.q2{
-  right:10px;
-  top:10px;
+/* DASHBOARD STACK */
+
+.dashboard-stack{
+    position:absolute;
+
+    left:450px;
+    top:76px;
+
+    width:1090px;
+    height:700px;
 }
 
-.q3{
-  left:10px;
-  bottom:10px;
+/* As três imagens podem ser substituídas pelos seus prints reais */
+
+.dashboard{
+    position:absolute;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    border:1px solid #dbe3ef;
+    border-radius:12px;
+
+    box-shadow:
+        0 20px 35px rgba(24,53,99,.15),
+        0 4px 10px rgba(24,53,99,.08);
 }
 
-/* =====================================================
-   LITTLE LABEL ABOVE QR
-===================================================== */
-
-.qr-label{
-  position:absolute;
-
-  right:72px;
-  bottom:450px;
-
-  width:385px;
-
-  color:#8d8d8d;
-
-  font-size:10px;
-  font-weight:700;
-
-  letter-spacing:.25em;
-
-  text-align:right;
+.dashboard img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:top left;
+    display:block;
 }
 
-/* =====================================================
-   RESPONSIVE PREVIEW
-===================================================== */
+.dashboard-3{
+    width:630px;
+    height:570px;
 
-@media(max-width:1650px){
+    right:0;
+    top:0;
 
-  body{
-    padding:0;
-  }
+    transform:rotate(2deg);
 
-  .slide{
-    transform-origin:top center;
-  }
+    opacity:.87;
+}
+
+.dashboard-2{
+    width:700px;
+    height:610px;
+
+    right:130px;
+    top:55px;
+
+    transform:rotate(1deg);
+
+    opacity:.94;
+}
+
+.dashboard-1{
+    width:785px;
+    height:600px;
+
+    left:0;
+    top:115px;
+
+    z-index:3;
+}
+
+/* placeholders caso ainda não coloque os prints */
+
+.placeholder{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(#fff,#f3f6fb);
+
+    color:#77839c;
+
+    font-size:15px;
+    letter-spacing:.08em;
+}
+
+
+/* =========================================================
+   SLIDE 07
+========================================================= */
+
+.s07-intro{
+    position:absolute;
+    left:60px;
+    top:135px;
+    width:400px;
+}
+
+.s07-label{
+    color:#1670eb;
+
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.1em;
+}
+
+.s07-title{
+    margin-top:70px;
+
+    font-size:66px;
+    line-height:1.05;
+    letter-spacing:-.055em;
+}
+
+.s07-description{
+    width:365px;
+    margin-top:42px;
+
+    color:#536181;
+
+    font-size:20px;
+    line-height:1.43;
+}
+
+
+/* DOCUMENTOS */
+
+.docs{
+    position:absolute;
+
+    left:465px;
+    top:85px;
+
+    width:740px;
+    height:700px;
+}
+
+.paper{
+    position:absolute;
+
+    background:#fff;
+
+    border:1px solid #e0e5ed;
+
+    box-shadow:
+        0 18px 40px rgba(20,44,84,.11),
+        0 3px 9px rgba(20,44,84,.07);
+}
+
+.paper-back{
+    width:355px;
+    height:490px;
+
+    left:95px;
+    top:0;
+
+    transform:rotate(-5deg);
+
+    padding:45px 35px;
+}
+
+.paper-middle{
+    width:340px;
+    height:430px;
+
+    left:0;
+    top:215px;
+
+    transform:rotate(-1deg);
+
+    padding:42px 34px;
+}
+
+.paper-main{
+    width:430px;
+    height:605px;
+
+    right:0;
+    top:90px;
+
+    padding:58px 50px;
+}
+
+.doc-small{
+    font-size:10px;
+    color:#506181;
+    letter-spacing:.08em;
+}
+
+.doc-heading{
+    font-size:17px;
+    margin-top:8px;
+    font-weight:700;
+}
+
+.fake-table{
+    margin-top:22px;
+    border-top:1px solid #cbd4e3;
+}
+
+.fake-row{
+    display:grid;
+    grid-template-columns:1fr 1.8fr;
+
+    padding:10px 0;
+
+    border-bottom:1px solid #e0e6ef;
+
+    font-size:8px;
+    color:#536181;
+}
+
+.fake-row b{
+    color:#172443;
+}
+
+.paper-main .mini-header{
+    display:flex;
+    justify-content:space-between;
+
+    font-size:9px;
+    letter-spacing:.12em;
+    color:#536181;
+}
+
+.guide-number{
+    margin-top:45px;
+
+    font-size:18px;
+    color:#354566;
+}
+
+.guide-title{
+    margin-top:15px;
+
+    font-size:47px;
+    line-height:.96;
+    letter-spacing:-.045em;
+    font-weight:400;
+}
+
+.guide-subtitle{
+    margin-top:30px;
+    padding-top:17px;
+
+    border-top:1px solid #8390a7;
+
+    font-size:14px;
+    line-height:1.35;
+    color:#34425f;
+}
+
+.guide-list{
+    margin-top:30px;
+}
+
+.guide-item{
+    display:grid;
+    grid-template-columns:40px 1fr;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #dfe4ec;
+}
+
+.guide-item span{
+    color:#61708d;
+    font-size:12px;
+}
+
+.guide-item strong{
+    display:block;
+    font-size:12px;
+}
+
+.guide-item small{
+    display:block;
+    margin-top:3px;
+
+    font-size:9px;
+    color:#64728c;
+}
+
+.guide-blue{
+    position:absolute;
+    right:0;
+    top:110px;
+
+    width:21px;
+    height:190px;
+
+    background:#287df5;
+}
+
+
+/* RIGHT SIDE */
+
+.s07-right{
+    position:absolute;
+
+    right:55px;
+    top:85px;
+
+    width:255px;
+    height:640px;
+
+    border-left:1px solid #71809e;
+
+    padding-left:42px;
+}
+
+.outcome{
+    margin-top:95px;
+}
+
+.outcome + .outcome{
+    margin-top:68px;
+}
+
+.outcome-number{
+    font-size:25px;
+    font-weight:700;
+}
+
+.outcome-rule{
+    width:28px;
+    height:1px;
+
+    margin:16px 0 22px;
+
+    background:#07113d;
+}
+
+.outcome-label{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.1em;
+}
+
+.outcome-title{
+    margin-top:18px;
+
+    font-size:21px;
+    line-height:1.25;
+}
+
+.outcome-copy{
+    margin-top:4px;
+
+    font-size:18px;
+    line-height:1.25;
+    color:#526183;
+}
+
+
+/* =========================================================
+   SLIDE 08
+========================================================= */
+
+.s08-left{
+    position:absolute;
+
+    left:55px;
+    top:118px;
+
+    width:350px;
+}
+
+.s08-title{
+    margin-top:40px;
+
+    font-size:59px;
+    line-height:1.06;
+    letter-spacing:-.055em;
+}
+
+.s08-intro-line{
+    width:55px;
+    height:1px;
+
+    background:#07113d;
+
+    margin-top:48px;
+}
+
+.s08-intro{
+    width:310px;
+
+    margin-top:36px;
+
+    font-size:18px;
+    line-height:1.42;
+    color:#566583;
+}
+
+
+/* LEARNING 01 */
+
+.learning-one{
+    position:absolute;
+
+    left:440px;
+    top:70px;
+
+    width:610px;
+}
+
+.big-number{
+    font-size:210px;
+    line-height:.75;
+
+    color:#e1edff;
+
+    font-weight:700;
+    letter-spacing:-.08em;
+}
+
+.learning-tag{
+    margin-top:22px;
+
+    color:#1670eb;
+
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.1em;
+}
+
+.learning-one h2{
+    margin:14px 0 0;
+
+    font-size:42px;
+    line-height:1.06;
+    letter-spacing:-.04em;
+}
+
+.learning-one p{
+    width:550px;
+
+    margin-top:25px;
+
+    color:#536181;
+
+    font-size:17px;
+    line-height:1.42;
+}
+
+.learning-one .small-rule{
+    width:55px;
+    height:1px;
+
+    margin-top:18px;
+
+    background:#536181;
+}
+
+.learning-one .bottom-note{
+    margin-top:18px;
+
+    font-size:16px;
+    line-height:1.4;
+}
+
+
+/* LEARNING 02 */
+
+.learning-two{
+    position:absolute;
+
+    left:1090px;
+    top:90px;
+
+    width:420px;
+    height:535px;
+
+    border-left:1px solid #667590;
+
+    padding-left:62px;
+}
+
+.learning-two .number{
+    font-size:105px;
+    line-height:.8;
+
+    color:#e5efff;
+    font-weight:700;
+}
+
+.learning-two h2{
+    margin-top:15px;
+
+    font-size:38px;
+    line-height:1.08;
+    letter-spacing:-.035em;
+    font-weight:500;
+}
+
+.learning-two p{
+    margin-top:28px;
+
+    font-size:17px;
+    line-height:1.45;
+    color:#536181;
+}
+
+
+/* LEARNING 03 */
+
+.learning-three{
+    position:absolute;
+
+    left:410px;
+    top:655px;
+
+    width:1050px;
+    height:160px;
+
+    border-top:1px solid #667590;
+}
+
+.learning-three .number{
+    position:absolute;
+
+    left:0;
+    top:28px;
+
+    font-size:115px;
+    line-height:.8;
+
+    color:#e5efff;
+    font-weight:700;
+}
+
+.learning-three-content{
+    position:absolute;
+
+    left:205px;
+    top:32px;
+}
+
+.learning-three h3{
+    margin:8px 0 4px;
+
+    font-size:27px;
+    font-weight:500;
+}
+
+.learning-three p{
+    margin:0;
+
+    font-size:15px;
+    color:#536181;
+}
+
+
+/* =========================================================
+   RESPONSIVO — SOMENTE PARA VISUALIZAR NO NAVEGADOR
+========================================================= */
+
+@media(max-width:1600px){
+
+    body{
+        padding:0;
+    }
+
+    .deck{
+        align-items:flex-start;
+    }
+
+    .slide{
+        transform-origin:top left;
+    }
 
 }
 
@@ -276,68 +744,535 @@ body{
 
 <body>
 
-<main class="slide">
-
-  <!-- BIG TITLE -->
-  <div class="big-title">
-    <span>OBRI</span>
-    <span>GADA.</span>
-  </div>
+<main class="deck">
 
 
-  <!-- TEXT -->
-  <div class="copy">
+<!-- ======================================================
+     SLIDE 06
+====================================================== -->
 
-    <strong>Dashboard de Retenção · Parcele &amp; Acordo</strong><br>
+<section class="slide" id="slide06">
 
-    Este case apresenta a construção de uma visão integrada
-    para conectar risco, conversão e contexto de mercado em
-    uma leitura mais clara da carteira.
+    <div class="header">
+        <div class="header-left">
+            <div class="header-line"></div>
+            CASE · DASHBOARD DE RETENÇÃO
+        </div>
 
-    <br><br>
-
-    Da pergunta ao dado. Do dado à leitura.
-    <strong>Da leitura à decisão.</strong>
-
-  </div>
-
-
-  <!-- CONTACTS -->
-  <div class="contacts">
-
-    <span>
-      BRUNA MARIOTTO
-    </span>
-
-    <span>
-      CUSTOMER INTELLIGENCE
-    </span>
-
-    <span>
-      2026
-    </span>
-
-  </div>
+        <div class="page">06 / 09</div>
+    </div>
 
 
-  <!-- QR LABEL -->
-  <div class="qr-label">
-    ACESSE O CASE / DASHBOARD
-  </div>
+    <div class="s06-left">
 
+        <div class="eyebrow">
+            06 · O DASHBOARD NA PRÁTICA
+        </div>
 
-  <!-- QR -->
-  <div class="qr-area">
+        <div class="s06-title">
+            Uma visão<br>
+            <span class="blue">conectada</span><br>
+            da Retenção.
+        </div>
 
-    <div class="qr">
-
-      <div class="qr-corner q1"></div>
-      <div class="qr-corner q2"></div>
-      <div class="qr-corner q3"></div>
+        <div class="s06-copy">
+            Risco, conversão e contexto<br>
+            de mercado organizados em<br>
+            uma única leitura da carteira.
+        </div>
 
     </div>
 
-  </div>
+
+    <div class="dashboard-stack">
+
+        <!--
+        TROQUE os placeholders pelos prints reais:
+
+        <img src="inadimplencia.png">
+        <img src="conversao.png">
+        <img src="mercado.png">
+        -->
+
+        <div class="dashboard dashboard-3">
+            <div class="placeholder">
+                CONTEXTO DE MERCADO
+            </div>
+        </div>
+
+        <div class="dashboard dashboard-2">
+            <div class="placeholder">
+                CONVERSÃO &amp; ELEGIBILIDADE
+            </div>
+        </div>
+
+        <div class="dashboard dashboard-1">
+            <div class="placeholder">
+                INADIMPLÊNCIA &amp; RISCO
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="footer-left">
+        CARTÕES 3 BUs
+    </div>
+
+    <div class="footer-right">
+        DA COMPLEXIDADE DOS DADOS ÀS DECISÕES MAIS CLARAS.
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     SLIDE 07
+====================================================== -->
+
+<section class="slide" id="slide07">
+
+    <div class="header">
+        <div class="header-left">
+            <div class="header-line"></div>
+            CASE · DASHBOARD DE RETENÇÃO
+        </div>
+
+        <div class="page">07 / 09</div>
+    </div>
+
+
+    <div class="s07-intro">
+
+        <div class="s07-label">
+            07 · SUSTENTABILIDADE
+        </div>
+
+        <div class="s07-title">
+            Um<br>
+            dashboard<br>
+            <span class="blue">que se explica.</span>
+        </div>
+
+        <div class="s07-description">
+            Regras, fontes e critérios<br>
+            documentados para preservar<br>
+            o entendimento e a continuidade<br>
+            da solução.
+        </div>
+
+    </div>
+
+
+    <div class="docs">
+
+
+        <!-- Documento traseiro -->
+
+        <div class="paper paper-back">
+
+            <div class="doc-small">03</div>
+
+            <div class="doc-heading">
+                Dicionário de campos
+            </div>
+
+            <div class="doc-small">
+                Descrição dos principais campos utilizados no dashboard.
+            </div>
+
+            <div class="fake-table">
+
+                <div class="fake-row">
+                    <b>CAMPO</b>
+                    <b>SIGNIFICADO</b>
+                </div>
+
+                <div class="fake-row">
+                    <b>CD_ANOMES_ADESAO</b>
+                    <span>Mês de referência da adesão.</span>
+                </div>
+
+                <div class="fake-row">
+                    <b>VISAO</b>
+                    <span>Mês/visão da análise.</span>
+                </div>
+
+                <div class="fake-row">
+                    <b>DS_REDE_EMPRESA</b>
+                    <span>Rede ou empresa do cliente.</span>
+                </div>
+
+                <div class="fake-row">
+                    <b>PRODUTO</b>
+                    <span>Produto contratado.</span>
+                </div>
+
+                <div class="fake-row">
+                    <b>FX_MOB</b>
+                    <span>Meses em atraso MOB.</span>
+                </div>
+
+                <div class="fake-row">
+                    <b>VL_SALDOCONTA</b>
+                    <span>Saldo da conta no período.</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Documento do meio -->
+
+        <div class="paper paper-middle">
+
+            <div class="doc-small">02</div>
+
+            <div class="doc-heading">
+                Fontes e atualização
+            </div>
+
+            <div class="doc-small">
+                Origem dos dados, lógica de atualização e frequência.
+            </div>
+
+            <div class="fake-table">
+
+                <div class="fake-row">
+                    <b>FONTE</b>
+                    <b>UTILIZAÇÃO</b>
+                </div>
+
+                <div class="fake-row">
+                    <b>BB_PARCELE_ADESAO</b>
+                    <span>Adesões.</span>
+                </div>
+
+                <div class="fake-row">
+                    <b>BB_PARCELE_ELEGIBILIDADE</b>
+                    <span>Elegibilidade.</span>
+                </div>
+
+                <div class="fake-row">
+                    <b>TB_FAT_RETENCAO_ACORDO</b>
+                    <span>Acordo.</span>
+                </div>
+
+                <div class="fake-row">
+                    <b>INADIMPLÊNCIA INTERNA</b>
+                    <span>Risco.</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Documento principal -->
+
+        <div class="paper paper-main">
+
+            <div class="mini-header">
+
+                <span>DASHBOARD DE RETENÇÃO</span>
+
+                <span>V1.0 · Set/2026</span>
+
+            </div>
+
+            <div class="guide-number">
+                01
+            </div>
+
+            <div class="guide-title">
+                GUIA DO<br>
+                DASHBOARD
+            </div>
+
+            <div class="guide-subtitle">
+                Estrutura, regras e orientações<br>
+                para uso da solução.
+            </div>
+
+
+            <div class="guide-list">
+
+                <div class="guide-item">
+                    <span>01</span>
+
+                    <div>
+                        <strong>Visão geral</strong>
+                        <small>Objetivo e escopo do dashboard.</small>
+                    </div>
+                </div>
+
+
+                <div class="guide-item">
+                    <span>02</span>
+
+                    <div>
+                        <strong>Fontes e atualização</strong>
+                        <small>Origem dos dados e frequência.</small>
+                    </div>
+                </div>
+
+
+                <div class="guide-item">
+                    <span>03</span>
+
+                    <div>
+                        <strong>Dicionário de campos</strong>
+                        <small>Campo, significado e aplicação.</small>
+                    </div>
+                </div>
+
+
+                <div class="guide-item">
+                    <span>04</span>
+
+                    <div>
+                        <strong>Regras de leitura</strong>
+                        <small>Cálculos, indicadores e critérios.</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="guide-blue"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="s07-right">
+
+        <div class="outcome">
+
+            <div class="outcome-number">
+                01
+            </div>
+
+            <div class="outcome-rule"></div>
+
+            <div class="outcome-label">
+                AUTONOMIA
+            </div>
+
+            <div class="outcome-title">
+                Quem lê entende<br>
+                o que vê.
+            </div>
+
+            <div class="outcome-copy">
+                Sem depender de<br>
+                quem construiu.
+            </div>
+
+        </div>
+
+
+        <div class="outcome">
+
+            <div class="outcome-number">
+                02
+            </div>
+
+            <div class="outcome-rule"></div>
+
+            <div class="outcome-label">
+                CONTINUIDADE
+            </div>
+
+            <div class="outcome-title">
+                Pensado para<br>
+                quem vem depois.
+            </div>
+
+            <div class="outcome-copy">
+                Uso e manutenção<br>
+                sem partir do zero.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-left">
+        CARTÕES 3 BUs
+    </div>
+
+    <div class="footer-right">
+        DA COMPLEXIDADE DOS DADOS ÀS DECISÕES MAIS CLARAS.
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     SLIDE 08
+====================================================== -->
+
+<section class="slide" id="slide08">
+
+    <div class="header">
+
+        <div class="header-left">
+            <div class="header-line"></div>
+            CASE · DASHBOARD DE RETENÇÃO
+        </div>
+
+        <div class="page">
+            08 / 09
+        </div>
+
+    </div>
+
+
+    <!-- LEFT -->
+
+    <div class="s08-left">
+
+        <div class="eyebrow">
+            08 · LIMITES &amp; APRENDIZADOS
+        </div>
+
+        <div class="s08-title">
+            O projeto<br>
+            também<br>
+            revelou<br>
+            <span class="blue">seus limites.</span>
+        </div>
+
+        <div class="s08-intro-line"></div>
+
+        <div class="s08-intro">
+            Mais do que um dashboard,<br>
+            foi um processo de aprendizado<br>
+            sobre dados, produto e tomada<br>
+            de decisão.
+        </div>
+
+    </div>
+
+
+
+    <!-- 01 -->
+
+    <div class="learning-one">
+
+        <div class="big-number">
+            01
+        </div>
+
+        <div class="learning-tag">
+            DADOS
+        </div>
+
+        <h2>
+            Dados não bastam<br>
+            prontos para responder.
+        </h2>
+
+        <p>
+            As fontes tinham estruturas, regras e granularidades
+            diferentes. Parte das consultas ficou pesada demais
+            para o Looker Studio, o que exigiu reorganização
+            da camada analítica e a materialização das consultas
+            no BigQuery.
+        </p>
+
+        <div class="small-rule"></div>
+
+        <p class="bottom-note">
+            Essa etapa foi essencial para garantir consistência,
+            performance e uma leitura confiável da carteira.
+        </p>
+
+    </div>
+
+
+
+    <!-- 02 -->
+
+    <div class="learning-two">
+
+        <div class="number">
+            02
+        </div>
+
+        <div class="learning-tag">
+            PRODUTO &amp; UX
+        </div>
+
+        <h2>
+            Uma fronteira,<br>
+            não uma lacuna.
+        </h2>
+
+        <p>
+            As jornadas e interações já existem
+            no ecossistema de Martech.
+        </p>
+
+        <p>
+            Em vez de replicar esses gráficos
+            no dashboard, o foco foi direcionar
+            o usuário para as fontes certas,
+            evitando duplicação de informações
+            e mantendo o painel mais leve
+            e objetivo.
+        </p>
+
+    </div>
+
+
+
+    <!-- 03 -->
+
+    <div class="learning-three">
+
+        <div class="number">
+            03
+        </div>
+
+        <div class="learning-three-content">
+
+            <div class="learning-tag">
+                ESTRUTURA
+            </div>
+
+            <h3>
+                Estruturar antes de construir.
+            </h3>
+
+            <p>
+                Definir a pergunta, o indicador, a fonte e a regra de negócio
+                antes de partir para o visual evitou retrabalho e trouxe mais clareza para o projeto.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-left">
+        CARTÕES 3 BUs
+    </div>
+
+    <div class="footer-right">
+        DA COMPLEXIDADE DOS DADOS ÀS DECISÕES MAIS CLARAS.
+    </div>
+
+</section>
+
 
 </main>
 
