@@ -4,739 +4,586 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard de Retenção — Slides 06, 07 e 08</title>
+<title>Design de Produtos — Mensal de Design</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
-}
-
-html,body{
-    margin:0;
-    padding:0;
-    background:#e9edf3;
-    font-family:Inter, Arial, Helvetica, sans-serif;
-    color:#07113d;
-}
-
-body{
-    padding:40px 0;
-}
-
-.deck{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:40px;
-}
-
 /* =========================================================
    BASE
 ========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --navy:#05091f;
+    --blue:#1769ff;
+    --blue-soft:#9ab8ff;
+    --purple:#9286ff;
+    --gray:#707789;
+    --light-gray:#d8dce5;
+    --white:#ffffff;
+}
+
+body{
+    margin:0;
+    background:#e9e9e9;
+    font-family:
+        Inter,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
+    color:var(--navy);
+}
+
+/* =========================================================
+   APRESENTAÇÃO
+========================================================= */
+
+.presentation{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:50px;
+    padding:50px 0;
+}
 
 .slide{
     width:1600px;
     height:900px;
     position:relative;
     overflow:hidden;
-    flex:none;
-
-    background:
-        radial-gradient(circle at 73% 25%,rgba(219,232,255,.5),transparent 32%),
-        linear-gradient(135deg,#ffffff 0%,#f8faff 100%);
-
-    box-shadow:0 20px 70px rgba(10,17,40,.12);
+    background:#fff;
 }
+
+/* textura/glow geral */
+
+.glow{
+    position:absolute;
+    pointer-events:none;
+    border-radius:50%;
+    filter:blur(70px);
+}
+
+.glow-blue{
+    width:600px;
+    height:600px;
+    left:-230px;
+    top:170px;
+    background:rgba(63,128,255,.18);
+}
+
+.glow-purple{
+    width:500px;
+    height:500px;
+    left:80px;
+    bottom:-260px;
+    background:rgba(129,103,255,.18);
+}
+
+/* =========================================================
+   HEADER / FOOTER
+========================================================= */
 
 .header{
     position:absolute;
-    top:40px;
-    left:50px;
-    right:50px;
+    top:38px;
+    left:58px;
+    right:58px;
 
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
 
-    font-size:12px;
-    font-weight:700;
-    letter-spacing:.16em;
+    font-size:13px;
+    letter-spacing:.7px;
 }
 
 .header-left{
     display:flex;
     align-items:center;
-    gap:18px;
+    gap:25px;
+    color:#586176;
 }
 
 .header-line{
-    width:53px;
-    height:1px;
-    background:#07113d;
+    width:2px;
+    height:32px;
+    background:var(--blue);
 }
 
-.page{
-    font-size:12px;
-    letter-spacing:.18em;
-}
-
-.footer-left{
-    position:absolute;
-    left:50px;
-    bottom:43px;
-
-    display:flex;
-    align-items:center;
-    gap:18px;
-
-    font-size:11px;
-    font-weight:600;
-    letter-spacing:.18em;
-    color:#4d5b80;
-}
-
-.footer-left::before{
-    content:"";
-    width:53px;
-    height:1px;
-    background:#07113d;
-}
-
-.footer-right{
-    position:absolute;
-    right:55px;
-    bottom:43px;
-
-    font-size:9px;
-    letter-spacing:.18em;
-    color:#8190ad;
-}
-
-
-/* =========================================================
-   SLIDE 06
-========================================================= */
-
-.s06-left{
-    position:absolute;
-    left:52px;
-    top:130px;
-    width:370px;
-}
-
-.eyebrow{
-    display:inline-block;
-    padding:12px 19px;
-
-    border-radius:999px;
-
-    background:#e8f1ff;
-    color:#1670eb;
-
-    font-size:12px;
+.logo{
     font-weight:700;
-    letter-spacing:.12em;
-}
-
-.s06-title{
-    margin-top:68px;
-
-    font-size:66px;
-    line-height:1.02;
-    letter-spacing:-.055em;
-    font-weight:700;
-}
-
-.blue{
-    color:#2d7df4;
-}
-
-.s06-copy{
-    width:335px;
-    margin-top:45px;
-
-    font-size:22px;
-    line-height:1.42;
-    color:#506084;
-}
-
-/* DASHBOARD STACK */
-
-.dashboard-stack{
-    position:absolute;
-
-    left:450px;
-    top:76px;
-
-    width:1090px;
-    height:700px;
-}
-
-/* As três imagens podem ser substituídas pelos seus prints reais */
-
-.dashboard{
-    position:absolute;
-
-    overflow:hidden;
-
-    background:#fff;
-
-    border:1px solid #dbe3ef;
-    border-radius:12px;
-
-    box-shadow:
-        0 20px 35px rgba(24,53,99,.15),
-        0 4px 10px rgba(24,53,99,.08);
-}
-
-.dashboard img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:top left;
-    display:block;
-}
-
-.dashboard-3{
-    width:630px;
-    height:570px;
-
-    right:0;
-    top:0;
-
-    transform:rotate(2deg);
-
-    opacity:.87;
-}
-
-.dashboard-2{
-    width:700px;
-    height:610px;
-
-    right:130px;
-    top:55px;
-
-    transform:rotate(1deg);
-
-    opacity:.94;
-}
-
-.dashboard-1{
-    width:785px;
-    height:600px;
-
-    left:0;
-    top:115px;
-
-    z-index:3;
-}
-
-/* placeholders caso ainda não coloque os prints */
-
-.placeholder{
-    width:100%;
-    height:100%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        linear-gradient(#fff,#f3f6fb);
-
-    color:#77839c;
-
-    font-size:15px;
-    letter-spacing:.08em;
-}
-
-
-/* =========================================================
-   SLIDE 07
-========================================================= */
-
-.s07-intro{
-    position:absolute;
-    left:60px;
-    top:135px;
-    width:400px;
-}
-
-.s07-label{
-    color:#1670eb;
-
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.1em;
-}
-
-.s07-title{
-    margin-top:70px;
-
-    font-size:66px;
-    line-height:1.05;
-    letter-spacing:-.055em;
-}
-
-.s07-description{
-    width:365px;
-    margin-top:42px;
-
-    color:#536181;
-
-    font-size:20px;
-    line-height:1.43;
-}
-
-
-/* DOCUMENTOS */
-
-.docs{
-    position:absolute;
-
-    left:465px;
-    top:85px;
-
-    width:740px;
-    height:700px;
-}
-
-.paper{
-    position:absolute;
-
-    background:#fff;
-
-    border:1px solid #e0e5ed;
-
-    box-shadow:
-        0 18px 40px rgba(20,44,84,.11),
-        0 3px 9px rgba(20,44,84,.07);
-}
-
-.paper-back{
-    width:355px;
-    height:490px;
-
-    left:95px;
-    top:0;
-
-    transform:rotate(-5deg);
-
-    padding:45px 35px;
-}
-
-.paper-middle{
-    width:340px;
-    height:430px;
-
-    left:0;
-    top:215px;
-
-    transform:rotate(-1deg);
-
-    padding:42px 34px;
-}
-
-.paper-main{
-    width:430px;
-    height:605px;
-
-    right:0;
-    top:90px;
-
-    padding:58px 50px;
-}
-
-.doc-small{
-    font-size:10px;
-    color:#506181;
-    letter-spacing:.08em;
-}
-
-.doc-heading{
-    font-size:17px;
-    margin-top:8px;
-    font-weight:700;
-}
-
-.fake-table{
-    margin-top:22px;
-    border-top:1px solid #cbd4e3;
-}
-
-.fake-row{
-    display:grid;
-    grid-template-columns:1fr 1.8fr;
-
-    padding:10px 0;
-
-    border-bottom:1px solid #e0e6ef;
-
-    font-size:8px;
-    color:#536181;
-}
-
-.fake-row b{
-    color:#172443;
-}
-
-.paper-main .mini-header{
-    display:flex;
-    justify-content:space-between;
-
-    font-size:9px;
-    letter-spacing:.12em;
-    color:#536181;
-}
-
-.guide-number{
-    margin-top:45px;
-
     font-size:18px;
-    color:#354566;
+    line-height:.85;
+    text-align:right;
 }
 
-.guide-title{
-    margin-top:15px;
-
-    font-size:47px;
-    line-height:.96;
-    letter-spacing:-.045em;
+.logo span{
+    font-size:10px;
     font-weight:400;
 }
 
-.guide-subtitle{
-    margin-top:30px;
-    padding-top:17px;
-
-    border-top:1px solid #8390a7;
-
-    font-size:14px;
-    line-height:1.35;
-    color:#34425f;
-}
-
-.guide-list{
-    margin-top:30px;
-}
-
-.guide-item{
-    display:grid;
-    grid-template-columns:40px 1fr;
-
-    padding:12px 0;
-
-    border-bottom:1px solid #dfe4ec;
-}
-
-.guide-item span{
-    color:#61708d;
-    font-size:12px;
-}
-
-.guide-item strong{
-    display:block;
-    font-size:12px;
-}
-
-.guide-item small{
-    display:block;
-    margin-top:3px;
-
-    font-size:9px;
-    color:#64728c;
-}
-
-.guide-blue{
+.footer{
     position:absolute;
-    right:0;
-    top:110px;
+    left:58px;
+    right:58px;
+    bottom:34px;
 
-    width:21px;
-    height:190px;
-
-    background:#287df5;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
 }
 
+.footer-edition{
+    display:flex;
+    align-items:center;
+    gap:24px;
 
-/* RIGHT SIDE */
-
-.s07-right{
-    position:absolute;
-
-    right:55px;
-    top:85px;
-
-    width:255px;
-    height:640px;
-
-    border-left:1px solid #71809e;
-
-    padding-left:42px;
+    font-size:12px;
+    color:#657087;
+    letter-spacing:2px;
+    line-height:1.45;
 }
 
-.outcome{
-    margin-top:95px;
+.footer-edition::before{
+    content:"";
+    display:block;
+    width:2px;
+    height:35px;
+    background:var(--blue);
 }
 
-.outcome + .outcome{
-    margin-top:68px;
+.page{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    font-size:12px;
+    color:#6b7385;
 }
 
-.outcome-number{
-    font-size:25px;
-    font-weight:700;
+.page::after{
+    content:"";
+    width:2px;
+    height:35px;
+    background:var(--blue);
 }
-
-.outcome-rule{
-    width:28px;
-    height:1px;
-
-    margin:16px 0 22px;
-
-    background:#07113d;
-}
-
-.outcome-label{
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.1em;
-}
-
-.outcome-title{
-    margin-top:18px;
-
-    font-size:21px;
-    line-height:1.25;
-}
-
-.outcome-copy{
-    margin-top:4px;
-
-    font-size:18px;
-    line-height:1.25;
-    color:#526183;
-}
-
 
 /* =========================================================
-   SLIDE 08
+   SLIDE 01 — ESCOPO
 ========================================================= */
 
-.s08-left{
-    position:absolute;
+.slide-scope{
+    background:
+        radial-gradient(
+            circle at 55% 75%,
+            rgba(133,158,255,.14),
+            transparent 37%
+        ),
+        #fff;
+}
 
-    left:55px;
+.scope-title{
+    position:absolute;
+    left:67px;
     top:118px;
-
-    width:350px;
 }
 
-.s08-title{
-    margin-top:40px;
-
-    font-size:59px;
-    line-height:1.06;
-    letter-spacing:-.055em;
+.eyebrow{
+    font-size:26px;
+    font-weight:300;
+    color:#858b9a;
+    margin-bottom:4px;
 }
 
-.s08-intro-line{
-    width:55px;
-    height:1px;
-
-    background:#07113d;
-
-    margin-top:48px;
+.scope-title h1{
+    font-size:100px;
+    font-weight:300;
+    letter-spacing:-6px;
+    line-height:.85;
 }
 
-.s08-intro{
-    width:310px;
-
-    margin-top:36px;
-
-    font-size:18px;
-    line-height:1.42;
-    color:#566583;
+.scope-title .blue{
+    color:#2783ff;
 }
 
+/* círculos */
 
-/* LEARNING 01 */
-
-.learning-one{
+.scope-circles{
     position:absolute;
-
-    left:440px;
-    top:70px;
-
-    width:610px;
+    width:900px;
+    height:680px;
+    left:325px;
+    top:260px;
 }
 
-.big-number{
-    font-size:210px;
-    line-height:.75;
-
-    color:#e1edff;
-
-    font-weight:700;
-    letter-spacing:-.08em;
-}
-
-.learning-tag{
-    margin-top:22px;
-
-    color:#1670eb;
-
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.1em;
-}
-
-.learning-one h2{
-    margin:14px 0 0;
-
-    font-size:42px;
-    line-height:1.06;
-    letter-spacing:-.04em;
-}
-
-.learning-one p{
-    width:550px;
-
-    margin-top:25px;
-
-    color:#536181;
-
-    font-size:17px;
-    line-height:1.42;
-}
-
-.learning-one .small-rule{
-    width:55px;
-    height:1px;
-
-    margin-top:18px;
-
-    background:#536181;
-}
-
-.learning-one .bottom-note{
-    margin-top:18px;
-
-    font-size:16px;
-    line-height:1.4;
-}
-
-
-/* LEARNING 02 */
-
-.learning-two{
+.circle{
     position:absolute;
-
-    left:1090px;
-    top:90px;
-
-    width:420px;
-    height:535px;
-
-    border-left:1px solid #667590;
-
-    padding-left:62px;
+    border-radius:50%;
 }
 
-.learning-two .number{
-    font-size:105px;
-    line-height:.8;
+.circle-one{
+    width:590px;
+    height:590px;
+    left:0;
+    top:0;
 
-    color:#e5efff;
-    font-weight:700;
+    background:rgba(203,219,255,.35);
 }
 
-.learning-two h2{
-    margin-top:15px;
+.circle-two{
+    width:400px;
+    height:400px;
+    left:330px;
+    top:95px;
 
-    font-size:38px;
-    line-height:1.08;
-    letter-spacing:-.035em;
-    font-weight:500;
+    background:rgba(120,166,255,.29);
 }
 
-.learning-two p{
-    margin-top:28px;
+.circle-three{
+    width:500px;
+    height:500px;
+    left:280px;
+    top:285px;
 
+    background:rgba(129,113,255,.20);
+}
+
+.circle-label{
+    position:absolute;
+    font-size:22px;
+    font-weight:600;
+}
+
+.ops{
+    left:175px;
+    top:190px;
+}
+
+.cards{
+    left:475px;
+    top:180px;
+}
+
+.retention{
+    left:470px;
+    top:485px;
+}
+
+/* divisória OPS DS */
+
+.ops .divider{
+    margin:0 20px;
+    color:#838999;
+}
+
+/* textos laterais */
+
+.description{
+    position:absolute;
+}
+
+.description h3{
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+.description p{
+    color:#7a8190;
     font-size:17px;
     line-height:1.45;
-    color:#536181;
 }
 
+.description-left{
+    left:65px;
+    top:455px;
+    width:300px;
+}
 
-/* LEARNING 03 */
+.description-right{
+    right:65px;
+    top:275px;
+    width:310px;
+}
 
-.learning-three{
+/* connector */
+
+.connector{
     position:absolute;
-
-    left:410px;
-    top:655px;
-
-    width:1050px;
-    height:160px;
-
-    border-top:1px solid #667590;
+    height:1px;
+    background:#32394d;
 }
 
-.learning-three .number{
+.connector-left{
+    width:170px;
+    left:300px;
+    top:474px;
+}
+
+.connector-left::after{
+    content:"";
     position:absolute;
+    right:-5px;
+    top:-5px;
 
-    left:0;
-    top:28px;
-
-    font-size:115px;
-    line-height:.8;
-
-    color:#e5efff;
-    font-weight:700;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#080d27;
 }
-
-.learning-three-content{
-    position:absolute;
-
-    left:205px;
-    top:32px;
-}
-
-.learning-three h3{
-    margin:8px 0 4px;
-
-    font-size:27px;
-    font-weight:500;
-}
-
-.learning-three p{
-    margin:0;
-
-    font-size:15px;
-    color:#536181;
-}
-
 
 /* =========================================================
-   RESPONSIVO — SOMENTE PARA VISUALIZAR NO NAVEGADOR
+   SLIDE 02 — DS OPS
+========================================================= */
+
+.ds-content{
+    position:absolute;
+    left:90px;
+    top:175px;
+    width:810px;
+}
+
+.ds-title{
+    display:flex;
+    align-items:center;
+    gap:24px;
+
+    font-size:76px;
+    font-weight:650;
+    letter-spacing:-5px;
+}
+
+.ds-title .divider{
+    height:68px;
+    width:2px;
+    background:#72798b;
+}
+
+.ds-title .blue{
+    color:#0e5cff;
+}
+
+.ds-subtitle{
+    width:700px;
+    margin-top:8px;
+
+    color:#697083;
+    font-size:23px;
+    line-height:1.3;
+}
+
+/* KPIs grandes */
+
+.numbers{
+    position:absolute;
+    left:85px;
+    bottom:175px;
+
+    display:flex;
+    align-items:flex-end;
+    gap:115px;
+}
+
+.number-main .value{
+    font-size:245px;
+    font-weight:200;
+    line-height:.7;
+    letter-spacing:-18px;
+}
+
+.number-secondary .value{
+    font-size:105px;
+    font-weight:200;
+    line-height:.8;
+    letter-spacing:-8px;
+}
+
+.number-label{
+    margin-top:25px;
+    font-size:27px;
+    font-weight:300;
+    color:#707789;
+}
+
+/* OKR */
+
+.okr-panel{
+    position:absolute;
+    right:90px;
+    top:175px;
+
+    width:500px;
+    min-height:450px;
+
+    border-left:1px solid #d6d9e1;
+    padding-left:50px;
+}
+
+.okr-panel h4{
+    font-size:14px;
+    letter-spacing:3px;
+    color:#626a7e;
+    margin-bottom:35px;
+}
+
+.okr-block{
+    font-size:17px;
+    line-height:1.65;
+    color:#777e8e;
+}
+
+.okr-block strong{
+    color:#090d20;
+}
+
+.okr-separator{
+    height:1px;
+    background:#d8dbe2;
+    margin:65px 0 45px;
+}
+
+/* team */
+
+.team{
+    position:absolute;
+    right:165px;
+    bottom:105px;
+
+    display:flex;
+    align-items:center;
+}
+
+.avatar{
+    width:55px;
+    height:55px;
+    margin-left:-12px;
+
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 50% 35%, #ddd 0 20%, #888 21% 45%, #333 46%);
+    border:2px solid white;
+    filter:grayscale(1);
+}
+
+.manager{
+    margin-left:30px;
+    padding-left:20px;
+    border-left:1px solid #aeb3bd;
+}
+
+.manager strong{
+    font-size:14px;
+}
+
+.manager span{
+    display:block;
+    color:#777e90;
+    font-size:13px;
+    margin-top:3px;
+}
+
+/* =========================================================
+   SLIDE 03 — RETENÇÃO
+========================================================= */
+
+.retention-title{
+    position:absolute;
+    left:70px;
+    top:165px;
+    font-size:38px;
+    font-weight:650;
+}
+
+.quarter{
+    position:absolute;
+    left:60px;
+    top:235px;
+
+    font-size:340px;
+    line-height:.8;
+    font-weight:200;
+    letter-spacing:-25px;
+}
+
+.retention-copy{
+    position:absolute;
+    left:70px;
+    top:530px;
+
+    width:530px;
+    color:#676e80;
+
+    font-size:22px;
+    line-height:1.35;
+}
+
+/* curva */
+
+.curve{
+    position:absolute;
+    left:-100px;
+    bottom:90px;
+
+    width:1850px;
+    height:390px;
+    pointer-events:none;
+}
+
+.curve svg{
+    width:100%;
+    height:100%;
+}
+
+/* texto final */
+
+.desire{
+    position:absolute;
+    right:100px;
+    bottom:100px;
+    width:590px;
+}
+
+.desire-copy{
+    font-size:21px;
+    line-height:1.3;
+    color:#656c7d;
+    margin-bottom:28px;
+}
+
+.desire-small{
+    font-size:58px;
+    font-weight:200;
+    line-height:.6;
+}
+
+.desire-big{
+    font-size:105px;
+    font-weight:200;
+    letter-spacing:-7px;
+    line-height:.95;
+
+    background:linear-gradient(
+        90deg,
+        #05091f 0%,
+        #101b62 55%,
+        #9678ff 100%
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* =========================================================
+   RESPONSIVO APENAS PARA VISUALIZAÇÃO
 ========================================================= */
 
 @media(max-width:1600px){
-
-    body{
-        padding:0;
-    }
-
-    .deck{
-        align-items:flex-start;
-    }
-
     .slide{
-        transform-origin:top left;
+        transform-origin:top center;
     }
-
 }
 
 </style>
@@ -744,537 +591,323 @@ body{
 
 <body>
 
-<main class="deck">
-
+<div class="presentation">
 
 <!-- ======================================================
-     SLIDE 06
+     SLIDE 01
 ====================================================== -->
 
-<section class="slide" id="slide06">
+<section class="slide slide-scope">
 
     <div class="header">
         <div class="header-left">
             <div class="header-line"></div>
-            CASE · DASHBOARD DE RETENÇÃO
+            <span>DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA</span>
         </div>
 
-        <div class="page">06 / 09</div>
+        <span>01</span>
     </div>
 
+    <div class="scope-title">
+        <div class="eyebrow">O que cuidamos?</div>
 
-    <div class="s06-left">
-
-        <div class="eyebrow">
-            06 · O DASHBOARD NA PRÁTICA
-        </div>
-
-        <div class="s06-title">
-            Uma visão<br>
-            <span class="blue">conectada</span><br>
-            da Retenção.
-        </div>
-
-        <div class="s06-copy">
-            Risco, conversão e contexto<br>
-            de mercado organizados em<br>
-            uma única leitura da carteira.
-        </div>
-
+        <h1>
+            Escopo e<br>
+            <span class="blue">responsabilidades</span>
+        </h1>
     </div>
 
+    <div class="scope-circles">
 
-    <div class="dashboard-stack">
+        <div class="circle circle-one"></div>
+        <div class="circle circle-two"></div>
+        <div class="circle circle-three"></div>
 
-        <!--
-        TROQUE os placeholders pelos prints reais:
-
-        <img src="inadimplencia.png">
-        <img src="conversao.png">
-        <img src="mercado.png">
-        -->
-
-        <div class="dashboard dashboard-3">
-            <div class="placeholder">
-                CONTEXTO DE MERCADO
-            </div>
+        <div class="circle-label ops">
+            OPS
+            <span class="divider">|</span>
+            DS
         </div>
 
-        <div class="dashboard dashboard-2">
-            <div class="placeholder">
-                CONVERSÃO &amp; ELEGIBILIDADE
-            </div>
+        <div class="circle-label cards">
+            CARTÕES
         </div>
 
-        <div class="dashboard dashboard-1">
-            <div class="placeholder">
-                INADIMPLÊNCIA &amp; RISCO
-            </div>
+        <div class="circle-label retention">
+            RETENÇÃO
         </div>
 
     </div>
 
+    <div class="description description-left">
+        <h3>Centro de Excelência</h3>
 
-    <div class="footer-left">
-        CARTÕES 3 BUs
+        <p>
+            Maximizar a eficiência do trabalho
+            de Design e facilitar a consistência,
+            escalabilidade e fácil atualização
+            das interfaces de produtos digitais.
+        </p>
     </div>
 
-    <div class="footer-right">
-        DA COMPLEXIDADE DOS DADOS ÀS DECISÕES MAIS CLARAS.
+    <div class="connector connector-left"></div>
+
+    <div class="description description-right">
+        <h3>Design de Produtos</h3>
+
+        <p>
+            Estruturar toda a experiência
+            do banco e garantir a consistência
+            entre todos os pontos de contato,
+            com o olhar de negócio, tecnologia
+            e experiência.
+        </p>
     </div>
 
-</section>
+    <div class="footer">
 
-
-
-<!-- ======================================================
-     SLIDE 07
-====================================================== -->
-
-<section class="slide" id="slide07">
-
-    <div class="header">
-        <div class="header-left">
-            <div class="header-line"></div>
-            CASE · DASHBOARD DE RETENÇÃO
-        </div>
-
-        <div class="page">07 / 09</div>
-    </div>
-
-
-    <div class="s07-intro">
-
-        <div class="s07-label">
-            07 · SUSTENTABILIDADE
-        </div>
-
-        <div class="s07-title">
-            Um<br>
-            dashboard<br>
-            <span class="blue">que se explica.</span>
-        </div>
-
-        <div class="s07-description">
-            Regras, fontes e critérios<br>
-            documentados para preservar<br>
-            o entendimento e a continuidade<br>
-            da solução.
-        </div>
-
-    </div>
-
-
-    <div class="docs">
-
-
-        <!-- Documento traseiro -->
-
-        <div class="paper paper-back">
-
-            <div class="doc-small">03</div>
-
-            <div class="doc-heading">
-                Dicionário de campos
+        <div class="footer-edition">
+            <div>
+                MENSAL DE DESIGN<br>
+                OUT 2026
             </div>
-
-            <div class="doc-small">
-                Descrição dos principais campos utilizados no dashboard.
-            </div>
-
-            <div class="fake-table">
-
-                <div class="fake-row">
-                    <b>CAMPO</b>
-                    <b>SIGNIFICADO</b>
-                </div>
-
-                <div class="fake-row">
-                    <b>CD_ANOMES_ADESAO</b>
-                    <span>Mês de referência da adesão.</span>
-                </div>
-
-                <div class="fake-row">
-                    <b>VISAO</b>
-                    <span>Mês/visão da análise.</span>
-                </div>
-
-                <div class="fake-row">
-                    <b>DS_REDE_EMPRESA</b>
-                    <span>Rede ou empresa do cliente.</span>
-                </div>
-
-                <div class="fake-row">
-                    <b>PRODUTO</b>
-                    <span>Produto contratado.</span>
-                </div>
-
-                <div class="fake-row">
-                    <b>FX_MOB</b>
-                    <span>Meses em atraso MOB.</span>
-                </div>
-
-                <div class="fake-row">
-                    <b>VL_SALDOCONTA</b>
-                    <span>Saldo da conta no período.</span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- Documento do meio -->
-
-        <div class="paper paper-middle">
-
-            <div class="doc-small">02</div>
-
-            <div class="doc-heading">
-                Fontes e atualização
-            </div>
-
-            <div class="doc-small">
-                Origem dos dados, lógica de atualização e frequência.
-            </div>
-
-            <div class="fake-table">
-
-                <div class="fake-row">
-                    <b>FONTE</b>
-                    <b>UTILIZAÇÃO</b>
-                </div>
-
-                <div class="fake-row">
-                    <b>BB_PARCELE_ADESAO</b>
-                    <span>Adesões.</span>
-                </div>
-
-                <div class="fake-row">
-                    <b>BB_PARCELE_ELEGIBILIDADE</b>
-                    <span>Elegibilidade.</span>
-                </div>
-
-                <div class="fake-row">
-                    <b>TB_FAT_RETENCAO_ACORDO</b>
-                    <span>Acordo.</span>
-                </div>
-
-                <div class="fake-row">
-                    <b>INADIMPLÊNCIA INTERNA</b>
-                    <span>Risco.</span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- Documento principal -->
-
-        <div class="paper paper-main">
-
-            <div class="mini-header">
-
-                <span>DASHBOARD DE RETENÇÃO</span>
-
-                <span>V1.0 · Set/2026</span>
-
-            </div>
-
-            <div class="guide-number">
-                01
-            </div>
-
-            <div class="guide-title">
-                GUIA DO<br>
-                DASHBOARD
-            </div>
-
-            <div class="guide-subtitle">
-                Estrutura, regras e orientações<br>
-                para uso da solução.
-            </div>
-
-
-            <div class="guide-list">
-
-                <div class="guide-item">
-                    <span>01</span>
-
-                    <div>
-                        <strong>Visão geral</strong>
-                        <small>Objetivo e escopo do dashboard.</small>
-                    </div>
-                </div>
-
-
-                <div class="guide-item">
-                    <span>02</span>
-
-                    <div>
-                        <strong>Fontes e atualização</strong>
-                        <small>Origem dos dados e frequência.</small>
-                    </div>
-                </div>
-
-
-                <div class="guide-item">
-                    <span>03</span>
-
-                    <div>
-                        <strong>Dicionário de campos</strong>
-                        <small>Campo, significado e aplicação.</small>
-                    </div>
-                </div>
-
-
-                <div class="guide-item">
-                    <span>04</span>
-
-                    <div>
-                        <strong>Regras de leitura</strong>
-                        <small>Cálculos, indicadores e critérios.</small>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="guide-blue"></div>
-
-        </div>
-
-    </div>
-
-
-
-    <div class="s07-right">
-
-        <div class="outcome">
-
-            <div class="outcome-number">
-                01
-            </div>
-
-            <div class="outcome-rule"></div>
-
-            <div class="outcome-label">
-                AUTONOMIA
-            </div>
-
-            <div class="outcome-title">
-                Quem lê entende<br>
-                o que vê.
-            </div>
-
-            <div class="outcome-copy">
-                Sem depender de<br>
-                quem construiu.
-            </div>
-
-        </div>
-
-
-        <div class="outcome">
-
-            <div class="outcome-number">
-                02
-            </div>
-
-            <div class="outcome-rule"></div>
-
-            <div class="outcome-label">
-                CONTINUIDADE
-            </div>
-
-            <div class="outcome-title">
-                Pensado para<br>
-                quem vem depois.
-            </div>
-
-            <div class="outcome-copy">
-                Uso e manutenção<br>
-                sem partir do zero.
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-left">
-        CARTÕES 3 BUs
-    </div>
-
-    <div class="footer-right">
-        DA COMPLEXIDADE DOS DADOS ÀS DECISÕES MAIS CLARAS.
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     SLIDE 08
-====================================================== -->
-
-<section class="slide" id="slide08">
-
-    <div class="header">
-
-        <div class="header-left">
-            <div class="header-line"></div>
-            CASE · DASHBOARD DE RETENÇÃO
         </div>
 
         <div class="page">
-            08 / 09
-        </div>
-
-    </div>
-
-
-    <!-- LEFT -->
-
-    <div class="s08-left">
-
-        <div class="eyebrow">
-            08 · LIMITES &amp; APRENDIZADOS
-        </div>
-
-        <div class="s08-title">
-            O projeto<br>
-            também<br>
-            revelou<br>
-            <span class="blue">seus limites.</span>
-        </div>
-
-        <div class="s08-intro-line"></div>
-
-        <div class="s08-intro">
-            Mais do que um dashboard,<br>
-            foi um processo de aprendizado<br>
-            sobre dados, produto e tomada<br>
-            de decisão.
-        </div>
-
-    </div>
-
-
-
-    <!-- 01 -->
-
-    <div class="learning-one">
-
-        <div class="big-number">
             01
         </div>
 
-        <div class="learning-tag">
-            DADOS
-        </div>
-
-        <h2>
-            Dados não bastam<br>
-            prontos para responder.
-        </h2>
-
-        <p>
-            As fontes tinham estruturas, regras e granularidades
-            diferentes. Parte das consultas ficou pesada demais
-            para o Looker Studio, o que exigiu reorganização
-            da camada analítica e a materialização das consultas
-            no BigQuery.
-        </p>
-
-        <div class="small-rule"></div>
-
-        <p class="bottom-note">
-            Essa etapa foi essencial para garantir consistência,
-            performance e uma leitura confiável da carteira.
-        </p>
-
-    </div>
-
-
-
-    <!-- 02 -->
-
-    <div class="learning-two">
-
-        <div class="number">
-            02
-        </div>
-
-        <div class="learning-tag">
-            PRODUTO &amp; UX
-        </div>
-
-        <h2>
-            Uma fronteira,<br>
-            não uma lacuna.
-        </h2>
-
-        <p>
-            As jornadas e interações já existem
-            no ecossistema de Martech.
-        </p>
-
-        <p>
-            Em vez de replicar esses gráficos
-            no dashboard, o foco foi direcionar
-            o usuário para as fontes certas,
-            evitando duplicação de informações
-            e mantendo o painel mais leve
-            e objetivo.
-        </p>
-
-    </div>
-
-
-
-    <!-- 03 -->
-
-    <div class="learning-three">
-
-        <div class="number">
-            03
-        </div>
-
-        <div class="learning-three-content">
-
-            <div class="learning-tag">
-                ESTRUTURA
-            </div>
-
-            <h3>
-                Estruturar antes de construir.
-            </h3>
-
-            <p>
-                Definir a pergunta, o indicador, a fonte e a regra de negócio
-                antes de partir para o visual evitou retrabalho e trouxe mais clareza para o projeto.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-left">
-        CARTÕES 3 BUs
-    </div>
-
-    <div class="footer-right">
-        DA COMPLEXIDADE DOS DADOS ÀS DECISÕES MAIS CLARAS.
     </div>
 
 </section>
 
 
-</main>
+<!-- ======================================================
+     SLIDE 02
+====================================================== -->
+
+<section class="slide">
+
+    <div class="glow glow-blue"></div>
+    <div class="glow glow-purple"></div>
+
+    <div class="header">
+
+        <div class="header-left">
+            <div class="header-line"></div>
+            <span>DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA</span>
+        </div>
+
+        <div class="logo">
+            Carrefour<br>
+            <span>banco</span>
+        </div>
+
+    </div>
+
+    <div class="ds-content">
+
+        <div class="ds-title">
+            <span>DS</span>
+
+            <div class="divider"></div>
+
+            <span class="blue">OPS</span>
+        </div>
+
+        <div class="ds-subtitle">
+            Transformar dados em produtos, processos e experiências
+            que impulsionam a eficiência e a performance do banco.
+        </div>
+
+    </div>
+
+    <div class="numbers">
+
+        <div class="number-main">
+            <div class="value">120</div>
+            <div class="number-label">lorem ipsum</div>
+        </div>
+
+        <div class="number-secondary">
+            <div class="value">120</div>
+            <div class="number-label">lorem ipsum</div>
+        </div>
+
+        <div class="number-secondary">
+            <div class="value">120</div>
+            <div class="number-label">lorem ipsum</div>
+        </div>
+
+    </div>
+
+    <div class="okr-panel">
+
+        <h4>OKRs &amp; KPIs</h4>
+
+        <div class="okr-block">
+            <strong>Okr :</strong> Limply dummy text of the printing and período<br>
+            <strong>kpi :</strong> Limply dummy text of the printing and período<br>
+            <strong>kpi :</strong> Limply dummy text of the printing and período<br>
+            <strong>kpi :</strong> Limply dummy text of the printing and período
+        </div>
+
+        <div class="okr-separator"></div>
+
+        <div class="okr-block">
+            <strong>Okr :</strong> Limply dummy text of the printing and período<br>
+            <strong>kpi :</strong> Limply dummy text of the printing and período<br>
+            <strong>kpi :</strong> Limply dummy text of the printing and período<br>
+            <strong>kpi :</strong> Limply dummy text of the printing and período
+        </div>
+
+    </div>
+
+    <div class="team">
+
+        <div class="avatar"></div>
+        <div class="avatar"></div>
+        <div class="avatar"></div>
+        <div class="avatar"></div>
+        <div class="avatar"></div>
+
+        <div class="manager">
+            <strong>Camila Corrêa</strong>
+            <span>Design manager</span>
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        <div class="footer-edition">
+            <div>
+                MENSAL DE DESIGN<br>
+                OUT 2026
+            </div>
+        </div>
+
+        <div class="page">
+            01
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     SLIDE 03
+====================================================== -->
+
+<section class="slide">
+
+    <div class="glow glow-blue"></div>
+    <div class="glow glow-purple"></div>
+
+    <div class="header">
+
+        <div class="header-left">
+            <span>Design de Produtos e Centro de Excelência</span>
+        </div>
+
+        <div class="logo">
+            Carrefour<br>
+            <span>banco</span>
+        </div>
+
+    </div>
+
+    <div class="retention-title">
+        Retenção
+    </div>
+
+    <div class="quarter">
+        Q4
+    </div>
+
+    <div class="retention-copy">
+        Ondas de valor. Of the printing and typesetting
+        industry. Lorem Ipsum has been the Ipsum has
+        been the
+    </div>
+
+    <!-- curva editorial -->
+
+    <div class="curve">
+
+        <svg
+            viewBox="0 0 1850 390"
+            preserveAspectRatio="none">
+
+            <defs>
+
+                <linearGradient
+                    id="curveGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%">
+
+                    <stop
+                        offset="0%"
+                        stop-color="#a9d4ff"/>
+
+                    <stop
+                        offset="55%"
+                        stop-color="#8c9cff"/>
+
+                    <stop
+                        offset="100%"
+                        stop-color="#b498ff"/>
+
+                </linearGradient>
+
+            </defs>
+
+            <path
+                d="
+                M 0 235
+                C 280 285,
+                  500 300,
+                  700 205
+                C 890 115,
+                  980 15,
+                  1180 10
+                C 1420 4,
+                  1640 15,
+                  1850 12
+                "
+                fill="none"
+                stroke="url(#curveGradient)"
+                stroke-width="2"
+                opacity=".6"
+            />
+
+        </svg>
+
+    </div>
+
+    <div class="desire">
+
+        <div class="desire-copy">
+            Of the printing and typesetting industry.
+            Lorem Ipsum has been the Ipsum has been the
+        </div>
+
+        <div class="desire-small">
+            pois
+        </div>
+
+        <div class="desire-big">
+            desejamos
+        </div>
+
+    </div>
+
+</section>
+
+</div>
 
 </body>
 </html>
