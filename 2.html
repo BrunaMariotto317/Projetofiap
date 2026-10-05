@@ -7,6 +7,7 @@
 <title>Design de Produtos — Mensal de Design</title>
 
 <style>
+
 /* =========================================================
    BASE
 ========================================================= */
@@ -30,36 +31,71 @@
 body{
     margin:0;
     background:#e9e9e9;
+
     font-family:
         Inter,
         "Helvetica Neue",
         Helvetica,
         Arial,
         sans-serif;
+
     color:var(--navy);
 }
 
+
 /* =========================================================
-   APRESENTAÇÃO
+   APRESENTAÇÃO — 1920 x 1080
 ========================================================= */
 
 .presentation{
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:50px;
-    padding:50px 0;
+    gap:60px;
+    padding:60px 0;
 }
+
+/*
+    FRAME FINAL
+    1920 x 1080
+*/
 
 .slide{
-    width:1600px;
-    height:900px;
+    width:1920px;
+    height:1080px;
+
     position:relative;
     overflow:hidden;
-    background:#fff;
+
+    background:#ffffff;
 }
 
-/* textura/glow geral */
+/*
+    O design original foi construído em 1600x900.
+    Escala de 1.2 = 1920x1080.
+
+    Dessa forma todos os elementos aumentam
+    proporcionalmente sem alterar a composição.
+*/
+
+.slide-content{
+    width:1600px;
+    height:900px;
+
+    position:absolute;
+    top:0;
+    left:0;
+
+    transform:scale(1.2);
+    transform-origin:top left;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   GLOWS
+========================================================= */
 
 .glow{
     position:absolute;
@@ -71,25 +107,31 @@ body{
 .glow-blue{
     width:600px;
     height:600px;
+
     left:-230px;
     top:170px;
+
     background:rgba(63,128,255,.18);
 }
 
 .glow-purple{
     width:500px;
     height:500px;
+
     left:80px;
     bottom:-260px;
+
     background:rgba(129,103,255,.18);
 }
 
+
 /* =========================================================
-   HEADER / FOOTER
+   HEADER
 ========================================================= */
 
 .header{
     position:absolute;
+
     top:38px;
     left:58px;
     right:58px;
@@ -106,19 +148,27 @@ body{
     display:flex;
     align-items:center;
     gap:25px;
+
     color:#586176;
 }
 
 .header-line{
     width:2px;
     height:32px;
+
     background:var(--blue);
 }
+
+
+/* =========================================================
+   LOGO
+========================================================= */
 
 .logo{
     font-weight:700;
     font-size:18px;
     line-height:.85;
+
     text-align:right;
 }
 
@@ -127,8 +177,14 @@ body{
     font-weight:400;
 }
 
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
 .footer{
     position:absolute;
+
     left:58px;
     right:58px;
     bottom:34px;
@@ -145,15 +201,19 @@ body{
 
     font-size:12px;
     color:#657087;
+
     letter-spacing:2px;
     line-height:1.45;
 }
 
 .footer-edition::before{
     content:"";
+
     display:block;
+
     width:2px;
     height:35px;
+
     background:var(--blue);
 }
 
@@ -161,33 +221,42 @@ body{
     display:flex;
     align-items:center;
     gap:18px;
+
     font-size:12px;
     color:#6b7385;
 }
 
 .page::after{
     content:"";
+
     width:2px;
     height:35px;
+
     background:var(--blue);
 }
 
+
 /* =========================================================
-   SLIDE 01 — ESCOPO
+   SLIDE 01
+   ESCOPO E RESPONSABILIDADES
 ========================================================= */
 
-.slide-scope{
+.slide-scope .slide-content{
     background:
         radial-gradient(
             circle at 55% 75%,
             rgba(133,158,255,.14),
             transparent 37%
         ),
-        #fff;
+        #ffffff;
 }
+
+
+/* título */
 
 .scope-title{
     position:absolute;
+
     left:67px;
     top:118px;
 }
@@ -195,13 +264,16 @@ body{
 .eyebrow{
     font-size:26px;
     font-weight:300;
+
     color:#858b9a;
+
     margin-bottom:4px;
 }
 
 .scope-title h1{
     font-size:100px;
     font-weight:300;
+
     letter-spacing:-6px;
     line-height:.85;
 }
@@ -210,12 +282,17 @@ body{
     color:#2783ff;
 }
 
-/* círculos */
+
+/* =========================================================
+   CÍRCULOS
+========================================================= */
 
 .scope-circles{
     position:absolute;
+
     width:900px;
     height:680px;
+
     left:325px;
     top:260px;
 }
@@ -228,6 +305,7 @@ body{
 .circle-one{
     width:590px;
     height:590px;
+
     left:0;
     top:0;
 
@@ -237,6 +315,7 @@ body{
 .circle-two{
     width:400px;
     height:400px;
+
     left:330px;
     top:95px;
 
@@ -246,14 +325,19 @@ body{
 .circle-three{
     width:500px;
     height:500px;
+
     left:280px;
     top:285px;
 
     background:rgba(129,113,255,.20);
 }
 
+
+/* labels */
+
 .circle-label{
     position:absolute;
+
     font-size:22px;
     font-weight:600;
 }
@@ -273,14 +357,15 @@ body{
     top:485px;
 }
 
-/* divisória OPS DS */
-
 .ops .divider{
     margin:0 20px;
     color:#838999;
 }
 
-/* textos laterais */
+
+/* =========================================================
+   DESCRIÇÕES
+========================================================= */
 
 .description{
     position:absolute;
@@ -293,6 +378,7 @@ body{
 
 .description p{
     color:#7a8190;
+
     font-size:17px;
     line-height:1.45;
 }
@@ -300,49 +386,65 @@ body{
 .description-left{
     left:65px;
     top:455px;
+
     width:300px;
 }
 
 .description-right{
     right:65px;
     top:275px;
+
     width:310px;
 }
 
-/* connector */
+
+/* =========================================================
+   CONNECTOR
+========================================================= */
 
 .connector{
     position:absolute;
+
     height:1px;
+
     background:#32394d;
 }
 
 .connector-left{
     width:170px;
+
     left:300px;
     top:474px;
 }
 
 .connector-left::after{
     content:"";
+
     position:absolute;
+
     right:-5px;
     top:-5px;
 
     width:10px;
     height:10px;
+
     border-radius:50%;
+
     background:#080d27;
 }
 
+
 /* =========================================================
-   SLIDE 02 — DS OPS
+   SLIDE 02
+   DS | OPS
 ========================================================= */
 
 .ds-content{
     position:absolute;
+
     left:90px;
     top:175px;
+
     width:810px;
 }
 
@@ -353,12 +455,14 @@ body{
 
     font-size:76px;
     font-weight:650;
+
     letter-spacing:-5px;
 }
 
 .ds-title .divider{
     height:68px;
     width:2px;
+
     background:#72798b;
 }
 
@@ -368,28 +472,36 @@ body{
 
 .ds-subtitle{
     width:700px;
+
     margin-top:8px;
 
     color:#697083;
+
     font-size:23px;
     line-height:1.3;
 }
 
-/* KPIs grandes */
+
+/* =========================================================
+   KPIs
+========================================================= */
 
 .numbers{
     position:absolute;
+
     left:85px;
     bottom:175px;
 
     display:flex;
     align-items:flex-end;
+
     gap:115px;
 }
 
 .number-main .value{
     font-size:245px;
     font-weight:200;
+
     line-height:.7;
     letter-spacing:-18px;
 }
@@ -397,21 +509,28 @@ body{
 .number-secondary .value{
     font-size:105px;
     font-weight:200;
+
     line-height:.8;
     letter-spacing:-8px;
 }
 
 .number-label{
     margin-top:25px;
+
     font-size:27px;
     font-weight:300;
+
     color:#707789;
 }
 
-/* OKR */
+
+/* =========================================================
+   OKRs & KPIs
+========================================================= */
 
 .okr-panel{
     position:absolute;
+
     right:90px;
     top:175px;
 
@@ -419,19 +538,24 @@ body{
     min-height:450px;
 
     border-left:1px solid #d6d9e1;
+
     padding-left:50px;
 }
 
 .okr-panel h4{
     font-size:14px;
+
     letter-spacing:3px;
+
     color:#626a7e;
+
     margin-bottom:35px;
 }
 
 .okr-block{
     font-size:17px;
     line-height:1.65;
+
     color:#777e8e;
 }
 
@@ -441,14 +565,20 @@ body{
 
 .okr-separator{
     height:1px;
+
     background:#d8dbe2;
+
     margin:65px 0 45px;
 }
 
-/* team */
+
+/* =========================================================
+   TIME
+========================================================= */
 
 .team{
     position:absolute;
+
     right:165px;
     bottom:105px;
 
@@ -459,18 +589,28 @@ body{
 .avatar{
     width:55px;
     height:55px;
+
     margin-left:-12px;
 
     border-radius:50%;
+
     background:
-        radial-gradient(circle at 50% 35%, #ddd 0 20%, #888 21% 45%, #333 46%);
+        radial-gradient(
+            circle at 50% 35%,
+            #ddd 0 20%,
+            #888 21% 45%,
+            #333 46%
+        );
+
     border:2px solid white;
+
     filter:grayscale(1);
 }
 
 .manager{
     margin-left:30px;
     padding-left:20px;
+
     border-left:1px solid #aeb3bd;
 }
 
@@ -480,55 +620,78 @@ body{
 
 .manager span{
     display:block;
+
     color:#777e90;
+
     font-size:13px;
+
     margin-top:3px;
 }
 
+
 /* =========================================================
-   SLIDE 03 — RETENÇÃO
+   SLIDE 03
+   RETENÇÃO
 ========================================================= */
 
 .retention-title{
     position:absolute;
+
     left:70px;
     top:165px;
+
     font-size:38px;
     font-weight:650;
 }
 
+
+/* Q4 */
+
 .quarter{
     position:absolute;
+
     left:60px;
     top:235px;
 
     font-size:340px;
     line-height:.8;
+
     font-weight:200;
+
     letter-spacing:-25px;
 }
 
+
+/* texto abaixo do Q4 */
+
 .retention-copy{
     position:absolute;
+
     left:70px;
     top:530px;
 
     width:530px;
+
     color:#676e80;
 
     font-size:22px;
     line-height:1.35;
 }
 
-/* curva */
+
+/* =========================================================
+   CURVA
+========================================================= */
 
 .curve{
     position:absolute;
+
     left:-100px;
     bottom:90px;
 
     width:1850px;
     height:390px;
+
     pointer-events:none;
 }
 
@@ -537,101 +700,159 @@ body{
     height:100%;
 }
 
-/* texto final */
+
+/* =========================================================
+   TEXTO FINAL
+========================================================= */
 
 .desire{
     position:absolute;
+
     right:100px;
     bottom:100px;
+
     width:590px;
 }
 
 .desire-copy{
     font-size:21px;
     line-height:1.3;
+
     color:#656c7d;
+
     margin-bottom:28px;
 }
 
 .desire-small{
     font-size:58px;
     font-weight:200;
+
     line-height:.6;
 }
 
 .desire-big{
     font-size:105px;
     font-weight:200;
+
     letter-spacing:-7px;
     line-height:.95;
 
-    background:linear-gradient(
-        90deg,
-        #05091f 0%,
-        #101b62 55%,
-        #9678ff 100%
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #05091f 0%,
+            #101b62 55%,
+            #9678ff 100%
+        );
 
     -webkit-background-clip:text;
+    background-clip:text;
+
     -webkit-text-fill-color:transparent;
 }
 
+
 /* =========================================================
-   RESPONSIVO APENAS PARA VISUALIZAÇÃO
+   VISUALIZAÇÃO EM TELAS MENORES
+
+   Não altera o frame exportado/importado.
 ========================================================= */
 
-@media(max-width:1600px){
-    .slide{
-        transform-origin:top center;
+@media(max-width:1920px){
+
+    .presentation{
+        align-items:flex-start;
     }
+
 }
 
 </style>
 </head>
 
+
 <body>
 
 <div class="presentation">
 
+
 <!-- ======================================================
      SLIDE 01
+     ESCOPO E RESPONSABILIDADES
 ====================================================== -->
 
 <section class="slide slide-scope">
 
+<div class="slide-content">
+
+
+    <!-- HEADER -->
+
     <div class="header">
+
         <div class="header-left">
+
             <div class="header-line"></div>
-            <span>DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA</span>
+
+            <span>
+                DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA
+            </span>
+
         </div>
 
-        <span>01</span>
+        <span>
+            01
+        </span>
+
     </div>
 
+
+    <!-- TÍTULO -->
+
     <div class="scope-title">
-        <div class="eyebrow">O que cuidamos?</div>
+
+        <div class="eyebrow">
+            O que cuidamos?
+        </div>
 
         <h1>
             Escopo e<br>
-            <span class="blue">responsabilidades</span>
+
+            <span class="blue">
+                responsabilidades
+            </span>
         </h1>
+
     </div>
+
+
+    <!-- CÍRCULOS -->
 
     <div class="scope-circles">
 
         <div class="circle circle-one"></div>
+
         <div class="circle circle-two"></div>
+
         <div class="circle circle-three"></div>
 
+
         <div class="circle-label ops">
+
             OPS
-            <span class="divider">|</span>
+
+            <span class="divider">
+                |
+            </span>
+
             DS
+
         </div>
+
 
         <div class="circle-label cards">
             CARTÕES
         </div>
+
 
         <div class="circle-label retention">
             RETENÇÃO
@@ -639,8 +860,14 @@ body{
 
     </div>
 
+
+    <!-- TEXTO ESQUERDO -->
+
     <div class="description description-left">
-        <h3>Centro de Excelência</h3>
+
+        <h3>
+            Centro de Excelência
+        </h3>
 
         <p>
             Maximizar a eficiência do trabalho
@@ -648,12 +875,22 @@ body{
             escalabilidade e fácil atualização
             das interfaces de produtos digitais.
         </p>
+
     </div>
+
+
+    <!-- CONECTOR -->
 
     <div class="connector connector-left"></div>
 
+
+    <!-- TEXTO DIREITO -->
+
     <div class="description description-right">
-        <h3>Design de Produtos</h3>
+
+        <h3>
+            Design de Produtos
+        </h3>
 
         <p>
             Estruturar toda a experiência
@@ -662,16 +899,23 @@ body{
             com o olhar de negócio, tecnologia
             e experiência.
         </p>
+
     </div>
+
+
+    <!-- FOOTER -->
 
     <div class="footer">
 
         <div class="footer-edition">
+
             <div>
                 MENSAL DE DESIGN<br>
                 OUT 2026
             </div>
+
         </div>
+
 
         <div class="page">
             01
@@ -679,24 +923,44 @@ body{
 
     </div>
 
+
+</div>
+
 </section>
+
 
 
 <!-- ======================================================
      SLIDE 02
+     DS | OPS
 ====================================================== -->
 
 <section class="slide">
 
+<div class="slide-content">
+
+
+    <!-- GLOWS -->
+
     <div class="glow glow-blue"></div>
+
     <div class="glow glow-purple"></div>
+
+
+    <!-- HEADER -->
 
     <div class="header">
 
         <div class="header-left">
+
             <div class="header-line"></div>
-            <span>DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA</span>
+
+            <span>
+                DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA
+            </span>
+
         </div>
+
 
         <div class="logo">
             Carrefour<br>
@@ -705,87 +969,182 @@ body{
 
     </div>
 
+
+    <!-- DS OPS -->
+
     <div class="ds-content">
 
         <div class="ds-title">
-            <span>DS</span>
+
+            <span>
+                DS
+            </span>
 
             <div class="divider"></div>
 
-            <span class="blue">OPS</span>
+            <span class="blue">
+                OPS
+            </span>
+
         </div>
 
+
         <div class="ds-subtitle">
+
             Transformar dados em produtos, processos e experiências
             que impulsionam a eficiência e a performance do banco.
+
         </div>
 
     </div>
+
+
+    <!-- NÚMEROS -->
 
     <div class="numbers">
 
+
         <div class="number-main">
-            <div class="value">120</div>
-            <div class="number-label">lorem ipsum</div>
+
+            <div class="value">
+                120
+            </div>
+
+            <div class="number-label">
+                lorem ipsum
+            </div>
+
         </div>
 
-        <div class="number-secondary">
-            <div class="value">120</div>
-            <div class="number-label">lorem ipsum</div>
-        </div>
 
         <div class="number-secondary">
-            <div class="value">120</div>
-            <div class="number-label">lorem ipsum</div>
+
+            <div class="value">
+                120
+            </div>
+
+            <div class="number-label">
+                lorem ipsum
+            </div>
+
         </div>
+
+
+        <div class="number-secondary">
+
+            <div class="value">
+                120
+            </div>
+
+            <div class="number-label">
+                lorem ipsum
+            </div>
+
+        </div>
+
 
     </div>
+
+
+    <!-- OKR -->
 
     <div class="okr-panel">
 
-        <h4>OKRs &amp; KPIs</h4>
+
+        <h4>
+            OKRs &amp; KPIs
+        </h4>
+
 
         <div class="okr-block">
-            <strong>Okr :</strong> Limply dummy text of the printing and período<br>
-            <strong>kpi :</strong> Limply dummy text of the printing and período<br>
-            <strong>kpi :</strong> Limply dummy text of the printing and período<br>
-            <strong>kpi :</strong> Limply dummy text of the printing and período
+
+            <strong>Okr :</strong>
+            Limply dummy text of the printing and período
+            <br>
+
+            <strong>kpi :</strong>
+            Limply dummy text of the printing and período
+            <br>
+
+            <strong>kpi :</strong>
+            Limply dummy text of the printing and período
+            <br>
+
+            <strong>kpi :</strong>
+            Limply dummy text of the printing and período
+
         </div>
+
 
         <div class="okr-separator"></div>
 
+
         <div class="okr-block">
-            <strong>Okr :</strong> Limply dummy text of the printing and período<br>
-            <strong>kpi :</strong> Limply dummy text of the printing and período<br>
-            <strong>kpi :</strong> Limply dummy text of the printing and período<br>
-            <strong>kpi :</strong> Limply dummy text of the printing and período
+
+            <strong>Okr :</strong>
+            Limply dummy text of the printing and período
+            <br>
+
+            <strong>kpi :</strong>
+            Limply dummy text of the printing and período
+            <br>
+
+            <strong>kpi :</strong>
+            Limply dummy text of the printing and período
+            <br>
+
+            <strong>kpi :</strong>
+            Limply dummy text of the printing and período
+
         </div>
 
+
     </div>
+
+
+    <!-- TIME -->
 
     <div class="team">
 
         <div class="avatar"></div>
-        <div class="avatar"></div>
-        <div class="avatar"></div>
-        <div class="avatar"></div>
+
         <div class="avatar"></div>
 
+        <div class="avatar"></div>
+
+        <div class="avatar"></div>
+
+        <div class="avatar"></div>
+
+
         <div class="manager">
-            <strong>Camila Corrêa</strong>
-            <span>Design manager</span>
+
+            <strong>
+                Camila Corrêa
+            </strong>
+
+            <span>
+                Design manager
+            </span>
+
         </div>
 
     </div>
 
+
+    <!-- FOOTER -->
+
     <div class="footer">
 
         <div class="footer-edition">
+
             <div>
                 MENSAL DE DESIGN<br>
                 OUT 2026
             </div>
+
         </div>
+
 
         <div class="page">
             01
@@ -793,23 +1152,42 @@ body{
 
     </div>
 
+
+</div>
+
 </section>
+
 
 
 <!-- ======================================================
      SLIDE 03
+     RETENÇÃO
 ====================================================== -->
 
 <section class="slide">
 
+<div class="slide-content">
+
+
+    <!-- GLOWS -->
+
     <div class="glow glow-blue"></div>
+
     <div class="glow glow-purple"></div>
+
+
+    <!-- HEADER -->
 
     <div class="header">
 
         <div class="header-left">
-            <span>Design de Produtos e Centro de Excelência</span>
+
+            <span>
+                Design de Produtos e Centro de Excelência
+            </span>
+
         </div>
+
 
         <div class="logo">
             Carrefour<br>
@@ -817,28 +1195,41 @@ body{
         </div>
 
     </div>
+
+
+    <!-- RETENÇÃO -->
 
     <div class="retention-title">
         Retenção
     </div>
 
+
+    <!-- Q4 -->
+
     <div class="quarter">
         Q4
     </div>
 
+
+    <!-- TEXTO -->
+
     <div class="retention-copy">
+
         Ondas de valor. Of the printing and typesetting
         industry. Lorem Ipsum has been the Ipsum has
         been the
+
     </div>
 
-    <!-- curva editorial -->
+
+    <!-- CURVA -->
 
     <div class="curve">
 
         <svg
             viewBox="0 0 1850 390"
-            preserveAspectRatio="none">
+            preserveAspectRatio="none"
+        >
 
             <defs>
 
@@ -847,57 +1238,78 @@ body{
                     x1="0%"
                     y1="0%"
                     x2="100%"
-                    y2="0%">
+                    y2="0%"
+                >
 
                     <stop
                         offset="0%"
-                        stop-color="#a9d4ff"/>
+                        stop-color="#a9d4ff"
+                    />
 
                     <stop
                         offset="55%"
-                        stop-color="#8c9cff"/>
+                        stop-color="#8c9cff"
+                    />
 
                     <stop
                         offset="100%"
-                        stop-color="#b498ff"/>
+                        stop-color="#b498ff"
+                    />
 
                 </linearGradient>
 
             </defs>
 
+
             <path
+
                 d="
                 M 0 235
+
                 C 280 285,
                   500 300,
                   700 205
+
                 C 890 115,
                   980 15,
                   1180 10
+
                 C 1420 4,
                   1640 15,
                   1850 12
                 "
+
                 fill="none"
+
                 stroke="url(#curveGradient)"
+
                 stroke-width="2"
+
                 opacity=".6"
+
             />
 
         </svg>
 
     </div>
 
+
+    <!-- DESEJAMOS -->
+
     <div class="desire">
 
         <div class="desire-copy">
+
             Of the printing and typesetting industry.
             Lorem Ipsum has been the Ipsum has been the
+
         </div>
+
 
         <div class="desire-small">
             pois
         </div>
+
 
         <div class="desire-big">
             desejamos
@@ -905,7 +1317,11 @@ body{
 
     </div>
 
+
+</div>
+
 </section>
+
 
 </div>
 
