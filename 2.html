@@ -1,1329 +1,910 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Design de Produtos — Mensal de Design</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mensal de Design</title>
 
 <style>
-
-/* =========================================================
-   BASE
-========================================================= */
-
-*{
+  *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-}
+  }
 
-:root{
-    --navy:#05091f;
-    --blue:#1769ff;
-    --blue-soft:#9ab8ff;
-    --purple:#9286ff;
-    --gray:#707789;
-    --light-gray:#d8dce5;
-    --white:#ffffff;
-}
+  :root{
+    --ink:#090b18;
+    --navy:#071a50;
+    --blue:#139cef;
+    --blue-dark:#075ab9;
+    --purple:#7357ef;
+    --light-blue:#eaf3ff;
+    --gray:#a9abb2;
+    --line:#e5e8ef;
+    --soft:#f7f9fc;
+    --green:#54ca7c;
+    --orange:#ff9418;
+    --red:#f51027;
+  }
 
-body{
-    margin:0;
-    background:#e9e9e9;
+  body{
+    background:#dfe1e5;
+    font-family:Arial, Helvetica, sans-serif;
+    color:var(--ink);
+    padding:60px;
+  }
 
-    font-family:
-        Inter,
-        "Helvetica Neue",
-        Helvetica,
-        Arial,
-        sans-serif;
-
-    color:var(--navy);
-}
-
-
-/* =========================================================
-   APRESENTAÇÃO — 1920 x 1080
-========================================================= */
-
-.presentation{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:60px;
-    padding:60px 0;
-}
-
-/*
-    FRAME FINAL
-    1920 x 1080
-*/
-
-.slide{
+  .slide{
     width:1920px;
     height:1080px;
-
+    background:#fff;
+    margin:0 auto 80px;
     position:relative;
     overflow:hidden;
+  }
 
-    background:#ffffff;
-}
+  /* ==============================
+     GLOBAL
+  ============================== */
 
-/*
-    O design original foi construído em 1600x900.
-    Escala de 1.2 = 1920x1080.
-
-    Dessa forma todos os elementos aumentam
-    proporcionalmente sem alterar a composição.
-*/
-
-.slide-content{
-    width:1600px;
-    height:900px;
-
+  .eyebrow{
     position:absolute;
-    top:0;
-    left:0;
-
-    transform:scale(1.2);
-    transform-origin:top left;
-
-    overflow:hidden;
-}
-
-
-/* =========================================================
-   GLOWS
-========================================================= */
-
-.glow{
-    position:absolute;
-    pointer-events:none;
-    border-radius:50%;
-    filter:blur(70px);
-}
-
-.glow-blue{
-    width:600px;
-    height:600px;
-
-    left:-230px;
-    top:170px;
-
-    background:rgba(63,128,255,.18);
-}
-
-.glow-purple{
-    width:500px;
-    height:500px;
-
-    left:80px;
-    bottom:-260px;
-
-    background:rgba(129,103,255,.18);
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-    position:absolute;
-
-    top:38px;
-    left:58px;
-    right:58px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    font-size:13px;
-    letter-spacing:.7px;
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:25px;
-
-    color:#586176;
-}
-
-.header-line{
-    width:2px;
-    height:32px;
-
-    background:var(--blue);
-}
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.logo{
-    font-weight:700;
+    top:40px;
+    left:68px;
     font-size:18px;
-    line-height:.85;
+    letter-spacing:.02em;
+    color:#64708f;
+  }
 
-    text-align:right;
-}
-
-.logo span{
-    font-size:10px;
-    font-weight:400;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
+  .eyebrow::before{
+    content:"";
     position:absolute;
+    left:-24px;
+    top:-5px;
+    width:3px;
+    height:38px;
+    background:#1769ff;
+  }
 
-    left:58px;
-    right:58px;
-    bottom:34px;
+  .brand{
+    position:absolute;
+    right:65px;
+    top:38px;
+    font-size:20px;
+    line-height:.82;
+    font-weight:700;
+    text-align:right;
+  }
 
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-}
+  /* ==============================
+     SLIDE 01 — ROADMAP
+  ============================== */
 
-.footer-edition{
+  .roadmap-title{
+    position:absolute;
+    top:95px;
+    left:46px;
+    font-size:78px;
+    line-height:1;
+    letter-spacing:-4px;
+    font-weight:750;
+  }
+
+  .roadmap-tabs{
+    position:absolute;
+    right:60px;
+    top:34px;
+    width:500px;
+    height:52px;
+    border-radius:22px;
+    background:#f1f3fb;
     display:flex;
     align-items:center;
-    gap:24px;
+  }
 
-    font-size:12px;
-    color:#657087;
+  .roadmap-tabs span{
+    height:100%;
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+  }
 
-    letter-spacing:2px;
-    line-height:1.45;
-}
+  .roadmap-tabs .active{
+    color:#fff;
+    background:#06143f;
+    border-radius:22px;
+  }
 
-.footer-edition::before{
-    content:"";
+  .quarter{
+    position:absolute;
+    right:63px;
+    top:103px;
+    font-size:62px;
+    line-height:1;
+    font-weight:300;
+    color:#53638d;
+    letter-spacing:-3px;
+  }
 
-    display:block;
+  .timeline{
+    position:absolute;
+    left:460px;
+    right:60px;
+    top:195px;
+    bottom:110px;
+  }
 
+  .months{
+    height:88px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    align-items:end;
+  }
+
+  .month{
+    padding:0 0 18px 20px;
+    font-size:60px;
+    line-height:1;
+    font-weight:700;
+    color:#e5e9f4;
+  }
+
+  .timeline-grid{
+    position:absolute;
+    top:88px;
+    bottom:0;
+    left:0;
+    right:0;
+    background:
+      repeating-linear-gradient(
+        to right,
+        transparent 0,
+        transparent 77px,
+        rgba(35,69,120,.075) 78px,
+        transparent 79px
+      );
+    border-top:1px solid #edf0f6;
+  }
+
+  .now{
+    position:absolute;
+    top:20px;
+    bottom:0;
+    left:32%;
     width:2px;
-    height:35px;
+    border-left:2px dashed #6555f0;
+    z-index:5;
+  }
 
-    background:var(--blue);
-}
+  .now::before{
+    content:"Estamos aqui";
+    position:absolute;
+    top:-50px;
+    left:50%;
+    transform:translateX(-50%);
+    white-space:nowrap;
+    background:#eeeaff;
+    color:#5140e5;
+    font-size:14px;
+    font-weight:700;
+    padding:8px 14px;
+    border-radius:9px;
+  }
 
-.page{
+  .now::after{
+    content:"";
+    position:absolute;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#5b47e8;
+    top:-8px;
+    left:-5px;
+  }
+
+  .squad{
+    position:absolute;
+    left:45px;
+    width:400px;
+  }
+
+  .squad.one{ top:260px; }
+  .squad.two{ top:615px; }
+
+  .person{
+    height:82px;
+    display:flex;
+    align-items:center;
+    gap:17px;
+  }
+
+  .avatar{
+    width:66px;
+    height:66px;
+    border-radius:50%;
+    background:#d9d9d9;
+    overflow:hidden;
+    flex:none;
+  }
+
+  .avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:grayscale(100%);
+  }
+
+  .person-name{
+    font-size:23px;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+
+  .person-meta{
+    color:#637093;
+    font-size:16px;
+  }
+
+  .activity-list{
+    margin-top:16px;
+  }
+
+  .activity{
+    height:57px;
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid #edf0f5;
+    font-size:15px;
+    padding-left:10px;
+  }
+
+  .bars{
+    position:absolute;
+    left:475px;
+    right:65px;
+  }
+
+  .bars.one{ top:347px; }
+  .bars.two{ top:702px; }
+
+  .bar-row{
+    height:57px;
+    position:relative;
+    border-bottom:1px solid rgba(211,217,228,.45);
+  }
+
+  .bar{
+    position:absolute;
+    height:20px;
+    top:18px;
+    border-radius:20px;
+  }
+
+  .started{
+    background:linear-gradient(90deg,#29a7f4,#1299ee);
+  }
+
+  .development{
+    background:linear-gradient(90deg,#0868ca,#0457b7);
+  }
+
+  .pending{
+    background:#b8b8bc;
+  }
+
+  .b1{left:0;width:49%;}
+  .b2{left:0;width:49%;}
+  .b3{left:42%;width:53%;}
+  .b4{left:0;width:49%;}
+
+  .b5{left:0;width:36%;}
+  .b6{left:50%;width:45%;}
+  .b7{left:0;width:49%;}
+
+  .divider{
+    position:absolute;
+    left:45px;
+    right:60px;
+    top:600px;
+    height:1px;
+    background:#dce1eb;
+  }
+
+  .legend{
+    position:absolute;
+    left:48px;
+    right:55px;
+    bottom:32px;
+    height:52px;
+    border-top:1px solid #dce1eb;
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    padding-top:18px;
+  }
+
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    color:#34405e;
+    white-space:nowrap;
+  }
+
+  .dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+  }
+
+  .dot.gray{background:#d2d5db;}
+  .dot.blue{background:#169fed;}
+  .dot.navy{background:#0863bc;}
+  .dot.orange{background:#ff9217;}
+  .dot.green{background:#55b65f;}
+  .dot.red{background:#f31329;}
+
+  .dashbox{
+    width:20px;
+    height:20px;
+    border:2px dashed #ff9418;
+    border-radius:4px;
+  }
+
+  .star{
+    font-size:27px;
+    color:#55b65f;
+    line-height:1;
+  }
+
+  .yellow-line{
+    width:34px;
+    height:3px;
+    background:#f6bd00;
+  }
+
+  /* ==============================
+     SLIDE 02 — SQUAD
+  ============================== */
+
+  .squad-slide{
+    background:
+      radial-gradient(circle at 75% 45%,
+        rgba(135,181,255,.20) 0,
+        rgba(150,125,255,.08) 17%,
+        transparent 39%),
+      #fff;
+  }
+
+  .squad-title{
+    position:absolute;
+    left:95px;
+    top:145px;
+    font-size:78px;
+    line-height:1;
+    letter-spacing:-4px;
+  }
+
+  .objective{
+    position:absolute;
+    left:97px;
+    top:245px;
+    width:670px;
+    font-size:26px;
+    line-height:1.25;
+    color:#626b81;
+  }
+
+  .section-title{
     display:flex;
     align-items:center;
     gap:18px;
-
-    font-size:12px;
-    color:#6b7385;
-}
-
-.page::after{
-    content:"";
-
-    width:2px;
-    height:35px;
-
-    background:var(--blue);
-}
-
-
-/* =========================================================
-   SLIDE 01
-   ESCOPO E RESPONSABILIDADES
-========================================================= */
-
-.slide-scope .slide-content{
-    background:
-        radial-gradient(
-            circle at 55% 75%,
-            rgba(133,158,255,.14),
-            transparent 37%
-        ),
-        #ffffff;
-}
-
-
-/* título */
-
-.scope-title{
-    position:absolute;
-
-    left:67px;
-    top:118px;
-}
-
-.eyebrow{
-    font-size:26px;
-    font-weight:300;
-
-    color:#858b9a;
-
-    margin-bottom:4px;
-}
-
-.scope-title h1{
-    font-size:100px;
-    font-weight:300;
-
-    letter-spacing:-6px;
-    line-height:.85;
-}
-
-.scope-title .blue{
-    color:#2783ff;
-}
-
-
-/* =========================================================
-   CÍRCULOS
-========================================================= */
-
-.scope-circles{
-    position:absolute;
-
-    width:900px;
-    height:680px;
-
-    left:325px;
-    top:260px;
-}
-
-.circle{
-    position:absolute;
-    border-radius:50%;
-}
-
-.circle-one{
-    width:590px;
-    height:590px;
-
-    left:0;
-    top:0;
-
-    background:rgba(203,219,255,.35);
-}
-
-.circle-two{
-    width:400px;
-    height:400px;
-
-    left:330px;
-    top:95px;
-
-    background:rgba(120,166,255,.29);
-}
-
-.circle-three{
-    width:500px;
-    height:500px;
-
-    left:280px;
-    top:285px;
-
-    background:rgba(129,113,255,.20);
-}
-
-
-/* labels */
-
-.circle-label{
-    position:absolute;
-
-    font-size:22px;
-    font-weight:600;
-}
-
-.ops{
-    left:175px;
-    top:190px;
-}
-
-.cards{
-    left:475px;
-    top:180px;
-}
-
-.retention{
-    left:470px;
-    top:485px;
-}
-
-.ops .divider{
-    margin:0 20px;
-    color:#838999;
-}
-
-
-/* =========================================================
-   DESCRIÇÕES
-========================================================= */
-
-.description{
-    position:absolute;
-}
-
-.description h3{
-    font-size:22px;
-    margin-bottom:20px;
-}
-
-.description p{
-    color:#7a8190;
-
-    font-size:17px;
-    line-height:1.45;
-}
-
-.description-left{
-    left:65px;
-    top:455px;
-
-    width:300px;
-}
-
-.description-right{
-    right:65px;
-    top:275px;
-
-    width:310px;
-}
-
-
-/* =========================================================
-   CONNECTOR
-========================================================= */
-
-.connector{
-    position:absolute;
-
-    height:1px;
-
-    background:#32394d;
-}
-
-.connector-left{
-    width:170px;
-
-    left:300px;
-    top:474px;
-}
-
-.connector-left::after{
-    content:"";
-
-    position:absolute;
-
-    right:-5px;
-    top:-5px;
-
-    width:10px;
-    height:10px;
-
-    border-radius:50%;
-
-    background:#080d27;
-}
-
-
-/* =========================================================
-   SLIDE 02
-   DS | OPS
-========================================================= */
-
-.ds-content{
-    position:absolute;
-
-    left:90px;
-    top:175px;
-
-    width:810px;
-}
-
-.ds-title{
-    display:flex;
-    align-items:center;
-    gap:24px;
-
-    font-size:76px;
-    font-weight:650;
-
-    letter-spacing:-5px;
-}
-
-.ds-title .divider{
-    height:68px;
-    width:2px;
-
-    background:#72798b;
-}
-
-.ds-title .blue{
-    color:#0e5cff;
-}
-
-.ds-subtitle{
-    width:700px;
-
-    margin-top:8px;
-
-    color:#697083;
-
-    font-size:23px;
-    line-height:1.3;
-}
-
-
-/* =========================================================
-   KPIs
-========================================================= */
-
-.numbers{
-    position:absolute;
-
-    left:85px;
-    bottom:175px;
-
-    display:flex;
-    align-items:flex-end;
-
-    gap:115px;
-}
-
-.number-main .value{
-    font-size:245px;
-    font-weight:200;
-
-    line-height:.7;
-    letter-spacing:-18px;
-}
-
-.number-secondary .value{
-    font-size:105px;
-    font-weight:200;
-
-    line-height:.8;
-    letter-spacing:-8px;
-}
-
-.number-label{
-    margin-top:25px;
-
-    font-size:27px;
-    font-weight:300;
-
-    color:#707789;
-}
-
-
-/* =========================================================
-   OKRs & KPIs
-========================================================= */
-
-.okr-panel{
-    position:absolute;
-
-    right:90px;
-    top:175px;
-
-    width:500px;
-    min-height:450px;
-
-    border-left:1px solid #d6d9e1;
-
-    padding-left:50px;
-}
-
-.okr-panel h4{
     font-size:14px;
-
     letter-spacing:3px;
+    font-weight:700;
+    color:#68718a;
+  }
 
-    color:#626a7e;
-
-    margin-bottom:35px;
-}
-
-.okr-block{
-    font-size:17px;
-    line-height:1.65;
-
-    color:#777e8e;
-}
-
-.okr-block strong{
-    color:#090d20;
-}
-
-.okr-separator{
+  .section-title::after{
+    content:"";
     height:1px;
+    width:315px;
+    background:#bbc1cd;
+  }
 
-    background:#d8dbe2;
-
-    margin:65px 0 45px;
-}
-
-
-/* =========================================================
-   TIME
-========================================================= */
-
-.team{
+  .movement{
     position:absolute;
+    left:98px;
+    top:350px;
+    width:750px;
+  }
 
-    right:165px;
-    bottom:105px;
+  .movement-row{
+    height:115px;
+    display:grid;
+    grid-template-columns:85px 1fr 170px;
+    align-items:center;
+    border-bottom:1px solid #dfe3eb;
+  }
 
+  .number{
+    font-size:48px;
+    font-weight:300;
+    letter-spacing:-2px;
+  }
+
+  .movement-copy strong{
+    display:block;
+    font-size:17px;
+    margin-bottom:4px;
+  }
+
+  .movement-copy p{
+    font-size:16px;
+    line-height:1.3;
+    color:#626b81;
+  }
+
+  .status{
+    justify-self:end;
+    min-width:150px;
+    padding:10px 18px;
+    border-radius:12px;
+    text-align:center;
+    font-size:14px;
+    color:#68718a;
+    background:#f1f3f8;
+  }
+
+  .status.done{
+    color:#278c4e;
+    background:#dcf6e5;
+  }
+
+  .status::before{
+    content:"";
+    display:inline-block;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#9bb5e5;
+    margin-right:10px;
+  }
+
+  .status.done::before{
+    background:#43c871;
+  }
+
+  .visual-area{
+    position:absolute;
+    right:110px;
+    top:135px;
+    width:720px;
+    height:610px;
+  }
+
+  .ghost-card{
+    position:absolute;
+    width:330px;
+    height:440px;
+    border-radius:24px;
+    background:rgba(219,227,247,.55);
+    border:1px solid rgba(255,255,255,.7);
+    box-shadow:0 20px 50px rgba(40,60,120,.05);
+  }
+
+  .ghost-card.a{
+    right:50px;
+    top:100px;
+    transform:rotate(8deg);
+  }
+
+  .ghost-card.b{
+    right:0;
+    top:160px;
+    transform:rotate(12deg);
+    opacity:.7;
+  }
+
+  .phone{
+    position:absolute;
+    left:70px;
+    top:0;
+    width:315px;
+    height:590px;
+    border:8px solid #0d1019;
+    border-radius:52px;
+    background:#fff;
+    box-shadow:0 28px 55px rgba(20,27,60,.16);
+    overflow:hidden;
+    z-index:3;
+  }
+
+  .phone-notch{
+    width:95px;
+    height:25px;
+    border-radius:20px;
+    background:#080a0d;
+    margin:10px auto 25px;
+  }
+
+  .phone-head{
+    padding:0 28px;
+  }
+
+  .phone-head small{
+    color:#858b98;
+  }
+
+  .phone-head h3{
+    font-size:21px;
+    line-height:1.15;
+    margin-top:13px;
+  }
+
+  .phone-button{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 18px;
+    background:#555c6c;
+    color:#fff;
+    border-radius:10px;
+    font-size:13px;
+  }
+
+  .phone-body{
+    margin-top:30px;
+    padding:30px 26px;
+    border-top:1px solid #eee;
+  }
+
+  .skeleton{
+    height:14px;
+    background:#e4e4e5;
+    border-radius:8px;
+    margin-bottom:15px;
+  }
+
+  .skeleton.short{width:65%;}
+  .skeleton.medium{width:82%;}
+
+  .mock-card{
+    height:130px;
+    margin-top:22px;
+    border-radius:12px;
+    background:#efefef;
+  }
+
+  .next-topics{
+    position:absolute;
+    left:98px;
+    bottom:155px;
+    width:830px;
+  }
+
+  .topic-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    margin-top:20px;
+  }
+
+  .topic{
+    display:grid;
+    grid-template-columns:70px 1fr;
+    gap:10px;
+  }
+
+  .topic .number{
+    font-size:40px;
+  }
+
+  .topic strong{
+    font-size:15px;
+  }
+
+  .topic p{
+    margin-top:5px;
+    font-size:13px;
+    line-height:1.35;
+    color:#747b8d;
+  }
+
+  .metrics{
+    position:absolute;
+    left:970px;
+    right:90px;
+    bottom:150px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:55px;
+  }
+
+  .metric{
+    display:grid;
+    grid-template-columns:70px 1fr;
+    gap:20px;
+  }
+
+  .metric-value{
+    width:65px;
+    height:65px;
+    border:1px solid #d8deea;
+    border-radius:8px;
     display:flex;
     align-items:center;
-}
+    justify-content:center;
+    font-size:24px;
+  }
 
-.avatar{
-    width:55px;
-    height:55px;
+  .metric strong{
+    font-size:15px;
+  }
 
-    margin-left:-12px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle at 50% 35%,
-            #ddd 0 20%,
-            #888 21% 45%,
-            #333 46%
-        );
-
-    border:2px solid white;
-
-    filter:grayscale(1);
-}
-
-.manager{
-    margin-left:30px;
-    padding-left:20px;
-
-    border-left:1px solid #aeb3bd;
-}
-
-.manager strong{
-    font-size:14px;
-}
-
-.manager span{
-    display:block;
-
-    color:#777e90;
-
+  .metric p{
     font-size:13px;
+    line-height:1.4;
+    margin-top:5px;
+    color:#747b8d;
+  }
 
-    margin-top:3px;
-}
-
-
-/* =========================================================
-   SLIDE 03
-   RETENÇÃO
-========================================================= */
-
-.retention-title{
+  .footer{
     position:absolute;
+    left:65px;
+    right:65px;
+    bottom:32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    color:#6c748a;
+    font-size:14px;
+    letter-spacing:2px;
+  }
 
-    left:70px;
-    top:165px;
-
-    font-size:38px;
-    font-weight:650;
-}
-
-
-/* Q4 */
-
-.quarter{
-    position:absolute;
-
-    left:60px;
-    top:235px;
-
-    font-size:340px;
-    line-height:.8;
-
-    font-weight:200;
-
-    letter-spacing:-25px;
-}
-
-
-/* texto abaixo do Q4 */
-
-.retention-copy{
-    position:absolute;
-
-    left:70px;
-    top:530px;
-
-    width:530px;
-
-    color:#676e80;
-
-    font-size:22px;
+  .footer-left{
+    border-left:3px solid #1769ff;
+    padding-left:25px;
     line-height:1.35;
-}
+  }
 
-
-/* =========================================================
-   CURVA
-========================================================= */
-
-.curve{
-    position:absolute;
-
-    left:-100px;
-    bottom:90px;
-
-    width:1850px;
-    height:390px;
-
-    pointer-events:none;
-}
-
-.curve svg{
-    width:100%;
-    height:100%;
-}
-
-
-/* =========================================================
-   TEXTO FINAL
-========================================================= */
-
-.desire{
-    position:absolute;
-
-    right:100px;
-    bottom:100px;
-
-    width:590px;
-}
-
-.desire-copy{
-    font-size:21px;
-    line-height:1.3;
-
-    color:#656c7d;
-
-    margin-bottom:28px;
-}
-
-.desire-small{
-    font-size:58px;
-    font-weight:200;
-
-    line-height:.6;
-}
-
-.desire-big{
-    font-size:105px;
-    font-weight:200;
-
-    letter-spacing:-7px;
-    line-height:.95;
-
-    background:
-        linear-gradient(
-            90deg,
-            #05091f 0%,
-            #101b62 55%,
-            #9678ff 100%
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    -webkit-text-fill-color:transparent;
-}
-
-
-/* =========================================================
-   VISUALIZAÇÃO EM TELAS MENORES
-
-   Não altera o frame exportado/importado.
-========================================================= */
-
-@media(max-width:1920px){
-
-    .presentation{
-        align-items:flex-start;
-    }
-
-}
-
+  .page{
+    border-right:3px solid #1769ff;
+    padding-right:20px;
+  }
 </style>
 </head>
 
-
 <body>
 
-<div class="presentation">
-
-
 <!-- ======================================================
-     SLIDE 01
-     ESCOPO E RESPONSABILIDADES
+     SLIDE 01 — ROADMAP
 ====================================================== -->
-
-<section class="slide slide-scope">
-
-<div class="slide-content">
-
-
-    <!-- HEADER -->
-
-    <div class="header">
-
-        <div class="header-left">
-
-            <div class="header-line"></div>
-
-            <span>
-                DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA
-            </span>
-
-        </div>
-
-        <span>
-            01
-        </span>
-
-    </div>
-
-
-    <!-- TÍTULO -->
-
-    <div class="scope-title">
-
-        <div class="eyebrow">
-            O que cuidamos?
-        </div>
-
-        <h1>
-            Escopo e<br>
-
-            <span class="blue">
-                responsabilidades
-            </span>
-        </h1>
-
-    </div>
-
-
-    <!-- CÍRCULOS -->
-
-    <div class="scope-circles">
-
-        <div class="circle circle-one"></div>
-
-        <div class="circle circle-two"></div>
-
-        <div class="circle circle-three"></div>
-
-
-        <div class="circle-label ops">
-
-            OPS
-
-            <span class="divider">
-                |
-            </span>
-
-            DS
-
-        </div>
-
-
-        <div class="circle-label cards">
-            CARTÕES
-        </div>
-
-
-        <div class="circle-label retention">
-            RETENÇÃO
-        </div>
-
-    </div>
-
-
-    <!-- TEXTO ESQUERDO -->
-
-    <div class="description description-left">
-
-        <h3>
-            Centro de Excelência
-        </h3>
-
-        <p>
-            Maximizar a eficiência do trabalho
-            de Design e facilitar a consistência,
-            escalabilidade e fácil atualização
-            das interfaces de produtos digitais.
-        </p>
-
-    </div>
-
-
-    <!-- CONECTOR -->
-
-    <div class="connector connector-left"></div>
-
-
-    <!-- TEXTO DIREITO -->
-
-    <div class="description description-right">
-
-        <h3>
-            Design de Produtos
-        </h3>
-
-        <p>
-            Estruturar toda a experiência
-            do banco e garantir a consistência
-            entre todos os pontos de contato,
-            com o olhar de negócio, tecnologia
-            e experiência.
-        </p>
-
-    </div>
-
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-
-        <div class="footer-edition">
-
-            <div>
-                MENSAL DE DESIGN<br>
-                OUT 2026
-            </div>
-
-        </div>
-
-
-        <div class="page">
-            01
-        </div>
-
-    </div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- ======================================================
-     SLIDE 02
-     DS | OPS
-====================================================== -->
-
 <section class="slide">
 
-<div class="slide-content">
+  <div class="eyebrow">Design de Produtos e Centro de Excelência</div>
 
+  <div class="roadmap-tabs">
+    <span class="active">RoadMap</span>
+    <span>Squad A + Squad B</span>
+  </div>
 
-    <!-- GLOWS -->
+  <h1 class="roadmap-title">Retenção</h1>
+  <div class="quarter">Q3/26</div>
 
-    <div class="glow glow-blue"></div>
+  <div class="timeline">
 
-    <div class="glow glow-purple"></div>
-
-
-    <!-- HEADER -->
-
-    <div class="header">
-
-        <div class="header-left">
-
-            <div class="header-line"></div>
-
-            <span>
-                DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA
-            </span>
-
-        </div>
-
-
-        <div class="logo">
-            Carrefour<br>
-            <span>banco</span>
-        </div>
-
+    <div class="months">
+      <div class="month">SET</div>
+      <div class="month">OUT</div>
+      <div class="month">NOV</div>
     </div>
 
+    <div class="timeline-grid"></div>
+    <div class="now"></div>
 
-    <!-- DS OPS -->
+  </div>
 
-    <div class="ds-content">
-
-        <div class="ds-title">
-
-            <span>
-                DS
-            </span>
-
-            <div class="divider"></div>
-
-            <span class="blue">
-                OPS
-            </span>
-
-        </div>
-
-
-        <div class="ds-subtitle">
-
-            Transformar dados em produtos, processos e experiências
-            que impulsionam a eficiência e a performance do banco.
-
-        </div>
-
+  <div class="squad one">
+    <div class="person">
+      <div class="avatar"></div>
+      <div>
+        <div class="person-name">Kênia Andrade</div>
+        <div class="person-meta">Squad &nbsp;·&nbsp; BU</div>
+      </div>
     </div>
 
+    <div class="activity-list">
+      <div class="activity">Atividades simply dummy text of the</div>
+      <div class="activity">Atividades simply dummy text of the</div>
+      <div class="activity">Atividades simply dummy text of the</div>
+      <div class="activity">Atividades simply dummy text of the</div>
+    </div>
+  </div>
 
-    <!-- NÚMEROS -->
+  <div class="bars one">
+    <div class="bar-row"><div class="bar started b1"></div></div>
+    <div class="bar-row"><div class="bar started b2"></div></div>
+    <div class="bar-row"><div class="bar development b3"></div></div>
+    <div class="bar-row"><div class="bar started b4"></div></div>
+  </div>
 
-    <div class="numbers">
+  <div class="divider"></div>
 
-
-        <div class="number-main">
-
-            <div class="value">
-                120
-            </div>
-
-            <div class="number-label">
-                lorem ipsum
-            </div>
-
-        </div>
-
-
-        <div class="number-secondary">
-
-            <div class="value">
-                120
-            </div>
-
-            <div class="number-label">
-                lorem ipsum
-            </div>
-
-        </div>
-
-
-        <div class="number-secondary">
-
-            <div class="value">
-                120
-            </div>
-
-            <div class="number-label">
-                lorem ipsum
-            </div>
-
-        </div>
-
-
+  <div class="squad two">
+    <div class="person">
+      <div class="avatar"></div>
+      <div>
+        <div class="person-name">Gustavo Novaes</div>
+        <div class="person-meta">Squad &nbsp;·&nbsp; BU</div>
+      </div>
     </div>
 
-
-    <!-- OKR -->
-
-    <div class="okr-panel">
-
-
-        <h4>
-            OKRs &amp; KPIs
-        </h4>
-
-
-        <div class="okr-block">
-
-            <strong>Okr :</strong>
-            Limply dummy text of the printing and período
-            <br>
-
-            <strong>kpi :</strong>
-            Limply dummy text of the printing and período
-            <br>
-
-            <strong>kpi :</strong>
-            Limply dummy text of the printing and período
-            <br>
-
-            <strong>kpi :</strong>
-            Limply dummy text of the printing and período
-
-        </div>
-
-
-        <div class="okr-separator"></div>
-
-
-        <div class="okr-block">
-
-            <strong>Okr :</strong>
-            Limply dummy text of the printing and período
-            <br>
-
-            <strong>kpi :</strong>
-            Limply dummy text of the printing and período
-            <br>
-
-            <strong>kpi :</strong>
-            Limply dummy text of the printing and período
-            <br>
-
-            <strong>kpi :</strong>
-            Limply dummy text of the printing and período
-
-        </div>
-
-
+    <div class="activity-list">
+      <div class="activity">Atividades simply dummy text of the</div>
+      <div class="activity">Atividades simply dummy text of the</div>
+      <div class="activity">Atividades simply dummy text of the</div>
     </div>
+  </div>
 
+  <div class="bars two">
+    <div class="bar-row"><div class="bar started b5"></div></div>
+    <div class="bar-row"><div class="bar pending b6"></div></div>
+    <div class="bar-row"><div class="bar started b7"></div></div>
+  </div>
 
-    <!-- TIME -->
-
-    <div class="team">
-
-        <div class="avatar"></div>
-
-        <div class="avatar"></div>
-
-        <div class="avatar"></div>
-
-        <div class="avatar"></div>
-
-        <div class="avatar"></div>
-
-
-        <div class="manager">
-
-            <strong>
-                Camila Corrêa
-            </strong>
-
-            <span>
-                Design manager
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-
-        <div class="footer-edition">
-
-            <div>
-                MENSAL DE DESIGN<br>
-                OUT 2026
-            </div>
-
-        </div>
-
-
-        <div class="page">
-            01
-        </div>
-
-    </div>
-
-
-</div>
+  <div class="legend">
+    <div class="legend-item"><i class="dot gray"></i>Iniciar</div>
+    <div class="legend-item"><i class="dot blue"></i>Iniciado</div>
+    <div class="legend-item"><i class="dot navy"></i>Desenvolvimento</div>
+    <div class="legend-item"><i class="dashbox"></i>Atraso</div>
+    <div class="legend-item"><i class="dot orange"></i>Despriorizado</div>
+    <div class="legend-item"><i class="dot green"></i>Finalizado</div>
+    <div class="legend-item"><span class="star">★</span>Entrega cliente</div>
+    <div class="legend-item"><i class="yellow-line"></i>Mudança</div>
+    <div class="legend-item"><i class="dot red"></i>Risco / dependência</div>
+  </div>
 
 </section>
-
 
 
 <!-- ======================================================
-     SLIDE 03
-     RETENÇÃO
+     SLIDE 02 — STATUS DA SQUAD
 ====================================================== -->
+<section class="slide squad-slide">
 
-<section class="slide">
+  <div class="eyebrow">DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA</div>
+  <div class="brand">Carrefour<br><small>banco</small></div>
 
-<div class="slide-content">
+  <h1 class="squad-title">Squad</h1>
 
+  <div class="objective">
+    Objetivo da squad. of the printing and typesetting<br>
+    industry. Lorem Ipsum has been the&nbsp; Ipsum has been the
+  </div>
 
-    <!-- GLOWS -->
+  <div class="movement">
 
-    <div class="glow glow-blue"></div>
+    <div class="section-title">O QUE MOVIMENTAMOS</div>
 
-    <div class="glow glow-purple"></div>
+    <div class="movement-row">
+      <div class="number">01</div>
+      <div class="movement-copy">
+        <strong>Is simply dummy text</strong>
+        <p>of the printing and typesetting industry.<br>Lorem Ipsum has been the</p>
+      </div>
+      <div class="status done">Concluído</div>
+    </div>
 
+    <div class="movement-row">
+      <div class="number">02</div>
+      <div class="movement-copy">
+        <strong>Is simply dummy text</strong>
+        <p>of the printing and typesetting industry.<br>Lorem Ipsum has been the</p>
+      </div>
+      <div class="status">Em andamento</div>
+    </div>
 
-    <!-- HEADER -->
+    <div class="movement-row">
+      <div class="number">03</div>
+      <div class="movement-copy">
+        <strong>Is simply dummy text</strong>
+        <p>of the printing and typesetting industry.<br>Lorem Ipsum has been the</p>
+      </div>
+      <div class="status">Em andamento</div>
+    </div>
 
-    <div class="header">
+  </div>
 
-        <div class="header-left">
+  <div class="visual-area">
 
-            <span>
-                Design de Produtos e Centro de Excelência
-            </span>
+    <div class="ghost-card b"></div>
+    <div class="ghost-card a"></div>
 
+    <div class="phone">
+      <div class="phone-notch"></div>
+
+      <div class="phone-head">
+        <small>Boas-vindas, Carina</small>
+        <h3>Seu banco Carrefour<br>está de cara nova!</h3>
+        <span class="phone-button">Fazer um tour &nbsp;›</span>
+      </div>
+
+      <div class="phone-body">
+        <div class="skeleton"></div>
+        <div class="skeleton medium"></div>
+        <div class="skeleton short"></div>
+        <div class="mock-card"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="next-topics">
+
+    <div class="section-title">PRÓXIMOS TEMAS</div>
+
+    <div class="topic-grid">
+
+      <div class="topic">
+        <div class="number">01</div>
+        <div>
+          <strong>Is simply dummy text</strong>
+          <p>of the printing and typesetting industry.<br>Lorem Ipsum has been the</p>
         </div>
+      </div>
 
-
-        <div class="logo">
-            Carrefour<br>
-            <span>banco</span>
+      <div class="topic">
+        <div class="number">02</div>
+        <div>
+          <strong>Is simply dummy text</strong>
+          <p>of the printing and typesetting industry.<br>Lorem Ipsum has been the</p>
         </div>
+      </div>
 
     </div>
 
+  </div>
 
-    <!-- RETENÇÃO -->
+  <div class="metrics">
 
-    <div class="retention-title">
-        Retenção
+    <div class="metric">
+      <div class="metric-value">–</div>
+      <div>
+        <strong>Throughput de Design</strong>
+        <p>
+          É a vazão ou taxa de produção. Ele mede a quantidade
+          de itens concluídos pelo time de design em um período específico.
+        </p>
+      </div>
     </div>
 
-
-    <!-- Q4 -->
-
-    <div class="quarter">
-        Q4
+    <div class="metric">
+      <div class="metric-value">–</div>
+      <div>
+        <strong>Média Lead Time</strong>
+        <p>
+          É o tempo total de ponta a ponta. Ele mede o período
+          desde o momento em que a demanda entra no backlog até
+          o design estar concluído e aprovado.
+        </p>
+      </div>
     </div>
 
+  </div>
 
-    <!-- TEXTO -->
-
-    <div class="retention-copy">
-
-        Ondas de valor. Of the printing and typesetting
-        industry. Lorem Ipsum has been the Ipsum has
-        been the
-
+  <div class="footer">
+    <div class="footer-left">
+      MENSAL DE DESIGN<br>
+      OUT | 2026
     </div>
 
-
-    <!-- CURVA -->
-
-    <div class="curve">
-
-        <svg
-            viewBox="0 0 1850 390"
-            preserveAspectRatio="none"
-        >
-
-            <defs>
-
-                <linearGradient
-                    id="curveGradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
-                >
-
-                    <stop
-                        offset="0%"
-                        stop-color="#a9d4ff"
-                    />
-
-                    <stop
-                        offset="55%"
-                        stop-color="#8c9cff"
-                    />
-
-                    <stop
-                        offset="100%"
-                        stop-color="#b498ff"
-                    />
-
-                </linearGradient>
-
-            </defs>
-
-
-            <path
-
-                d="
-                M 0 235
-
-                C 280 285,
-                  500 300,
-                  700 205
-
-                C 890 115,
-                  980 15,
-                  1180 10
-
-                C 1420 4,
-                  1640 15,
-                  1850 12
-                "
-
-                fill="none"
-
-                stroke="url(#curveGradient)"
-
-                stroke-width="2"
-
-                opacity=".6"
-
-            />
-
-        </svg>
-
-    </div>
-
-
-    <!-- DESEJAMOS -->
-
-    <div class="desire">
-
-        <div class="desire-copy">
-
-            Of the printing and typesetting industry.
-            Lorem Ipsum has been the Ipsum has been the
-
-        </div>
-
-
-        <div class="desire-small">
-            pois
-        </div>
-
-
-        <div class="desire-big">
-            desejamos
-        </div>
-
-    </div>
-
-
-</div>
+    <div class="page">01</div>
+  </div>
 
 </section>
-
-
-</div>
 
 </body>
 </html>
