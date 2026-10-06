@@ -1,1679 +1,492 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Squad — Design</title>
+<title>Design de Produtos e Centro de Excelência</title>
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-:root{
-    --ink:#070a18;
-    --gray:#6d7589;
-    --gray-dark:#525b70;
-    --line:#d9dde6;
-    --blue:#1768ff;
-    --blue-soft:#eef3ff;
-    --green:#3acb79;
-    --green-bg:#ddf7e7;
-}
-
-html,
-body{
-    width:100%;
-    min-height:100%;
-}
-
-body{
-    background:#ddd;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-
-/* =========================================================
-   SLIDE 1920 × 1080
-========================================================= */
-
-.slide{
-    width:1920px;
-    height:1080px;
-
-    position:relative;
-    overflow:hidden;
-
-    background:#fff;
-    color:var(--ink);
-}
-
-
-/* =========================================================
-   BACKGROUND GLOW
-========================================================= */
-
-.glow-blue{
-    position:absolute;
-
-    width:720px;
-    height:650px;
-
-    right:-10px;
-    top:80px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(125,165,255,.22) 0%,
-            rgba(153,178,255,.12) 38%,
-            rgba(255,255,255,0) 72%
-        );
-}
-
-.glow-purple{
-    position:absolute;
-
-    width:600px;
-    height:500px;
-
-    right:-100px;
-    top:430px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(154,116,255,.15),
-            rgba(255,255,255,0) 70%
-        );
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-    position:absolute;
-
-    left:68px;
-    right:70px;
-    top:38px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-
-    gap:34px;
-
-    color:#677087;
-
-    font-size:15px;
-    letter-spacing:1.4px;
-}
-
-.header-line{
-    width:3px;
-    height:43px;
-
-    background:var(--blue);
-}
-
-.logo{
-    font-size:20px;
-    font-weight:800;
-
-    line-height:.85;
-
-    text-align:right;
-}
-
-.logo span{
-    display:block;
-
-    margin-right:12px;
-
-    font-size:10px;
-    font-weight:500;
-}
-
-
-/* =========================================================
-   LEFT
-========================================================= */
-
-.left{
-    position:absolute;
-
-    left:105px;
-    top:160px;
-
-    width:820px;
-}
-
-
-/* =========================================================
-   TITLE
-========================================================= */
-
-.title{
-    font-size:74px;
-    line-height:.92;
-
-    font-weight:800;
-
-    letter-spacing:-5px;
-}
-
-.subtitle{
-    width:800px;
-
-    margin-top:25px;
-
-    color:#6c7488;
-
-    font-size:26px;
-    font-weight:300;
-
-    line-height:1.25;
-
-    letter-spacing:-.5px;
-}
-
-
-/* =========================================================
-   SECTION TITLE
-========================================================= */
-
-.section-label{
-    width:820px;
-
-    margin-top:60px;
-
-    display:flex;
-    align-items:center;
-
-    gap:20px;
-
-    color:#5f687d;
-
-    font-size:13px;
-    font-weight:700;
-
-    letter-spacing:3px;
-}
-
-.section-label::after{
-    content:"";
-
-    flex:1;
-
-    height:1px;
-
-    background:#cfd4de;
-}
-
-
-/* =========================================================
-   MOVEMENT LIST
-========================================================= */
-
-.movements{
-    width:820px;
-}
-
-.movement{
-    min-height:120px;
-
-    display:grid;
-
-    grid-template-columns:100px 1fr 185px;
-
-    align-items:center;
-
-    border-bottom:1px solid #dfe3ea;
-}
-
-.number{
-    font-size:54px;
-    font-weight:200;
-
-    letter-spacing:-4px;
-}
-
-.movement-text strong{
-    display:block;
-
-    margin-bottom:4px;
-
-    font-size:17px;
-}
-
-.movement-text p{
-    color:#687185;
-
-    font-size:16px;
-    line-height:1.25;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status{
-    justify-self:end;
-
-    width:175px;
-    height:41px;
-
-    display:flex;
-    align-items:center;
-
-    padding:0 17px;
-
-    border-radius:11px;
-
-    font-size:13px;
-
-    color:#59637a;
-}
-
-.status::before{
-    content:"";
-
-    width:10px;
-    height:10px;
-
-    margin-right:17px;
-
-    border-radius:50%;
-}
-
-.done{
-    background:var(--green-bg);
-}
-
-.done::before{
-    background:var(--green);
-}
-
-.progress{
-    background:#f0f4fb;
-}
-
-.progress::before{
-    background:#8daee9;
-}
-
-
-/* =========================================================
-   VISUAL AREA
-========================================================= */
-
-.visual{
-    position:absolute;
-
-    right:45px;
-    top:110px;
-
-    width:800px;
-    height:720px;
-}
-
-
-/* =========================================================
-   BACK SCREEN 01
-========================================================= */
-
-.back-screen-one{
-    position:absolute;
-
-    z-index:2;
-
-    width:410px;
-    height:550px;
-
-    left:265px;
-    top:80px;
-
-    transform:rotate(6deg);
-
-    border:1px solid #e1e5ef;
-    border-radius:18px;
-
-    background:#f8faff;
-
-    box-shadow:
-        0 25px 60px rgba(85,104,170,.10);
-}
-
-
-/* TOP BAR */
-
-.back-screen-one .topbar{
-    position:absolute;
-
-    left:30px;
-    right:30px;
-    top:40px;
-
-    height:20px;
-
-    border-radius:7px;
-
-    background:#e9edf6;
-}
-
-.close{
-    position:absolute;
-
-    right:19px;
-    top:15px;
-
-    font-size:18px;
-
-    color:#7e88a0;
-}
-
-
-/* HERO CARD */
-
-.large-card{
-    position:absolute;
-
-    left:30px;
-    right:30px;
-    top:95px;
-
-    height:150px;
-
-    border-radius:12px;
-
-    background:#e7ebf5;
-}
-
-
-/* dots */
-
-.dots{
-    position:absolute;
-
-    left:50%;
-
-    top:265px;
-
-    transform:translateX(-50%);
-
-    display:flex;
-
-    gap:8px;
-}
-
-.dots span{
-    width:6px;
-    height:6px;
-
-    border-radius:50%;
-
-    background:#bdc6da;
-}
-
-.dots span:first-child{
-    background:#66749b;
-}
-
-
-/* content */
-
-.screen-line{
-    position:absolute;
-
-    left:35px;
-
-    height:13px;
-
-    border-radius:7px;
-
-    background:#e3e7f0;
-}
-
-.line-a{
-    width:240px;
-    top:315px;
-}
-
-.line-b{
-    width:175px;
-    top:345px;
-}
-
-.line-c{
-    width:255px;
-    top:405px;
-}
-
-.line-d{
-    width:150px;
-    top:435px;
-}
-
-
-/* small numbered dots */
-
-.screen-dot{
-    position:absolute;
-
-    right:40px;
-
-    width:22px;
-    height:22px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    border-radius:50%;
-
-    background:#e5e9f3;
-
-    color:#7e879b;
-
-    font-size:8px;
-}
-
-.dot-a{
-    top:398px;
-}
-
-.dot-b{
-    top:460px;
-}
-
-
-/* =========================================================
-   BACK SCREEN 02
-========================================================= */
-
-.back-screen-two{
-    position:absolute;
-
-    z-index:1;
-
-    width:300px;
-    height:355px;
-
-    right:0;
-    top:205px;
-
-    transform:rotate(9deg);
-
-    border:1px solid #e4e7ef;
-
-    border-radius:16px;
-
-    background:#fafbff;
-
-    box-shadow:
-        0 20px 55px rgba(88,105,170,.08);
-}
-
-.back-screen-two .topbar{
-    position:absolute;
-
-    left:25px;
-    right:25px;
-    top:47px;
-
-    height:18px;
-
-    border-radius:6px;
-
-    background:#e9ecf4;
-}
-
-.chart-title{
-    position:absolute;
-
-    left:27px;
-    top:100px;
-
-    width:130px;
-    height:11px;
-
-    border-radius:6px;
-
-    background:#e8ebf3;
-}
-
-.chart{
-    position:absolute;
-
-    left:35px;
-    right:30px;
-    bottom:55px;
-
-    height:150px;
-
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-
-    gap:20px;
-}
-
-.chart div{
-    width:13px;
-
-    border-radius:5px 5px 0 0;
-
-    background:#9baef3;
-}
-
-.chart div:nth-child(1){
-    height:55px;
-}
-
-.chart div:nth-child(2){
-    height:95px;
-}
-
-.chart div:nth-child(3){
-    height:135px;
-}
-
-.chart div:nth-child(4){
-    height:75px;
-}
-
-
-/* =========================================================
-   PHONE
-========================================================= */
-
-.phone{
-    position:absolute;
-
-    z-index:10;
-
-    left:70px;
-    top:20px;
-
-    width:340px;
-    height:680px;
-
-    padding:10px;
-
-    border-radius:52px;
-
-    background:#06070a;
-
-    box-shadow:
-        0 30px 55px rgba(13,18,38,.22),
-        0 5px 12px rgba(0,0,0,.25);
-}
-
-.phone-inner{
-    position:relative;
-
-    width:100%;
-    height:100%;
-
-    overflow:hidden;
-
-    border-radius:42px;
-
-    background:#fafafa;
-}
-
-
-/* =========================================================
-   DYNAMIC ISLAND
-========================================================= */
-
-.island{
-    position:absolute;
-
-    z-index:20;
-
-    left:50%;
-    top:14px;
-
-    width:88px;
-    height:25px;
-
-    transform:translateX(-50%);
-
-    border-radius:20px;
-
-    background:#020204;
-}
-
-
-/* =========================================================
-   PHONE HEADER
-========================================================= */
-
-.phone-header{
-    height:112px;
-
-    padding:58px 23px 0;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-}
-
-.profile{
-    width:41px;
-    height:41px;
-
-    border-radius:50%;
-
-    background:#d2d2d2;
-
-    position:relative;
-    overflow:hidden;
-}
-
-.profile-head{
-    position:absolute;
-
-    width:15px;
-    height:15px;
-
-    left:13px;
-    top:7px;
-
-    border-radius:50%;
-
-    background:#777;
-}
-
-.profile-body{
-    position:absolute;
-
-    width:30px;
-    height:24px;
-
-    left:6px;
-    top:23px;
-
-    border-radius:50% 50% 0 0;
-
-    background:#8b8b8b;
-}
-
-.phone-actions{
-    display:flex;
-
-    gap:10px;
-}
-
-.action{
-    width:39px;
-    height:39px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    border-radius:50%;
-
-    background:#fff;
-
-    box-shadow:
-        0 3px 10px rgba(0,0,0,.06);
-
-    font-size:16px;
-    font-weight:700;
-
-    color:#111521;
-}
-
-
-/* =========================================================
-   PHONE HERO
-========================================================= */
-
-.phone-hero{
-    padding:17px 25px 24px;
-}
-
-.phone-hero small{
-    color:#808797;
-
-    font-size:12px;
-}
-
-.phone-hero h3{
-    margin-top:9px;
-
-    color:#303748;
-
-    font-size:20px;
-    line-height:1.15;
-}
-
-.phone-button{
-    width:137px;
-    height:39px;
-
-    margin-top:20px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:8px;
-
-    background:#41495b;
-
-    color:#fff;
-
-    font-size:11px;
-}
-
-
-/* =========================================================
-   PHONE BODY
-========================================================= */
-
-.phone-content{
-    padding:27px 25px;
-
-    border-top:1px solid #e5e7eb;
-
-    background:#fff;
-}
-
-.phone-line{
-    height:14px;
-
-    margin-bottom:13px;
-
-    border-radius:8px;
-
-    background:#e5e5e5;
-}
-
-.phone-line.one{
-    width:100%;
-}
-
-.phone-line.two{
-    width:82%;
-}
-
-
-/* CARD */
-
-.phone-card{
-    height:120px;
-
-    margin-top:18px;
-
-    padding:15px;
-
-    border-radius:9px;
-
-    background:#f0f0f0;
-}
-
-.card-square{
-    width:65px;
-    height:52px;
-
-    border-radius:6px;
-
-    background:#d3d3d3;
-}
-
-.card-line{
-    width:82%;
-    height:12px;
-
-    margin-top:15px;
-
-    border-radius:8px;
-
-    background:#c8c8c8;
-}
-
-
-/* carousel */
-
-.carousel-indicator{
-    width:60px;
-
-    margin:10px auto 0;
-
-    display:flex;
-    justify-content:center;
-
-    gap:5px;
-}
-
-.carousel-indicator span{
-    width:5px;
-    height:5px;
-
-    border-radius:50%;
-
-    background:#c5c5c5;
-}
-
-.carousel-indicator span:first-child{
-    width:20px;
-
-    border-radius:10px;
-
-    background:#333947;
-}
-
-
-/* circles */
-
-.phone-circles{
-    display:flex;
-
-    justify-content:space-between;
-
-    margin-top:13px;
-}
-
-.phone-circles div{
-    width:43px;
-    height:43px;
-
-    border-radius:50%;
-
-    background:#ececec;
-
-    border:1px solid #ddd;
-}
-
-
-/* CTA */
-
-.phone-cta{
-    height:55px;
-
-    margin-top:18px;
-
-    border-radius:7px;
-
-    background:#424a5d;
-}
-
-
-/* =========================================================
-   BOTTOM SECTION
-========================================================= */
-
-.bottom{
-    position:absolute;
-
-    left:105px;
-    right:90px;
-    bottom:126px;
-
-    height:170px;
-}
-
-
-/* label */
-
-.bottom-label{
-    width:820px;
-
-    display:flex;
-    align-items:center;
-
-    gap:20px;
-
-    margin-bottom:30px;
-
-    color:#657087;
-
-    font-size:13px;
-    font-weight:700;
-
-    letter-spacing:2.8px;
-}
-
-.bottom-label::after{
-    content:"";
-
-    flex:1;
-
-    height:1px;
-
-    background:#cfd4de;
-}
-
-
-/* GRID */
-
-.bottom-grid{
-    display:grid;
-
-    grid-template-columns:
-        420px
-        420px
-        1fr
-        1fr;
-
-    gap:38px;
-}
-
-
-/* =========================================================
-   NEXT ITEMS
-========================================================= */
-
-.next{
-    min-height:80px;
-
-    display:grid;
-
-    grid-template-columns:75px 1fr;
-
-    padding-right:25px;
-
-    border-right:1px solid #d9dde5;
-}
-
-.next-number{
-    font-size:43px;
-    font-weight:200;
-
-    letter-spacing:-3px;
-}
-
-.next-copy strong{
-    display:block;
-
-    margin-bottom:4px;
-
-    font-size:15px;
-}
-
-.next-copy p{
-    color:#727a8d;
-
-    font-size:13px;
-    line-height:1.35;
-}
-
-
-/* =========================================================
-   METRICS
-========================================================= */
-
-.metric{
-    display:grid;
-
-    grid-template-columns:70px 1fr;
-
-    gap:22px;
-}
-
-.metric-value{
-    width:70px;
-    height:70px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    border:1px solid #d8dde7;
-
-    border-radius:6px;
-
-    color:#39435a;
-
-    font-size:25px;
-}
-
-.metric-copy strong{
-    display:block;
-
-    margin-bottom:5px;
-
-    font-size:14px;
-}
-
-.metric-copy p{
-    max-width:270px;
-
-    color:#747d91;
-
-    font-size:12px;
-    line-height:1.4;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-    position:absolute;
-
-    left:68px;
-    right:70px;
-    bottom:34px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-}
-
-.footer-left{
-    display:flex;
-    align-items:center;
-
-    gap:28px;
-
-    color:#687187;
-
-    font-size:13px;
-    line-height:1.45;
-
-    letter-spacing:2.4px;
-}
-
-.footer-line{
-    width:3px;
-    height:43px;
-
-    background:#1768ff;
-}
-
-.footer-page{
-    display:flex;
-    align-items:center;
-
-    gap:25px;
-
-    color:#70798d;
-
-    font-size:13px;
-}
-
-.footer-page::after{
-    content:"";
-
-    width:3px;
-    height:43px;
-
-    background:#1768ff;
-}
-
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  body {
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    color: #07113f;
+  }
+
+  /* =========================================================
+     SLIDE 1920 x 1080
+  ========================================================= */
+
+  .slide {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  /* =========================================================
+     AMBIENT LIGHT
+     Glow bem suave, seguindo os outros slides
+  ========================================================= */
+
+  .glow {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(85px);
+    opacity: .48;
+  }
+
+  .glow-01 {
+    width: 430px;
+    height: 430px;
+    left: -180px;
+    bottom: -130px;
+    background: rgba(43, 147, 255, .16);
+  }
+
+  .glow-02 {
+    width: 340px;
+    height: 340px;
+    left: 320px;
+    bottom: -190px;
+    background: rgba(117, 83, 255, .10);
+  }
+
+  .glow-03 {
+    width: 320px;
+    height: 320px;
+    right: -120px;
+    top: 300px;
+    background: rgba(68, 124, 255, .08);
+  }
+
+  /* =========================================================
+     HEADER
+  ========================================================= */
+
+  .header {
+    position: absolute;
+    top: 48px;
+    left: 66px;
+    right: 66px;
+    height: 56px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #111938;
+  }
+
+  .eyebrow-line {
+    width: 6px;
+    height: 40px;
+    border-radius: 999px;
+    background: #1769ff;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #050505;
+  }
+
+  .logo-word {
+    text-align: right;
+    line-height: .85;
+  }
+
+  .logo-word strong {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 24px;
+    letter-spacing: -0.04em;
+  }
+
+  .logo-word span {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .logo-symbol {
+    position: relative;
+    width: 46px;
+    height: 36px;
+  }
+
+  .logo-symbol::before,
+  .logo-symbol::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    width: 23px;
+    height: 32px;
+    background: #050505;
+  }
+
+  .logo-symbol::before {
+    left: 0;
+    clip-path: polygon(100% 0, 32% 0, 0 50%, 32% 100%, 100% 100%, 57% 50%);
+  }
+
+  .logo-symbol::after {
+    right: 0;
+    clip-path: polygon(0 0, 68% 0, 100% 50%, 68% 100%, 0 100%, 43% 50%);
+  }
+
+  /* =========================================================
+     EDITORIAL NUMBER
+  ========================================================= */
+
+  .index {
+    position: absolute;
+    left: 82px;
+    top: 240px;
+
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    color: #6d748a;
+  }
+
+  .big-number {
+    position: absolute;
+    left: 65px;
+    top: 275px;
+
+    font-size: 265px;
+    line-height: .82;
+    font-weight: 200;
+    letter-spacing: -0.09em;
+
+    color: #07113f;
+  }
+
+  .big-number span {
+    color: #1769ff;
+  }
+
+  /* pequena assinatura visual */
+  .accent {
+    position: absolute;
+    left: 72px;
+    top: 545px;
+
+    width: 90px;
+    height: 5px;
+    border-radius: 999px;
+    background: #1769ff;
+  }
+
+  /* =========================================================
+     NAVIGATION
+  ========================================================= */
+
+  .navigation {
+    position: absolute;
+    top: 235px;
+    right: 145px;
+
+    width: 900px;
+  }
+
+  .nav-item {
+    position: relative;
+
+    height: 116px;
+    padding: 0 24px 0 0;
+
+    display: grid;
+    grid-template-columns: 86px 1fr 60px;
+    align-items: center;
+
+    border-bottom: 1px solid rgba(7, 17, 63, .28);
+
+    transition: .3s ease;
+  }
+
+  .nav-number {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    color: #8b91a4;
+  }
+
+  .nav-title {
+    font-size: 27px;
+    font-weight: 450;
+    letter-spacing: -0.035em;
+    color: #07113f;
+  }
+
+  /* =========================================================
+     ARROW
+  ========================================================= */
+
+  .arrow {
+    justify-self: end;
+
+    width: 29px;
+    height: 29px;
+
+    position: relative;
+  }
+
+  .arrow::before {
+    content: "";
+    position: absolute;
+    left: 1px;
+    top: 13px;
+
+    width: 24px;
+    height: 2px;
+
+    background: currentColor;
+  }
+
+  .arrow::after {
+    content: "";
+    position: absolute;
+    right: 2px;
+    top: 7px;
+
+    width: 12px;
+    height: 12px;
+
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+
+    transform: rotate(45deg);
+  }
+
+  /* =========================================================
+     COLOR MOMENTS
+     Não são todos cards / não é tudo degradê.
+  ========================================================= */
+
+  .nav-item:nth-child(2) .nav-number {
+    color: #1769ff;
+  }
+
+  .nav-item:nth-child(3) {
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+    height: 108px;
+    padding-left: 26px;
+
+    border: 1px solid rgba(23, 105, 255, .12);
+    border-radius: 24px;
+
+    background: #eef5ff;
+  }
+
+  .nav-item:nth-child(3) .nav-number {
+    color: #1769ff;
+  }
+
+  .nav-item:nth-child(3) .arrow {
+    color: #1769ff;
+  }
+
+  .nav-item:nth-child(3) + .nav-item {
+    border-top: 0;
+  }
+
+  /* último item = momento forte da composição */
+
+  .nav-item:nth-child(6) {
+    margin-top: 12px;
+
+    height: 110px;
+    padding-left: 26px;
+
+    border: 0;
+    border-radius: 24px;
+
+    background: #07113f;
+  }
+
+  .nav-item:nth-child(6) .nav-number {
+    color: #7298ff;
+  }
+
+  .nav-item:nth-child(6) .nav-title,
+  .nav-item:nth-child(6) .arrow {
+    color: #ffffff;
+  }
+
+  /* =========================================================
+     SUBTLE LINE / DECORATION
+  ========================================================= */
+
+  .graphic-line {
+    position: absolute;
+    left: -120px;
+    bottom: -230px;
+
+    width: 700px;
+    height: 700px;
+
+    border: 1px solid rgba(7, 17, 63, .17);
+    border-radius: 50%;
+  }
+
+  .graphic-line-2 {
+    position: absolute;
+    left: -250px;
+    bottom: -365px;
+
+    width: 870px;
+    height: 870px;
+
+    border: 1px solid rgba(23, 105, 255, .13);
+    border-radius: 50%;
+  }
+
+  /* =========================================================
+     SCALE PARA PREVIEW EM TELAS MENORES
+  ========================================================= */
+
+  .stage {
+    width: 1920px;
+    height: 1080px;
+    transform-origin: top left;
+  }
+
+  @media (max-width: 1919px), (max-height: 1079px) {
+    body {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .stage {
+      transform: scale(
+        min(
+          calc(100vw / 1920),
+          calc(100vh / 1080)
+        )
+      );
+    }
+  }
 </style>
 </head>
 
 <body>
 
+<div class="stage">
 
-<section class="slide">
+  <main class="slide">
 
+    <!-- AMBIENT GLOW -->
+    <div class="glow glow-01"></div>
+    <div class="glow glow-02"></div>
+    <div class="glow glow-03"></div>
 
-<!-- BACKGROUND -->
+    <!-- HEADER -->
+    <header class="header">
 
-<div class="glow-blue"></div>
-<div class="glow-purple"></div>
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        <span>Design de Produtos e Centro de Excelência</span>
+      </div>
 
-
-
-<!-- ======================================================
-     HEADER
-====================================================== -->
-
-<header class="header">
-
-    <div class="header-left">
-
-        <div class="header-line"></div>
-
-        <span>
-            DESIGN DE PRODUTOS E CENTRO DE EXCELÊNCIA
-        </span>
-
-    </div>
-
-
-    <div class="logo">
-
-        Carrefour
-
-        <span>
-            banco
-        </span>
-
-    </div>
-
-</header>
-
-
-
-<!-- ======================================================
-     LEFT CONTENT
-====================================================== -->
-
-<div class="left">
-
-
-    <h1 class="title">
-        Squad
-    </h1>
-
-
-    <p class="subtitle">
-
-        Objetivo da squad. of the printing and typesetting<br>
-        industry. Lorem Ipsum has been the Ipsum has been the
-
-    </p>
-
-
-
-    <div class="section-label">
-        O QUE MOVIMENTAMOS
-    </div>
-
-
-
-    <div class="movements">
-
-
-        <!-- 01 -->
-
-        <div class="movement">
-
-            <div class="number">
-                01
-            </div>
-
-
-            <div class="movement-text">
-
-                <strong>
-                    Is simply dummy text
-                </strong>
-
-                <p>
-                    of the printing and typesetting industry.<br>
-                    Lorem Ipsum has been the
-                </p>
-
-            </div>
-
-
-            <div class="status done">
-                Concluído
-            </div>
-
+      <!-- Placeholder vetorial do logo -->
+      <div class="logo">
+        <div class="logo-word">
+          <strong>Carrefour</strong>
+          <span>banco</span>
         </div>
 
+        <div class="logo-symbol"></div>
+      </div>
 
+    </header>
 
-        <!-- 02 -->
+    <!-- EDITORIAL LEFT SIDE -->
+    <div class="index">NAVEGAÇÃO</div>
 
-        <div class="movement">
-
-            <div class="number">
-                02
-            </div>
-
-
-            <div class="movement-text">
-
-                <strong>
-                    Is simply dummy text
-                </strong>
-
-                <p>
-                    of the printing and typesetting industry.<br>
-                    Lorem Ipsum has been the
-                </p>
-
-            </div>
-
-
-            <div class="status progress">
-                Em andamento
-            </div>
-
-        </div>
-
-
-
-        <!-- 03 -->
-
-        <div class="movement">
-
-            <div class="number">
-                03
-            </div>
-
-
-            <div class="movement-text">
-
-                <strong>
-                    Is simply dummy text
-                </strong>
-
-                <p>
-                    of the printing and typesetting industry.<br>
-                    Lorem Ipsum has been the
-                </p>
-
-            </div>
-
-
-            <div class="status progress">
-                Em andamento
-            </div>
-
-        </div>
-
-
+    <div class="big-number">
+      0<span>6</span>
     </div>
+
+    <div class="accent"></div>
+
+    <!-- NAVIGATION -->
+    <section class="navigation">
+
+      <div class="nav-item">
+        <div class="nav-number">01</div>
+        <div class="nav-title">Quem somos</div>
+        <div class="arrow"></div>
+      </div>
+
+      <div class="nav-item">
+        <div class="nav-number">02</div>
+        <div class="nav-title">Nosso core</div>
+        <div class="arrow"></div>
+      </div>
+
+      <div class="nav-item">
+        <div class="nav-number">03</div>
+        <div class="nav-title">Nosso objetivo</div>
+        <div class="arrow"></div>
+      </div>
+
+      <div class="nav-item">
+        <div class="nav-number">04</div>
+        <div class="nav-title">Para onde vamos</div>
+        <div class="arrow"></div>
+      </div>
+
+      <div class="nav-item">
+        <div class="nav-number">05</div>
+        <div class="nav-title">Ondas de atuação</div>
+        <div class="arrow"></div>
+      </div>
+
+      <div class="nav-item">
+        <div class="nav-number">06</div>
+        <div class="nav-title">Nossos pilares</div>
+        <div class="arrow"></div>
+      </div>
+
+    </section>
+
+    <!-- BACKGROUND DETAIL -->
+    <div class="graphic-line"></div>
+    <div class="graphic-line-2"></div>
+
+  </main>
 
 </div>
-
-
-
-<!-- ======================================================
-     RIGHT VISUAL
-====================================================== -->
-
-<div class="visual">
-
-
-    <!-- SCREEN 01 -->
-
-    <div class="back-screen-one">
-
-        <div class="close">
-            ×
-        </div>
-
-        <div class="topbar"></div>
-
-        <div class="large-card"></div>
-
-
-        <div class="dots">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-
-        <div class="screen-line line-a"></div>
-
-        <div class="screen-line line-b"></div>
-
-        <div class="screen-line line-c"></div>
-
-        <div class="screen-line line-d"></div>
-
-
-        <div class="screen-dot dot-a">
-            1
-        </div>
-
-        <div class="screen-dot dot-b">
-            2
-        </div>
-
-    </div>
-
-
-
-    <!-- SCREEN 02 -->
-
-    <div class="back-screen-two">
-
-        <div class="close">
-            ×
-        </div>
-
-        <div class="topbar"></div>
-
-        <div class="chart-title"></div>
-
-
-        <div class="chart">
-
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         PHONE
-    =================================================== -->
-
-    <div class="phone">
-
-        <div class="phone-inner">
-
-
-            <div class="island"></div>
-
-
-
-            <!-- HEADER -->
-
-            <div class="phone-header">
-
-
-                <div class="profile">
-
-                    <div class="profile-head"></div>
-
-                    <div class="profile-body"></div>
-
-                </div>
-
-
-
-                <div class="phone-actions">
-
-                    <div class="action">
-                        ⌕
-                    </div>
-
-                    <div class="action">
-                        ◉
-                    </div>
-
-                    <div class="action">
-                        ●
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- HERO -->
-
-            <div class="phone-hero">
-
-
-                <small>
-                    Boas-vindas, Carina
-                </small>
-
-
-                <h3>
-                    Seu banco Carrefour<br>
-                    está de cara nova!
-                </h3>
-
-
-                <div class="phone-button">
-                    Fazer um tour &nbsp; ›
-                </div>
-
-
-            </div>
-
-
-
-            <!-- CONTENT -->
-
-            <div class="phone-content">
-
-
-                <div class="phone-line one"></div>
-
-                <div class="phone-line two"></div>
-
-
-
-                <div class="phone-card">
-
-                    <div class="card-square"></div>
-
-                    <div class="card-line"></div>
-
-                </div>
-
-
-
-                <div class="carousel-indicator">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                </div>
-
-
-
-                <div class="phone-circles">
-
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-
-                </div>
-
-
-
-                <div class="phone-cta"></div>
-
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-</div>
-
-
-
-<!-- ======================================================
-     BOTTOM
-====================================================== -->
-
-<div class="bottom">
-
-
-    <div class="bottom-label">
-        PRÓXIMOS TEMAS
-    </div>
-
-
-
-    <div class="bottom-grid">
-
-
-        <!-- NEXT 01 -->
-
-        <div class="next">
-
-            <div class="next-number">
-                01
-            </div>
-
-
-            <div class="next-copy">
-
-                <strong>
-                    Is simply dummy text
-                </strong>
-
-                <p>
-                    of the printing and typesetting industry.<br>
-                    Lorem Ipsum has been the
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- NEXT 02 -->
-
-        <div class="next">
-
-            <div class="next-number">
-                02
-            </div>
-
-
-            <div class="next-copy">
-
-                <strong>
-                    Is simply dummy text
-                </strong>
-
-                <p>
-                    of the printing and typesetting industry.<br>
-                    Lorem Ipsum has been the
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- THROUGHPUT -->
-
-        <div class="metric">
-
-
-            <div class="metric-value">
-                −
-            </div>
-
-
-            <div class="metric-copy">
-
-                <strong>
-                    Throughput de Design
-                </strong>
-
-                <p>
-                    É a vazão ou taxa de produção. Ele mede
-                    a quantidade de itens concluídos pelo
-                    time de design em um período específico.
-                </p>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- LEAD TIME -->
-
-        <div class="metric">
-
-
-            <div class="metric-value">
-                −
-            </div>
-
-
-            <div class="metric-copy">
-
-                <strong>
-                    Média Lead Time
-                </strong>
-
-                <p>
-                    É o tempo total de ponta a ponta. Ele mede
-                    o período desde o momento em que a demanda
-                    entra no backlog até o design estar concluído
-                    e aprovado.
-                </p>
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-</div>
-
-
-
-<!-- ======================================================
-     FOOTER
-====================================================== -->
-
-<footer class="footer">
-
-
-    <div class="footer-left">
-
-        <div class="footer-line"></div>
-
-        <div>
-
-            MENSAL DE DESIGN<br>
-            OUT 2026
-
-        </div>
-
-    </div>
-
-
-
-    <div class="footer-page">
-
-        01
-
-    </div>
-
-
-</footer>
-
-
-</section>
-
 
 </body>
 </html>
