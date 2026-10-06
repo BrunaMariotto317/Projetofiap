@@ -1,492 +1,1409 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Design de Produtos e Centro de Excelência</title>
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --navy:#07113f;
+  --navy-2:#0b174d;
+  --blue:#155cff;
+  --blue-light:#eaf2ff;
+  --purple:#7558ff;
+  --purple-light:#eee9ff;
+  --text:#091139;
+  --muted:#666e87;
+  --line:#d9e3f6;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  background:#dfe3eb;
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  color:var(--text);
+}
+
+/* Cada section é um frame Figma 1920x1080 */
+
+.slide{
+  position:relative;
+  width:1920px;
+  height:1080px;
+  overflow:hidden;
+  margin:0 auto 80px auto;
+}
+
+.light{
+  background:#fff;
+}
+
+.dark{
+  background:
+    radial-gradient(circle at 20% 50%,rgba(35,75,255,.15),transparent 35%),
+    radial-gradient(circle at 58% 40%,rgba(122,65,255,.13),transparent 30%),
+    #050d35;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+  position:absolute;
+  top:42px;
+  left:58px;
+  right:58px;
+  height:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  z-index:20;
+}
+
+.header-title{
+  display:flex;
+  align-items:center;
+  gap:16px;
+
+  font-size:22px;
+  letter-spacing:-.025em;
+}
+
+.dark .header-title{
+  color:white;
+}
+
+.header-bar{
+  width:6px;
+  height:40px;
+  border-radius:5px;
+  background:#236cff;
+}
+
+.logo{
+  font-family:Georgia,serif;
+  font-weight:700;
+  font-size:25px;
+  line-height:.75;
+  color:#050505;
+  text-align:right;
+}
+
+.logo small{
+  display:block;
+  font-family:Arial,sans-serif;
+  font-size:13px;
+}
+
+.dark .logo{
+  color:white;
+}
+
+/* =========================================================
+   SLIDE 01 — ORGANOGRAMA
+========================================================= */
+
+.org-chart{
+  position:absolute;
+  left:56px;
+  right:56px;
+  top:70px;
+  bottom:50px;
+}
+
+.manager{
+  position:absolute;
+  z-index:5;
+
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:460px;
+  height:108px;
+
+  background:white;
+  border-radius:55px;
+
+  display:flex;
+  align-items:center;
+
+  padding:8px 32px 8px 12px;
+
+  color:var(--navy);
+}
+
+.manager-photo{
+  width:118px;
+  height:118px;
+  border-radius:60px;
+
+  background:
+    radial-gradient(circle at 50% 55%,#d7e7ff,#b6ceff);
+
+  margin-top:-12px;
+  margin-right:20px;
+}
+
+.manager strong{
+  font-size:22px;
+}
+
+.manager span{
+  display:block;
+  font-size:17px;
+  margin-top:5px;
+  color:#52649c;
+}
+
+/* linhas */
+
+.tree-line{
+  position:absolute;
+  z-index:1;
+  border-color:#664ee8;
+  opacity:.65;
+}
+
+.tree-v{
+  width:1px;
+  height:42px;
+  border-left:2px solid #664ee8;
+  left:50%;
+  top:106px;
+}
+
+.tree-h{
+  height:1px;
+  border-top:2px solid #664ee8;
+  left:218px;
+  right:218px;
+  top:147px;
+}
+
+.tree-down{
+  position:absolute;
+  top:147px;
+  width:2px;
+  height:35px;
+  background:#664ee8;
+  opacity:.65;
+}
+
+/* columns */
+
+.org-columns{
+  position:absolute;
+  top:165px;
+  left:0;
+  right:0;
+  bottom:0;
+
+  display:grid;
+  grid-template-columns:1fr 1fr .97fr .88fr;
+  gap:18px;
+}
+
+.org-column{
+  position:relative;
+  border-radius:28px;
+  padding:30px 25px;
+  overflow:hidden;
+}
+
+.excellence{
+  background:
+    radial-gradient(circle at 25% 10%,rgba(67,120,255,.85),transparent 46%),
+    #0c36b4;
+}
+
+.retention{
+  background:
+    radial-gradient(circle at 40% 20%,rgba(130,71,255,.38),transparent 55%),
+    #28135f;
+}
+
+.cards{
+  background:#28145f;
+}
+
+.side-column{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.dev,
+.customer{
+  flex:1;
+  background:#09236d;
+  border-radius:28px;
+  padding:30px 25px;
+}
+
+.org-heading{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+
+  color:white;
+  margin-bottom:28px;
+}
+
+.org-number{
+  font-size:27px;
+  color:#7b9cff;
+}
+
+.org-heading h2{
+  font-size:29px;
+  line-height:1;
+  letter-spacing:-.04em;
+}
+
+.tabs{
+  display:flex;
+  gap:14px;
+  margin-bottom:45px;
+}
+
+.tab{
+  min-width:110px;
+  height:54px;
+
+  padding:0 22px;
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+  font-weight:600;
+  font-size:17px;
+
+  background:rgba(255,255,255,.13);
+}
+
+.tab.active{
+  background:#091c63;
+}
+
+/* person rows */
+
+.person{
+  height:94px;
+  background:#fff;
+
+  border-radius:50px;
+  margin-bottom:22px;
+
+  display:flex;
+  align-items:center;
+
+  color:var(--navy);
+
+  position:relative;
+  overflow:hidden;
+}
+
+.person.compact{
+  height:78px;
+  margin-bottom:12px;
+}
+
+.avatar{
+  width:110px;
+  height:110px;
+  flex:none;
+
+  border-radius:55px;
+
+  background:
+    radial-gradient(circle at 50% 40%,#f2f2f2,#c8d9ff);
+
+  margin-left:-2px;
+}
+
+.compact .avatar{
+  width:88px;
+  height:88px;
+}
+
+.person-info{
+  padding-left:20px;
+  line-height:1.15;
+}
+
+.person-info strong{
+  display:block;
+  font-size:18px;
+}
+
+.person-info span{
+  display:block;
+  margin-top:5px;
+  font-size:15px;
+  color:#45568d;
+}
+
+.level{
+  position:absolute;
+  right:20px;
+
+  padding:8px 11px;
+  border-radius:10px;
+
+  background:#e6dcff;
+  color:#7252e8;
+
+  font-size:13px;
+  font-weight:700;
+}
+
+/* =========================================================
+   SLIDE 02 — OKR
+========================================================= */
+
+.okr-bg-one,
+.okr-bg-two{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(40px);
+  pointer-events:none;
+}
+
+.okr-bg-one{
+  width:600px;
+  height:600px;
+  left:-120px;
+  top:230px;
+  background:rgba(57,142,255,.15);
+}
+
+.okr-bg-two{
+  width:650px;
+  height:650px;
+  right:-120px;
+  top:300px;
+  background:rgba(117,85,255,.10);
+}
+
+.okr-shell{
+  position:absolute;
+
+  left:350px;
+  top:125px;
+
+  width:1220px;
+  height:850px;
+
+  border:1px solid #bfd4ff;
+  border-radius:46px;
+
+  background:rgba(237,245,255,.52);
+
+  padding:36px;
+}
+
+.okr-top{
+  height:255px;
+  background:rgba(255,255,255,.91);
+  border:1px solid #d6e1f4;
+  border-radius:38px;
+
+  padding:58px 60px;
+
+  display:grid;
+  grid-template-columns:1fr 230px;
+}
+
+.okr-label{
+  color:#65749e;
+  font-size:21px;
+  margin-bottom:14px;
+}
+
+.okr-top h1{
+  font-size:41px;
+  font-weight:500;
+  letter-spacing:-.04em;
+}
+
+.okr-description{
+  margin-top:14px;
+  max-width:730px;
+
+  font-size:20px;
+  line-height:1.4;
+  color:#596079;
+}
+
+.dimension{
+  border-left:1px solid #aebfe7;
+  text-align:right;
+
+  padding:12px 25px;
+
+  font-size:17px;
+  line-height:1.6;
+}
+
+.dimension span{
+  display:block;
+  color:#65708c;
+  margin-bottom:5px;
+}
+
+.okr-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+
+  height:540px;
+  margin-top:26px;
+}
+
+.okr-card{
+  border:1px solid #cddbf2;
+  background:rgba(255,255,255,.91);
+
+  border-radius:38px;
+
+  padding:48px 55px;
+
+  position:relative;
+}
+
+.okr-card .okr-label{
+  color:var(--navy);
+  font-weight:600;
+}
+
+.okr-card h2{
+  font-size:40px;
+  font-weight:400;
+  letter-spacing:-.045em;
+}
+
+.okr-card p{
+  margin-top:38px;
+
+  max-width:460px;
+  font-size:19px;
+  line-height:1.5;
+  color:#5b627a;
+}
+
+.okr-bottom{
+  position:absolute;
+  left:55px;
+  right:55px;
+  bottom:44px;
+
+  border-top:1px solid #9eb8e8;
+  padding-top:26px;
+
+  text-align:right;
+
+  font-size:16px;
+  line-height:1.55;
+}
+
+.okr-bottom span{
+  display:block;
+  color:#606b87;
+  margin-bottom:7px;
+}
+
+/* =========================================================
+   SLIDE 03 — MAPA / HEAT MAP
+========================================================= */
+
+.map-title{
+  position:absolute;
+  left:82px;
+  top:145px;
+}
+
+.map-title .small{
+  font-size:17px;
+  color:#3f4968;
+  margin-bottom:15px;
+}
+
+.map-title h1{
+  font-size:63px;
+  line-height:.92;
+  font-weight:300;
+  letter-spacing:-.055em;
+}
+
+.map-title h1 span{
+  color:#626a7d;
+}
+
+/*
+  Mapa estilizado em CSS/SVG.
+  Se você tiver o SVG oficial do Brasil, substitua somente
+  o conteúdo da área .brazil-map.
+*/
+
+.map-area{
+  position:absolute;
+
+  left:700px;
+  top:110px;
+
+  width:800px;
+  height:820px;
+}
+
+.brazil-map{
+  position:absolute;
+  inset:0;
+
+  filter:drop-shadow(0 10px 35px rgba(77,109,255,.07));
+}
+
+.brazil-map svg{
+  width:100%;
+  height:100%;
+}
+
+/* heat points */
+
+.heat{
+  position:absolute;
+  border-radius:50%;
+
+  width:150px;
+  height:150px;
+
+  transform:translate(-50%,-50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(49,42,255,.90) 0%,
+      rgba(88,61,255,.55) 22%,
+      rgba(120,89,255,.25) 45%,
+      rgba(92,124,255,0) 72%
+    );
+
+  filter:blur(8px);
+}
+
+.heat.sp{
+  left:51%;
+  top:65%;
+  width:180px;
+  height:180px;
+}
+
+.heat.mg{
+  left:65%;
+  top:54%;
+  width:160px;
+  height:160px;
+}
+
+.heat.go{
+  left:41%;
+  top:43%;
+}
+
+.heat.sc{
+  left:46%;
+  top:77%;
+  width:115px;
+  height:115px;
+}
+
+.heat.rs{
+  left:42%;
+  top:86%;
+  width:130px;
+  height:130px;
+}
+
+.heat.se{
+  left:83%;
+  top:34%;
+  width:115px;
+  height:115px;
+}
+
+/* map dots */
+
+.map-dot{
+  position:absolute;
+  width:13px;
+  height:13px;
+
+  border-radius:50%;
+  background:#101aa6;
+
+  box-shadow:0 0 20px rgba(44,60,255,.4);
+}
+
+.dot-go{left:40%;top:42%;}
+.dot-mg{left:65%;top:54%;}
+.dot-sp{left:51%;top:65%;}
+.dot-rs{left:42%;top:86%;}
+.dot-se{left:83%;top:34%;}
+
+/* annotations */
+
+.annotation{
+  position:absolute;
+  color:var(--navy);
+}
+
+.annotation strong.count{
+  display:block;
+
+  color:#1437dc;
+  font-size:38px;
+  line-height:.9;
+}
+
+.annotation b{
+  font-size:18px;
+}
+
+.annotation span{
+  font-size:17px;
+}
+
+.go-info{
+  left:855px;
+  top:400px;
+}
+
+.sc-info{
+  left:855px;
+  top:780px;
+}
+
+.se-info{
+  right:90px;
+  top:220px;
+}
+
+.mg-info{
+  right:70px;
+  top:455px;
+  width:250px;
+}
+
+.sp-info{
+  right:70px;
+  top:700px;
+  width:290px;
+}
+
+.region-row{
+  margin-top:12px;
+
+  display:grid;
+  grid-template-columns:110px 25px 1fr;
+
+  align-items:center;
+
+  font-size:15px;
+}
+
+.mini-avatars{
+  display:flex;
+  margin-left:8px;
+}
+
+.mini-avatar{
+  width:38px;
+  height:38px;
+
+  margin-left:-7px;
+
+  border-radius:50%;
+
+  border:2px solid white;
+
+  background:#cfd3dc;
+}
+
+/* =========================================================
+   RESPONSIVE PREVIEW
+========================================================= */
+
+@media(max-width:1920px){
+
+  body{
+    overflow:auto;
   }
 
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #ffffff;
-  }
+}
 
-  body {
-    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
-    color: #07113f;
-  }
-
-  /* =========================================================
-     SLIDE 1920 x 1080
-  ========================================================= */
-
-  .slide {
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    background: #fff;
-  }
-
-  /* =========================================================
-     AMBIENT LIGHT
-     Glow bem suave, seguindo os outros slides
-  ========================================================= */
-
-  .glow {
-    position: absolute;
-    pointer-events: none;
-    border-radius: 50%;
-    filter: blur(85px);
-    opacity: .48;
-  }
-
-  .glow-01 {
-    width: 430px;
-    height: 430px;
-    left: -180px;
-    bottom: -130px;
-    background: rgba(43, 147, 255, .16);
-  }
-
-  .glow-02 {
-    width: 340px;
-    height: 340px;
-    left: 320px;
-    bottom: -190px;
-    background: rgba(117, 83, 255, .10);
-  }
-
-  .glow-03 {
-    width: 320px;
-    height: 320px;
-    right: -120px;
-    top: 300px;
-    background: rgba(68, 124, 255, .08);
-  }
-
-  /* =========================================================
-     HEADER
-  ========================================================= */
-
-  .header {
-    position: absolute;
-    top: 48px;
-    left: 66px;
-    right: 66px;
-    height: 56px;
-
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  .eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: #111938;
-  }
-
-  .eyebrow-line {
-    width: 6px;
-    height: 40px;
-    border-radius: 999px;
-    background: #1769ff;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    color: #050505;
-  }
-
-  .logo-word {
-    text-align: right;
-    line-height: .85;
-  }
-
-  .logo-word strong {
-    display: block;
-    font-family: Georgia, serif;
-    font-size: 24px;
-    letter-spacing: -0.04em;
-  }
-
-  .logo-word span {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-  }
-
-  .logo-symbol {
-    position: relative;
-    width: 46px;
-    height: 36px;
-  }
-
-  .logo-symbol::before,
-  .logo-symbol::after {
-    content: "";
-    position: absolute;
-    top: 2px;
-    width: 23px;
-    height: 32px;
-    background: #050505;
-  }
-
-  .logo-symbol::before {
-    left: 0;
-    clip-path: polygon(100% 0, 32% 0, 0 50%, 32% 100%, 100% 100%, 57% 50%);
-  }
-
-  .logo-symbol::after {
-    right: 0;
-    clip-path: polygon(0 0, 68% 0, 100% 50%, 68% 100%, 0 100%, 43% 50%);
-  }
-
-  /* =========================================================
-     EDITORIAL NUMBER
-  ========================================================= */
-
-  .index {
-    position: absolute;
-    left: 82px;
-    top: 240px;
-
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: .16em;
-    color: #6d748a;
-  }
-
-  .big-number {
-    position: absolute;
-    left: 65px;
-    top: 275px;
-
-    font-size: 265px;
-    line-height: .82;
-    font-weight: 200;
-    letter-spacing: -0.09em;
-
-    color: #07113f;
-  }
-
-  .big-number span {
-    color: #1769ff;
-  }
-
-  /* pequena assinatura visual */
-  .accent {
-    position: absolute;
-    left: 72px;
-    top: 545px;
-
-    width: 90px;
-    height: 5px;
-    border-radius: 999px;
-    background: #1769ff;
-  }
-
-  /* =========================================================
-     NAVIGATION
-  ========================================================= */
-
-  .navigation {
-    position: absolute;
-    top: 235px;
-    right: 145px;
-
-    width: 900px;
-  }
-
-  .nav-item {
-    position: relative;
-
-    height: 116px;
-    padding: 0 24px 0 0;
-
-    display: grid;
-    grid-template-columns: 86px 1fr 60px;
-    align-items: center;
-
-    border-bottom: 1px solid rgba(7, 17, 63, .28);
-
-    transition: .3s ease;
-  }
-
-  .nav-number {
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: .05em;
-    color: #8b91a4;
-  }
-
-  .nav-title {
-    font-size: 27px;
-    font-weight: 450;
-    letter-spacing: -0.035em;
-    color: #07113f;
-  }
-
-  /* =========================================================
-     ARROW
-  ========================================================= */
-
-  .arrow {
-    justify-self: end;
-
-    width: 29px;
-    height: 29px;
-
-    position: relative;
-  }
-
-  .arrow::before {
-    content: "";
-    position: absolute;
-    left: 1px;
-    top: 13px;
-
-    width: 24px;
-    height: 2px;
-
-    background: currentColor;
-  }
-
-  .arrow::after {
-    content: "";
-    position: absolute;
-    right: 2px;
-    top: 7px;
-
-    width: 12px;
-    height: 12px;
-
-    border-top: 2px solid currentColor;
-    border-right: 2px solid currentColor;
-
-    transform: rotate(45deg);
-  }
-
-  /* =========================================================
-     COLOR MOMENTS
-     Não são todos cards / não é tudo degradê.
-  ========================================================= */
-
-  .nav-item:nth-child(2) .nav-number {
-    color: #1769ff;
-  }
-
-  .nav-item:nth-child(3) {
-    margin-top: 12px;
-    margin-bottom: 12px;
-
-    height: 108px;
-    padding-left: 26px;
-
-    border: 1px solid rgba(23, 105, 255, .12);
-    border-radius: 24px;
-
-    background: #eef5ff;
-  }
-
-  .nav-item:nth-child(3) .nav-number {
-    color: #1769ff;
-  }
-
-  .nav-item:nth-child(3) .arrow {
-    color: #1769ff;
-  }
-
-  .nav-item:nth-child(3) + .nav-item {
-    border-top: 0;
-  }
-
-  /* último item = momento forte da composição */
-
-  .nav-item:nth-child(6) {
-    margin-top: 12px;
-
-    height: 110px;
-    padding-left: 26px;
-
-    border: 0;
-    border-radius: 24px;
-
-    background: #07113f;
-  }
-
-  .nav-item:nth-child(6) .nav-number {
-    color: #7298ff;
-  }
-
-  .nav-item:nth-child(6) .nav-title,
-  .nav-item:nth-child(6) .arrow {
-    color: #ffffff;
-  }
-
-  /* =========================================================
-     SUBTLE LINE / DECORATION
-  ========================================================= */
-
-  .graphic-line {
-    position: absolute;
-    left: -120px;
-    bottom: -230px;
-
-    width: 700px;
-    height: 700px;
-
-    border: 1px solid rgba(7, 17, 63, .17);
-    border-radius: 50%;
-  }
-
-  .graphic-line-2 {
-    position: absolute;
-    left: -250px;
-    bottom: -365px;
-
-    width: 870px;
-    height: 870px;
-
-    border: 1px solid rgba(23, 105, 255, .13);
-    border-radius: 50%;
-  }
-
-  /* =========================================================
-     SCALE PARA PREVIEW EM TELAS MENORES
-  ========================================================= */
-
-  .stage {
-    width: 1920px;
-    height: 1080px;
-    transform-origin: top left;
-  }
-
-  @media (max-width: 1919px), (max-height: 1079px) {
-    body {
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
-
-    .stage {
-      transform: scale(
-        min(
-          calc(100vw / 1920),
-          calc(100vh / 1080)
-        )
-      );
-    }
-  }
 </style>
 </head>
 
 <body>
 
-<div class="stage">
 
-  <main class="slide">
+<!-- =====================================================
+     SLIDE 01
+===================================================== -->
 
-    <!-- AMBIENT GLOW -->
-    <div class="glow glow-01"></div>
-    <div class="glow glow-02"></div>
-    <div class="glow glow-03"></div>
+<section class="slide dark">
 
-    <!-- HEADER -->
-    <header class="header">
+  <header class="header">
 
-      <div class="eyebrow">
-        <span class="eyebrow-line"></span>
-        <span>Design de Produtos e Centro de Excelência</span>
-      </div>
-
-      <!-- Placeholder vetorial do logo -->
-      <div class="logo">
-        <div class="logo-word">
-          <strong>Carrefour</strong>
-          <span>banco</span>
-        </div>
-
-        <div class="logo-symbol"></div>
-      </div>
-
-    </header>
-
-    <!-- EDITORIAL LEFT SIDE -->
-    <div class="index">NAVEGAÇÃO</div>
-
-    <div class="big-number">
-      0<span>6</span>
+    <div class="header-title">
+      <div class="header-bar"></div>
+      Design de Produtos e Centro de Excelência
     </div>
 
-    <div class="accent"></div>
+    <div class="logo">
+      Carrefour
+      <small>banco</small>
+    </div>
 
-    <!-- NAVIGATION -->
-    <section class="navigation">
+  </header>
 
-      <div class="nav-item">
-        <div class="nav-number">01</div>
-        <div class="nav-title">Quem somos</div>
-        <div class="arrow"></div>
+
+  <div class="org-chart">
+
+    <div class="manager">
+      <div class="manager-photo"></div>
+
+      <div>
+        <strong>Cami Corrêa</strong>
+        <span>Gerente de design</span>
+      </div>
+    </div>
+
+
+    <div class="tree-line tree-v"></div>
+    <div class="tree-line tree-h"></div>
+
+    <div class="tree-down" style="left:220px;"></div>
+    <div class="tree-down" style="left:685px;"></div>
+    <div class="tree-down" style="left:1140px;"></div>
+    <div class="tree-down" style="right:220px;"></div>
+
+
+    <div class="org-columns">
+
+
+      <!-- CENTRO DE EXCELÊNCIA -->
+
+      <div class="org-column excellence">
+
+        <div class="org-heading">
+          <span class="org-number">01</span>
+          <h2>Centro de<br>Excelência</h2>
+        </div>
+
+        <div class="tabs">
+          <div class="tab">OPS</div>
+          <div class="tab">DS</div>
+          <div class="tab active">RETENÇÃO</div>
+        </div>
+
+
+        <div class="person">
+          <div class="avatar"></div>
+
+          <div class="person-info">
+            <strong>Ray J Braz</strong>
+            <span>Designer</span>
+          </div>
+
+          <div class="level">SR</div>
+        </div>
+
+
+        <div class="person">
+          <div class="person-info">
+            <strong>Grendha Ohara</strong>
+            <span>Designer</span>
+          </div>
+
+          <div class="level">PL</div>
+
+          <div class="avatar" style="margin-left:auto;"></div>
+        </div>
+
+
+        <div class="person">
+          <div class="avatar"></div>
+
+          <div class="person-info">
+            <strong>Lucas Xavier</strong>
+            <span>Designer</span>
+          </div>
+
+          <div class="level">SR</div>
+        </div>
+
       </div>
 
-      <div class="nav-item">
-        <div class="nav-number">02</div>
-        <div class="nav-title">Nosso core</div>
-        <div class="arrow"></div>
+
+      <!-- RETENÇÃO -->
+
+      <div class="org-column retention">
+
+        <div class="org-heading">
+          <span class="org-number">02</span>
+          <h2>Design de Produtos</h2>
+        </div>
+
+        <div style="
+          color:#c29cff;
+          font-size:21px;
+          font-weight:700;
+          margin:35px 15px 30px;
+        ">
+          RETENÇÃO
+        </div>
+
+
+        <div class="person">
+          <div class="avatar"></div>
+
+          <div class="person-info">
+            <strong>Tiago Stuchi</strong>
+            <span>Design Lead</span>
+          </div>
+        </div>
+
+
+        <div class="person">
+          <div class="person-info">
+            <strong>Kênia Andrade</strong>
+            <span>Designer</span>
+          </div>
+
+          <div class="level">SR</div>
+
+          <div class="avatar" style="margin-left:auto;"></div>
+        </div>
+
+
+        <div class="person">
+          <div class="avatar"></div>
+
+          <div class="person-info">
+            <strong>Gustavo Novaes</strong>
+            <span>Designer</span>
+          </div>
+
+          <div class="level">PL</div>
+        </div>
+
+
+        <div class="person">
+          <div class="person-info">
+            <strong>Bruna Fernandes</strong>
+            <span>Designer</span>
+          </div>
+
+          <div class="level">EST</div>
+
+          <div class="avatar" style="margin-left:auto;"></div>
+        </div>
+
       </div>
 
-      <div class="nav-item">
-        <div class="nav-number">03</div>
-        <div class="nav-title">Nosso objetivo</div>
-        <div class="arrow"></div>
+
+      <!-- CARTÕES -->
+
+      <div class="org-column cards">
+
+        <div class="org-heading">
+          <h2 style="color:#cba5ff;">CARTÕES</h2>
+        </div>
+
+
+        <div class="person compact">
+          <div class="avatar"></div>
+
+          <div class="person-info">
+            <strong>Bruno Lorenzi</strong>
+            <span>Moré | Design Lead</span>
+          </div>
+        </div>
+
+
+        <div class="person compact">
+          <div class="person-info">
+            <strong>Flávia Wolpert</strong>
+            <span>Designer</span>
+          </div>
+
+          <div class="level">SR</div>
+          <div class="avatar" style="margin-left:auto;"></div>
+        </div>
+
+
+        <div class="person compact">
+          <div class="avatar"></div>
+
+          <div class="person-info">
+            <strong>Patric Dutra</strong>
+            <span>Moré | Designer</span>
+          </div>
+        </div>
+
+
+        <div class="person compact">
+          <div class="person-info">
+            <strong>Iza Ramos</strong>
+            <span>Moré | Designer</span>
+          </div>
+
+          <div class="avatar" style="margin-left:auto;"></div>
+        </div>
+
+
+        <div class="person compact">
+          <div class="avatar"></div>
+
+          <div class="person-info">
+            <strong>Eketlin G</strong>
+            <span>Moré | Designer</span>
+          </div>
+        </div>
+
+
+        <div class="person compact">
+          <div class="person-info">
+            <strong>Tiago Cardoso</strong>
+            <span>Moré | Designer</span>
+          </div>
+
+          <div class="avatar" style="margin-left:auto;"></div>
+        </div>
+
+
+        <div class="person compact">
+          <div class="avatar"></div>
+
+          <div class="person-info">
+            <strong>Pagamentos Digitais</strong>
+            <span>TBD | TBD Designer</span>
+          </div>
+        </div>
+
       </div>
 
-      <div class="nav-item">
-        <div class="nav-number">04</div>
-        <div class="nav-title">Para onde vamos</div>
-        <div class="arrow"></div>
+
+      <!-- RIGHT -->
+
+      <div class="side-column">
+
+        <div class="dev">
+
+          <div class="org-heading">
+            <span class="org-number">03</span>
+            <h2>Desenvolvimento</h2>
+          </div>
+
+          <div class="person compact">
+            <div class="avatar"></div>
+            <div class="person-info">
+              <strong>Diego Ricardo</strong>
+              <span>Moré | Desenvolvedor</span>
+            </div>
+          </div>
+
+          <div class="person compact">
+            <div class="person-info">
+              <strong>Bruno Souza</strong>
+              <span>Moré | Desenvolvedor</span>
+            </div>
+            <div class="avatar" style="margin-left:auto;"></div>
+          </div>
+
+        </div>
+
+
+        <div class="customer">
+
+          <div class="org-heading">
+            <span class="org-number">04</span>
+            <h2>Customer Intelligence</h2>
+          </div>
+
+          <div class="person compact">
+            <div class="avatar"></div>
+            <div class="person-info">
+              <strong>Maria Bastiani</strong>
+              <span>Moré | Designer</span>
+            </div>
+          </div>
+
+          <div class="person compact">
+            <div class="person-info">
+              <strong>Ana Laura</strong>
+              <span>Moré | Designer</span>
+            </div>
+            <div class="avatar" style="margin-left:auto;"></div>
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="nav-item">
-        <div class="nav-number">05</div>
-        <div class="nav-title">Ondas de atuação</div>
-        <div class="arrow"></div>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SLIDE 02 — OKRs
+===================================================== -->
+
+<section class="slide light">
+
+  <header class="header">
+
+    <div class="header-title">
+      <div class="header-bar"></div>
+      Design de Produtos e Centro de Excelência
+    </div>
+
+    <div class="logo">
+      Carrefour
+      <small>banco</small>
+    </div>
+
+  </header>
+
+
+  <div class="okr-bg-one"></div>
+  <div class="okr-bg-two"></div>
+
+
+  <div class="okr-shell">
+
+    <div class="okr-top">
+
+      <div>
+
+        <div class="okr-label">OKR</div>
+
+        <h1>Eficiência operacional</h1>
+
+        <div class="okr-description">
+          Aumentar a eficiência da operação de design para otimizar o
+          fluxo de entrega sem comprometer o craft e o valor gerado.
+        </div>
+
       </div>
 
-      <div class="nav-item">
-        <div class="nav-number">06</div>
-        <div class="nav-title">Nossos pilares</div>
-        <div class="arrow"></div>
+      <div class="dimension">
+        <span>Dimensão</span>
+        Produtividade<br>
+        Velocidade
       </div>
 
-    </section>
+    </div>
 
-    <!-- BACKGROUND DETAIL -->
-    <div class="graphic-line"></div>
-    <div class="graphic-line-2"></div>
 
-  </main>
+    <div class="okr-grid">
 
-</div>
+      <div class="okr-card">
+
+        <div class="okr-label">OKR</div>
+
+        <h2>Design de produtos</h2>
+
+        <p>
+          Estruturar toda a experiência do banco e garantir a
+          consistência da entre todos os pontos de contato,
+          com o olhar de negócio, tecnologia e experiência.
+        </p>
+
+        <div class="okr-bottom">
+          <span>Dimensão</span>
+          Experiência e Satisfação<br>
+          Aderência aos princípios de design
+        </div>
+
+      </div>
+
+
+      <div class="okr-card">
+
+        <div class="okr-label">OKR</div>
+
+        <h2>Design Excellence</h2>
+
+        <p>
+          Maximizar a eficiência do trabalho de Design e facilitar
+          a consistência, escalabilidade e fácil atualização das
+          interfaces de produtos digitais.
+        </p>
+
+        <div class="okr-bottom">
+          <span>Dimensão</span>
+          Qualidade e saúde sistêmica<br>
+          Adoção sistêmica e reuso<br>
+          Eficiência e produtividade<br>
+          IA
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SLIDE 03 — MAPA
+===================================================== -->
+
+<section class="slide light">
+
+  <header class="header">
+
+    <div class="header-title">
+      Design de Produtos e Centro de Excelência
+    </div>
+
+    <div class="logo">
+      Carrefour
+      <small>banco</small>
+    </div>
+
+  </header>
+
+
+  <div class="map-title">
+
+    <div class="small">7 / SP - 11 / ALL</div>
+
+    <h1>
+      design de produtos<br>
+      <span>centro de excelência</span>
+    </h1>
+
+  </div>
+
+
+  <div class="map-area">
+
+    <div class="brazil-map">
+
+      <svg viewBox="0 0 600 700">
+
+        <path
+          d="
+          M230 30
+          L285 55
+          L335 50
+          L380 80
+          L430 75
+          L455 120
+          L500 145
+          L525 200
+          L510 255
+          L535 300
+          L505 340
+          L490 390
+          L450 430
+          L430 485
+          L390 525
+          L365 580
+          L325 640
+          L290 605
+          L275 550
+          L235 520
+          L215 465
+          L180 425
+          L160 370
+          L120 345
+          L105 300
+          L125 255
+          L95 215
+          L120 175
+          L150 150
+          L165 100
+          L205 80
+          Z"
+          fill="#f2f5ff"
+          stroke="#ffffff"
+          stroke-width="3"
+        />
+
+        <path d="M125 255 L500 145" stroke="#fff" opacity=".8"/>
+        <path d="M180 425 L490 390" stroke="#fff" opacity=".8"/>
+        <path d="M215 465 L450 430" stroke="#fff" opacity=".8"/>
+        <path d="M275 550 L430 485" stroke="#fff" opacity=".8"/>
+        <path d="M160 370 L510 255" stroke="#fff" opacity=".8"/>
+        <path d="M230 30 L235 520" stroke="#fff" opacity=".5"/>
+
+      </svg>
+
+    </div>
+
+
+    <div class="heat go"></div>
+    <div class="heat mg"></div>
+    <div class="heat sp"></div>
+    <div class="heat sc"></div>
+    <div class="heat rs"></div>
+    <div class="heat se"></div>
+
+    <div class="map-dot dot-go"></div>
+    <div class="map-dot dot-mg"></div>
+    <div class="map-dot dot-sp"></div>
+    <div class="map-dot dot-rs"></div>
+    <div class="map-dot dot-se"></div>
+
+  </div>
+
+
+  <!-- GO -->
+
+  <div class="annotation go-info">
+    <strong class="count">1</strong>
+    <b>GO</b>
+    <span>Anápolis</span>
+
+    <div class="mini-avatars">
+      <div class="mini-avatar"></div>
+    </div>
+  </div>
+
+
+  <!-- SC -->
+
+  <div class="annotation sc-info">
+    <strong class="count">2</strong>
+    <b>SC</b>
+    <span>Florianópolis</span>
+
+    <div class="mini-avatars">
+      <div class="mini-avatar"></div>
+      <div class="mini-avatar"></div>
+    </div>
+  </div>
+
+
+  <!-- SE -->
+
+  <div class="annotation se-info">
+    <strong class="count">1</strong>
+    <b>SE</b>
+    <span>Barra dos<br>Coqueiros</span>
+
+    <div class="mini-avatars">
+      <div class="mini-avatar"></div>
+    </div>
+  </div>
+
+
+  <!-- MG -->
+
+  <div class="annotation mg-info">
+
+    <strong class="count">6</strong>
+    <b>MG</b>
+
+    <div class="region-row">
+      <span>Belo Horizonte</span>
+      <b>3</b>
+      <div class="mini-avatars">
+        <div class="mini-avatar"></div>
+        <div class="mini-avatar"></div>
+        <div class="mini-avatar"></div>
+      </div>
+    </div>
+
+    <div class="region-row">
+      <span>Ipatinga</span>
+      <b>2</b>
+      <div class="mini-avatars">
+        <div class="mini-avatar"></div>
+        <div class="mini-avatar"></div>
+      </div>
+    </div>
+
+    <div class="region-row">
+      <span>Vazante</span>
+      <b>1</b>
+      <div class="mini-avatars">
+        <div class="mini-avatar"></div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- SP -->
+
+  <div class="annotation sp-info">
+
+    <strong class="count">7</strong>
+    <b>SP</b>
+
+    <div class="region-row">
+      <span>Capital</span>
+      <b>5</b>
+      <div class="mini-avatars">
+        <div class="mini-avatar"></div>
+        <div class="mini-avatar"></div>
+        <div class="mini-avatar"></div>
+        <div class="mini-avatar"></div>
+        <div class="mini-avatar"></div>
+      </div>
+    </div>
+
+    <div class="region-row">
+      <span>Jundiaí</span>
+      <b>1</b>
+      <div class="mini-avatars">
+        <div class="mini-avatar"></div>
+      </div>
+    </div>
+
+    <div class="region-row">
+      <span>Mogi Mirim</span>
+      <b>1</b>
+      <div class="mini-avatars">
+        <div class="mini-avatar"></div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
 
 </body>
 </html>
