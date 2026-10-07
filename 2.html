@@ -1,957 +1,277 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Design de Produtos e Centro de Excelência</title>
-
-<style>
-/* ============================================================
-   RESET
-============================================================ */
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html,body{
-  width:100%;
-  min-height:100%;
-  background:#dfe3ea;
-  font-family:"Inter","Avenir Next","Helvetica Neue",Arial,sans-serif;
-}
-
-:root{
-  --navy:#08113f;
-  --blue:#1539e8;
-  --blue2:#315cff;
-  --purple:#7658ff;
-  --text:#0b1239;
-  --muted:#5d647b;
-}
-
-
-/* ============================================================
-   FRAME 1920 × 1080
-============================================================ */
-
-.stage{
-  width:1920px;
-  height:1080px;
-  position:relative;
-  overflow:hidden;
-
-  background:
-    radial-gradient(
-      circle at 8% 92%,
-      rgba(75,153,255,.13) 0,
-      rgba(91,118,255,.06) 16%,
-      transparent 34%
-    ),
-    #fff;
-}
-
-
-/* ============================================================
-   HEADER
-============================================================ */
-
-.header{
-  position:absolute;
-  z-index:30;
-
-  top:48px;
-  left:72px;
-  right:76px;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-}
-
-.header-title{
-  font-size:20px;
-  font-weight:500;
-  letter-spacing:-.025em;
-  color:#11162d;
-}
-
-.logo{
-  color:#080808;
-  line-height:.8;
-  text-align:right;
-}
-
-.logo strong{
-  display:block;
-  font-family:Georgia,serif;
-  font-size:25px;
-  letter-spacing:-.04em;
-}
-
-.logo span{
-  display:block;
-  margin-right:28px;
-  font-size:13px;
-  font-weight:700;
-}
-
-
-/* ============================================================
-   LEFT TITLE
-============================================================ */
-
-.intro{
-  position:absolute;
-  z-index:20;
-
-  left:83px;
-  top:145px;
-}
-
-.counter{
-  margin-bottom:18px;
-
-  font-size:17px;
-  font-weight:500;
-  letter-spacing:.01em;
-  color:#434b69;
-}
-
-.title{
-  color:#07103b;
-
-  font-size:65px;
-  line-height:.88;
-  font-weight:300;
-
-  letter-spacing:-.055em;
-}
-
-.title span{
-  display:block;
-  color:#60677b;
-}
-
-
-/* ============================================================
-   BRAZIL MAP
-============================================================ */
-
-.map-wrap{
-  position:absolute;
-
-  z-index:4;
-
-  left:745px;
-  top:84px;
-
-  width:790px;
-  height:835px;
-}
-
-
-/*
-  SVG REAL DOS ESTADOS DO BRASIL.
-
-  A imagem fica extremamente clara porque no slide original
-  o mapa funciona quase como textura.
-*/
-
-.map-svg{
-  position:absolute;
-  inset:0;
-
-  width:100%;
-  height:100%;
-
-  object-fit:contain;
-
-  opacity:.24;
-
-  filter:
-    sepia(100%)
-    saturate(450%)
-    hue-rotate(185deg)
-    brightness(1.4);
-}
-
-
-/* véu azul claro sobre o mapa */
-
-.map-wash{
-  position:absolute;
-
-  left:82px;
-  top:42px;
-
-  width:620px;
-  height:705px;
-
-  border-radius:46%;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(192,210,255,.25),
-      rgba(226,234,255,.13) 53%,
-      transparent 74%
-    );
-
-  pointer-events:none;
-}
-
-
-/* ============================================================
-   HEAT MAP
-============================================================ */
-
-.heat{
-  position:absolute;
-
-  border-radius:50%;
-
-  transform:translate(-50%,-50%);
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(35,35,255,.95) 0%,
-      rgba(60,44,255,.78) 9%,
-      rgba(91,64,255,.55) 23%,
-      rgba(103,91,255,.29) 43%,
-      rgba(93,129,255,.13) 58%,
-      transparent 75%
-    );
-
-  filter:blur(9px);
-
-  mix-blend-mode:multiply;
-}
-
-
-/* posições geográficas aproximadas sobre o SVG real */
-
-.go{
-  left:43%;
-  top:43%;
-  width:140px;
-  height:140px;
-}
-
-.mg{
-  left:66%;
-  top:53%;
-  width:172px;
-  height:172px;
-}
-
-.sp{
-  left:52%;
-  top:64%;
-  width:190px;
-  height:190px;
-}
-
-.sc{
-  left:47%;
-  top:77%;
-  width:105px;
-  height:105px;
-}
-
-.rs{
-  left:43%;
-  top:87%;
-  width:142px;
-  height:142px;
-}
-
-.se{
-  left:84%;
-  top:34%;
-  width:108px;
-  height:108px;
-}
-
-
-/* ============================================================
-   MAP DOTS
-============================================================ */
-
-.dot{
-  position:absolute;
-
-  width:12px;
-  height:12px;
-
-  transform:translate(-50%,-50%);
-
-  border-radius:50%;
-
-  background:#1623bd;
-
-  box-shadow:
-    0 0 0 4px rgba(43,54,255,.05),
-    0 0 18px rgba(43,54,255,.35);
-}
-
-.dot.go-dot{left:43%;top:43%;}
-.dot.mg-dot{left:66%;top:53%;}
-.dot.sp-dot{left:52%;top:64%;background:#fff;}
-.dot.sc-dot{left:47%;top:77%;background:#fff;}
-.dot.rs-dot{left:43%;top:87%;}
-.dot.se-dot{left:84%;top:34%;}
-
-
-/* ============================================================
-   STATE LABELS ON MAP
-============================================================ */
-
-.state-label{
-  position:absolute;
-
-  color:#171d54;
-
-  font-size:13px;
-  font-weight:600;
-}
-
-.label-go{
-  left:45%;
-  top:46%;
-}
-
-.label-mg{
-  left:63%;
-  top:57%;
-}
-
-.label-sp{
-  left:48%;
-  top:62%;
-}
-
-.label-sc{
-  left:43%;
-  top:75%;
-}
-
-.label-rs{
-  left:45%;
-  top:89%;
-}
-
-.label-se{
-  left:86%;
-  top:33%;
-}
-
-
-/* ============================================================
-   CONNECTOR LINES
-============================================================ */
-
-.connector{
-  position:absolute;
-  z-index:15;
-
-  height:1px;
-
-  background:#7384ff;
-
-  transform-origin:left center;
-
-  opacity:.8;
-}
-
-
-/* GO */
-
-.line-go{
-  left:1002px;
-  top:474px;
-
-  width:176px;
-
-  transform:rotate(8deg);
-}
-
-
-/* SC */
-
-.line-sc{
-  left:1000px;
-  top:825px;
-
-  width:177px;
-
-  transform:rotate(25deg);
-}
-
-
-/* SE */
-
-.line-se{
-  left:1475px;
-  top:370px;
-
-  width:167px;
-
-  transform:rotate(-58deg);
-}
-
-
-/* MG */
-
-.line-mg{
-  left:1325px;
-  top:553px;
-
-  width:230px;
-
-  transform:rotate(-25deg);
-}
-
-
-/* SP */
-
-.line-sp{
-  left:1205px;
-  top:651px;
-
-  width:290px;
-
-  transform:rotate(14deg);
-}
-
-
-/* ============================================================
-   ANNOTATIONS
-============================================================ */
-
-.annotation{
-  position:absolute;
-  z-index:25;
-
-  color:var(--text);
-}
-
-.big-number{
-  color:#153be0;
-
-  font-size:38px;
-  line-height:.85;
-
-  font-weight:650;
-  letter-spacing:-.05em;
-}
-
-.state{
-  margin-top:7px;
-
-  font-size:18px;
-  line-height:1.05;
-
-  font-weight:700;
-}
-
-.city{
-  margin-top:4px;
-
-  font-size:17px;
-  line-height:1.15;
-
-  font-weight:400;
-}
-
-
-/* ============================================================
-   GO
-============================================================ */
-
-.go-info{
-  left:850px;
-  top:400px;
-}
-
-
-/* ============================================================
-   SC
-============================================================ */
-
-.sc-info{
-  left:850px;
-  top:785px;
-}
-
-
-/* ============================================================
-   SE
-============================================================ */
-
-.se-info{
-  left:1592px;
-  top:215px;
-}
-
-
-/* ============================================================
-   MG
-============================================================ */
-
-.mg-info{
-  left:1525px;
-  top:455px;
-
-  width:325px;
-}
-
-
-/* ============================================================
-   SP
-============================================================ */
-
-.sp-info{
-  left:1480px;
-  top:682px;
-
-  width:370px;
-}
-
-
-/* ============================================================
-   CITY ROWS
-============================================================ */
-
-.city-row{
-  width:100%;
-
-  display:grid;
-
-  grid-template-columns:125px 28px 1fr;
-
-  align-items:center;
-
-  margin-top:15px;
-
-  font-size:14px;
-}
-
-.city-row .amount{
-  font-weight:700;
-  color:#16255f;
-}
-
-
-/* ============================================================
-   AVATARS
-============================================================ */
-
-.avatars{
-  display:flex;
-  align-items:center;
-
-  margin-top:12px;
-}
-
-.avatar{
-  width:42px;
-  height:42px;
-
-  flex:none;
-
-  margin-left:-8px;
-
-  border:2px solid #fff;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      #eeeeee 0 23%,
-      #9ea4ae 24% 46%,
-      #5d626c 47% 100%
-    );
-
-  box-shadow:0 2px 5px rgba(0,0,0,.06);
-}
-
-.avatar:first-child{
-  margin-left:0;
-}
-
-
-/* standalone avatars */
-
-.go-info .avatar,
-.sc-info .avatar,
-.se-info .avatar{
-  margin-top:11px;
-}
-
-
-/* ============================================================
-   LARGE BOTTOM LEFT GLOW
-============================================================ */
-
-.bottom-glow{
-  position:absolute;
-
-  z-index:0;
-
-  left:-120px;
-  bottom:-220px;
-
-  width:600px;
-  height:500px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(72,160,255,.19),
-      rgba(94,114,255,.08) 42%,
-      transparent 70%
-    );
-
-  filter:blur(45px);
-}
-
-
-/* ============================================================
-   SMALL MAP ATMOSPHERE
-============================================================ */
-
-.map-atmosphere{
-  position:absolute;
-
-  left:660px;
-  top:60px;
-
-  width:930px;
-  height:880px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(117,130,255,.055),
-      transparent 67%
-    );
-}
-
-
-/* ============================================================
-   PREVIEW SCALE
-============================================================ */
-
-@media(max-width:1919px){
-
-  body{
-    overflow:auto;
-  }
-
-  .stage{
-    transform-origin:top left;
-  }
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tribo Retenção</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #dcecf2;
+    }
+
+    .slide {
+      position: relative;
+      width: 100vw;
+      height: 56.25vw;
+      max-height: 100vh;
+      max-width: 177.78vh;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 76% 38%,
+          rgba(255, 248, 220, 0.92) 0%,
+          rgba(246, 243, 219, 0.65) 16%,
+          rgba(215, 238, 240, 0.28) 34%,
+          transparent 55%
+        ),
+        radial-gradient(
+          circle at 55% 80%,
+          rgba(167, 217, 230, 0.55) 0%,
+          rgba(179, 220, 231, 0.30) 30%,
+          transparent 58%
+        ),
+        linear-gradient(
+          115deg,
+          #78b9da 0%,
+          #9dcee3 28%,
+          #c6e1ea 53%,
+          #e5e9dd 77%,
+          #f3ebcf 100%
+        );
+    }
+
+    /* leve névoa */
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,0.03),
+          rgba(255,255,255,0.08)
+        );
+      pointer-events: none;
+    }
+
+    /* BORDA PRINCIPAL */
+    .frame {
+      position: absolute;
+      inset: 3.5%;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      border-radius: 34px;
+    }
+
+    /* canto superior esquerdo */
+    .corner-left {
+      position: absolute;
+      width: 145px;
+      height: 145px;
+      top: -14px;
+      left: -1px;
+      border-right: 1.4px solid rgba(255,255,255,0.55);
+      border-bottom: 1.4px solid rgba(255,255,255,0.55);
+      border-bottom-right-radius: 55px;
+    }
+
+    /* canto inferior direito */
+    .corner-right {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -1px;
+      bottom: -8px;
+      border-left: 1.4px solid rgba(255,255,255,0.55);
+      border-top: 1.4px solid rgba(255,255,255,0.55);
+      border-top-left-radius: 55px;
+    }
+
+    /* TEXTO SUPERIOR */
+    .top-line {
+      position: absolute;
+      top: 8.8%;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+
+      color: #233d75;
+      font-size: clamp(11px, 1.05vw, 18px);
+      font-weight: 400;
+      letter-spacing: 0.23em;
+      text-transform: uppercase;
+    }
+
+    /* TÍTULO */
+    .title {
+      position: absolute;
+      left: 8.6%;
+      top: 22.4%;
+      color: #263870;
+    }
+
+    .title .tribo {
+      font-size: clamp(34px, 4.5vw, 74px);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+    }
+
+    .title .retencao {
+      margin-top: 8px;
+      font-size: clamp(46px, 5.8vw, 94px);
+      font-weight: 700;
+      line-height: 0.88;
+      letter-spacing: -0.055em;
+    }
+
+    /* TEXTO INFERIOR */
+    .bottom-line {
+      position: absolute;
+      bottom: 7.3%;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+
+      color: #233d75;
+      font-size: clamp(11px, 1.05vw, 18px);
+      font-weight: 400;
+      letter-spacing: 0.23em;
+      text-transform: uppercase;
+    }
+
+    /* FORMAS GEOMÉTRICAS */
+    .geo {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .diamond {
+      position: absolute;
+      width: 540px;
+      height: 540px;
+      left: 44%;
+      top: 7%;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      border-radius: 28px;
+      transform: rotate(45deg);
+    }
+
+    .arc-big {
+      position: absolute;
+      width: 640px;
+      height: 770px;
+      left: 43%;
+      top: -2%;
+      border: 1.5px solid rgba(255,255,255,0.52);
+      border-radius: 48%;
+    }
+
+    .loop-top {
+      position: absolute;
+      width: 195px;
+      height: 235px;
+      right: 14.6%;
+      top: -2%;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      border-radius: 50%;
+    }
+
+    .loop-bottom {
+      position: absolute;
+      width: 220px;
+      height: 300px;
+      right: 14%;
+      top: 46%;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      border-radius: 50% 50% 48% 54%;
+    }
+
+    /* máscara para simular o formato de "pin" */
+    .loop-bottom::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 155px;
+      bottom: -85px;
+      left: 58px;
+      background: transparent;
+      border-right: 1.5px solid rgba(255,255,255,0.55);
+      transform: rotate(36deg);
+      transform-origin: top;
+    }
+
+    @media (max-width: 900px) {
+      .diamond {
+        width: 360px;
+        height: 360px;
+      }
+
+      .arc-big {
+        width: 430px;
+        height: 550px;
+      }
+
+      .loop-top {
+        width: 135px;
+        height: 170px;
+      }
+
+      .loop-bottom {
+        width: 155px;
+        height: 220px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
-<main class="stage">
+  <main class="slide">
 
+    <div class="frame"></div>
+    <div class="corner-left"></div>
+    <div class="corner-right"></div>
 
-  <!-- ======================================================
-       BACKGROUND
-  ======================================================= -->
-
-  <div class="bottom-glow"></div>
-  <div class="map-atmosphere"></div>
-
-
-  <!-- ======================================================
-       HEADER
-  ======================================================= -->
-
-  <header class="header">
-
-    <div class="header-title">
-      Design de Produtos e Centro de Excelência
+    <div class="top-line">
+      RENTABILIDADE • CANAL VOZ • RÉGUAS &amp; CANAIS DIGITAIS • SQUAD PARCELE • SQUAD ACORDO
     </div>
 
-    <div class="logo">
-      <strong>Carrefour</strong>
-      <span>banco</span>
+    <div class="title">
+      <div class="tribo">TRIBO</div>
+      <div class="retencao">RETENÇÃO</div>
     </div>
 
-  </header>
-
-
-  <!-- ======================================================
-       INTRO
-  ======================================================= -->
-
-  <section class="intro">
-
-    <div class="counter">
-      7 / SP - 11 / ALL
+    <div class="bottom-line">
+      RENTABILIDADE • CANAL VOZ • RÉGUAS &amp; CANAIS DIGITAIS • SQUAD PARCELE • SQUAD ACORDO
     </div>
 
-    <h1 class="title">
-      design de produtos
-      <span>centro de excelência</span>
-    </h1>
-
-  </section>
-
-
-  <!-- ======================================================
-       BRAZIL
-  ======================================================= -->
-
-  <div class="map-wrap">
-
-    <img
-      class="map-svg"
-      src="https://upload.wikimedia.org/wikipedia/commons/9/98/Brazil_states.svg"
-      alt=""
-    >
-
-    <div class="map-wash"></div>
-
-
-    <!-- HEAT -->
-
-    <div class="heat go"></div>
-    <div class="heat mg"></div>
-    <div class="heat sp"></div>
-    <div class="heat sc"></div>
-    <div class="heat rs"></div>
-    <div class="heat se"></div>
-
-
-    <!-- DOTS -->
-
-    <div class="dot go-dot"></div>
-    <div class="dot mg-dot"></div>
-    <div class="dot sp-dot"></div>
-    <div class="dot sc-dot"></div>
-    <div class="dot rs-dot"></div>
-    <div class="dot se-dot"></div>
-
-
-    <!-- STATE LABELS -->
-
-    <div class="state-label label-go">GO</div>
-    <div class="state-label label-mg">MG</div>
-    <div class="state-label label-sp">SP</div>
-    <div class="state-label label-sc">SC</div>
-    <div class="state-label label-rs">RS</div>
-    <div class="state-label label-se">SE</div>
-
-  </div>
-
-
-  <!-- ======================================================
-       CONNECTORS
-  ======================================================= -->
-
-  <div class="connector line-go"></div>
-  <div class="connector line-sc"></div>
-  <div class="connector line-se"></div>
-  <div class="connector line-mg"></div>
-  <div class="connector line-sp"></div>
-
-
-  <!-- ======================================================
-       GO
-  ======================================================= -->
-
-  <div class="annotation go-info">
-
-    <div class="big-number">1</div>
-
-    <div class="state">
-      GO <span style="font-weight:400;">Anápolis</span>
+    <div class="geo">
+      <div class="diamond"></div>
+      <div class="arc-big"></div>
+      <div class="loop-top"></div>
+      <div class="loop-bottom"></div>
     </div>
 
-    <div class="avatars">
-      <div class="avatar"></div>
-    </div>
-
-  </div>
-
-
-  <!-- ======================================================
-       SC
-  ======================================================= -->
-
-  <div class="annotation sc-info">
-
-    <div class="big-number">2</div>
-
-    <div class="state">
-      SC <span style="font-weight:400;">Florianópolis</span>
-    </div>
-
-    <div class="avatars">
-      <div class="avatar"></div>
-      <div class="avatar"></div>
-    </div>
-
-  </div>
-
-
-  <!-- ======================================================
-       SE
-  ======================================================= -->
-
-  <div class="annotation se-info">
-
-    <div class="big-number">1</div>
-
-    <div class="state">
-      SE
-    </div>
-
-    <div class="city">
-      Barra dos<br>
-      Coqueiros
-    </div>
-
-    <div class="avatars">
-      <div class="avatar"></div>
-    </div>
-
-  </div>
-
-
-  <!-- ======================================================
-       MG
-  ======================================================= -->
-
-  <div class="annotation mg-info">
-
-    <div class="big-number">6</div>
-
-    <div class="state">
-      MG
-    </div>
-
-
-    <div class="city-row">
-
-      <span>Belo Horizonte</span>
-
-      <span class="amount">3</span>
-
-      <div class="avatars">
-        <div class="avatar"></div>
-        <div class="avatar"></div>
-        <div class="avatar"></div>
-      </div>
-
-    </div>
-
-
-    <div class="city-row">
-
-      <span>Ipatinga</span>
-
-      <span class="amount">2</span>
-
-      <div class="avatars">
-        <div class="avatar"></div>
-        <div class="avatar"></div>
-      </div>
-
-    </div>
-
-
-    <div class="city-row">
-
-      <span>Vazante</span>
-
-      <span class="amount">1</span>
-
-      <div class="avatars">
-        <div class="avatar"></div>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ======================================================
-       SP
-  ======================================================= -->
-
-  <div class="annotation sp-info">
-
-    <div class="big-number">7</div>
-
-    <div class="state">
-      SP
-    </div>
-
-
-    <div class="city-row">
-
-      <span>Capital</span>
-
-      <span class="amount">5</span>
-
-      <div class="avatars">
-        <div class="avatar"></div>
-        <div class="avatar"></div>
-        <div class="avatar"></div>
-        <div class="avatar"></div>
-        <div class="avatar"></div>
-      </div>
-
-    </div>
-
-
-    <div class="city-row">
-
-      <span>Jundiaí</span>
-
-      <span class="amount">1</span>
-
-      <div class="avatars">
-        <div class="avatar"></div>
-      </div>
-
-    </div>
-
-
-    <div class="city-row">
-
-      <span>Mogi Mirim</span>
-
-      <span class="amount">1</span>
-
-      <div class="avatars">
-        <div class="avatar"></div>
-      </div>
-
-    </div>
-
-  </div>
-
-</main>
+  </main>
 
 </body>
 </html>
