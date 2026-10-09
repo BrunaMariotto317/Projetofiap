@@ -1,2035 +1,1696 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Fluxograma As-Is — Parcele</title>
 
 <style>
-  :root{
-    --bg:#f6f7f8;
-    --board:#ffffff;
-    --ink:#17191c;
-    --muted:#6d737b;
-
-    --neutral:#f1f3f5;
-    --neutral-border:#dfe3e8;
-
-    --green:#eaf7de;
-    --green-strong:#167a42;
-    --green-border:#cfe9bd;
-
-    --orange:#fff1df;
-    --orange-strong:#b66813;
-    --orange-border:#f1d3ad;
-
-    --red:#fde8e8;
-    --red-strong:#bb3943;
-    --red-border:#f2c5c8;
-
-    --blue:#eef4fb;
-    --blue-border:#d9e4f3;
-
-    --shadow:0 10px 26px rgba(19,24,31,.07);
-  }
-
-  *{
-    box-sizing:border-box;
-  }
-
-  html,
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:
-      Inter,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
-  }
-
-  body{
-    overflow:hidden;
-  }
-
-  .app{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-  }
-
-  /* TOPO */
-
-  .topbar{
-    height:74px;
-    background:rgba(255,255,255,.96);
-    backdrop-filter:blur(10px);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 24px;
-    border-bottom:1px solid #e5e8ec;
-    z-index:20;
-  }
-
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
-
-  .pill{
-    padding:7px 12px;
-    border-radius:999px;
-    background:#dff7b8;
-    color:#2f6d1f;
-    font-size:13px;
-    font-weight:700;
-  }
-
-  .title-wrap h1{
-    font-size:22px;
-    line-height:1.1;
-    margin:0;
-    font-weight:760;
-    letter-spacing:-.02em;
-  }
-
-  .title-wrap p{
-    font-size:12px;
-    color:var(--muted);
-    margin:4px 0 0;
-  }
-
-  .legend{
-    display:flex;
-    gap:12px;
-    align-items:center;
-    flex-wrap:wrap;
-    font-size:12px;
-    color:#4d535b;
-  }
-
-  .legend .item{
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
-
-  .dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-  }
-
-  .dot.neutral{background:#cfd4db;}
-  .dot.green{background:#94d86c;}
-  .dot.orange{background:#f2ae65;}
-  .dot.red{background:#ef8288;}
-
-  .tools{
-    display:flex;
-    gap:8px;
-    margin-left:14px;
-  }
-
-  button.tool{
-    border:1px solid #e0e4e8;
-    background:#fff;
-    border-radius:10px;
-    padding:8px 10px;
-    cursor:pointer;
-    font-weight:650;
-    color:#343941;
-  }
-
-  button.tool:hover{
-    background:#f6f7f8;
-  }
-
-  /* MIRO / BOARD */
-
-  .viewport{
-    position:relative;
-    flex:1;
-    overflow:hidden;
-    cursor:grab;
-
-    background:
-      radial-gradient(
-        circle at 1px 1px,
-        rgba(92,99,112,.12) 1px,
-        transparent 1px
-      );
-
-    background-size:24px 24px;
-  }
-
-  .viewport.dragging{
-    cursor:grabbing;
-  }
-
-  .canvas{
-    position:absolute;
-    left:0;
-    top:0;
-
-    width:2900px;
-    height:1800px;
-
-    transform-origin:0 0;
-
-    background:#fff;
-
-    box-shadow:
-      0 20px 60px rgba(0,0,0,.05);
-  }
-
-  /* INTRO */
-
-  .intro{
-    position:absolute;
-    left:70px;
-    top:58px;
-    width:560px;
-  }
-
-  .intro h2{
-    font-size:42px;
-    letter-spacing:-.04em;
-    line-height:1.02;
-    margin:0 0 10px;
-    font-weight:760;
-  }
-
-  .intro p{
-    font-size:15px;
-    line-height:1.5;
-    color:#626871;
-    max-width:520px;
-    margin:0;
-  }
-
-  .intro .tag{
-    display:inline-block;
-    margin-bottom:14px;
-
-    background:#dff7b8;
-    color:#2f6d1f;
-
-    padding:7px 12px;
-    border-radius:999px;
-
-    font-size:13px;
-    font-weight:700;
-  }
-
-  /* CARDS */
-
-  .node{
-    position:absolute;
-
-    border-radius:18px;
-    padding:16px 18px;
-
-    background:var(--neutral);
-    border:1px solid var(--neutral-border);
-
-    box-shadow:var(--shadow);
-  }
-
-  .node.compact{
-    padding:12px 14px;
-    border-radius:16px;
-  }
-
-  .node.green{
-    background:var(--green);
-    border-color:var(--green-border);
-  }
-
-  .node.orange{
-    background:var(--orange);
-    border-color:var(--orange-border);
-  }
-
-  .node.red{
-    background:var(--red);
-    border-color:var(--red-border);
-  }
-
-  .node.blue{
-    background:var(--blue);
-    border-color:var(--blue-border);
-  }
-
-  .node.white{
-    background:#fff;
-  }
-
-  .node h3,
-  .node h4{
-    margin:0;
-    color:#202328;
-  }
-
-  .node h3{
-    font-size:18px;
-  }
-
-  .node h4{
-    font-size:15px;
-  }
-
-  .node p{
-    margin:6px 0 0;
-    color:#636a73;
-    font-size:13px;
-    line-height:1.42;
-  }
-
-  .node ul{
-    margin:8px 0 0 18px;
-    padding:0;
-
-    color:#555d66;
-    font-size:12px;
-    line-height:1.5;
-  }
-
-  .eyebrow{
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    margin-bottom:8px;
-
-    font-size:12px;
-    font-weight:750;
-    color:#444b53;
-  }
-
-  .badge{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-
-    min-width:26px;
-    height:26px;
+:root{
+  --bg:#f7f7f4;
+  --ink:#111315;
+  --muted:#6b7178;
+
+  --neutral:#f0f1f2;
+  --neutral-border:#dde0e3;
+
+  --green:#edf8e5;
+  --green-border:#d3eac3;
+  --green-strong:#3d8d39;
+
+  --orange:#fff0df;
+  --orange-border:#f1d0aa;
+  --orange-strong:#d98934;
+
+  --red:#fde8ea;
+  --red-border:#efc3c7;
+  --red-strong:#cf515a;
+
+  --blue:#eef4fa;
+  --blue-border:#d7e2ed;
+
+  --line:#aeb4ba;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  color:var(--ink);
+}
+
+.page{
+  width:2450px;
+  min-height:1450px;
+  padding:55px 70px 80px;
+  background:#fbfbf9;
+}
+
+/* =============================
+   CABEÇALHO
+============================= */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:50px;
+}
+
+.tag{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:999px;
+  background:#def5b8;
+  color:#31721f;
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0;
+  font-size:48px;
+  line-height:1;
+  letter-spacing:-1.8px;
+}
+
+.subtitle{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:17px;
+}
+
+.legend{
+  display:flex;
+  gap:18px;
+  align-items:center;
+
+  padding:14px 18px;
+
+  border:1px dashed #d7dade;
+  border-radius:17px;
+
+  background:#fff;
+
+  font-size:12px;
+  color:#626970;
+}
+
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.dot{
+  width:11px;
+  height:11px;
+  border-radius:50%;
+}
+
+.dot.gray{background:#d4d7da;}
+.dot.green{background:#95d86c;}
+.dot.orange{background:#efa75f;}
+.dot.red{background:#ea8088;}
+
+/* =============================
+   FLUXO
+============================= */
+
+.flow{
+  position:relative;
+  width:2310px;
+  height:1120px;
+}
+
+svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  overflow:visible;
+}
+
+/* LINHAS */
+
+.path{
+  fill:none;
+  stroke:var(--line);
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.path.green{stroke:#75be62;}
+.path.orange{stroke:#dd9c59;}
+.path.red{stroke:#df737c;}
+
+.path.dashed{
+  stroke-dasharray:6 7;
+}
+
+/* =============================
+   CARDS
+============================= */
+
+.card{
+  position:absolute;
+  z-index:2;
+
+  width:190px;
+  min-height:110px;
+
+  padding:15px;
+
+  border-radius:20px;
+
+  background:var(--neutral);
+  border:1px solid var(--neutral-border);
+
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.card.white{
+  background:#fff;
+}
+
+.card.green{
+  background:var(--green);
+  border-color:var(--green-border);
+}
+
+.card.orange{
+  background:var(--orange);
+  border-color:var(--orange-border);
+}
+
+.card.red{
+  background:var(--red);
+  border-color:var(--red-border);
+}
+
+.card.compact{
+  min-height:85px;
+}
+
+.step{
+  font-size:12px;
+  font-weight:800;
+  color:#70767d;
+  margin-bottom:8px;
+}
+
+.title{
+  font-size:15px;
+  line-height:1.25;
+  font-weight:800;
+}
 
-    border-radius:999px;
+.text{
+  margin-top:7px;
+  font-size:12px;
+  line-height:1.42;
+  color:#666d74;
+}
 
-    background:#fff;
-    border:1px solid rgba(0,0,0,.06);
+/* MINI TELA */
 
-    font-size:12px;
-    font-weight:800;
-  }
+.screen{
+  margin-top:12px;
+  padding:10px;
 
-  /* MINI MOCK DE TELA */
+  border:1px solid #dde1e4;
+  border-radius:14px;
 
-  .screen{
-    margin-top:12px;
+  background:#fff;
+}
 
-    border:1px solid #d7dce1;
-    background:#fff;
+.screen-row{
+  height:8px;
+  margin:7px 0;
 
-    border-radius:14px;
+  border-radius:999px;
+  background:#eceff1;
+}
 
-    padding:10px 10px 12px;
+.screen-row.short{
+  width:62%;
+}
 
-    box-shadow:
-      0 4px 12px rgba(0,0,0,.04);
-  }
+.screen-row.medium{
+  width:78%;
+}
 
-  .screen .bar{
-    height:8px;
-    width:44px;
+.screen-button{
+  height:24px;
+  margin-top:10px;
 
-    border-radius:999px;
+  border-radius:7px;
+  background:#11171c;
+}
 
-    background:#dfe4e8;
+.card.green .screen-button{
+  background:#3b9346;
+}
 
-    margin:0 auto 10px;
-  }
+.card.orange .screen-button{
+  background:#de913f;
+}
 
-  .screen .row{
-    height:8px;
-    border-radius:999px;
-    background:#eef1f3;
-    margin:7px 0;
-  }
+.card.red .screen-button{
+  background:#cf535c;
+}
 
-  .screen .row.short{
-    width:62%;
-  }
+/* =============================
+   LOSANGOS
+============================= */
 
-  .screen .row.med{
-    width:78%;
-  }
+.decision{
+  position:absolute;
+  z-index:2;
 
-  .screen .cta{
-    margin-top:10px;
-    height:24px;
-    border-radius:7px;
-    background:#e5e8ec;
-  }
+  width:130px;
+  height:130px;
 
-  .green .screen .cta{
-    background:#80c95b;
-  }
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
-  .orange .screen .cta{
-    background:#f1a35d;
-  }
+  text-align:center;
 
-  .red .screen .cta{
-    background:#e97b82;
-  }
+  font-size:12px;
+  font-weight:800;
+}
 
-  /* LOSANGOS */
+.decision::before{
+  content:"";
 
-  .decision{
-    position:absolute;
+  position:absolute;
 
-    width:146px;
-    height:146px;
+  width:92px;
+  height:92px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  transform:rotate(45deg);
 
-    text-align:center;
+  border-radius:18px;
 
-    color:#3a3f45;
+  background:#fff;
+  border:1px solid #dadde0;
 
-    font-size:12px;
-    font-weight:700;
-  }
+  box-shadow:0 8px 22px rgba(0,0,0,.04);
+}
 
-  .decision::before{
-    content:"";
+.decision span{
+  position:relative;
+  z-index:1;
 
-    position:absolute;
+  width:85px;
+  line-height:1.25;
+}
 
-    inset:18px;
+/* =============================
+   LABELS
+============================= */
 
-    transform:rotate(45deg);
+.label{
+  position:absolute;
+  z-index:5;
 
-    border-radius:18px;
+  padding:5px 10px;
 
-    background:#fff8eb;
-    border:1.5px solid #e7cfaa;
+  border-radius:999px;
 
-    box-shadow:var(--shadow);
-  }
+  font-size:11px;
+  font-weight:800;
+}
 
-  .decision span{
-    position:relative;
-    z-index:1;
+.label.green{
+  background:#ddf4ca;
+  color:#347825;
+}
 
-    width:92px;
+.label.red{
+  background:#fbd8db;
+  color:#ad4048;
+}
 
-    line-height:1.25;
-  }
+.label.gray{
+  background:#eceeef;
+  color:#5c646c;
+}
 
-  .decision.neutral::before{
-    background:#f8f9fa;
-    border-color:#d8dde3;
-  }
+/* =============================
+   NOTAS
+============================= */
 
-  .decision.green::before{
-    background:#f2faec;
-    border-color:#cfe9bd;
-  }
+.note{
+  position:absolute;
+  z-index:2;
 
-  /* RÓTULOS */
+  width:215px;
 
-  .section-label{
-    position:absolute;
+  padding:11px 13px;
 
-    font-size:13px;
-    font-weight:780;
-    letter-spacing:.02em;
+  border:1px dashed #cfd4d9;
+  border-radius:14px;
 
-    color:#727982;
+  background:#f4f5f6;
 
-    text-transform:uppercase;
-  }
+  color:#717880;
 
-  .note{
-    position:absolute;
+  font-size:11px;
+  line-height:1.45;
+}
 
-    font-size:11px;
-    color:#6f7680;
+.note.orange{
+  background:#fff7ee;
+  border-color:#efd0ad;
+  color:#99631e;
+}
 
-    line-height:1.45;
+.note.red{
+  background:#fff0f1;
+  border-color:#ebc2c5;
+  color:#9e4a50;
+}
 
-    background:#f5f7f9;
+/* =============================
+   RODAPÉ
+============================= */
 
-    border:1px dashed #d4d9df;
+.footer-box{
+  position:absolute;
+  z-index:2;
 
-    border-radius:14px;
+  padding:16px 18px;
 
-    padding:10px 12px;
-  }
+  border-radius:18px;
 
-  .note.warn{
-    background:#fff4f4;
-    border-color:#efc4c7;
-    color:#8e454a;
-  }
+  background:#fff;
+  border:1px solid #e2e5e7;
 
-  /* CONEXÕES */
+  box-shadow:0 9px 22px rgba(0,0,0,.04);
+}
 
-  svg.connections{
-    position:absolute;
+.footer-title{
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:8px;
+}
 
-    left:0;
-    top:0;
+.footer-box ul{
+  margin:0;
+  padding-left:17px;
 
-    width:2900px;
-    height:1800px;
+  color:#666d74;
 
-    pointer-events:none;
+  font-size:11px;
+  line-height:1.5;
+}
 
-    overflow:visible;
-  }
+/* =============================
+   POSIÇÕES — LINHA 1
+============================= */
 
-  path.flow{
-    fill:none;
+.c1{left:0;top:100px;}
+.c2{left:220px;top:100px;}
 
-    stroke:#b4bac3;
+.d1{left:445px;top:88px;}
 
-    stroke-width:2.2;
+.c3a{left:605px;top:0;}
+.c3b{left:605px;top:150px;}
+.c3c{left:605px;top:300px;}
 
-    stroke-linecap:round;
-    stroke-linejoin:round;
+.c4{left:845px;top:100px;}
 
-    marker-end:url(#arrow);
-  }
+.d2{left:1065px;top:88px;}
 
-  path.flow.dashed{
-    stroke-dasharray:5 8;
-  }
+.c5a{left:1225px;top:10px;}
+.c5b{left:1225px;top:165px;}
+.c5c{left:1225px;top:320px;}
 
-  path.flow.green{
-    stroke:#6bbf59;
-  }
+.c6{left:1470px;top:100px;}
 
-  path.flow.orange{
-    stroke:#e5a25c;
-  }
+.d3{left:1690px;top:88px;}
 
-  path.flow.red{
-    stroke:#df7079;
-  }
+.c7a{left:1870px;top:0;}
+.c7b{left:1870px;top:210px;}
+.c8{left:2090px;top:210px;}
 
-  /* FOOTERS */
+/* =============================
+   POSIÇÕES — LINHA 2
+============================= */
 
-  .footer-card{
-    position:absolute;
+.d4{left:35px;top:610px;}
 
-    border-radius:18px;
+.c9a{left:190px;top:555px;}
+.c9b{left:190px;top:735px;}
 
-    background:#fff;
+.c10{left:425px;top:610px;}
 
-    border:1px solid #e1e5e9;
+.d5{left:645px;top:598px;}
 
-    box-shadow:var(--shadow);
+.c11a{left:815px;top:545px;}
+.c11b{left:815px;top:725px;}
 
-    padding:16px 18px;
-  }
+.c12{left:1040px;top:610px;}
 
-  .footer-card h4{
-    margin:0 0 8px;
-    font-size:14px;
-  }
+.d6{left:1260px;top:598px;}
 
-  .footer-card ul{
-    margin:0 0 0 17px;
-    padding:0;
+.c13a{left:1430px;top:540px;}
+.c13b{left:1430px;top:720px;}
 
-    font-size:11px;
+.c14{left:1655px;top:610px;}
 
-    color:#656c75;
+.c15{left:1875px;top:610px;}
 
-    line-height:1.45;
-  }
+.c16{left:2095px;top:610px;}
 
-  .zoom-badge{
-    position:absolute;
+.d7{left:2280px;top:598px;}
 
-    right:18px;
-    bottom:18px;
+.c17a{left:2180px;top:805px;}
+.c17b{left:1970px;top:805px;}
 
-    background:#fff;
+/* =============================
+   LABEL POSITIONS
+============================= */
 
-    border:1px solid #dfe3e8;
+.l1{left:535px;top:70px;}
+.l2{left:532px;top:225px;}
+.l3{left:515px;top:375px;}
 
-    border-radius:12px;
+.l4{left:1790px;top:40px;}
+.l5{left:1790px;top:220px;}
 
-    padding:8px 10px;
+.l6{left:755px;top:610px;}
+.l7{left:755px;top:750px;}
 
-    font-size:12px;
+.l8{left:1365px;top:610px;}
+.l9{left:1365px;top:750px;}
 
-    color:#5e656d;
+.l10{left:2290px;top:755px;}
+.l11{left:2160px;top:755px;}
 
-    box-shadow:var(--shadow);
+/* =============================
+   NOTAS POSITIONS
+============================= */
 
-    z-index:10;
-  }
+.n1{
+  left:1450px;
+  top:350px;
+}
+
+.n2{
+  left:1030px;
+  top:825px;
+}
+
+.n3{
+  left:1420px;
+  top:900px;
+}
+
+/* =============================
+   FOOTER POSITIONS
+============================= */
+
+.f1{
+  left:0;
+  top:955px;
+  width:555px;
+}
+
+.f2{
+  left:580px;
+  top:955px;
+  width:500px;
+}
+
+.f3{
+  left:1105px;
+  top:955px;
+  width:500px;
+}
+
+.f4{
+  left:1630px;
+  top:955px;
+  width:680px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="page">
 
-  <header class="topbar">
+  <div class="header">
 
-    <div class="brand">
+    <div>
 
-      <span class="pill">
-        As-Is
+      <div class="tag">
+        Fluxo As-Is
+      </div>
+
+      <h1>
+        Parcele — Jornada no App
+      </h1>
+
+      <div class="subtitle">
+        Fluxo ponta a ponta, tela a tela, com os principais caminhos e bifurcações
+      </div>
+
+    </div>
+
+    <div class="legend">
+
+      <div class="legend-item">
+        <span class="dot gray"></span>
+        Tela neutra / seleção
+      </div>
+
+      <div class="legend-item">
+        <span class="dot green"></span>
+        Contratação / avanço
+      </div>
+
+      <div class="legend-item">
+        <span class="dot orange"></span>
+        Seguro
+      </div>
+
+      <div class="legend-item">
+        <span class="dot red"></span>
+        Erro / pendência / atenção
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="flow">
+
+    <!-- =========================================================
+         CONEXÕES
+    ========================================================== -->
+
+    <svg viewBox="0 0 2310 1120">
+
+      <defs>
+
+        <marker
+          id="arrow"
+          markerWidth="9"
+          markerHeight="9"
+          refX="8"
+          refY="4.5"
+          orient="auto"
+        >
+
+          <path
+            d="M0,0 L9,4.5 L0,9 Z"
+            fill="#aeb4ba"
+          />
+
+        </marker>
+
+      </defs>
+
+
+      <!-- 1 → 2 -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M190 160 H220"
+      />
+
+
+      <!-- 2 → status -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M410 160 H445"
+      />
+
+
+      <!-- status → em dia -->
+
+      <path
+        class="path green"
+        marker-end="url(#arrow)"
+        d="M555 130 C575 95 585 70 605 65"
+      />
+
+
+      <!-- status → atraso -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M555 155 H605"
+      />
+
+
+      <!-- status → pré-cancelamento -->
+
+      <path
+        class="path red"
+        marker-end="url(#arrow)"
+        d="M555 185 C575 235 585 350 605 355"
+      />
+
+
+      <!-- status converge -->
+
+      <path
+        class="path dashed"
+        marker-end="url(#arrow)"
+        d="M795 65 C820 65 820 160 845 160"
+      />
+
+      <path
+        class="path dashed"
+        marker-end="url(#arrow)"
+        d="M795 210 H845"
+      />
+
+      <path
+        class="path dashed"
+        marker-end="url(#arrow)"
+        d="M795 355 C820 355 820 160 845 160"
+      />
+
+
+      <!-- nova simulação → modalidade -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1035 160 H1065"
+      />
+
+
+      <!-- modalidade → em dia -->
+
+      <path
+        class="path green"
+        marker-end="url(#arrow)"
+        d="M1175 130 C1195 95 1205 70 1225 65"
+      />
+
+
+      <!-- modalidade → atraso -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1175 155 H1225"
+      />
+
+
+      <!-- modalidade → PWF -->
+
+      <path
+        class="path red"
+        marker-end="url(#arrow)"
+        d="M1175 185 C1195 235 1205 355 1225 360"
+      />
+
+
+      <!-- converge em combo -->
+
+      <path
+        class="path dashed"
+        marker-end="url(#arrow)"
+        d="M1415 65 C1445 65 1445 160 1470 160"
+      />
+
+      <path
+        class="path dashed"
+        marker-end="url(#arrow)"
+        d="M1415 220 C1445 220 1445 160 1470 160"
+      />
+
+      <path
+        class="path dashed"
+        marker-end="url(#arrow)"
+        d="M1415 375 C1445 375 1445 160 1470 160"
+      />
+
+
+      <!-- combo → decisão -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1660 160 H1690"
+      />
+
+
+      <!-- combo sim -->
+
+      <path
+        class="path green"
+        marker-end="url(#arrow)"
+        d="M1800 125 C1825 90 1845 65 1870 60"
+      />
+
+
+      <!-- combo não -->
+
+      <path
+        class="path red"
+        marker-end="url(#arrow)"
+        d="M1800 185 C1825 235 1845 265 1870 265"
+      />
+
+
+      <!-- data → valor -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M2060 265 H2090"
+      />
+
+
+      <!-- volta linha -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M2280 265
+           C2300 265 2300 520 100 520
+           C55 520 55 610 100 610"
+      />
+
+
+      <!-- duas taxas sim -->
+
+      <path
+        class="path green"
+        marker-end="url(#arrow)"
+        d="M145 645 C165 620 175 610 190 610"
+      />
+
+
+      <!-- duas taxas não -->
+
+      <path
+        class="path red"
+        marker-end="url(#arrow)"
+        d="M145 680 C165 705 175 790 190 790"
+      />
+
+
+      <!-- sem taxa → parcelas -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M380 790 C405 790 405 670 425 670"
+      />
+
+
+      <!-- taxa → parcelas -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M380 610 C405 610 405 670 425 670"
+      />
+
+
+      <!-- parcelas → seguro -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M615 670 H645"
+      />
+
+
+      <!-- seguro sim -->
+
+      <path
+        class="path orange"
+        marker-end="url(#arrow)"
+        d="M755 640 C780 600 795 595 815 595"
+      />
+
+
+      <!-- seguro não -->
+
+      <path
+        class="path dashed"
+        marker-end="url(#arrow)"
+        d="M755 700 C780 750 795 770 815 770"
+      />
+
+
+      <!-- seguro → escolha -->
+
+      <path
+        class="path orange"
+        marker-end="url(#arrow)"
+        d="M1005 595 C1025 595 1025 670 1040 670"
+      />
+
+
+      <!-- não seguro → escolha -->
+
+      <path
+        class="path dashed"
+        marker-end="url(#arrow)"
+        d="M1005 770 C1025 770 1025 670 1040 670"
+      />
+
+
+      <!-- escolha → decisão seguro -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1230 670 H1260"
+      />
+
+
+      <!-- com proteção -->
+
+      <path
+        class="path orange"
+        marker-end="url(#arrow)"
+        d="M1370 640 C1395 605 1410 595 1430 595"
+      />
+
+
+      <!-- sem proteção -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1370 700 C1395 750 1410 770 1430 770"
+      />
+
+
+      <!-- proteção converge resumo -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1620 595 C1640 595 1640 670 1655 670"
+      />
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1620 770 C1640 770 1640 670 1655 670"
+      />
+
+
+      <!-- resumo → pagamento -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1845 670 H1875"
+      />
+
+
+      <!-- pagamento → promessa -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M2065 670 H2095"
+      />
+
+
+      <!-- promessa → pago? -->
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M2285 670 H2280"
+      />
+
+
+      <!-- pago sim -->
+
+      <path
+        class="path green"
+        marker-end="url(#arrow)"
+        d="M2340 715 C2340 760 2200 795 2175 820"
+      />
+
+
+      <!-- pago não -->
+
+      <path
+        class="path red"
+        marker-end="url(#arrow)"
+        d="M2340 715 C2340 765 2375 815 2375 835"
+      />
+
+    </svg>
+
+
+    <!-- =========================================================
+         LINHA 1
+    ========================================================== -->
+
+
+    <div class="card white c1">
+
+      <div class="step">
+        1 · Acesso
+      </div>
+
+      <div class="title">
+        Cliente acessa o Parcele no app
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row medium"></div>
+        <div class="screen-row"></div>
+        <div class="screen-row short"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card white c2">
+
+      <div class="step">
+        2 · Home do Parcele
+      </div>
+
+      <div class="title">
+        Home personalizada conforme o status
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+        <div class="screen-row"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="decision d1">
+
+      <span>
+        Qual é o status do cliente?
       </span>
 
-      <div class="title-wrap">
-        <h1>
-          Parcele — Fluxo ponta a ponta
-        </h1>
+    </div>
 
-        <p>
-          Jornada principal no app • cada card representa uma tela, estado ou decisão
-        </p>
+
+    <div class="card green compact c3a">
+
+      <div class="step">
+        3A
+      </div>
+
+      <div class="title">
+        Home — cliente em dia
+      </div>
+
+      <div class="text">
+        Banner de benefício e opção de simular.
       </div>
 
     </div>
 
-    <div style="display:flex; align-items:center; gap:10px">
 
-      <div class="legend">
+    <div class="card compact c3b">
 
-        <span class="item">
-          <i class="dot neutral"></i>
-          telas neutras
-        </span>
-
-        <span class="item">
-          <i class="dot green"></i>
-          contratação / avanço
-        </span>
-
-        <span class="item">
-          <i class="dot orange"></i>
-          seguro
-        </span>
-
-        <span class="item">
-          <i class="dot red"></i>
-          desistência / erro / atenção
-        </span>
-
+      <div class="step">
+        3B
       </div>
 
-      <div class="tools">
+      <div class="title">
+        Home — cliente em atraso
+      </div>
 
-        <button class="tool" id="zoomOut">
-          −
-        </button>
+      <div class="text">
+        Exibe dias de atraso e incentivo para regularizar.
+      </div>
 
-        <button class="tool" id="zoomReset">
-          72%
-        </button>
+    </div>
 
-        <button class="tool" id="zoomIn">
-          +
-        </button>
+
+    <div class="card red compact c3c">
+
+      <div class="step">
+        3C
+      </div>
+
+      <div class="title">
+        Home — pré-cancelamento
+      </div>
+
+      <div class="text">
+        Experiência específica para cliente crítico.
+      </div>
+
+    </div>
+
+
+    <div class="card white c4">
+
+      <div class="step">
+        4 · Nova simulação
+      </div>
+
+      <div class="title">
+        Cliente inicia uma nova simulação
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+        <div class="screen-row"></div>
+
+        <div class="screen-button"></div>
 
       </div>
 
     </div>
 
-  </header>
 
-  <main class="viewport" id="viewport">
+    <div class="decision d2">
 
-    <div class="canvas" id="canvas">
+      <span>
+        Qual modalidade está disponível?
+      </span>
 
-      <!-- CABEÇALHO -->
+    </div>
 
-      <div class="intro">
 
-        <span class="tag">
-          Fluxo atual
-        </span>
+    <div class="card green compact c5a">
 
-        <h2>
-          Fluxograma As-Is<br>
-          Parcele
-        </h2>
-
-        <p>
-          Jornada mapeada tela a tela a partir do fluxo atual no app,
-          mantendo os principais caminhos, regras e bifurcações.
-        </p>
-
+      <div class="step">
+        Cliente em dia
       </div>
 
-      <div
-        class="section-label"
-        style="left:70px; top:270px;"
-      >
-        Descoberta
-      </div>
-
-      <div
-        class="section-label"
-        style="left:820px; top:270px;"
-      >
-        Simulação
-      </div>
-
-      <div
-        class="section-label"
-        style="left:1840px; top:270px;"
-      >
-        Pós-simulação
-      </div>
-
-      <!-- CONEXÕES -->
-
-      <svg
-        class="connections"
-        viewBox="0 0 2900 1800"
-        preserveAspectRatio="none"
-      >
-
-        <defs>
-
-          <marker
-            id="arrow"
-            markerWidth="10"
-            markerHeight="10"
-            refX="7"
-            refY="3"
-            orient="auto"
-            markerUnits="strokeWidth"
-          >
-            <path
-              d="M0,0 L0,6 L8,3 z"
-              fill="#b4bac3"
-            />
-          </marker>
-
-        </defs>
-
-        <!-- entrada -->
-
-        <path
-          class="flow"
-          d="M260 430 C320 430 340 430 400 430"
-        />
-
-        <path
-          class="flow"
-          d="M660 430 C720 430 740 430 795 430"
-        />
-
-        <!-- status -->
-
-        <path
-          class="flow green"
-          d="M940 430 C990 380 1020 350 1080 345"
-        />
-
-        <path
-          class="flow"
-          d="M940 430 C1000 430 1020 440 1080 440"
-        />
-
-        <path
-          class="flow red"
-          d="M940 430 C990 485 1020 530 1080 545"
-        />
-
-        <!-- status converge -->
-
-        <path
-          class="flow dashed"
-          d="M1325 345 C1390 345 1420 345 1470 345"
-        />
-
-        <path
-          class="flow dashed"
-          d="M1325 440 C1400 440 1425 405 1470 345"
-        />
-
-        <path
-          class="flow dashed"
-          d="M1325 545 C1400 545 1430 430 1470 345"
-        />
-
-        <!-- modalidade -->
-
-        <path
-          class="flow"
-          d="M1700 345 C1760 345 1790 345 1840 345"
-        />
-
-        <path
-          class="flow green"
-          d="M1985 345 C2030 310 2050 300 2100 300"
-        />
-
-        <path
-          class="flow"
-          d="M1985 345 C2030 360 2050 400 2100 400"
-        />
-
-        <path
-          class="flow red"
-          d="M1985 345 C2030 410 2050 500 2100 500"
-        />
-
-        <!-- para combo -->
-
-        <path
-          class="flow dashed"
-          d="M2335 300 C2420 300 2430 620 1570 620"
-        />
-
-        <path
-          class="flow dashed"
-          d="M2335 400 C2420 400 2430 620 1570 620"
-        />
-
-        <path
-          class="flow dashed"
-          d="M2335 500 C2420 500 2430 620 1570 620"
-        />
-
-        <!-- combo -->
-
-        <path
-          class="flow"
-          d="M1570 800 C1620 800 1640 800 1690 800"
-        />
-
-        <path
-          class="flow green"
-          d="M1832 800 C1880 755 1900 745 1945 745"
-        />
-
-        <path
-          class="flow red"
-          d="M1832 800 C1880 840 1900 855 1945 875"
-        />
-
-        <!-- personalizada -->
-
-        <path
-          class="flow"
-          d="M2140 875 C2190 875 2210 875 2260 875"
-        />
-
-        <path
-          class="flow"
-          d="M2465 875 C2520 875 2540 875 2580 875"
-        />
-
-        <!-- decisão taxas -->
-
-        <path
-          class="flow"
-          d="M2680 975 C2680 1020 2680 1040 2680 1070"
-        />
-
-        <path
-          class="flow green"
-          d="M2680 1210 C2600 1220 2520 1240 2450 1260"
-        />
-
-        <path
-          class="flow red"
-          d="M2680 1210 C2740 1220 2790 1240 2840 1260"
-        />
-
-        <!-- taxa / sem taxa -> qtd -->
-
-        <path
-          class="flow"
-          d="M2545 1350 C2600 1350 2630 1350 2680 1350"
-        />
-
-        <path
-          class="flow"
-          d="M2840 1350 C2790 1350 2755 1350 2705 1350"
-        />
-
-        <!-- segue para seguro -->
-
-        <path
-          class="flow green dashed"
-          d="M2065 745 C2010 710 1920 710 1825 1040"
-        />
-
-        <path
-          class="flow dashed"
-          d="M2700 1430 C2600 1470 2150 1470 1825 1040"
-        />
-
-        <!-- seguro -->
-
-        <path
-          class="flow orange"
-          d="M1760 1110 C1680 1145 1630 1170 1570 1200"
-        />
-
-        <path
-          class="flow dashed"
-          d="M1895 1110 C1970 1150 1990 1190 1990 1230"
-        />
-
-        <path
-          class="flow orange"
-          d="M1570 1340 C1635 1340 1660 1340 1715 1340"
-        />
-
-        <path
-          class="flow dashed"
-          d="M1990 1230 C1960 1270 1920 1310 1885 1340"
-        />
-
-        <!-- seguro -> resumo -->
-
-        <path
-          class="flow"
-          d="M1925 1340 C1985 1340 2020 1340 2080 1340"
-        />
-
-        <!-- resumo -> pagamento -->
-
-        <path
-          class="flow"
-          d="M2310 1340 C2360 1340 2390 1340 2445 1340"
-        />
-
-        <!-- pagamento -> promessa -->
-
-        <path
-          class="flow green"
-          d="M2600 1410 C2560 1470 2490 1490 2415 1490"
-        />
-
-        <path
-          class="flow"
-          d="M2600 1450 C2550 1480 2490 1490 2415 1490"
-        />
-
-        <!-- promessa -> entrada -->
-
-        <path
-          class="flow"
-          d="M2210 1490 C2150 1490 2120 1490 2060 1490"
-        />
-
-        <!-- entrada -> decisão -->
-
-        <path
-          class="flow"
-          d="M1830 1490 C1760 1490 1715 1490 1650 1490"
-        />
-
-        <!-- decisão pagamento -->
-
-        <path
-          class="flow red"
-          d="M1500 1490 C1450 1450 1400 1420 1340 1400"
-        />
-
-        <path
-          class="flow green"
-          d="M1500 1490 C1450 1530 1400 1560 1340 1580"
-        />
-
-      </svg>
-
-      <!-- 1 - ENTRADA -->
-
-      <div
-        class="node white"
-        style="
-          left:70px;
-          top:350px;
-          width:190px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">1</span>
-          Entrada
-        </div>
-
-        <h4>
-          Cliente acessa o Parcele
-        </h4>
-
-        <div class="screen">
-
-          <div class="bar"></div>
-
-          <div class="row med"></div>
-          <div class="row"></div>
-          <div class="row short"></div>
-
-          <div class="cta"></div>
-
-        </div>
-
-      </div>
-
-      <!-- 2 - HOME -->
-
-      <div
-        class="node white"
-        style="
-          left:400px;
-          top:330px;
-          width:260px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">2</span>
-          Home do Parcele
-        </div>
-
-        <h4>
-          Cliente visualiza a Home
-        </h4>
-
-        <p>
-          Home personalizada conforme o status do cliente.
-        </p>
-
-        <div class="screen">
-
-          <div class="bar"></div>
-
-          <div class="row"></div>
-          <div class="row med"></div>
-          <div class="row short"></div>
-
-          <div class="cta"></div>
-
-        </div>
-
-        <p class="mini">
-          Simular • Conferir simulações • Parcelamentos ativos
-        </p>
-
-      </div>
-
-      <!-- STATUS -->
-
-      <div
-        class="decision neutral"
-        style="
-          left:795px;
-          top:357px;
-        "
-      >
-        <span>
-          Qual é o status do cliente?
-        </span>
-      </div>
-
-      <!-- EM DIA -->
-
-      <div
-        class="node green"
-        style="
-          left:1080px;
-          top:290px;
-          width:245px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">✓</span>
-          Em dia
-        </div>
-
-        <h4>
-          Home de cliente em dia
-        </h4>
-
-        <p>
-          Banner de benefício e comunicação de parcelamento.
-        </p>
-
-      </div>
-
-      <!-- DLNQ -->
-
-      <div
-        class="node"
-        style="
-          left:1080px;
-          top:395px;
-          width:245px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">●</span>
-          DLNQ / Em atraso
-        </div>
-
-        <h4>
-          Home de cliente em atraso
-        </h4>
-
-        <p>
-          Exibe dias de atraso e incentivo para regularização.
-        </p>
-
-      </div>
-
-      <!-- PWF -->
-
-      <div
-        class="node red"
-        style="
-          left:1080px;
-          top:500px;
-          width:245px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">!</span>
-          PWF / Pré-cancelamento
-        </div>
-
-        <h4>
-          Experiência específica
-        </h4>
-
-        <p>
-          Cliente próximo do cancelamento.
-        </p>
-
-      </div>
-
-      <!-- NOVA SIMULAÇÃO -->
-
-      <div
-        class="node white"
-        style="
-          left:1470px;
-          top:295px;
-          width:230px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">3</span>
-          Nova simulação
-        </div>
-
-        <h4>
-          Cliente inicia uma nova simulação
-        </h4>
-
-        <div class="screen">
-
-          <div class="row"></div>
-          <div class="row med"></div>
-
-          <div class="cta"></div>
-
-        </div>
-
-      </div>
-
-      <!-- MODALIDADE -->
-
-      <div
-        class="decision neutral"
-        style="
-          left:1840px;
-          top:275px;
-        "
-      >
-        <span>
-          Qual modalidade está disponível?
-        </span>
-      </div>
-
-      <!-- CLIENTE EM DIA -->
-
-      <div
-        class="node green compact"
-        style="
-          left:2100px;
-          top:260px;
-          width:235px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">✓</span>
-          Cliente em dia
-        </div>
-
-        <h4>
-          Fatura atual + saldo total*
-        </h4>
-
-      </div>
-
-      <!-- CLIENTE EM ATRASO -->
-
-      <div
-        class="node compact"
-        style="
-          left:2100px;
-          top:360px;
-          width:235px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">●</span>
-          Cliente em atraso
-        </div>
-
-        <h4>
-          Apenas saldo total
-        </h4>
-
-      </div>
-
-      <!-- PWF -->
-
-      <div
-        class="node red compact"
-        style="
-          left:2100px;
-          top:460px;
-          width:235px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">!</span>
-          Pré-cancelamento
-        </div>
-
-        <h4>
-          Regras específicas / validar
-        </h4>
-
-      </div>
-
-      <div
-        class="note"
-        style="
-          left:2100px;
-          top:560px;
-          width:235px;
-        "
-      >
-        * Saldo total para cliente em dia estava temporariamente
-        desabilitado por regra de teto de juros.
-      </div>
-
-      <!-- COMBO -->
-
-      <div
-        class="node white"
-        style="
-          left:1430px;
-          top:620px;
-          width:280px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">4</span>
-          Combo
-        </div>
-
-        <h4>
-          Cliente visualiza o combo sugerido
-        </h4>
-
-        <p>
-          Entrada, data e quantidade de parcelas pré-configuradas.
-        </p>
-
-        <div class="screen">
-
-          <div class="row med"></div>
-          <div class="row"></div>
-          <div class="row short"></div>
-
-          <div class="cta"></div>
-
-        </div>
-
-      </div>
-
-      <!-- COMBO ATENDE? -->
-
-      <div
-        class="decision green"
-        style="
-          left:1690px;
-          top:725px;
-        "
-      >
-        <span>
-          O combo atende à necessidade?
-        </span>
-      </div>
-
-      <!-- SEGUE COM COMBO -->
-
-      <div
-        class="node green compact"
-        style="
-          left:1945px;
-          top:700px;
-          width:150px;
-        "
-      >
-        <h4>
-          Segue com o combo
-        </h4>
-      </div>
-
-      <!-- SIMULAÇÃO PERSONALIZADA -->
-
-      <div
-        class="node white"
-        style="
-          left:1945px;
-          top:830px;
-          width:195px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">5</span>
-          Personalizada
-        </div>
-
-        <h4>
-          Cliente escolhe a data da entrada
-        </h4>
-
-        <div class="screen">
-
-          <div class="row"></div>
-          <div class="row med"></div>
-
-          <div class="cta"></div>
-
-        </div>
-
-      </div>
-
-      <!-- VALOR ENTRADA -->
-
-      <div
-        class="node white"
-        style="
-          left:2260px;
-          top:830px;
-          width:205px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">6</span>
-          Entrada
-        </div>
-
-        <h4>
-          Cliente escolhe o valor da entrada
-        </h4>
-
-        <div class="screen">
-
-          <div class="row med"></div>
-          <div class="row"></div>
-
-          <div class="cta"></div>
-
-        </div>
-
-      </div>
-
-      <!-- DECISÃO 2 TAXAS -->
-
-      <div
-        class="decision neutral"
-        style="
-          left:2607px;
-          top:1015px;
-        "
-      >
-        <span>
-          É elegível a duas taxas?
-        </span>
-      </div>
-
-      <!-- TAXA / PRAZO -->
-
-      <div
-        class="node green"
-        style="
-          left:2380px;
-          top:1240px;
-          width:175px;
-        "
-      >
-
-        <h4>
-          Escolhe taxa / prazo
-        </h4>
-
-        <p>
-          Quando elegível a duas condições.
-        </p>
-
-      </div>
-
-      <!-- SEM DUAS TAXAS -->
-
-      <div
-        class="node"
-        style="
-          left:2780px;
-          top:1240px;
-          width:120px;
-        "
-      >
-
-        <h4>
-          Segue direto
-        </h4>
-
-        <p>
-          Sem escolha entre taxas.
-        </p>
-
-      </div>
-
-      <!-- QUANTIDADE DE PARCELAS -->
-
-      <div
-        class="node white"
-        style="
-          left:2590px;
-          top:1320px;
-          width:200px;
-        "
-      >
-
-        <h4>
-          Cliente escolhe a quantidade de parcelas
-        </h4>
-
-      </div>
-
-      <div
-        class="note"
-        style="
-          left:2600px;
-          top:1420px;
-          width:200px;
-        "
-      >
-        Pode haver oferta de Pulo Ciclo para perfis elegíveis.
-      </div>
-
-      <!-- SEGURO -->
-
-      <div
-        class="decision"
-        style="
-          left:1755px;
-          top:1025px;
-        "
-      >
-        <span>
-          Cliente é elegível ao seguro?
-        </span>
-      </div>
-
-      <!-- TELA SEGURO -->
-
-      <div
-        class="node orange"
-        style="
-          left:1450px;
-          top:1170px;
-          width:185px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">7</span>
-          Seguro
-        </div>
-
-        <h4>
-          Tela de seguro
-        </h4>
-
-        <p>
-          Oferta de proteção ao parcelamento.
-        </p>
-
-        <div class="screen">
-
-          <div class="row med"></div>
-          <div class="row"></div>
-          <div class="row short"></div>
-
-          <div class="cta"></div>
-
-        </div>
-
-      </div>
-
-      <!-- COM OU SEM PROTEÇÃO -->
-
-      <div
-        class="node orange"
-        style="
-          left:1715px;
-          top:1300px;
-          width:210px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">8</span>
-          Escolha
-        </div>
-
-        <h4>
-          Cliente escolhe com ou sem proteção
-        </h4>
-
-        <p>
-          Na personalizada pode haver repescagem do seguro no resumo.
-        </p>
-
-      </div>
-
-      <!-- RESUMO -->
-
-      <div
-        class="node white"
-        style="
-          left:2080px;
-          top:1290px;
-          width:230px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">9</span>
-          Resumo
-        </div>
-
-        <h4>
-          Cliente visualiza a tela de resumo
-        </h4>
-
-        <ul>
-          <li>Valor da entrada</li>
-          <li>Data da entrada</li>
-          <li>Quantidade de parcelas</li>
-          <li>Taxas e condições</li>
-          <li>Seguro, quando aplicável</li>
-        </ul>
-
-      </div>
-
-      <!-- FORMA PAGAMENTO -->
-
-      <div
-        class="node white"
-        style="
-          left:2445px;
-          top:1290px;
-          width:185px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">10</span>
-          Pagamento
-        </div>
-
-        <h4>
-          Cliente escolhe a forma de pagamento
-        </h4>
-
-        <p>
-          PIX ou boleto
-        </p>
-
-      </div>
-
-      <!-- PROMESSA -->
-
-      <div
-        class="node green"
-        style="
-          left:2210px;
-          top:1450px;
-          width:205px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">11</span>
-          Simulação concluída
-        </div>
-
-        <h4>
-          Geração da promessa de pagamento
-        </h4>
-
-        <p>
-          Ainda não é contratação ativa.
-        </p>
-
-      </div>
-
-      <!-- PAGAMENTO ENTRADA -->
-
-      <div
-        class="node white"
-        style="
-          left:1830px;
-          top:1450px;
-          width:230px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">12</span>
-          Entrada
-        </div>
-
-        <h4>
-          Cliente realiza o pagamento da entrada
-        </h4>
-
-        <p>
-          PIX ativa imediatamente. Boleto depende de compensação.
-        </p>
-
-      </div>
-
-      <!-- ENTRADA FOI PAGA -->
-
-      <div
-        class="decision neutral"
-        style="
-          left:1500px;
-          top:1420px;
-        "
-      >
-        <span>
-          Entrada foi paga?
-        </span>
-      </div>
-
-      <!-- NÃO -->
-
-      <div
-        class="node red"
-        style="
-          left:1090px;
-          top:1350px;
-          width:250px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">×</span>
-          Não
-        </div>
-
-        <h4>
-          Parcele / simulação pendente
-        </h4>
-
-        <p>
-          Cliente pode consultar a simulação pendente
-          na área de parcelamentos.
-        </p>
-
-      </div>
-
-      <!-- SIM -->
-
-      <div
-        class="node green"
-        style="
-          left:1090px;
-          top:1530px;
-          width:250px;
-        "
-      >
-
-        <div class="eyebrow">
-          <span class="badge">✓</span>
-          Sim
-        </div>
-
-        <h4>
-          Parcele ativado
-        </h4>
-
-        <p>
-          Parcelamento ativo disponível
-          na área de parcelamentos.
-        </p>
-
-      </div>
-
-      <!-- OBSERVAÇÕES -->
-
-      <div
-        class="footer-card"
-        style="
-          left:650px;
-          top:1340px;
-          width:300px;
-        "
-      >
-
-        <h4>
-          Comunicações
-        </h4>
-
-        <ul>
-          <li>E-mail com dados da simulação</li>
-          <li>Contrato em anexo</li>
-          <li>Boleto / código PIX da entrada</li>
-        </ul>
-
-      </div>
-
-      <div
-        class="footer-card"
-        style="
-          left:650px;
-          top:1500px;
-          width:300px;
-        "
-      >
-
-        <h4>
-          Gap conhecido
-        </h4>
-
-        <ul>
-          <li>
-            O app não confirma automaticamente
-            a ativação após o pagamento.
-          </li>
-
-          <li>
-            O cliente precisa consultar
-            a área de parcelamentos posteriormente.
-          </li>
-        </ul>
-
-      </div>
-
-      <div
-        class="footer-card"
-        style="
-          left:70px;
-          top:1180px;
-          width:470px;
-        "
-      >
-
-        <h4>
-          Regras e pontos de atenção
-        </h4>
-
-        <ul>
-
-          <li>
-            Modalidades variam conforme o status do cliente.
-          </li>
-
-          <li>
-            Seguro, taxas e elegibilidade têm regras próprias.
-          </li>
-
-          <li>
-            Cliente em atraso pode ter bloqueio parcial
-            ou total do cartão.
-          </li>
-
-          <li>
-            Alguns perfis podem ter isenção de entrada.
-          </li>
-
-          <li>
-            Outros canais:
-            TAS/totem, caixa da loja,
-            central/URA, fatura impressa
-            e MIA/WhatsApp em teste.
-          </li>
-
-        </ul>
-
-      </div>
-
-      <div
-        class="note warn"
-        style="
-          left:70px;
-          top:1480px;
-          width:470px;
-        "
-      >
-        Canal físico: se o valor pago da entrada for diferente
-        do valor exato da oferta, o parcelamento pode não ser ativado.
+      <div class="title">
+        Fatura atual + saldo total*
       </div>
 
     </div>
 
-    <div class="zoom-badge">
-      Arraste para navegar • use o scroll para zoom
+
+    <div class="card compact c5b">
+
+      <div class="step">
+        Cliente em atraso
+      </div>
+
+      <div class="title">
+        Apenas saldo total
+      </div>
+
     </div>
 
-  </main>
+
+    <div class="card red compact c5c">
+
+      <div class="step">
+        Pré-cancelamento
+      </div>
+
+      <div class="title">
+        Regras específicas / validar
+      </div>
+
+    </div>
+
+
+    <div class="card green c6">
+
+      <div class="step">
+        6 · Combo sugerido
+      </div>
+
+      <div class="title">
+        Cliente visualiza o combo pré-configurado
+      </div>
+
+      <div class="text">
+        Entrada, data e quantidade de parcelas sugeridas.
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+        <div class="screen-row"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="decision d3">
+
+      <span>
+        O combo atende à necessidade?
+      </span>
+
+    </div>
+
+
+    <div class="card green compact c7a">
+
+      <div class="title">
+        Segue com o combo
+      </div>
+
+      <div class="text">
+        Mantém as condições sugeridas.
+      </div>
+
+    </div>
+
+
+    <div class="card white c7b">
+
+      <div class="step">
+        8 · Simulação personalizada
+      </div>
+
+      <div class="title">
+        Cliente escolhe a data da entrada
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row short"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card white c8">
+
+      <div class="step">
+        8 · Valor da entrada
+      </div>
+
+      <div class="title">
+        Cliente define o valor da entrada
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row medium"></div>
+        <div class="screen-row"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         LINHA 2
+    ========================================================== -->
+
+
+    <div class="decision d4">
+
+      <span>
+        É elegível a duas taxas?
+      </span>
+
+    </div>
+
+
+    <div class="card green c9a">
+
+      <div class="step">
+        9A
+      </div>
+
+      <div class="title">
+        Escolhe taxa / prazo
+      </div>
+
+      <div class="text">
+        Cliente escolhe entre as condições disponíveis.
+      </div>
+
+    </div>
+
+
+    <div class="card compact c9b">
+
+      <div class="title">
+        Segue direto
+      </div>
+
+      <div class="text">
+        Sem escolha entre taxas.
+      </div>
+
+    </div>
+
+
+    <div class="card white c10">
+
+      <div class="step">
+        10 · Quantidade de parcelas
+      </div>
+
+      <div class="title">
+        Cliente define a quantidade
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row medium"></div>
+        <div class="screen-row"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="decision d5">
+
+      <span>
+        É elegível ao seguro?
+      </span>
+
+    </div>
+
+
+    <div class="card orange c11a">
+
+      <div class="step">
+        11A · Seguro
+      </div>
+
+      <div class="title">
+        Tela de oferta de proteção
+      </div>
+
+      <div class="text">
+        Exibida somente para clientes elegíveis.
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+        <div class="screen-row short"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card compact c11b">
+
+      <div class="title">
+        Sem oferta de seguro
+      </div>
+
+      <div class="text">
+        Cliente segue para a próxima etapa.
+      </div>
+
+    </div>
+
+
+    <div class="card orange c12">
+
+      <div class="step">
+        11B
+      </div>
+
+      <div class="title">
+        Cliente escolhe com ou sem proteção
+      </div>
+
+      <div class="text">
+        Define se deseja incluir o seguro.
+      </div>
+
+    </div>
+
+
+    <div class="decision d6">
+
+      <span>
+        Seguro incluído?
+      </span>
+
+    </div>
+
+
+    <div class="card orange compact c13a">
+
+      <div class="title">
+        Com proteção
+      </div>
+
+    </div>
+
+
+    <div class="card compact c13b">
+
+      <div class="title">
+        Sem proteção
+      </div>
+
+    </div>
+
+
+    <div class="card white c14">
+
+      <div class="step">
+        12 · Tela de resumo
+      </div>
+
+      <div class="title">
+        Cliente confere todos os detalhes
+      </div>
+
+      <div class="text">
+        Entrada, data, parcelas, taxa e seguro quando aplicável.
+      </div>
+
+    </div>
+
+
+    <div class="card white c15">
+
+      <div class="step">
+        13 · Forma de pagamento
+      </div>
+
+      <div class="title">
+        PIX ou boleto
+      </div>
+
+      <div class="text">
+        PIX: ativação após pagamento.<br>
+        Boleto: depende de compensação.
+      </div>
+
+    </div>
+
+
+    <div class="card green c16">
+
+      <div class="step">
+        14 · Simulação concluída
+      </div>
+
+      <div class="title">
+        Geração da promessa de pagamento
+      </div>
+
+      <div class="text">
+        Ainda não significa que o parcelamento está ativo.
+      </div>
+
+    </div>
+
+
+    <div class="decision d7">
+
+      <span>
+        Entrada foi paga?
+      </span>
+
+    </div>
+
+
+    <div class="card green c17b">
+
+      <div class="title">
+        Parcele ativado
+      </div>
+
+      <div class="text">
+        Parcelamento ativo disponível na área de parcelamentos.
+      </div>
+
+    </div>
+
+
+    <div class="card red c17a">
+
+      <div class="title">
+        Parcele pendente
+      </div>
+
+      <div class="text">
+        Cliente pode consultar a simulação pendente na área de parcelamentos.
+      </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         LABELS
+    ========================================================== -->
+
+    <div class="label gray l1">
+      Em dia
+    </div>
+
+    <div class="label gray l2">
+      Em atraso
+    </div>
+
+    <div class="label red l3">
+      Pré-cancelamento
+    </div>
+
+
+    <div class="label green l4">
+      Sim
+    </div>
+
+    <div class="label red l5">
+      Não
+    </div>
+
+
+    <div class="label green l6">
+      Sim
+    </div>
+
+    <div class="label red l7">
+      Não
+    </div>
+
+
+    <div class="label green l8">
+      Sim
+    </div>
+
+    <div class="label red l9">
+      Não
+    </div>
+
+
+    <div class="label green l10">
+      Sim
+    </div>
+
+    <div class="label red l11">
+      Não
+    </div>
+
+
+    <!-- =========================================================
+         NOTAS
+    ========================================================== -->
+
+    <div class="note n1">
+      * Saldo total para cliente em dia estava temporariamente
+      desabilitado por regra de teto de juros.
+    </div>
+
+
+    <div class="note n2">
+      Pode haver oferta de Pulo Ciclo para perfis elegíveis.
+      É uma regra complementar e não faz parte do tronco principal.
+    </div>
+
+
+    <div class="note orange n3">
+      Na jornada personalizada pode haver repescagem do seguro
+      na tela de resumo.
+    </div>
+
+
+    <!-- =========================================================
+         RODAPÉ
+    ========================================================== -->
+
+    <div class="footer-box f1">
+
+      <div class="footer-title">
+        Regras e pontos de atenção
+      </div>
+
+      <ul>
+
+        <li>
+          Modalidades variam conforme o status do cliente.
+        </li>
+
+        <li>
+          Seguro, taxas e elegibilidade têm regras específicas.
+        </li>
+
+        <li>
+          Cliente em atraso pode ter bloqueio parcial ou total do cartão.
+        </li>
+
+        <li>
+          Alguns perfis podem ter isenção de entrada.
+        </li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="footer-box f2">
+
+      <div class="footer-title">
+        Outros canais
+      </div>
+
+      <ul>
+
+        <li>
+          App — fluxo principal
+        </li>
+
+        <li>
+          TAS / totem
+        </li>
+
+        <li>
+          Caixa da loja
+        </li>
+
+        <li>
+          Central / URA
+        </li>
+
+        <li>
+          Fatura impressa
+        </li>
+
+        <li>
+          MIA / WhatsApp — em teste
+        </li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="footer-box f3">
+
+      <div class="footer-title">
+        Sobre o seguro
+      </div>
+
+      <ul>
+
+        <li>
+          Exibido apenas para clientes elegíveis.
+        </li>
+
+        <li>
+          Pode haver repescagem na personalizada e no resumo.
+        </li>
+
+        <li>
+          Condições e valores podem variar.
+        </li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="footer-box f4">
+
+      <div class="footer-title">
+        Gap conhecido
+      </div>
+
+      <ul>
+
+        <li>
+          O app não informa automaticamente que o Parcele foi ativado
+          após o pagamento da entrada.
+        </li>
+
+        <li>
+          O cliente precisa consultar a área de parcelamentos.
+        </li>
+
+        <li>
+          Em canal físico, se o valor pago da entrada for diferente
+          do valor exato da oferta, o parcelamento pode não ser ativado.
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
 
 </div>
-
-<script>
-
-  const viewport =
-    document.getElementById("viewport");
-
-  const canvas =
-    document.getElementById("canvas");
-
-  const zoomReset =
-    document.getElementById("zoomReset");
-
-  let scale = 0.72;
-
-  let tx = 20;
-  let ty = 20;
-
-  let dragging = false;
-
-  let sx = 0;
-  let sy = 0;
-
-  let startTx = 0;
-  let startTy = 0;
-
-  function clamp(value, min, max){
-    return Math.max(
-      min,
-      Math.min(max, value)
-    );
-  }
-
-  function render(){
-
-    canvas.style.transform =
-      `translate(${tx}px, ${ty}px) scale(${scale})`;
-
-    zoomReset.textContent =
-      `${Math.round(scale * 100)}%`;
-
-  }
-
-  function zoomAt(
-    clientX,
-    clientY,
-    delta
-  ){
-
-    const rect =
-      viewport.getBoundingClientRect();
-
-    const px =
-      clientX - rect.left;
-
-    const py =
-      clientY - rect.top;
-
-    const oldScale =
-      scale;
-
-    scale =
-      clamp(
-        scale * delta,
-        .30,
-        1.5
-      );
-
-    tx =
-      px -
-      (px - tx) *
-      (scale / oldScale);
-
-    ty =
-      py -
-      (py - ty) *
-      (scale / oldScale);
-
-    render();
-
-  }
-
-  viewport.addEventListener(
-    "wheel",
-    event => {
-
-      event.preventDefault();
-
-      zoomAt(
-        event.clientX,
-        event.clientY,
-        event.deltaY < 0
-          ? 1.08
-          : .92
-      );
-
-    },
-    {
-      passive:false
-    }
-  );
-
-  viewport.addEventListener(
-    "pointerdown",
-    event => {
-
-      dragging = true;
-
-      viewport.classList.add(
-        "dragging"
-      );
-
-      sx = event.clientX;
-      sy = event.clientY;
-
-      startTx = tx;
-      startTy = ty;
-
-      viewport.setPointerCapture(
-        event.pointerId
-      );
-
-    }
-  );
-
-  viewport.addEventListener(
-    "pointermove",
-    event => {
-
-      if(!dragging){
-        return;
-      }
-
-      tx =
-        startTx +
-        (
-          event.clientX - sx
-        );
-
-      ty =
-        startTy +
-        (
-          event.clientY - sy
-        );
-
-      render();
-
-    }
-  );
-
-  viewport.addEventListener(
-    "pointerup",
-    () => {
-
-      dragging = false;
-
-      viewport.classList.remove(
-        "dragging"
-      );
-
-    }
-  );
-
-  document
-    .getElementById("zoomIn")
-    .onclick =
-    () => {
-
-      zoomAt(
-        innerWidth / 2,
-        innerHeight / 2,
-        1.12
-      );
-
-    };
-
-  document
-    .getElementById("zoomOut")
-    .onclick =
-    () => {
-
-      zoomAt(
-        innerWidth / 2,
-        innerHeight / 2,
-        .89
-      );
-
-    };
-
-  document
-    .getElementById("zoomReset")
-    .onclick =
-    () => {
-
-      scale = .72;
-
-      tx = 20;
-      ty = 20;
-
-      render();
-
-    };
-
-  render();
-
-</script>
 
 </body>
 </html>
