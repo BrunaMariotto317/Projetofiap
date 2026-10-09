@@ -1,277 +1,2035 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tribo Retenção</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fluxograma As-Is — Parcele</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+  :root{
+    --bg:#f6f7f8;
+    --board:#ffffff;
+    --ink:#17191c;
+    --muted:#6d737b;
 
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-    }
+    --neutral:#f1f3f5;
+    --neutral-border:#dfe3e8;
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #dcecf2;
-    }
+    --green:#eaf7de;
+    --green-strong:#167a42;
+    --green-border:#cfe9bd;
 
-    .slide {
-      position: relative;
-      width: 100vw;
-      height: 56.25vw;
-      max-height: 100vh;
-      max-width: 177.78vh;
-      overflow: hidden;
+    --orange:#fff1df;
+    --orange-strong:#b66813;
+    --orange-border:#f1d3ad;
 
-      background:
-        radial-gradient(
-          circle at 76% 38%,
-          rgba(255, 248, 220, 0.92) 0%,
-          rgba(246, 243, 219, 0.65) 16%,
-          rgba(215, 238, 240, 0.28) 34%,
-          transparent 55%
-        ),
-        radial-gradient(
-          circle at 55% 80%,
-          rgba(167, 217, 230, 0.55) 0%,
-          rgba(179, 220, 231, 0.30) 30%,
-          transparent 58%
-        ),
-        linear-gradient(
-          115deg,
-          #78b9da 0%,
-          #9dcee3 28%,
-          #c6e1ea 53%,
-          #e5e9dd 77%,
-          #f3ebcf 100%
-        );
-    }
+    --red:#fde8e8;
+    --red-strong:#bb3943;
+    --red-border:#f2c5c8;
 
-    /* leve névoa */
-    .slide::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(
-          180deg,
-          rgba(255,255,255,0.03),
-          rgba(255,255,255,0.08)
-        );
-      pointer-events: none;
-    }
+    --blue:#eef4fb;
+    --blue-border:#d9e4f3;
 
-    /* BORDA PRINCIPAL */
-    .frame {
-      position: absolute;
-      inset: 3.5%;
-      border: 1.5px solid rgba(255,255,255,0.55);
-      border-radius: 34px;
-    }
+    --shadow:0 10px 26px rgba(19,24,31,.07);
+  }
 
-    /* canto superior esquerdo */
-    .corner-left {
-      position: absolute;
-      width: 145px;
-      height: 145px;
-      top: -14px;
-      left: -1px;
-      border-right: 1.4px solid rgba(255,255,255,0.55);
-      border-bottom: 1.4px solid rgba(255,255,255,0.55);
-      border-bottom-right-radius: 55px;
-    }
+  *{
+    box-sizing:border-box;
+  }
 
-    /* canto inferior direito */
-    .corner-right {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      right: -1px;
-      bottom: -8px;
-      border-left: 1.4px solid rgba(255,255,255,0.55);
-      border-top: 1.4px solid rgba(255,255,255,0.55);
-      border-top-left-radius: 55px;
-    }
+  html,
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+  }
 
-    /* TEXTO SUPERIOR */
-    .top-line {
-      position: absolute;
-      top: 8.8%;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
+  body{
+    overflow:hidden;
+  }
 
-      color: #233d75;
-      font-size: clamp(11px, 1.05vw, 18px);
-      font-weight: 400;
-      letter-spacing: 0.23em;
-      text-transform: uppercase;
-    }
+  .app{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
 
-    /* TÍTULO */
-    .title {
-      position: absolute;
-      left: 8.6%;
-      top: 22.4%;
-      color: #263870;
-    }
+  /* TOPO */
 
-    .title .tribo {
-      font-size: clamp(34px, 4.5vw, 74px);
-      font-weight: 300;
-      line-height: 0.95;
-      letter-spacing: -0.035em;
-    }
+  .topbar{
+    height:74px;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    border-bottom:1px solid #e5e8ec;
+    z-index:20;
+  }
 
-    .title .retencao {
-      margin-top: 8px;
-      font-size: clamp(46px, 5.8vw, 94px);
-      font-weight: 700;
-      line-height: 0.88;
-      letter-spacing: -0.055em;
-    }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
 
-    /* TEXTO INFERIOR */
-    .bottom-line {
-      position: absolute;
-      bottom: 7.3%;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
+  .pill{
+    padding:7px 12px;
+    border-radius:999px;
+    background:#dff7b8;
+    color:#2f6d1f;
+    font-size:13px;
+    font-weight:700;
+  }
 
-      color: #233d75;
-      font-size: clamp(11px, 1.05vw, 18px);
-      font-weight: 400;
-      letter-spacing: 0.23em;
-      text-transform: uppercase;
-    }
+  .title-wrap h1{
+    font-size:22px;
+    line-height:1.1;
+    margin:0;
+    font-weight:760;
+    letter-spacing:-.02em;
+  }
 
-    /* FORMAS GEOMÉTRICAS */
-    .geo {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
+  .title-wrap p{
+    font-size:12px;
+    color:var(--muted);
+    margin:4px 0 0;
+  }
 
-    .diamond {
-      position: absolute;
-      width: 540px;
-      height: 540px;
-      left: 44%;
-      top: 7%;
-      border: 1.5px solid rgba(255,255,255,0.55);
-      border-radius: 28px;
-      transform: rotate(45deg);
-    }
+  .legend{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+    font-size:12px;
+    color:#4d535b;
+  }
 
-    .arc-big {
-      position: absolute;
-      width: 640px;
-      height: 770px;
-      left: 43%;
-      top: -2%;
-      border: 1.5px solid rgba(255,255,255,0.52);
-      border-radius: 48%;
-    }
+  .legend .item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
 
-    .loop-top {
-      position: absolute;
-      width: 195px;
-      height: 235px;
-      right: 14.6%;
-      top: -2%;
-      border: 1.5px solid rgba(255,255,255,0.55);
-      border-radius: 50%;
-    }
+  .dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+  }
 
-    .loop-bottom {
-      position: absolute;
-      width: 220px;
-      height: 300px;
-      right: 14%;
-      top: 46%;
-      border: 1.5px solid rgba(255,255,255,0.55);
-      border-radius: 50% 50% 48% 54%;
-    }
+  .dot.neutral{background:#cfd4db;}
+  .dot.green{background:#94d86c;}
+  .dot.orange{background:#f2ae65;}
+  .dot.red{background:#ef8288;}
 
-    /* máscara para simular o formato de "pin" */
-    .loop-bottom::after {
-      content: "";
-      position: absolute;
-      width: 120px;
-      height: 155px;
-      bottom: -85px;
-      left: 58px;
-      background: transparent;
-      border-right: 1.5px solid rgba(255,255,255,0.55);
-      transform: rotate(36deg);
-      transform-origin: top;
-    }
+  .tools{
+    display:flex;
+    gap:8px;
+    margin-left:14px;
+  }
 
-    @media (max-width: 900px) {
-      .diamond {
-        width: 360px;
-        height: 360px;
-      }
+  button.tool{
+    border:1px solid #e0e4e8;
+    background:#fff;
+    border-radius:10px;
+    padding:8px 10px;
+    cursor:pointer;
+    font-weight:650;
+    color:#343941;
+  }
 
-      .arc-big {
-        width: 430px;
-        height: 550px;
-      }
+  button.tool:hover{
+    background:#f6f7f8;
+  }
 
-      .loop-top {
-        width: 135px;
-        height: 170px;
-      }
+  /* MIRO / BOARD */
 
-      .loop-bottom {
-        width: 155px;
-        height: 220px;
-      }
-    }
-  </style>
+  .viewport{
+    position:relative;
+    flex:1;
+    overflow:hidden;
+    cursor:grab;
+
+    background:
+      radial-gradient(
+        circle at 1px 1px,
+        rgba(92,99,112,.12) 1px,
+        transparent 1px
+      );
+
+    background-size:24px 24px;
+  }
+
+  .viewport.dragging{
+    cursor:grabbing;
+  }
+
+  .canvas{
+    position:absolute;
+    left:0;
+    top:0;
+
+    width:2900px;
+    height:1800px;
+
+    transform-origin:0 0;
+
+    background:#fff;
+
+    box-shadow:
+      0 20px 60px rgba(0,0,0,.05);
+  }
+
+  /* INTRO */
+
+  .intro{
+    position:absolute;
+    left:70px;
+    top:58px;
+    width:560px;
+  }
+
+  .intro h2{
+    font-size:42px;
+    letter-spacing:-.04em;
+    line-height:1.02;
+    margin:0 0 10px;
+    font-weight:760;
+  }
+
+  .intro p{
+    font-size:15px;
+    line-height:1.5;
+    color:#626871;
+    max-width:520px;
+    margin:0;
+  }
+
+  .intro .tag{
+    display:inline-block;
+    margin-bottom:14px;
+
+    background:#dff7b8;
+    color:#2f6d1f;
+
+    padding:7px 12px;
+    border-radius:999px;
+
+    font-size:13px;
+    font-weight:700;
+  }
+
+  /* CARDS */
+
+  .node{
+    position:absolute;
+
+    border-radius:18px;
+    padding:16px 18px;
+
+    background:var(--neutral);
+    border:1px solid var(--neutral-border);
+
+    box-shadow:var(--shadow);
+  }
+
+  .node.compact{
+    padding:12px 14px;
+    border-radius:16px;
+  }
+
+  .node.green{
+    background:var(--green);
+    border-color:var(--green-border);
+  }
+
+  .node.orange{
+    background:var(--orange);
+    border-color:var(--orange-border);
+  }
+
+  .node.red{
+    background:var(--red);
+    border-color:var(--red-border);
+  }
+
+  .node.blue{
+    background:var(--blue);
+    border-color:var(--blue-border);
+  }
+
+  .node.white{
+    background:#fff;
+  }
+
+  .node h3,
+  .node h4{
+    margin:0;
+    color:#202328;
+  }
+
+  .node h3{
+    font-size:18px;
+  }
+
+  .node h4{
+    font-size:15px;
+  }
+
+  .node p{
+    margin:6px 0 0;
+    color:#636a73;
+    font-size:13px;
+    line-height:1.42;
+  }
+
+  .node ul{
+    margin:8px 0 0 18px;
+    padding:0;
+
+    color:#555d66;
+    font-size:12px;
+    line-height:1.5;
+  }
+
+  .eyebrow{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    margin-bottom:8px;
+
+    font-size:12px;
+    font-weight:750;
+    color:#444b53;
+  }
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:26px;
+    height:26px;
+
+    border-radius:999px;
+
+    background:#fff;
+    border:1px solid rgba(0,0,0,.06);
+
+    font-size:12px;
+    font-weight:800;
+  }
+
+  /* MINI MOCK DE TELA */
+
+  .screen{
+    margin-top:12px;
+
+    border:1px solid #d7dce1;
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:10px 10px 12px;
+
+    box-shadow:
+      0 4px 12px rgba(0,0,0,.04);
+  }
+
+  .screen .bar{
+    height:8px;
+    width:44px;
+
+    border-radius:999px;
+
+    background:#dfe4e8;
+
+    margin:0 auto 10px;
+  }
+
+  .screen .row{
+    height:8px;
+    border-radius:999px;
+    background:#eef1f3;
+    margin:7px 0;
+  }
+
+  .screen .row.short{
+    width:62%;
+  }
+
+  .screen .row.med{
+    width:78%;
+  }
+
+  .screen .cta{
+    margin-top:10px;
+    height:24px;
+    border-radius:7px;
+    background:#e5e8ec;
+  }
+
+  .green .screen .cta{
+    background:#80c95b;
+  }
+
+  .orange .screen .cta{
+    background:#f1a35d;
+  }
+
+  .red .screen .cta{
+    background:#e97b82;
+  }
+
+  /* LOSANGOS */
+
+  .decision{
+    position:absolute;
+
+    width:146px;
+    height:146px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    color:#3a3f45;
+
+    font-size:12px;
+    font-weight:700;
+  }
+
+  .decision::before{
+    content:"";
+
+    position:absolute;
+
+    inset:18px;
+
+    transform:rotate(45deg);
+
+    border-radius:18px;
+
+    background:#fff8eb;
+    border:1.5px solid #e7cfaa;
+
+    box-shadow:var(--shadow);
+  }
+
+  .decision span{
+    position:relative;
+    z-index:1;
+
+    width:92px;
+
+    line-height:1.25;
+  }
+
+  .decision.neutral::before{
+    background:#f8f9fa;
+    border-color:#d8dde3;
+  }
+
+  .decision.green::before{
+    background:#f2faec;
+    border-color:#cfe9bd;
+  }
+
+  /* RÓTULOS */
+
+  .section-label{
+    position:absolute;
+
+    font-size:13px;
+    font-weight:780;
+    letter-spacing:.02em;
+
+    color:#727982;
+
+    text-transform:uppercase;
+  }
+
+  .note{
+    position:absolute;
+
+    font-size:11px;
+    color:#6f7680;
+
+    line-height:1.45;
+
+    background:#f5f7f9;
+
+    border:1px dashed #d4d9df;
+
+    border-radius:14px;
+
+    padding:10px 12px;
+  }
+
+  .note.warn{
+    background:#fff4f4;
+    border-color:#efc4c7;
+    color:#8e454a;
+  }
+
+  /* CONEXÕES */
+
+  svg.connections{
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:2900px;
+    height:1800px;
+
+    pointer-events:none;
+
+    overflow:visible;
+  }
+
+  path.flow{
+    fill:none;
+
+    stroke:#b4bac3;
+
+    stroke-width:2.2;
+
+    stroke-linecap:round;
+    stroke-linejoin:round;
+
+    marker-end:url(#arrow);
+  }
+
+  path.flow.dashed{
+    stroke-dasharray:5 8;
+  }
+
+  path.flow.green{
+    stroke:#6bbf59;
+  }
+
+  path.flow.orange{
+    stroke:#e5a25c;
+  }
+
+  path.flow.red{
+    stroke:#df7079;
+  }
+
+  /* FOOTERS */
+
+  .footer-card{
+    position:absolute;
+
+    border-radius:18px;
+
+    background:#fff;
+
+    border:1px solid #e1e5e9;
+
+    box-shadow:var(--shadow);
+
+    padding:16px 18px;
+  }
+
+  .footer-card h4{
+    margin:0 0 8px;
+    font-size:14px;
+  }
+
+  .footer-card ul{
+    margin:0 0 0 17px;
+    padding:0;
+
+    font-size:11px;
+
+    color:#656c75;
+
+    line-height:1.45;
+  }
+
+  .zoom-badge{
+    position:absolute;
+
+    right:18px;
+    bottom:18px;
+
+    background:#fff;
+
+    border:1px solid #dfe3e8;
+
+    border-radius:12px;
+
+    padding:8px 10px;
+
+    font-size:12px;
+
+    color:#5e656d;
+
+    box-shadow:var(--shadow);
+
+    z-index:10;
+  }
+</style>
 </head>
 
 <body>
 
-  <main class="slide">
+<div class="app">
 
-    <div class="frame"></div>
-    <div class="corner-left"></div>
-    <div class="corner-right"></div>
+  <header class="topbar">
 
-    <div class="top-line">
-      RENTABILIDADE • CANAL VOZ • RÉGUAS &amp; CANAIS DIGITAIS • SQUAD PARCELE • SQUAD ACORDO
+    <div class="brand">
+
+      <span class="pill">
+        As-Is
+      </span>
+
+      <div class="title-wrap">
+        <h1>
+          Parcele — Fluxo ponta a ponta
+        </h1>
+
+        <p>
+          Jornada principal no app • cada card representa uma tela, estado ou decisão
+        </p>
+      </div>
+
     </div>
 
-    <div class="title">
-      <div class="tribo">TRIBO</div>
-      <div class="retencao">RETENÇÃO</div>
+    <div style="display:flex; align-items:center; gap:10px">
+
+      <div class="legend">
+
+        <span class="item">
+          <i class="dot neutral"></i>
+          telas neutras
+        </span>
+
+        <span class="item">
+          <i class="dot green"></i>
+          contratação / avanço
+        </span>
+
+        <span class="item">
+          <i class="dot orange"></i>
+          seguro
+        </span>
+
+        <span class="item">
+          <i class="dot red"></i>
+          desistência / erro / atenção
+        </span>
+
+      </div>
+
+      <div class="tools">
+
+        <button class="tool" id="zoomOut">
+          −
+        </button>
+
+        <button class="tool" id="zoomReset">
+          72%
+        </button>
+
+        <button class="tool" id="zoomIn">
+          +
+        </button>
+
+      </div>
+
     </div>
 
-    <div class="bottom-line">
-      RENTABILIDADE • CANAL VOZ • RÉGUAS &amp; CANAIS DIGITAIS • SQUAD PARCELE • SQUAD ACORDO
+  </header>
+
+  <main class="viewport" id="viewport">
+
+    <div class="canvas" id="canvas">
+
+      <!-- CABEÇALHO -->
+
+      <div class="intro">
+
+        <span class="tag">
+          Fluxo atual
+        </span>
+
+        <h2>
+          Fluxograma As-Is<br>
+          Parcele
+        </h2>
+
+        <p>
+          Jornada mapeada tela a tela a partir do fluxo atual no app,
+          mantendo os principais caminhos, regras e bifurcações.
+        </p>
+
+      </div>
+
+      <div
+        class="section-label"
+        style="left:70px; top:270px;"
+      >
+        Descoberta
+      </div>
+
+      <div
+        class="section-label"
+        style="left:820px; top:270px;"
+      >
+        Simulação
+      </div>
+
+      <div
+        class="section-label"
+        style="left:1840px; top:270px;"
+      >
+        Pós-simulação
+      </div>
+
+      <!-- CONEXÕES -->
+
+      <svg
+        class="connections"
+        viewBox="0 0 2900 1800"
+        preserveAspectRatio="none"
+      >
+
+        <defs>
+
+          <marker
+            id="arrow"
+            markerWidth="10"
+            markerHeight="10"
+            refX="7"
+            refY="3"
+            orient="auto"
+            markerUnits="strokeWidth"
+          >
+            <path
+              d="M0,0 L0,6 L8,3 z"
+              fill="#b4bac3"
+            />
+          </marker>
+
+        </defs>
+
+        <!-- entrada -->
+
+        <path
+          class="flow"
+          d="M260 430 C320 430 340 430 400 430"
+        />
+
+        <path
+          class="flow"
+          d="M660 430 C720 430 740 430 795 430"
+        />
+
+        <!-- status -->
+
+        <path
+          class="flow green"
+          d="M940 430 C990 380 1020 350 1080 345"
+        />
+
+        <path
+          class="flow"
+          d="M940 430 C1000 430 1020 440 1080 440"
+        />
+
+        <path
+          class="flow red"
+          d="M940 430 C990 485 1020 530 1080 545"
+        />
+
+        <!-- status converge -->
+
+        <path
+          class="flow dashed"
+          d="M1325 345 C1390 345 1420 345 1470 345"
+        />
+
+        <path
+          class="flow dashed"
+          d="M1325 440 C1400 440 1425 405 1470 345"
+        />
+
+        <path
+          class="flow dashed"
+          d="M1325 545 C1400 545 1430 430 1470 345"
+        />
+
+        <!-- modalidade -->
+
+        <path
+          class="flow"
+          d="M1700 345 C1760 345 1790 345 1840 345"
+        />
+
+        <path
+          class="flow green"
+          d="M1985 345 C2030 310 2050 300 2100 300"
+        />
+
+        <path
+          class="flow"
+          d="M1985 345 C2030 360 2050 400 2100 400"
+        />
+
+        <path
+          class="flow red"
+          d="M1985 345 C2030 410 2050 500 2100 500"
+        />
+
+        <!-- para combo -->
+
+        <path
+          class="flow dashed"
+          d="M2335 300 C2420 300 2430 620 1570 620"
+        />
+
+        <path
+          class="flow dashed"
+          d="M2335 400 C2420 400 2430 620 1570 620"
+        />
+
+        <path
+          class="flow dashed"
+          d="M2335 500 C2420 500 2430 620 1570 620"
+        />
+
+        <!-- combo -->
+
+        <path
+          class="flow"
+          d="M1570 800 C1620 800 1640 800 1690 800"
+        />
+
+        <path
+          class="flow green"
+          d="M1832 800 C1880 755 1900 745 1945 745"
+        />
+
+        <path
+          class="flow red"
+          d="M1832 800 C1880 840 1900 855 1945 875"
+        />
+
+        <!-- personalizada -->
+
+        <path
+          class="flow"
+          d="M2140 875 C2190 875 2210 875 2260 875"
+        />
+
+        <path
+          class="flow"
+          d="M2465 875 C2520 875 2540 875 2580 875"
+        />
+
+        <!-- decisão taxas -->
+
+        <path
+          class="flow"
+          d="M2680 975 C2680 1020 2680 1040 2680 1070"
+        />
+
+        <path
+          class="flow green"
+          d="M2680 1210 C2600 1220 2520 1240 2450 1260"
+        />
+
+        <path
+          class="flow red"
+          d="M2680 1210 C2740 1220 2790 1240 2840 1260"
+        />
+
+        <!-- taxa / sem taxa -> qtd -->
+
+        <path
+          class="flow"
+          d="M2545 1350 C2600 1350 2630 1350 2680 1350"
+        />
+
+        <path
+          class="flow"
+          d="M2840 1350 C2790 1350 2755 1350 2705 1350"
+        />
+
+        <!-- segue para seguro -->
+
+        <path
+          class="flow green dashed"
+          d="M2065 745 C2010 710 1920 710 1825 1040"
+        />
+
+        <path
+          class="flow dashed"
+          d="M2700 1430 C2600 1470 2150 1470 1825 1040"
+        />
+
+        <!-- seguro -->
+
+        <path
+          class="flow orange"
+          d="M1760 1110 C1680 1145 1630 1170 1570 1200"
+        />
+
+        <path
+          class="flow dashed"
+          d="M1895 1110 C1970 1150 1990 1190 1990 1230"
+        />
+
+        <path
+          class="flow orange"
+          d="M1570 1340 C1635 1340 1660 1340 1715 1340"
+        />
+
+        <path
+          class="flow dashed"
+          d="M1990 1230 C1960 1270 1920 1310 1885 1340"
+        />
+
+        <!-- seguro -> resumo -->
+
+        <path
+          class="flow"
+          d="M1925 1340 C1985 1340 2020 1340 2080 1340"
+        />
+
+        <!-- resumo -> pagamento -->
+
+        <path
+          class="flow"
+          d="M2310 1340 C2360 1340 2390 1340 2445 1340"
+        />
+
+        <!-- pagamento -> promessa -->
+
+        <path
+          class="flow green"
+          d="M2600 1410 C2560 1470 2490 1490 2415 1490"
+        />
+
+        <path
+          class="flow"
+          d="M2600 1450 C2550 1480 2490 1490 2415 1490"
+        />
+
+        <!-- promessa -> entrada -->
+
+        <path
+          class="flow"
+          d="M2210 1490 C2150 1490 2120 1490 2060 1490"
+        />
+
+        <!-- entrada -> decisão -->
+
+        <path
+          class="flow"
+          d="M1830 1490 C1760 1490 1715 1490 1650 1490"
+        />
+
+        <!-- decisão pagamento -->
+
+        <path
+          class="flow red"
+          d="M1500 1490 C1450 1450 1400 1420 1340 1400"
+        />
+
+        <path
+          class="flow green"
+          d="M1500 1490 C1450 1530 1400 1560 1340 1580"
+        />
+
+      </svg>
+
+      <!-- 1 - ENTRADA -->
+
+      <div
+        class="node white"
+        style="
+          left:70px;
+          top:350px;
+          width:190px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">1</span>
+          Entrada
+        </div>
+
+        <h4>
+          Cliente acessa o Parcele
+        </h4>
+
+        <div class="screen">
+
+          <div class="bar"></div>
+
+          <div class="row med"></div>
+          <div class="row"></div>
+          <div class="row short"></div>
+
+          <div class="cta"></div>
+
+        </div>
+
+      </div>
+
+      <!-- 2 - HOME -->
+
+      <div
+        class="node white"
+        style="
+          left:400px;
+          top:330px;
+          width:260px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">2</span>
+          Home do Parcele
+        </div>
+
+        <h4>
+          Cliente visualiza a Home
+        </h4>
+
+        <p>
+          Home personalizada conforme o status do cliente.
+        </p>
+
+        <div class="screen">
+
+          <div class="bar"></div>
+
+          <div class="row"></div>
+          <div class="row med"></div>
+          <div class="row short"></div>
+
+          <div class="cta"></div>
+
+        </div>
+
+        <p class="mini">
+          Simular • Conferir simulações • Parcelamentos ativos
+        </p>
+
+      </div>
+
+      <!-- STATUS -->
+
+      <div
+        class="decision neutral"
+        style="
+          left:795px;
+          top:357px;
+        "
+      >
+        <span>
+          Qual é o status do cliente?
+        </span>
+      </div>
+
+      <!-- EM DIA -->
+
+      <div
+        class="node green"
+        style="
+          left:1080px;
+          top:290px;
+          width:245px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">✓</span>
+          Em dia
+        </div>
+
+        <h4>
+          Home de cliente em dia
+        </h4>
+
+        <p>
+          Banner de benefício e comunicação de parcelamento.
+        </p>
+
+      </div>
+
+      <!-- DLNQ -->
+
+      <div
+        class="node"
+        style="
+          left:1080px;
+          top:395px;
+          width:245px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">●</span>
+          DLNQ / Em atraso
+        </div>
+
+        <h4>
+          Home de cliente em atraso
+        </h4>
+
+        <p>
+          Exibe dias de atraso e incentivo para regularização.
+        </p>
+
+      </div>
+
+      <!-- PWF -->
+
+      <div
+        class="node red"
+        style="
+          left:1080px;
+          top:500px;
+          width:245px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">!</span>
+          PWF / Pré-cancelamento
+        </div>
+
+        <h4>
+          Experiência específica
+        </h4>
+
+        <p>
+          Cliente próximo do cancelamento.
+        </p>
+
+      </div>
+
+      <!-- NOVA SIMULAÇÃO -->
+
+      <div
+        class="node white"
+        style="
+          left:1470px;
+          top:295px;
+          width:230px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">3</span>
+          Nova simulação
+        </div>
+
+        <h4>
+          Cliente inicia uma nova simulação
+        </h4>
+
+        <div class="screen">
+
+          <div class="row"></div>
+          <div class="row med"></div>
+
+          <div class="cta"></div>
+
+        </div>
+
+      </div>
+
+      <!-- MODALIDADE -->
+
+      <div
+        class="decision neutral"
+        style="
+          left:1840px;
+          top:275px;
+        "
+      >
+        <span>
+          Qual modalidade está disponível?
+        </span>
+      </div>
+
+      <!-- CLIENTE EM DIA -->
+
+      <div
+        class="node green compact"
+        style="
+          left:2100px;
+          top:260px;
+          width:235px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">✓</span>
+          Cliente em dia
+        </div>
+
+        <h4>
+          Fatura atual + saldo total*
+        </h4>
+
+      </div>
+
+      <!-- CLIENTE EM ATRASO -->
+
+      <div
+        class="node compact"
+        style="
+          left:2100px;
+          top:360px;
+          width:235px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">●</span>
+          Cliente em atraso
+        </div>
+
+        <h4>
+          Apenas saldo total
+        </h4>
+
+      </div>
+
+      <!-- PWF -->
+
+      <div
+        class="node red compact"
+        style="
+          left:2100px;
+          top:460px;
+          width:235px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">!</span>
+          Pré-cancelamento
+        </div>
+
+        <h4>
+          Regras específicas / validar
+        </h4>
+
+      </div>
+
+      <div
+        class="note"
+        style="
+          left:2100px;
+          top:560px;
+          width:235px;
+        "
+      >
+        * Saldo total para cliente em dia estava temporariamente
+        desabilitado por regra de teto de juros.
+      </div>
+
+      <!-- COMBO -->
+
+      <div
+        class="node white"
+        style="
+          left:1430px;
+          top:620px;
+          width:280px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">4</span>
+          Combo
+        </div>
+
+        <h4>
+          Cliente visualiza o combo sugerido
+        </h4>
+
+        <p>
+          Entrada, data e quantidade de parcelas pré-configuradas.
+        </p>
+
+        <div class="screen">
+
+          <div class="row med"></div>
+          <div class="row"></div>
+          <div class="row short"></div>
+
+          <div class="cta"></div>
+
+        </div>
+
+      </div>
+
+      <!-- COMBO ATENDE? -->
+
+      <div
+        class="decision green"
+        style="
+          left:1690px;
+          top:725px;
+        "
+      >
+        <span>
+          O combo atende à necessidade?
+        </span>
+      </div>
+
+      <!-- SEGUE COM COMBO -->
+
+      <div
+        class="node green compact"
+        style="
+          left:1945px;
+          top:700px;
+          width:150px;
+        "
+      >
+        <h4>
+          Segue com o combo
+        </h4>
+      </div>
+
+      <!-- SIMULAÇÃO PERSONALIZADA -->
+
+      <div
+        class="node white"
+        style="
+          left:1945px;
+          top:830px;
+          width:195px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">5</span>
+          Personalizada
+        </div>
+
+        <h4>
+          Cliente escolhe a data da entrada
+        </h4>
+
+        <div class="screen">
+
+          <div class="row"></div>
+          <div class="row med"></div>
+
+          <div class="cta"></div>
+
+        </div>
+
+      </div>
+
+      <!-- VALOR ENTRADA -->
+
+      <div
+        class="node white"
+        style="
+          left:2260px;
+          top:830px;
+          width:205px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">6</span>
+          Entrada
+        </div>
+
+        <h4>
+          Cliente escolhe o valor da entrada
+        </h4>
+
+        <div class="screen">
+
+          <div class="row med"></div>
+          <div class="row"></div>
+
+          <div class="cta"></div>
+
+        </div>
+
+      </div>
+
+      <!-- DECISÃO 2 TAXAS -->
+
+      <div
+        class="decision neutral"
+        style="
+          left:2607px;
+          top:1015px;
+        "
+      >
+        <span>
+          É elegível a duas taxas?
+        </span>
+      </div>
+
+      <!-- TAXA / PRAZO -->
+
+      <div
+        class="node green"
+        style="
+          left:2380px;
+          top:1240px;
+          width:175px;
+        "
+      >
+
+        <h4>
+          Escolhe taxa / prazo
+        </h4>
+
+        <p>
+          Quando elegível a duas condições.
+        </p>
+
+      </div>
+
+      <!-- SEM DUAS TAXAS -->
+
+      <div
+        class="node"
+        style="
+          left:2780px;
+          top:1240px;
+          width:120px;
+        "
+      >
+
+        <h4>
+          Segue direto
+        </h4>
+
+        <p>
+          Sem escolha entre taxas.
+        </p>
+
+      </div>
+
+      <!-- QUANTIDADE DE PARCELAS -->
+
+      <div
+        class="node white"
+        style="
+          left:2590px;
+          top:1320px;
+          width:200px;
+        "
+      >
+
+        <h4>
+          Cliente escolhe a quantidade de parcelas
+        </h4>
+
+      </div>
+
+      <div
+        class="note"
+        style="
+          left:2600px;
+          top:1420px;
+          width:200px;
+        "
+      >
+        Pode haver oferta de Pulo Ciclo para perfis elegíveis.
+      </div>
+
+      <!-- SEGURO -->
+
+      <div
+        class="decision"
+        style="
+          left:1755px;
+          top:1025px;
+        "
+      >
+        <span>
+          Cliente é elegível ao seguro?
+        </span>
+      </div>
+
+      <!-- TELA SEGURO -->
+
+      <div
+        class="node orange"
+        style="
+          left:1450px;
+          top:1170px;
+          width:185px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">7</span>
+          Seguro
+        </div>
+
+        <h4>
+          Tela de seguro
+        </h4>
+
+        <p>
+          Oferta de proteção ao parcelamento.
+        </p>
+
+        <div class="screen">
+
+          <div class="row med"></div>
+          <div class="row"></div>
+          <div class="row short"></div>
+
+          <div class="cta"></div>
+
+        </div>
+
+      </div>
+
+      <!-- COM OU SEM PROTEÇÃO -->
+
+      <div
+        class="node orange"
+        style="
+          left:1715px;
+          top:1300px;
+          width:210px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">8</span>
+          Escolha
+        </div>
+
+        <h4>
+          Cliente escolhe com ou sem proteção
+        </h4>
+
+        <p>
+          Na personalizada pode haver repescagem do seguro no resumo.
+        </p>
+
+      </div>
+
+      <!-- RESUMO -->
+
+      <div
+        class="node white"
+        style="
+          left:2080px;
+          top:1290px;
+          width:230px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">9</span>
+          Resumo
+        </div>
+
+        <h4>
+          Cliente visualiza a tela de resumo
+        </h4>
+
+        <ul>
+          <li>Valor da entrada</li>
+          <li>Data da entrada</li>
+          <li>Quantidade de parcelas</li>
+          <li>Taxas e condições</li>
+          <li>Seguro, quando aplicável</li>
+        </ul>
+
+      </div>
+
+      <!-- FORMA PAGAMENTO -->
+
+      <div
+        class="node white"
+        style="
+          left:2445px;
+          top:1290px;
+          width:185px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">10</span>
+          Pagamento
+        </div>
+
+        <h4>
+          Cliente escolhe a forma de pagamento
+        </h4>
+
+        <p>
+          PIX ou boleto
+        </p>
+
+      </div>
+
+      <!-- PROMESSA -->
+
+      <div
+        class="node green"
+        style="
+          left:2210px;
+          top:1450px;
+          width:205px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">11</span>
+          Simulação concluída
+        </div>
+
+        <h4>
+          Geração da promessa de pagamento
+        </h4>
+
+        <p>
+          Ainda não é contratação ativa.
+        </p>
+
+      </div>
+
+      <!-- PAGAMENTO ENTRADA -->
+
+      <div
+        class="node white"
+        style="
+          left:1830px;
+          top:1450px;
+          width:230px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">12</span>
+          Entrada
+        </div>
+
+        <h4>
+          Cliente realiza o pagamento da entrada
+        </h4>
+
+        <p>
+          PIX ativa imediatamente. Boleto depende de compensação.
+        </p>
+
+      </div>
+
+      <!-- ENTRADA FOI PAGA -->
+
+      <div
+        class="decision neutral"
+        style="
+          left:1500px;
+          top:1420px;
+        "
+      >
+        <span>
+          Entrada foi paga?
+        </span>
+      </div>
+
+      <!-- NÃO -->
+
+      <div
+        class="node red"
+        style="
+          left:1090px;
+          top:1350px;
+          width:250px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">×</span>
+          Não
+        </div>
+
+        <h4>
+          Parcele / simulação pendente
+        </h4>
+
+        <p>
+          Cliente pode consultar a simulação pendente
+          na área de parcelamentos.
+        </p>
+
+      </div>
+
+      <!-- SIM -->
+
+      <div
+        class="node green"
+        style="
+          left:1090px;
+          top:1530px;
+          width:250px;
+        "
+      >
+
+        <div class="eyebrow">
+          <span class="badge">✓</span>
+          Sim
+        </div>
+
+        <h4>
+          Parcele ativado
+        </h4>
+
+        <p>
+          Parcelamento ativo disponível
+          na área de parcelamentos.
+        </p>
+
+      </div>
+
+      <!-- OBSERVAÇÕES -->
+
+      <div
+        class="footer-card"
+        style="
+          left:650px;
+          top:1340px;
+          width:300px;
+        "
+      >
+
+        <h4>
+          Comunicações
+        </h4>
+
+        <ul>
+          <li>E-mail com dados da simulação</li>
+          <li>Contrato em anexo</li>
+          <li>Boleto / código PIX da entrada</li>
+        </ul>
+
+      </div>
+
+      <div
+        class="footer-card"
+        style="
+          left:650px;
+          top:1500px;
+          width:300px;
+        "
+      >
+
+        <h4>
+          Gap conhecido
+        </h4>
+
+        <ul>
+          <li>
+            O app não confirma automaticamente
+            a ativação após o pagamento.
+          </li>
+
+          <li>
+            O cliente precisa consultar
+            a área de parcelamentos posteriormente.
+          </li>
+        </ul>
+
+      </div>
+
+      <div
+        class="footer-card"
+        style="
+          left:70px;
+          top:1180px;
+          width:470px;
+        "
+      >
+
+        <h4>
+          Regras e pontos de atenção
+        </h4>
+
+        <ul>
+
+          <li>
+            Modalidades variam conforme o status do cliente.
+          </li>
+
+          <li>
+            Seguro, taxas e elegibilidade têm regras próprias.
+          </li>
+
+          <li>
+            Cliente em atraso pode ter bloqueio parcial
+            ou total do cartão.
+          </li>
+
+          <li>
+            Alguns perfis podem ter isenção de entrada.
+          </li>
+
+          <li>
+            Outros canais:
+            TAS/totem, caixa da loja,
+            central/URA, fatura impressa
+            e MIA/WhatsApp em teste.
+          </li>
+
+        </ul>
+
+      </div>
+
+      <div
+        class="note warn"
+        style="
+          left:70px;
+          top:1480px;
+          width:470px;
+        "
+      >
+        Canal físico: se o valor pago da entrada for diferente
+        do valor exato da oferta, o parcelamento pode não ser ativado.
+      </div>
+
     </div>
 
-    <div class="geo">
-      <div class="diamond"></div>
-      <div class="arc-big"></div>
-      <div class="loop-top"></div>
-      <div class="loop-bottom"></div>
+    <div class="zoom-badge">
+      Arraste para navegar • use o scroll para zoom
     </div>
 
   </main>
+
+</div>
+
+<script>
+
+  const viewport =
+    document.getElementById("viewport");
+
+  const canvas =
+    document.getElementById("canvas");
+
+  const zoomReset =
+    document.getElementById("zoomReset");
+
+  let scale = 0.72;
+
+  let tx = 20;
+  let ty = 20;
+
+  let dragging = false;
+
+  let sx = 0;
+  let sy = 0;
+
+  let startTx = 0;
+  let startTy = 0;
+
+  function clamp(value, min, max){
+    return Math.max(
+      min,
+      Math.min(max, value)
+    );
+  }
+
+  function render(){
+
+    canvas.style.transform =
+      `translate(${tx}px, ${ty}px) scale(${scale})`;
+
+    zoomReset.textContent =
+      `${Math.round(scale * 100)}%`;
+
+  }
+
+  function zoomAt(
+    clientX,
+    clientY,
+    delta
+  ){
+
+    const rect =
+      viewport.getBoundingClientRect();
+
+    const px =
+      clientX - rect.left;
+
+    const py =
+      clientY - rect.top;
+
+    const oldScale =
+      scale;
+
+    scale =
+      clamp(
+        scale * delta,
+        .30,
+        1.5
+      );
+
+    tx =
+      px -
+      (px - tx) *
+      (scale / oldScale);
+
+    ty =
+      py -
+      (py - ty) *
+      (scale / oldScale);
+
+    render();
+
+  }
+
+  viewport.addEventListener(
+    "wheel",
+    event => {
+
+      event.preventDefault();
+
+      zoomAt(
+        event.clientX,
+        event.clientY,
+        event.deltaY < 0
+          ? 1.08
+          : .92
+      );
+
+    },
+    {
+      passive:false
+    }
+  );
+
+  viewport.addEventListener(
+    "pointerdown",
+    event => {
+
+      dragging = true;
+
+      viewport.classList.add(
+        "dragging"
+      );
+
+      sx = event.clientX;
+      sy = event.clientY;
+
+      startTx = tx;
+      startTy = ty;
+
+      viewport.setPointerCapture(
+        event.pointerId
+      );
+
+    }
+  );
+
+  viewport.addEventListener(
+    "pointermove",
+    event => {
+
+      if(!dragging){
+        return;
+      }
+
+      tx =
+        startTx +
+        (
+          event.clientX - sx
+        );
+
+      ty =
+        startTy +
+        (
+          event.clientY - sy
+        );
+
+      render();
+
+    }
+  );
+
+  viewport.addEventListener(
+    "pointerup",
+    () => {
+
+      dragging = false;
+
+      viewport.classList.remove(
+        "dragging"
+      );
+
+    }
+  );
+
+  document
+    .getElementById("zoomIn")
+    .onclick =
+    () => {
+
+      zoomAt(
+        innerWidth / 2,
+        innerHeight / 2,
+        1.12
+      );
+
+    };
+
+  document
+    .getElementById("zoomOut")
+    .onclick =
+    () => {
+
+      zoomAt(
+        innerWidth / 2,
+        innerHeight / 2,
+        .89
+      );
+
+    };
+
+  document
+    .getElementById("zoomReset")
+    .onclick =
+    () => {
+
+      scale = .72;
+
+      tx = 20;
+      ty = 20;
+
+      render();
+
+    };
+
+  render();
+
+</script>
 
 </body>
 </html>
