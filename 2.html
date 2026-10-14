@@ -3,559 +3,579 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<title>Fluxograma As-Is — Parcele</title>
+<title>Acordo de Dívidas — Jornada no App</title>
 
 <style>
-:root{
-  --bg:#f7f7f4;
-  --ink:#111315;
-  --muted:#6b7178;
-
-  --neutral:#f0f1f2;
-  --neutral-border:#dde0e3;
-
-  --green:#edf8e5;
-  --green-border:#d3eac3;
-  --green-strong:#3d8d39;
-
-  --orange:#fff0df;
-  --orange-border:#f1d0aa;
-  --orange-strong:#d98934;
-
-  --red:#fde8ea;
-  --red-border:#efc3c7;
-  --red-strong:#cf515a;
-
-  --blue:#eef4fa;
-  --blue-border:#d7e2ed;
-
-  --line:#aeb4ba;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  background:var(--bg);
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
-  color:var(--ink);
-}
-
-.page{
-  width:2450px;
-  min-height:1450px;
-  padding:55px 70px 80px;
-  background:#fbfbf9;
-}
-
-/* =============================
-   CABEÇALHO
-============================= */
-
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  margin-bottom:50px;
-}
-
-.tag{
-  display:inline-block;
-  padding:7px 14px;
-  border-radius:999px;
-  background:#def5b8;
-  color:#31721f;
-  font-size:14px;
-  font-weight:800;
-  margin-bottom:12px;
-}
-
-h1{
-  margin:0;
-  font-size:48px;
-  line-height:1;
-  letter-spacing:-1.8px;
-}
-
-.subtitle{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:17px;
-}
-
-.legend{
-  display:flex;
-  gap:18px;
-  align-items:center;
-
-  padding:14px 18px;
-
-  border:1px dashed #d7dade;
-  border-radius:17px;
-
-  background:#fff;
-
-  font-size:12px;
-  color:#626970;
-}
-
-.legend-item{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.dot{
-  width:11px;
-  height:11px;
-  border-radius:50%;
-}
-
-.dot.gray{background:#d4d7da;}
-.dot.green{background:#95d86c;}
-.dot.orange{background:#efa75f;}
-.dot.red{background:#ea8088;}
-
-/* =============================
-   FLUXO
-============================= */
-
-.flow{
-  position:relative;
-  width:2310px;
-  height:1120px;
-}
-
-svg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-  overflow:visible;
-}
-
-/* LINHAS */
-
-.path{
-  fill:none;
-  stroke:var(--line);
-  stroke-width:2.2;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.path.green{stroke:#75be62;}
-.path.orange{stroke:#dd9c59;}
-.path.red{stroke:#df737c;}
-
-.path.dashed{
-  stroke-dasharray:6 7;
-}
-
-/* =============================
-   CARDS
-============================= */
-
-.card{
-  position:absolute;
-  z-index:2;
-
-  width:190px;
-  min-height:110px;
-
-  padding:15px;
-
-  border-radius:20px;
-
-  background:var(--neutral);
-  border:1px solid var(--neutral-border);
-
-  box-shadow:0 10px 25px rgba(0,0,0,.05);
-}
-
-.card.white{
-  background:#fff;
-}
-
-.card.green{
-  background:var(--green);
-  border-color:var(--green-border);
-}
-
-.card.orange{
-  background:var(--orange);
-  border-color:var(--orange-border);
-}
-
-.card.red{
-  background:var(--red);
-  border-color:var(--red-border);
-}
-
-.card.compact{
-  min-height:85px;
-}
-
-.step{
-  font-size:12px;
-  font-weight:800;
-  color:#70767d;
-  margin-bottom:8px;
-}
-
-.title{
-  font-size:15px;
-  line-height:1.25;
-  font-weight:800;
-}
-
-.text{
-  margin-top:7px;
-  font-size:12px;
-  line-height:1.42;
-  color:#666d74;
-}
-
-/* MINI TELA */
-
-.screen{
-  margin-top:12px;
-  padding:10px;
-
-  border:1px solid #dde1e4;
-  border-radius:14px;
-
-  background:#fff;
-}
-
-.screen-row{
-  height:8px;
-  margin:7px 0;
-
-  border-radius:999px;
-  background:#eceff1;
-}
-
-.screen-row.short{
-  width:62%;
-}
-
-.screen-row.medium{
-  width:78%;
-}
-
-.screen-button{
-  height:24px;
-  margin-top:10px;
-
-  border-radius:7px;
-  background:#11171c;
-}
-
-.card.green .screen-button{
-  background:#3b9346;
-}
-
-.card.orange .screen-button{
-  background:#de913f;
-}
-
-.card.red .screen-button{
-  background:#cf535c;
-}
-
-/* =============================
-   LOSANGOS
-============================= */
-
-.decision{
-  position:absolute;
-  z-index:2;
-
-  width:130px;
-  height:130px;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  text-align:center;
-
-  font-size:12px;
-  font-weight:800;
-}
-
-.decision::before{
-  content:"";
-
-  position:absolute;
-
-  width:92px;
-  height:92px;
-
-  transform:rotate(45deg);
-
-  border-radius:18px;
-
-  background:#fff;
-  border:1px solid #dadde0;
-
-  box-shadow:0 8px 22px rgba(0,0,0,.04);
-}
-
-.decision span{
-  position:relative;
-  z-index:1;
-
-  width:85px;
-  line-height:1.25;
-}
-
-/* =============================
-   LABELS
-============================= */
-
-.label{
-  position:absolute;
-  z-index:5;
-
-  padding:5px 10px;
-
-  border-radius:999px;
-
-  font-size:11px;
-  font-weight:800;
-}
-
-.label.green{
-  background:#ddf4ca;
-  color:#347825;
-}
-
-.label.red{
-  background:#fbd8db;
-  color:#ad4048;
-}
-
-.label.gray{
-  background:#eceeef;
-  color:#5c646c;
-}
-
-/* =============================
-   NOTAS
-============================= */
-
-.note{
-  position:absolute;
-  z-index:2;
-
-  width:215px;
-
-  padding:11px 13px;
-
-  border:1px dashed #cfd4d9;
-  border-radius:14px;
-
-  background:#f4f5f6;
-
-  color:#717880;
-
-  font-size:11px;
-  line-height:1.45;
-}
-
-.note.orange{
-  background:#fff7ee;
-  border-color:#efd0ad;
-  color:#99631e;
-}
-
-.note.red{
-  background:#fff0f1;
-  border-color:#ebc2c5;
-  color:#9e4a50;
-}
-
-/* =============================
-   RODAPÉ
-============================= */
-
-.footer-box{
-  position:absolute;
-  z-index:2;
-
-  padding:16px 18px;
-
-  border-radius:18px;
-
-  background:#fff;
-  border:1px solid #e2e5e7;
-
-  box-shadow:0 9px 22px rgba(0,0,0,.04);
-}
-
-.footer-title{
-  font-size:13px;
-  font-weight:800;
-  margin-bottom:8px;
-}
-
-.footer-box ul{
-  margin:0;
-  padding-left:17px;
-
-  color:#666d74;
-
-  font-size:11px;
-  line-height:1.5;
-}
-
-/* =============================
-   POSIÇÕES — LINHA 1
-============================= */
-
-.c1{left:0;top:100px;}
-.c2{left:220px;top:100px;}
-
-.d1{left:445px;top:88px;}
-
-.c3a{left:605px;top:0;}
-.c3b{left:605px;top:150px;}
-.c3c{left:605px;top:300px;}
-
-.c4{left:845px;top:100px;}
-
-.d2{left:1065px;top:88px;}
-
-.c5a{left:1225px;top:10px;}
-.c5b{left:1225px;top:165px;}
-.c5c{left:1225px;top:320px;}
-
-.c6{left:1470px;top:100px;}
-
-.d3{left:1690px;top:88px;}
-
-.c7a{left:1870px;top:0;}
-.c7b{left:1870px;top:210px;}
-.c8{left:2090px;top:210px;}
-
-/* =============================
-   POSIÇÕES — LINHA 2
-============================= */
-
-.d4{left:35px;top:610px;}
-
-.c9a{left:190px;top:555px;}
-.c9b{left:190px;top:735px;}
-
-.c10{left:425px;top:610px;}
-
-.d5{left:645px;top:598px;}
-
-.c11a{left:815px;top:545px;}
-.c11b{left:815px;top:725px;}
-
-.c12{left:1040px;top:610px;}
-
-.d6{left:1260px;top:598px;}
-
-.c13a{left:1430px;top:540px;}
-.c13b{left:1430px;top:720px;}
-
-.c14{left:1655px;top:610px;}
-
-.c15{left:1875px;top:610px;}
-
-.c16{left:2095px;top:610px;}
-
-.d7{left:2280px;top:598px;}
-
-.c17a{left:2180px;top:805px;}
-.c17b{left:1970px;top:805px;}
-
-/* =============================
-   LABEL POSITIONS
-============================= */
-
-.l1{left:535px;top:70px;}
-.l2{left:532px;top:225px;}
-.l3{left:515px;top:375px;}
-
-.l4{left:1790px;top:40px;}
-.l5{left:1790px;top:220px;}
-
-.l6{left:755px;top:610px;}
-.l7{left:755px;top:750px;}
-
-.l8{left:1365px;top:610px;}
-.l9{left:1365px;top:750px;}
-
-.l10{left:2290px;top:755px;}
-.l11{left:2160px;top:755px;}
-
-/* =============================
-   NOTAS POSITIONS
-============================= */
-
-.n1{
-  left:1450px;
-  top:350px;
-}
-
-.n2{
-  left:1030px;
-  top:825px;
-}
-
-.n3{
-  left:1420px;
-  top:900px;
-}
-
-/* =============================
-   FOOTER POSITIONS
-============================= */
-
-.f1{
-  left:0;
-  top:955px;
-  width:555px;
-}
-
-.f2{
-  left:580px;
-  top:955px;
-  width:500px;
-}
-
-.f3{
-  left:1105px;
-  top:955px;
-  width:500px;
-}
-
-.f4{
-  left:1630px;
-  top:955px;
-  width:680px;
-}
+  :root{
+    --bg:#fbfbf8;
+    --ink:#111318;
+    --muted:#6f7680;
+    --line:#aeb5bd;
+
+    --neutral:#f4f5f6;
+    --neutral-b:#dde1e5;
+
+    --green:#eef8e7;
+    --green-b:#cfe8c0;
+    --green-strong:#33833a;
+
+    --orange:#fff1e2;
+    --orange-b:#f1cfaa;
+    --orange-strong:#d9832f;
+
+    --red:#fde9eb;
+    --red-b:#efc5c9;
+    --red-strong:#c84e58;
+
+    --blue:#eef5fb;
+    --blue-b:#d7e4f0;
+    --blue-strong:#347ac2;
+
+    --shadow:0 10px 28px rgba(18,25,32,.07);
+  }
+
+  *{
+    box-sizing:border-box;
+  }
+
+  html,
+  body{
+    margin:0;
+    background:#f2f3f1;
+    font-family:Arial, Helvetica, sans-serif;
+    color:var(--ink);
+  }
+
+  body{
+    padding:24px;
+  }
+
+  .board{
+    width:2400px;
+    min-height:1420px;
+    background:var(--bg);
+    padding:34px 38px 36px;
+    border-radius:24px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:26px;
+  }
+
+  .tag{
+    display:inline-block;
+    background:#dff5b5;
+    color:#2f711d;
+    border-radius:999px;
+    padding:7px 13px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+
+  h1{
+    margin:0;
+    font-size:42px;
+    line-height:1;
+    letter-spacing:-1.3px;
+    font-weight:700;
+  }
+
+  .subtitle{
+    margin-top:8px;
+    font-size:17px;
+    color:var(--muted);
+  }
+
+  .legend{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    background:#fff;
+    border:1px dashed #d9dde1;
+    border-radius:16px;
+    padding:12px 14px;
+    font-size:12px;
+    color:#616871;
+  }
+
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }
+
+  .dot{
+    width:11px;
+    height:11px;
+    border-radius:50%;
+  }
+
+  .dot.gray{
+    background:#d4d8dc;
+  }
+
+  .dot.green{
+    background:#93d66e;
+  }
+
+  .dot.orange{
+    background:#efa962;
+  }
+
+  .dot.red{
+    background:#ea8088;
+  }
+
+  .flow{
+    position:relative;
+    width:2310px;
+    height:1285px;
+  }
+
+  svg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    overflow:visible;
+  }
+
+  .path{
+    fill:none;
+    stroke:var(--line);
+    stroke-width:2.3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  .path.green{
+    stroke:#6fc35a;
+  }
+
+  .path.orange{
+    stroke:#dfa15e;
+  }
+
+  .path.red{
+    stroke:#df747d;
+  }
+
+  .path.blue{
+    stroke:#6da8e8;
+  }
+
+  .path.dashed{
+    stroke-dasharray:6 7;
+  }
+
+  .card,
+  .decision,
+  .note,
+  .footer-box{
+    position:absolute;
+    z-index:2;
+  }
+
+  .card{
+    width:190px;
+    min-height:118px;
+    border-radius:18px;
+    padding:15px;
+    border:1px solid var(--neutral-b);
+    background:var(--neutral);
+    box-shadow:var(--shadow);
+  }
+
+  .card.white{
+    background:#fff;
+  }
+
+  .card.green{
+    background:var(--green);
+    border-color:var(--green-b);
+  }
+
+  .card.orange{
+    background:var(--orange);
+    border-color:var(--orange-b);
+  }
+
+  .card.red{
+    background:var(--red);
+    border-color:var(--red-b);
+  }
+
+  .card.blue{
+    background:var(--blue);
+    border-color:var(--blue-b);
+  }
+
+  .card.compact{
+    min-height:86px;
+  }
+
+  .card.wide{
+    width:225px;
+  }
+
+  .step{
+    font-size:12px;
+    font-weight:700;
+    color:#68707a;
+    margin-bottom:8px;
+  }
+
+  .title{
+    font-size:15px;
+    line-height:1.25;
+    font-weight:700;
+  }
+
+  .text{
+    margin-top:7px;
+    font-size:12px;
+    line-height:1.4;
+    color:#666d76;
+  }
+
+  .screen{
+    margin-top:12px;
+    background:#fff;
+    border:1px solid #dde1e5;
+    border-radius:14px;
+    padding:10px;
+  }
+
+  .screen-row{
+    height:8px;
+    border-radius:999px;
+    background:#edf0f2;
+    margin:7px 0;
+  }
+
+  .screen-row.short{
+    width:62%;
+  }
+
+  .screen-row.medium{
+    width:78%;
+  }
+
+  .screen-button{
+    margin-top:10px;
+    height:24px;
+    border-radius:7px;
+    background:#11171c;
+  }
+
+  .green .screen-button{
+    background:#3c9348;
+  }
+
+  .orange .screen-button{
+    background:#db8d3c;
+  }
+
+  .red .screen-button{
+    background:#c94f59;
+  }
+
+  .decision{
+    width:132px;
+    height:132px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:12px;
+    font-weight:700;
+  }
+
+  .decision::before{
+    content:"";
+    position:absolute;
+    inset:20px;
+    transform:rotate(45deg);
+    border-radius:18px;
+    background:#fff;
+    border:1px solid #d8dde2;
+    box-shadow:var(--shadow);
+  }
+
+  .decision span{
+    position:relative;
+    z-index:1;
+    width:88px;
+    line-height:1.25;
+  }
+
+  .label{
+    position:absolute;
+    z-index:4;
+    padding:5px 10px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+  }
+
+  .label.green{
+    background:#ddf4ca;
+    color:#347824;
+  }
+
+  .label.red{
+    background:#fbd9dc;
+    color:#ac4048;
+  }
+
+  .label.gray{
+    background:#eceeef;
+    color:#5d646c;
+  }
+
+  .label.orange{
+    background:#ffead1;
+    color:#a76118;
+  }
+
+  .note{
+    width:220px;
+    padding:11px 13px;
+    border-radius:14px;
+    background:#f4f5f6;
+    border:1px dashed #cfd5da;
+    color:#707780;
+    font-size:11px;
+    line-height:1.42;
+  }
+
+  .note.blue{
+    background:#eff6fd;
+    border-color:#cbdff2;
+    color:#426f9f;
+  }
+
+  .note.orange{
+    background:#fff7ee;
+    border-color:#efd0ad;
+    color:#99631f;
+  }
+
+  .note.red{
+    background:#fff0f1;
+    border-color:#ecc5c8;
+    color:#9c4a50;
+  }
+
+  .footer-box{
+    padding:15px 17px;
+    border-radius:18px;
+    background:#fff;
+    border:1px solid #e3e6e9;
+    box-shadow:var(--shadow);
+  }
+
+  .footer-title{
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:8px;
+  }
+
+  .footer-box ul{
+    margin:0;
+    padding-left:17px;
+    font-size:11px;
+    line-height:1.5;
+    color:#666d76;
+  }
+
+  /* POSIÇÕES */
+
+  .a1{
+    left:0;
+    top:130px;
+  }
+
+  .a2{
+    left:230px;
+    top:130px;
+  }
+
+  .faq{
+    left:450px;
+    top:25px;
+    width:170px;
+  }
+
+  .a3{
+    left:450px;
+    top:130px;
+  }
+
+  .d1{
+    left:685px;
+    top:122px;
+  }
+
+  .a4{
+    left:930px;
+    top:130px;
+  }
+
+  .a5{
+    left:1150px;
+    top:130px;
+  }
+
+  .a6{
+    left:1370px;
+    top:130px;
+  }
+
+  .a6b{
+    left:1370px;
+    top:345px;
+    width:220px;
+  }
+
+  .a7{
+    left:1605px;
+    top:130px;
+  }
+
+  .a8{
+    left:1835px;
+    top:130px;
+  }
+
+  .a9{
+    left:0;
+    top:675px;
+  }
+
+  .a10{
+    left:235px;
+    top:675px;
+  }
+
+  .a11{
+    left:470px;
+    top:675px;
+  }
+
+  .a12{
+    left:725px;
+    top:675px;
+  }
+
+  .a13{
+    left:1020px;
+    top:675px;
+    width:270px;
+  }
+
+  .m1{
+    left:1330px;
+    top:655px;
+    width:205px;
+  }
+
+  .m2{
+    left:1330px;
+    top:785px;
+    width:205px;
+  }
+
+  .m3{
+    left:1330px;
+    top:915px;
+    width:205px;
+  }
+
+  .m4{
+    left:1330px;
+    top:1045px;
+    width:205px;
+  }
+
+  .a14{
+    left:1595px;
+    top:655px;
+    width:220px;
+  }
+
+  .a15{
+    left:1845px;
+    top:655px;
+    width:220px;
+  }
+
+  .l1{
+    left:825px;
+    top:86px;
+  }
+
+  .l2{
+    left:785px;
+    top:245px;
+  }
+
+  .n1{
+    left:1150px;
+    top:460px;
+  }
+
+  .n2{
+    left:875px;
+    top:470px;
+  }
+
+  .n3{
+    left:725px;
+    top:950px;
+  }
+
+  .n4{
+    left:1020px;
+    top:945px;
+  }
+
+  .f1{
+    left:0;
+    top:1120px;
+    width:620px;
+  }
+
+  .f2{
+    left:645px;
+    top:1120px;
+    width:505px;
+  }
+
+  .f3{
+    left:1175px;
+    top:1120px;
+    width:500px;
+  }
+
+  .f4{
+    left:1700px;
+    top:1120px;
+    width:610px;
+  }
 </style>
 </head>
 
 <body>
 
-<div class="page">
+<div class="board">
 
   <div class="header">
 
@@ -566,11 +586,11 @@ svg{
       </div>
 
       <h1>
-        Parcele — Jornada no App
+        Acordo de Dívidas – Jornada no App
       </h1>
 
       <div class="subtitle">
-        Fluxo ponta a ponta, tela a tela, com os principais caminhos e bifurcações
+        Fluxo ponta a ponta, tela a tela, com todos os caminhos principais
       </div>
 
     </div>
@@ -579,36 +599,31 @@ svg{
 
       <div class="legend-item">
         <span class="dot gray"></span>
-        Tela neutra / seleção
+        Tela neutra (informação/seleção)
       </div>
 
       <div class="legend-item">
         <span class="dot green"></span>
-        Contratação / avanço
+        Negociação / avanço
       </div>
 
       <div class="legend-item">
         <span class="dot orange"></span>
-        Seguro
+        Pagamento / condição financeira
       </div>
 
       <div class="legend-item">
         <span class="dot red"></span>
-        Erro / pendência / atenção
+        Desistência / erro / atenção
       </div>
 
     </div>
 
   </div>
 
-
   <div class="flow">
 
-    <!-- =========================================================
-         CONEXÕES
-    ========================================================== -->
-
-    <svg viewBox="0 0 2310 1120">
+    <svg viewBox="0 0 2310 1285">
 
       <defs>
 
@@ -622,368 +637,188 @@ svg{
         >
 
           <path
-            d="M0,0 L9,4.5 L0,9 Z"
-            fill="#aeb4ba"
+            d="M0 0 L9 4.5 L0 9 Z"
+            fill="#aeb5bd"
           />
 
         </marker>
 
       </defs>
 
-
-      <!-- 1 → 2 -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M190 160 H220"
-      />
-
-
-      <!-- 2 → status -->
+      <!-- LINHA PRINCIPAL -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M410 160 H445"
+        d="M190 190 H230"
       />
 
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M420 190 H450"
+      />
 
-      <!-- status → em dia -->
+      <path
+        class="path blue dashed"
+        marker-end="url(#arrow)"
+        d="M325 130 C350 90 395 75 450 75"
+      />
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M640 190 H685"
+      />
 
       <path
         class="path green"
         marker-end="url(#arrow)"
-        d="M555 130 C575 95 585 70 605 65"
+        d="M795 155 C840 120 875 120 930 150"
       />
-
-
-      <!-- status → atraso -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M555 155 H605"
+        d="M795 220 C840 250 865 250 930 250"
       />
-
-
-      <!-- status → pré-cancelamento -->
-
-      <path
-        class="path red"
-        marker-end="url(#arrow)"
-        d="M555 185 C575 235 585 350 605 355"
-      />
-
-
-      <!-- status converge -->
-
-      <path
-        class="path dashed"
-        marker-end="url(#arrow)"
-        d="M795 65 C820 65 820 160 845 160"
-      />
-
-      <path
-        class="path dashed"
-        marker-end="url(#arrow)"
-        d="M795 210 H845"
-      />
-
-      <path
-        class="path dashed"
-        marker-end="url(#arrow)"
-        d="M795 355 C820 355 820 160 845 160"
-      />
-
-
-      <!-- nova simulação → modalidade -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M1035 160 H1065"
+        d="M1120 190 H1150"
       />
 
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1340 190 H1370"
+      />
 
-      <!-- modalidade → em dia -->
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1560 190 H1605"
+      />
+
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1795 190 H1835"
+      />
+
+      <!-- OFERTA À VISTA -->
 
       <path
         class="path green"
         marker-end="url(#arrow)"
-        d="M1175 130 C1195 95 1205 70 1225 65"
+        d="M760 115 C850 30 1700 30 1925 130"
       />
 
-
-      <!-- modalidade → atraso -->
+      <!-- TODAS AS PARCELAS -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M1175 155 H1225"
+        d="M1465 248 V345"
       />
-
-
-      <!-- modalidade → PWF -->
-
-      <path
-        class="path red"
-        marker-end="url(#arrow)"
-        d="M1175 185 C1195 235 1205 355 1225 360"
-      />
-
-
-      <!-- converge em combo -->
-
-      <path
-        class="path dashed"
-        marker-end="url(#arrow)"
-        d="M1415 65 C1445 65 1445 160 1470 160"
-      />
-
-      <path
-        class="path dashed"
-        marker-end="url(#arrow)"
-        d="M1415 220 C1445 220 1445 160 1470 160"
-      />
-
-      <path
-        class="path dashed"
-        marker-end="url(#arrow)"
-        d="M1415 375 C1445 375 1445 160 1470 160"
-      />
-
-
-      <!-- combo → decisão -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M1660 160 H1690"
+        d="M1590 390 C1610 390 1615 330 1615 300"
       />
 
-
-      <!-- combo sim -->
-
-      <path
-        class="path green"
-        marker-end="url(#arrow)"
-        d="M1800 125 C1825 90 1845 65 1870 60"
-      />
-
-
-      <!-- combo não -->
-
-      <path
-        class="path red"
-        marker-end="url(#arrow)"
-        d="M1800 185 C1825 235 1845 265 1870 265"
-      />
-
-
-      <!-- data → valor -->
+      <!-- QUEBRA PARA LINHA DE BAIXO -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M2060 265 H2090"
+        d="M1930 315 C1930 520 95 520 95 675"
       />
 
-
-      <!-- volta linha -->
+      <!-- LINHA INFERIOR -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M2280 265
-           C2300 265 2300 520 100 520
-           C55 520 55 610 100 610"
+        d="M190 735 H235"
       />
-
-
-      <!-- duas taxas sim -->
-
-      <path
-        class="path green"
-        marker-end="url(#arrow)"
-        d="M145 645 C165 620 175 610 190 610"
-      />
-
-
-      <!-- duas taxas não -->
-
-      <path
-        class="path red"
-        marker-end="url(#arrow)"
-        d="M145 680 C165 705 175 790 190 790"
-      />
-
-
-      <!-- sem taxa → parcelas -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M380 790 C405 790 405 670 425 670"
+        d="M425 735 H470"
       />
-
-
-      <!-- taxa → parcelas -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M380 610 C405 610 405 670 425 670"
-      />
-
-
-      <!-- parcelas → seguro -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M615 670 H645"
-      />
-
-
-      <!-- seguro sim -->
 
       <path
         class="path orange"
         marker-end="url(#arrow)"
-        d="M755 640 C780 600 795 595 815 595"
-      />
-
-
-      <!-- seguro não -->
-
-      <path
-        class="path dashed"
-        marker-end="url(#arrow)"
-        d="M755 700 C780 750 795 770 815 770"
-      />
-
-
-      <!-- seguro → escolha -->
-
-      <path
-        class="path orange"
-        marker-end="url(#arrow)"
-        d="M1005 595 C1025 595 1025 670 1040 670"
-      />
-
-
-      <!-- não seguro → escolha -->
-
-      <path
-        class="path dashed"
-        marker-end="url(#arrow)"
-        d="M1005 770 C1025 770 1025 670 1040 670"
-      />
-
-
-      <!-- escolha → decisão seguro -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1230 670 H1260"
-      />
-
-
-      <!-- com proteção -->
-
-      <path
-        class="path orange"
-        marker-end="url(#arrow)"
-        d="M1370 640 C1395 605 1410 595 1430 595"
-      />
-
-
-      <!-- sem proteção -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1370 700 C1395 750 1410 770 1430 770"
-      />
-
-
-      <!-- proteção converge resumo -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1620 595 C1640 595 1640 670 1655 670"
+        d="M660 735 H725"
       />
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M1620 770 C1640 770 1640 670 1655 670"
+        d="M915 735 H1020"
       />
 
-
-      <!-- resumo → pagamento -->
+      <!-- GERENCIAMENTO -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M1845 670 H1875"
+        d="M1290 735 H1330"
       />
-
-
-      <!-- pagamento → promessa -->
 
       <path
         class="path"
         marker-end="url(#arrow)"
-        d="M2065 670 H2095"
+        d="M1290 750 C1315 750 1315 825 1330 825"
       />
-
-
-      <!-- promessa → pago? -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M2285 670 H2280"
-      />
-
-
-      <!-- pago sim -->
 
       <path
         class="path green"
         marker-end="url(#arrow)"
-        d="M2340 715 C2340 760 2200 795 2175 820"
+        d="M1290 765 C1315 765 1315 955 1330 955"
       />
 
-
-      <!-- pago não -->
+      <path
+        class="path"
+        marker-end="url(#arrow)"
+        d="M1290 780 C1315 780 1315 1085 1330 1085"
+      />
 
       <path
-        class="path red"
+        class="path green"
         marker-end="url(#arrow)"
-        d="M2340 715 C2340 765 2375 815 2375 835"
+        d="M1535 955 H1595"
+      />
+
+      <path
+        class="path green"
+        marker-end="url(#arrow)"
+        d="M1705 740 V785"
+      />
+
+      <path
+        class="path green"
+        marker-end="url(#arrow)"
+        d="M1705 870 V915"
       />
 
     </svg>
 
+    <!-- 1 -->
 
-    <!-- =========================================================
-         LINHA 1
-    ========================================================== -->
-
-
-    <div class="card white c1">
+    <div class="card white a1">
 
       <div class="step">
         1 · Acesso
       </div>
 
       <div class="title">
-        Cliente acessa o Parcele no app
+        Cliente acessa o Acordo no app
       </div>
 
       <div class="screen">
@@ -998,15 +833,16 @@ svg{
 
     </div>
 
+    <!-- 2 -->
 
-    <div class="card white c2">
+    <div class="card white a2">
 
       <div class="step">
-        2 · Home do Parcele
+        2 · Consulta da dívida e ofertas
       </div>
 
       <div class="title">
-        Home personalizada conforme o status
+        Visualiza a dívida e as ofertas disponíveis
       </div>
 
       <div class="screen">
@@ -1021,555 +857,449 @@ svg{
 
     </div>
 
+    <!-- FAQ -->
+
+    <div class="card blue compact faq">
+
+      <div class="title">
+        Dúvidas frequentes
+      </div>
+
+      <div class="text">
+        Acesso pelo cabeçalho do app
+      </div>
+
+    </div>
+
+    <!-- 3 -->
+
+    <div class="card white a3">
+
+      <div class="step">
+        3 · Iniciar negociação
+      </div>
+
+      <div class="title">
+        Cliente clica em “Conferir opções”
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+    <!-- DECISÃO -->
 
     <div class="decision d1">
 
       <span>
-        Qual é o status do cliente?
+        Existe oferta à vista?
       </span>
 
     </div>
 
-
-    <div class="card green compact c3a">
-
-      <div class="step">
-        3A
-      </div>
-
-      <div class="title">
-        Home — cliente em dia
-      </div>
-
-      <div class="text">
-        Banner de benefício e opção de simular.
-      </div>
-
-    </div>
-
-
-    <div class="card compact c3b">
-
-      <div class="step">
-        3B
-      </div>
-
-      <div class="title">
-        Home — cliente em atraso
-      </div>
-
-      <div class="text">
-        Exibe dias de atraso e incentivo para regularizar.
-      </div>
-
-    </div>
-
-
-    <div class="card red compact c3c">
-
-      <div class="step">
-        3C
-      </div>
-
-      <div class="title">
-        Home — pré-cancelamento
-      </div>
-
-      <div class="text">
-        Experiência específica para cliente crítico.
-      </div>
-
-    </div>
-
-
-    <div class="card white c4">
-
-      <div class="step">
-        4 · Nova simulação
-      </div>
-
-      <div class="title">
-        Cliente inicia uma nova simulação
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-        <div class="screen-row"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-
-    <div class="decision d2">
-
-      <span>
-        Qual modalidade está disponível?
-      </span>
-
-    </div>
-
-
-    <div class="card green compact c5a">
-
-      <div class="step">
-        Cliente em dia
-      </div>
-
-      <div class="title">
-        Fatura atual + saldo total*
-      </div>
-
-    </div>
-
-
-    <div class="card compact c5b">
-
-      <div class="step">
-        Cliente em atraso
-      </div>
-
-      <div class="title">
-        Apenas saldo total
-      </div>
-
-    </div>
-
-
-    <div class="card red compact c5c">
-
-      <div class="step">
-        Pré-cancelamento
-      </div>
-
-      <div class="title">
-        Regras específicas / validar
-      </div>
-
-    </div>
-
-
-    <div class="card green c6">
-
-      <div class="step">
-        6 · Combo sugerido
-      </div>
-
-      <div class="title">
-        Cliente visualiza o combo pré-configurado
-      </div>
-
-      <div class="text">
-        Entrada, data e quantidade de parcelas sugeridas.
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-        <div class="screen-row"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-
-    <div class="decision d3">
-
-      <span>
-        O combo atende à necessidade?
-      </span>
-
-    </div>
-
-
-    <div class="card green compact c7a">
-
-      <div class="title">
-        Segue com o combo
-      </div>
-
-      <div class="text">
-        Mantém as condições sugeridas.
-      </div>
-
-    </div>
-
-
-    <div class="card white c7b">
-
-      <div class="step">
-        8 · Simulação personalizada
-      </div>
-
-      <div class="title">
-        Cliente escolhe a data da entrada
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row short"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-
-    <div class="card white c8">
-
-      <div class="step">
-        8 · Valor da entrada
-      </div>
-
-      <div class="title">
-        Cliente define o valor da entrada
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row medium"></div>
-        <div class="screen-row"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-
-    <!-- =========================================================
-         LINHA 2
-    ========================================================== -->
-
-
-    <div class="decision d4">
-
-      <span>
-        É elegível a duas taxas?
-      </span>
-
-    </div>
-
-
-    <div class="card green c9a">
-
-      <div class="step">
-        9A
-      </div>
-
-      <div class="title">
-        Escolhe taxa / prazo
-      </div>
-
-      <div class="text">
-        Cliente escolhe entre as condições disponíveis.
-      </div>
-
-    </div>
-
-
-    <div class="card compact c9b">
-
-      <div class="title">
-        Segue direto
-      </div>
-
-      <div class="text">
-        Sem escolha entre taxas.
-      </div>
-
-    </div>
-
-
-    <div class="card white c10">
-
-      <div class="step">
-        10 · Quantidade de parcelas
-      </div>
-
-      <div class="title">
-        Cliente define a quantidade
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row medium"></div>
-        <div class="screen-row"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-
-    <div class="decision d5">
-
-      <span>
-        É elegível ao seguro?
-      </span>
-
-    </div>
-
-
-    <div class="card orange c11a">
-
-      <div class="step">
-        11A · Seguro
-      </div>
-
-      <div class="title">
-        Tela de oferta de proteção
-      </div>
-
-      <div class="text">
-        Exibida somente para clientes elegíveis.
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-        <div class="screen-row short"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-
-    <div class="card compact c11b">
-
-      <div class="title">
-        Sem oferta de seguro
-      </div>
-
-      <div class="text">
-        Cliente segue para a próxima etapa.
-      </div>
-
-    </div>
-
-
-    <div class="card orange c12">
-
-      <div class="step">
-        11B
-      </div>
-
-      <div class="title">
-        Cliente escolhe com ou sem proteção
-      </div>
-
-      <div class="text">
-        Define se deseja incluir o seguro.
-      </div>
-
-    </div>
-
-
-    <div class="decision d6">
-
-      <span>
-        Seguro incluído?
-      </span>
-
-    </div>
-
-
-    <div class="card orange compact c13a">
-
-      <div class="title">
-        Com proteção
-      </div>
-
-    </div>
-
-
-    <div class="card compact c13b">
-
-      <div class="title">
-        Sem proteção
-      </div>
-
-    </div>
-
-
-    <div class="card white c14">
-
-      <div class="step">
-        12 · Tela de resumo
-      </div>
-
-      <div class="title">
-        Cliente confere todos os detalhes
-      </div>
-
-      <div class="text">
-        Entrada, data, parcelas, taxa e seguro quando aplicável.
-      </div>
-
-    </div>
-
-
-    <div class="card white c15">
-
-      <div class="step">
-        13 · Forma de pagamento
-      </div>
-
-      <div class="title">
-        PIX ou boleto
-      </div>
-
-      <div class="text">
-        PIX: ativação após pagamento.<br>
-        Boleto: depende de compensação.
-      </div>
-
-    </div>
-
-
-    <div class="card green c16">
-
-      <div class="step">
-        14 · Simulação concluída
-      </div>
-
-      <div class="title">
-        Geração da promessa de pagamento
-      </div>
-
-      <div class="text">
-        Ainda não significa que o parcelamento está ativo.
-      </div>
-
-    </div>
-
-
-    <div class="decision d7">
-
-      <span>
-        Entrada foi paga?
-      </span>
-
-    </div>
-
-
-    <div class="card green c17b">
-
-      <div class="title">
-        Parcele ativado
-      </div>
-
-      <div class="text">
-        Parcelamento ativo disponível na área de parcelamentos.
-      </div>
-
-    </div>
-
-
-    <div class="card red c17a">
-
-      <div class="title">
-        Parcele pendente
-      </div>
-
-      <div class="text">
-        Cliente pode consultar a simulação pendente na área de parcelamentos.
-      </div>
-
-    </div>
-
-
-    <!-- =========================================================
-         LABELS
-    ========================================================== -->
-
-    <div class="label gray l1">
-      Em dia
+    <div class="label green l1">
+      Oferta à vista
     </div>
 
     <div class="label gray l2">
-      Em atraso
+      Negociação parcelada
     </div>
 
-    <div class="label red l3">
-      Pré-cancelamento
+    <!-- 4 -->
+
+    <div class="card white a4">
+
+      <div class="step">
+        4 · Data do vencimento
+      </div>
+
+      <div class="title">
+        App sugere D+8
+      </div>
+
+      <div class="text">
+        Pode ser alterada até D+29
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row medium"></div>
+        <div class="screen-row short"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
+    <!-- 5 -->
 
-    <div class="label green l4">
-      Sim
+    <div class="card white a5">
+
+      <div class="step">
+        5 · Valor da entrada
+      </div>
+
+      <div class="title">
+        Entrada opcional
+      </div>
+
+      <div class="text">
+        Dentro da faixa permitida
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
-    <div class="label red l5">
-      Não
+    <!-- 6 -->
+
+    <div class="card white a6">
+
+      <div class="step">
+        6 · Ofertas
+      </div>
+
+      <div class="title">
+        Cliente visualiza as ofertas disponíveis
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
+    <!-- TODAS AS PARCELAS -->
 
-    <div class="label green l6">
-      Sim
+    <div class="card blue compact a6b">
+
+      <div class="title">
+        Conferir todas as parcelas
+      </div>
+
+      <div class="text">
+        Visualiza todas as opções quando houver mais de duas ofertas
+      </div>
+
     </div>
 
-    <div class="label red l7">
-      Não
+    <!-- 7 -->
+
+    <div class="card white a7">
+
+      <div class="step">
+        7 · Selecionar oferta
+      </div>
+
+      <div class="title">
+        Cliente escolhe a condição desejada
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+        <div class="screen-row"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
+    <!-- 8 -->
 
-    <div class="label green l8">
-      Sim
+    <div class="card white a8">
+
+      <div class="step">
+        8 · Tela de resumo
+      </div>
+
+      <div class="title">
+        Confira todos os detalhes da negociação
+      </div>
+
+      <div class="text">
+        Dívida, desconto, IOF, valor total e condição escolhida
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+        <div class="screen-row short"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
-    <div class="label red l9">
-      Não
+    <!-- 9 -->
+
+    <div class="card white a9">
+
+      <div class="step">
+        9 · Forma de pagamento
+      </div>
+
+      <div class="title">
+        Cliente escolhe a forma
+      </div>
+
+      <div class="text">
+        PIX ou boleto
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
+    <!-- 10 -->
 
-    <div class="label green l10">
-      Sim
+    <div class="card white a10">
+
+      <div class="step">
+        10 · Processando
+      </div>
+
+      <div class="title">
+        Gerando a negociação
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row short"></div>
+        <div class="screen-row medium"></div>
+
+      </div>
+
     </div>
 
-    <div class="label red l11">
-      Não
+    <!-- 11 -->
+
+    <div class="card green a11">
+
+      <div class="step">
+        11 · Negociação realizada
+      </div>
+
+      <div class="title">
+        Sua negociação foi realizada!
+      </div>
+
+      <div class="text">
+        Número do acordo, valor total, condição e vencimento
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
+    <!-- 12 -->
 
-    <!-- =========================================================
-         NOTAS
-    ========================================================== -->
+    <div class="card orange a12">
 
-    <div class="note n1">
-      * Saldo total para cliente em dia estava temporariamente
-      desabilitado por regra de teto de juros.
+      <div class="step">
+        12 · Pagamento
+      </div>
+
+      <div class="title">
+        Escolha como deseja pagar agora
+      </div>
+
+      <div class="text">
+        PIX: copiar código
+        <br>
+        Boleto: copiar linha digitável ou compartilhar
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
+    <!-- 13 -->
 
-    <div class="note n2">
-      Pode haver oferta de Pulo Ciclo para perfis elegíveis.
-      É uma regra complementar e não faz parte do tronco principal.
+    <div class="card white wide a13">
+
+      <div class="step">
+        13 · Acordo ativo / Gerenciamento
+      </div>
+
+      <div class="title">
+        Após a baixa do pagamento, o acordo aparece na área de gerenciamento
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row medium"></div>
+        <div class="screen-row short"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
     </div>
 
+    <!-- GERENCIAMENTO -->
 
-    <div class="note orange n3">
-      Na jornada personalizada pode haver repescagem do seguro
-      na tela de resumo.
+    <div class="card blue compact m1">
+
+      <div class="title">
+        Detalhes da negociação
+      </div>
+
+      <div class="text">
+        Veja todas as informações
+      </div>
+
     </div>
 
+    <div class="card blue compact m2">
 
-    <!-- =========================================================
-         RODAPÉ
-    ========================================================== -->
+      <div class="title">
+        Status das parcelas
+      </div>
+
+      <div class="text">
+        Acompanhe pagamentos e vencimentos
+      </div>
+
+    </div>
+
+    <div class="card green compact m3">
+
+      <div class="title">
+        Pagar parcela atual
+      </div>
+
+      <div class="text">
+        Emite o pagamento da próxima parcela
+      </div>
+
+    </div>
+
+    <div class="card compact m4">
+
+      <div class="title">
+        Antecipar parcelas
+      </div>
+
+      <div class="text">
+        Quite parcelas à frente
+      </div>
+
+    </div>
+
+    <!-- PAGAR PARCELA -->
+
+    <div class="card green a14">
+
+      <div class="step">
+        Pagar parcela atual — fluxo
+      </div>
+
+      <div class="title">
+        Forma de pagamento
+      </div>
+
+      <div class="text">
+        PIX ou boleto
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row medium"></div>
+
+        <div class="screen-button"></div>
+
+      </div>
+
+    </div>
+
+    <div class="card green a15">
+
+      <div class="title">
+        Pagamento pronto
+      </div>
+
+      <div class="text">
+        PIX: código disponível
+        <br>
+        Boleto: linha digitável ou compartilhamento
+      </div>
+
+      <div class="screen">
+
+        <div class="screen-row"></div>
+        <div class="screen-row short"></div>
+
+      </div>
+
+    </div>
+
+    <!-- NOTAS -->
+
+    <div class="note blue n1">
+      Dívida ≤ R$ 50: somente 1x (parcela única).
+    </div>
+
+    <div class="note blue n2">
+      A data sugerida no app é D+8 e pode ser alterada até D+29.
+    </div>
+
+    <div class="note blue n3">
+      Após gerar a negociação, o pagamento ocorre fora do fluxo; não há confirmação imediata no app.
+    </div>
+
+    <div class="note red n4">
+      Se houver falha na geração, o cliente permanece na tela e pode tentar novamente.
+    </div>
+
+    <!-- RODAPÉ -->
 
     <div class="footer-box f1">
 
@@ -1578,89 +1308,41 @@ svg{
       </div>
 
       <ul>
-
-        <li>
-          Modalidades variam conforme o status do cliente.
-        </li>
-
-        <li>
-          Seguro, taxas e elegibilidade têm regras específicas.
-        </li>
-
-        <li>
-          Cliente em atraso pode ter bloqueio parcial ou total do cartão.
-        </li>
-
-        <li>
-          Alguns perfis podem ter isenção de entrada.
-        </li>
-
+        <li>Data sugerida no app: D+8.</li>
+        <li>Alteração de vencimento até D+29.</li>
+        <li>Dívida até R$ 50: somente 1x.</li>
+        <li>Entrada opcional, respeitando a faixa permitida.</li>
       </ul>
 
     </div>
-
 
     <div class="footer-box f2">
 
       <div class="footer-title">
-        Outros canais
+        No app
       </div>
 
       <ul>
-
-        <li>
-          App — fluxo principal
-        </li>
-
-        <li>
-          TAS / totem
-        </li>
-
-        <li>
-          Caixa da loja
-        </li>
-
-        <li>
-          Central / URA
-        </li>
-
-        <li>
-          Fatura impressa
-        </li>
-
-        <li>
-          MIA / WhatsApp — em teste
-        </li>
-
+        <li>Foco somente na jornada mobile.</li>
+        <li>Não incluir etapas exclusivas do portal.</li>
+        <li>Compartilhamento de boleto usa apps do celular.</li>
       </ul>
 
     </div>
-
 
     <div class="footer-box f3">
 
       <div class="footer-title">
-        Sobre o seguro
+        Após a negociação
       </div>
 
       <ul>
-
-        <li>
-          Exibido apenas para clientes elegíveis.
-        </li>
-
-        <li>
-          Pode haver repescagem na personalizada e no resumo.
-        </li>
-
-        <li>
-          Condições e valores podem variar.
-        </li>
-
+        <li>Pagamento acontece fora do fluxo.</li>
+        <li>Acordo aparece depois na área de gerenciamento.</li>
+        <li>Cliente pode pagar parcela atual e antecipar parcelas.</li>
       </ul>
 
     </div>
-
 
     <div class="footer-box f4">
 
@@ -1669,21 +1351,9 @@ svg{
       </div>
 
       <ul>
-
-        <li>
-          O app não informa automaticamente que o Parcele foi ativado
-          após o pagamento da entrada.
-        </li>
-
-        <li>
-          O cliente precisa consultar a área de parcelamentos.
-        </li>
-
-        <li>
-          Em canal físico, se o valor pago da entrada for diferente
-          do valor exato da oferta, o parcelamento pode não ser ativado.
-        </li>
-
+        <li>Não há confirmação imediata do pagamento dentro do fluxo.</li>
+        <li>Se o acordo quebrar, o cliente volta ao fluxo de negociação.</li>
+        <li>Os valores já pagos devem ser considerados na nova negociação.</li>
       </ul>
 
     </div>
