@@ -1,1366 +1,797 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Acordo de Dívidas — Jornada no App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retenção | Parcele & Acordo</title>
 
 <style>
-  :root{
-    --bg:#fbfbf8;
-    --ink:#111318;
-    --muted:#6f7680;
-    --line:#aeb5bd;
-
-    --neutral:#f4f5f6;
-    --neutral-b:#dde1e5;
-
-    --green:#eef8e7;
-    --green-b:#cfe8c0;
-    --green-strong:#33833a;
-
-    --orange:#fff1e2;
-    --orange-b:#f1cfaa;
-    --orange-strong:#d9832f;
-
-    --red:#fde9eb;
-    --red-b:#efc5c9;
-    --red-strong:#c84e58;
-
-    --blue:#eef5fb;
-    --blue-b:#d7e4f0;
-    --blue-strong:#347ac2;
-
-    --shadow:0 10px 28px rgba(18,25,32,.07);
-  }
-
-  *{
-    box-sizing:border-box;
-  }
-
-  html,
-  body{
-    margin:0;
-    background:#f2f3f1;
-    font-family:Arial, Helvetica, sans-serif;
-    color:var(--ink);
-  }
-
-  body{
-    padding:24px;
-  }
-
-  .board{
-    width:2400px;
-    min-height:1420px;
-    background:var(--bg);
-    padding:34px 38px 36px;
-    border-radius:24px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .header{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    margin-bottom:26px;
-  }
-
-  .tag{
-    display:inline-block;
-    background:#dff5b5;
-    color:#2f711d;
-    border-radius:999px;
-    padding:7px 13px;
-    font-size:13px;
-    font-weight:700;
-    margin-bottom:10px;
-  }
-
-  h1{
-    margin:0;
-    font-size:42px;
-    line-height:1;
-    letter-spacing:-1.3px;
-    font-weight:700;
-  }
-
-  .subtitle{
-    margin-top:8px;
-    font-size:17px;
-    color:var(--muted);
-  }
-
-  .legend{
-    display:flex;
-    gap:18px;
-    align-items:center;
-    background:#fff;
-    border:1px dashed #d9dde1;
-    border-radius:16px;
-    padding:12px 14px;
-    font-size:12px;
-    color:#616871;
-  }
-
-  .legend-item{
-    display:flex;
-    align-items:center;
-    gap:7px;
-  }
-
-  .dot{
-    width:11px;
-    height:11px;
-    border-radius:50%;
-  }
-
-  .dot.gray{
-    background:#d4d8dc;
-  }
-
-  .dot.green{
-    background:#93d66e;
-  }
-
-  .dot.orange{
-    background:#efa962;
-  }
-
-  .dot.red{
-    background:#ea8088;
-  }
-
-  .flow{
-    position:relative;
-    width:2310px;
-    height:1285px;
-  }
-
-  svg{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:0;
-    overflow:visible;
-  }
-
-  .path{
-    fill:none;
-    stroke:var(--line);
-    stroke-width:2.3;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-  }
-
-  .path.green{
-    stroke:#6fc35a;
-  }
-
-  .path.orange{
-    stroke:#dfa15e;
-  }
-
-  .path.red{
-    stroke:#df747d;
-  }
-
-  .path.blue{
-    stroke:#6da8e8;
-  }
-
-  .path.dashed{
-    stroke-dasharray:6 7;
-  }
-
-  .card,
-  .decision,
-  .note,
-  .footer-box{
-    position:absolute;
-    z-index:2;
-  }
-
-  .card{
-    width:190px;
-    min-height:118px;
-    border-radius:18px;
-    padding:15px;
-    border:1px solid var(--neutral-b);
-    background:var(--neutral);
-    box-shadow:var(--shadow);
-  }
-
-  .card.white{
-    background:#fff;
-  }
-
-  .card.green{
-    background:var(--green);
-    border-color:var(--green-b);
-  }
-
-  .card.orange{
-    background:var(--orange);
-    border-color:var(--orange-b);
-  }
-
-  .card.red{
-    background:var(--red);
-    border-color:var(--red-b);
-  }
-
-  .card.blue{
-    background:var(--blue);
-    border-color:var(--blue-b);
-  }
-
-  .card.compact{
-    min-height:86px;
-  }
-
-  .card.wide{
-    width:225px;
-  }
-
-  .step{
-    font-size:12px;
-    font-weight:700;
-    color:#68707a;
-    margin-bottom:8px;
-  }
-
-  .title{
-    font-size:15px;
-    line-height:1.25;
-    font-weight:700;
-  }
-
-  .text{
-    margin-top:7px;
-    font-size:12px;
-    line-height:1.4;
-    color:#666d76;
-  }
-
-  .screen{
-    margin-top:12px;
-    background:#fff;
-    border:1px solid #dde1e5;
-    border-radius:14px;
-    padding:10px;
-  }
-
-  .screen-row{
-    height:8px;
-    border-radius:999px;
-    background:#edf0f2;
-    margin:7px 0;
-  }
-
-  .screen-row.short{
-    width:62%;
-  }
-
-  .screen-row.medium{
-    width:78%;
-  }
-
-  .screen-button{
-    margin-top:10px;
-    height:24px;
-    border-radius:7px;
-    background:#11171c;
-  }
-
-  .green .screen-button{
-    background:#3c9348;
-  }
-
-  .orange .screen-button{
-    background:#db8d3c;
-  }
-
-  .red .screen-button{
-    background:#c94f59;
-  }
-
-  .decision{
-    width:132px;
-    height:132px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    font-size:12px;
-    font-weight:700;
-  }
-
-  .decision::before{
-    content:"";
-    position:absolute;
-    inset:20px;
-    transform:rotate(45deg);
-    border-radius:18px;
-    background:#fff;
-    border:1px solid #d8dde2;
-    box-shadow:var(--shadow);
-  }
-
-  .decision span{
-    position:relative;
-    z-index:1;
-    width:88px;
-    line-height:1.25;
-  }
-
-  .label{
-    position:absolute;
-    z-index:4;
-    padding:5px 10px;
-    border-radius:999px;
-    font-size:11px;
-    font-weight:700;
-  }
-
-  .label.green{
-    background:#ddf4ca;
-    color:#347824;
-  }
-
-  .label.red{
-    background:#fbd9dc;
-    color:#ac4048;
-  }
-
-  .label.gray{
-    background:#eceeef;
-    color:#5d646c;
-  }
-
-  .label.orange{
-    background:#ffead1;
-    color:#a76118;
-  }
-
-  .note{
-    width:220px;
-    padding:11px 13px;
-    border-radius:14px;
-    background:#f4f5f6;
-    border:1px dashed #cfd5da;
-    color:#707780;
-    font-size:11px;
-    line-height:1.42;
-  }
-
-  .note.blue{
-    background:#eff6fd;
-    border-color:#cbdff2;
-    color:#426f9f;
-  }
-
-  .note.orange{
-    background:#fff7ee;
-    border-color:#efd0ad;
-    color:#99631f;
-  }
-
-  .note.red{
-    background:#fff0f1;
-    border-color:#ecc5c8;
-    color:#9c4a50;
-  }
-
-  .footer-box{
-    padding:15px 17px;
-    border-radius:18px;
-    background:#fff;
-    border:1px solid #e3e6e9;
-    box-shadow:var(--shadow);
-  }
-
-  .footer-title{
-    font-size:13px;
-    font-weight:700;
-    margin-bottom:8px;
-  }
-
-  .footer-box ul{
-    margin:0;
-    padding-left:17px;
-    font-size:11px;
-    line-height:1.5;
-    color:#666d76;
-  }
-
-  /* POSIÇÕES */
-
-  .a1{
-    left:0;
-    top:130px;
-  }
-
-  .a2{
-    left:230px;
-    top:130px;
-  }
-
-  .faq{
-    left:450px;
-    top:25px;
-    width:170px;
-  }
-
-  .a3{
-    left:450px;
-    top:130px;
-  }
-
-  .d1{
-    left:685px;
-    top:122px;
-  }
-
-  .a4{
-    left:930px;
-    top:130px;
-  }
-
-  .a5{
-    left:1150px;
-    top:130px;
-  }
-
-  .a6{
-    left:1370px;
-    top:130px;
-  }
-
-  .a6b{
-    left:1370px;
-    top:345px;
-    width:220px;
-  }
-
-  .a7{
-    left:1605px;
-    top:130px;
-  }
-
-  .a8{
-    left:1835px;
-    top:130px;
-  }
-
-  .a9{
-    left:0;
-    top:675px;
-  }
-
-  .a10{
-    left:235px;
-    top:675px;
-  }
-
-  .a11{
-    left:470px;
-    top:675px;
-  }
-
-  .a12{
-    left:725px;
-    top:675px;
-  }
-
-  .a13{
-    left:1020px;
-    top:675px;
-    width:270px;
-  }
-
-  .m1{
-    left:1330px;
-    top:655px;
-    width:205px;
-  }
-
-  .m2{
-    left:1330px;
-    top:785px;
-    width:205px;
-  }
-
-  .m3{
-    left:1330px;
-    top:915px;
-    width:205px;
-  }
-
-  .m4{
-    left:1330px;
-    top:1045px;
-    width:205px;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --blue: #2365dc;
+  --blue-light: #eff6ff;
+  --blue-mid: #dcecff;
+  --ink: #111318;
+  --muted: #535d6b;
+  --line: #d8e0ed;
+  --green: #dcebd2;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #e9edf3;
+  font-family: Inter, Arial, sans-serif;
+  color: var(--ink);
+}
+
+.deck {
+  width: min(96vw, 1500px);
+  margin: 32px auto;
+}
+
+.slide {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 32px;
+  padding: 3.2%;
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+  overflow: hidden;
+  box-shadow: 0 8px 30px #182d4b12;
+}
+
+/* CABEÇALHO */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-height: 6%;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: clamp(11px, 1.2vw, 17px);
+  font-weight: 500;
+}
+
+.avatar {
+  height: 42px;
+  width: 42px;
+  background: #17191d;
+  color: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+}
+
+.tags {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: clamp(9px, .85vw, 12px);
+}
+
+.tag {
+  padding: 10px 18px;
+  border-radius: 7px;
+  background: #eef0f5;
+  white-space: nowrap;
+}
+
+.tag.green { background: var(--green); }
+.tag.dark { background: #28282b; color: white; }
+.tag.blue { background: #dce7ff; }
+
+.tag-label {
+  color: #424752;
+  font-weight: 600;
+}
+
+/* TIPOGRAFIA */
+
+h1, h2, h3, p { margin: 0; }
+
+h1 {
+  font-size: clamp(29px, 3.7vw, 53px);
+  line-height: 1.08;
+  letter-spacing: -.055em;
+}
+
+h2 {
+  font-size: clamp(26px, 3vw, 45px);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+
+h3 {
+  font-size: clamp(14px, 1.35vw, 19px);
+  line-height: 1.3;
+}
+
+p {
+  line-height: 1.55;
+  font-size: clamp(11px, 1.15vw, 16px);
+}
+
+.accent { color: var(--blue); }
+.muted { color: var(--muted); }
+
+.eyebrow {
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.panel {
+  background: linear-gradient(135deg, #edf6ff, #e3f0ff);
+  border-radius: 22px;
+}
+
+/* SLIDE 1 */
+
+.intro {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  gap: 4%;
+  flex: 1;
+  align-items: center;
+}
+
+.intro-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.intro-copy p {
+  max-width: 440px;
+  font-size: clamp(13px, 1.4vw, 20px);
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  height: 82%;
+}
+
+.project {
+  padding: 8%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.project .number {
+  color: var(--blue);
+  font-size: 27px;
+  font-weight: 400;
+}
+
+.project .status {
+  align-self: flex-start;
+  border-radius: 6px;
+  padding: 7px 12px;
+  background: #cbdefd;
+  font-size: 12px;
+  color: #17458c;
+}
+
+.project h3 {
+  font-size: clamp(19px, 1.9vw, 27px);
+  letter-spacing: -.04em;
+}
+
+.project p {
+  color: #3f4854;
+}
+
+.project .arrow {
+  margin-top: auto;
+  font-size: 26px;
+}
+
+/* SLIDES 2 E 3 */
+
+.case-title {
+  padding-top: 12px;
+}
+
+.case-content {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 59% 1fr;
+  gap: 2.4%;
+}
+
+.main-visual {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-area {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  border-radius: 20px;
+  border: 2px dashed #b4cdec;
+  background: #e8f3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: #255ba6;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.upload-area strong {
+  font-size: clamp(15px, 1.4vw, 21px);
+}
+
+.upload-area span {
+  font-size: 13px;
+}
+
+.upload-area img {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  inset: 0;
+  background: #f6faff;
+}
+
+.upload-area.has-image img {
+  display: block;
+}
+
+.upload-area.has-image .upload-instructions {
+  display: none;
+}
+
+.upload-area input { display: none; }
+
+.details {
+  border-left: 1px solid var(--line);
+  padding-left: 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.detail {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.detail:last-child { border-bottom: none; }
+
+.detail h3 {
+  color: #1c59bf;
+  margin-bottom: 8px;
+}
+
+.detail p {
+  font-size: clamp(10px, 1vw, 15px);
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.metric {
+  background: #edf5ff;
+  border-radius: 12px;
+  padding: 15px 8px;
+  text-align: center;
+}
+
+.metric strong {
+  display: block;
+  font-size: clamp(27px, 3.4vw, 49px);
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.metric span {
+  font-size: clamp(9px, .8vw, 12px);
+  line-height: 1.3;
+}
+
+.caption-area {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.caption-area p {
+  max-width: 85%;
+  color: #4b5563;
+}
+
+.status-pill {
+  display: inline-block;
+  background: #cfecc5;
+  color: #245129;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 9px;
+}
+
+/* DISCOVERY */
+
+.discovery {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  padding: 6%;
+}
+
+.flow-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.flow-group {
+  background: white;
+  border-radius: 14px;
+  padding: 19px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.flow-group h3 {
+  font-size: 20px;
+}
+
+.flow-step {
+  background: #e8f2ff;
+  color: #27394e;
+  border-radius: 8px;
+  padding: 11px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.flow-group.agreement .flow-step {
+  background: #e9f1e4;
+}
+
+.flow-bottom {
+  align-self: center;
+  width: 75%;
+  background: #cfe2fb;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #1e4c90;
+}
+
+.flow-connector {
+  text-align: center;
+  font-size: 24px;
+  color: var(--blue);
+  line-height: 1;
+}
+
+.discovery-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.discovery-list div {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: clamp(10px, 1vw, 14px);
+  line-height: 1.4;
+}
+
+.discovery-list b {
+  background: #e5f0ff;
+  color: var(--blue);
+  padding: 7px 9px;
+  border-radius: 7px;
+  font-size: 11px;
+}
+
+/* RESPONSIVIDADE */
+
+@media(max-width: 800px) {
+  .tags { gap: 4px; }
+  .tag { padding: 5px; }
+  .avatar { width: 28px; height: 28px; }
+  .project { gap: 8px; }
+  .project .status { font-size: 9px; padding: 5px; }
+  .flow-group { padding: 9px; gap: 7px; }
+  .flow-step { padding: 7px; font-size: 9px; }
+  .flow-group h3 { font-size: 12px; }
+  .discovery { gap: 10px; }
+  .flow-bottom { padding: 10px; font-size: 10px; }
+}
+
+/* IMPRESSÃO */
+
+@page {
+  size: 16in 9in;
+  margin: 0;
+}
+
+@media print {
+  body { background: white; }
+  .deck { margin: 0; width: 100%; }
+  .slide {
+    width: 16in;
+    height: 9in;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    break-after: page;
+    page-break-after: always;
+  }
+}
 
-  .a14{
-    left:1595px;
-    top:655px;
-    width:220px;
-  }
-
-  .a15{
-    left:1845px;
-    top:655px;
-    width:220px;
-  }
-
-  .l1{
-    left:825px;
-    top:86px;
-  }
-
-  .l2{
-    left:785px;
-    top:245px;
-  }
-
-  .n1{
-    left:1150px;
-    top:460px;
-  }
-
-  .n2{
-    left:875px;
-    top:470px;
-  }
-
-  .n3{
-    left:725px;
-    top:950px;
-  }
-
-  .n4{
-    left:1020px;
-    top:945px;
-  }
-
-  .f1{
-    left:0;
-    top:1120px;
-    width:620px;
-  }
-
-  .f2{
-    left:645px;
-    top:1120px;
-    width:505px;
-  }
-
-  .f3{
-    left:1175px;
-    top:1120px;
-    width:500px;
-  }
-
-  .f4{
-    left:1700px;
-    top:1120px;
-    width:610px;
-  }
 </style>
 </head>
 
 <body>
 
-<div class="board">
+<main class="deck">
 
-  <div class="header">
+<!-- SLIDE 1 -->
+<section class="slide">
 
-    <div>
+  <header class="header">
+    <div class="identity">
+      <div class="avatar">BR</div>
+      <span>Tribo Retenção<br>Parcele & Acordo</span>
+    </div>
 
-      <div class="tag">
-        Fluxo As-Is
-      </div>
+    <div class="tags">
+      <span class="tag-label">Design de produtos</span>
+      <span class="tag green">Retenção</span>
+    </div>
+  </header>
+
+  <div class="intro">
+
+    <div class="intro-copy">
+      <div class="eyebrow">Atuação transversal</div>
 
       <h1>
-        Acordo de Dívidas – Jornada no App
+        Minha atuação<br>
+        <span class="accent">
+          em Parcele<br>& Acordo
+        </span>
       </h1>
 
-      <div class="subtitle">
-        Fluxo ponta a ponta, tela a tela, com todos os caminhos principais
-      </div>
-
+      <p>
+        Atuação transversal entre os produtos
+        Parcele e Acordo, com foco em inteligência
+        de dados e experiência, contribuindo para
+        análises do público e evolução das jornadas.
+      </p>
     </div>
 
-    <div class="legend">
+    <div class="projects">
 
-      <div class="legend-item">
-        <span class="dot gray"></span>
-        Tela neutra (informação/seleção)
-      </div>
+      <article class="project panel">
+        <div class="number">01</div>
+        <span class="status">Em finalização</span>
 
-      <div class="legend-item">
-        <span class="dot green"></span>
-        Negociação / avanço
-      </div>
+        <h3>Dashboard<br>Parcele & Acordo</h3>
 
-      <div class="legend-item">
-        <span class="dot orange"></span>
-        Pagamento / condição financeira
-      </div>
+        <p>
+          Estruturação de uma visão analítica
+          integrada dos produtos, reunindo
+          indicadores de público, inadimplência,
+          conversão e experiência.
+        </p>
 
-      <div class="legend-item">
-        <span class="dot red"></span>
-        Desistência / erro / atenção
-      </div>
+        <div class="arrow">→</div>
+      </article>
+
+      <article class="project panel">
+        <div class="number">02</div>
+        <span class="status">Em Discovery</span>
+
+        <h3>Unificação dos<br>fluxos</h3>
+
+        <p>
+          Mentoria dedicada à investigação das
+          jornadas atuais de Parcele e Acordo,
+          buscando oportunidades de
+          simplificação e consistência.
+        </p>
+
+        <div class="arrow">→</div>
+      </article>
 
     </div>
 
   </div>
 
-  <div class="flow">
+</section>
 
-    <svg viewBox="0 0 2310 1285">
 
-      <defs>
+<!-- SLIDE 2 -->
+<section class="slide">
 
-        <marker
-          id="arrow"
-          markerWidth="9"
-          markerHeight="9"
-          refX="8"
-          refY="4.5"
-          orient="auto"
-        >
-
-          <path
-            d="M0 0 L9 4.5 L0 9 Z"
-            fill="#aeb5bd"
-          />
-
-        </marker>
-
-      </defs>
-
-      <!-- LINHA PRINCIPAL -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M190 190 H230"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M420 190 H450"
-      />
-
-      <path
-        class="path blue dashed"
-        marker-end="url(#arrow)"
-        d="M325 130 C350 90 395 75 450 75"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M640 190 H685"
-      />
-
-      <path
-        class="path green"
-        marker-end="url(#arrow)"
-        d="M795 155 C840 120 875 120 930 150"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M795 220 C840 250 865 250 930 250"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1120 190 H1150"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1340 190 H1370"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1560 190 H1605"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1795 190 H1835"
-      />
-
-      <!-- OFERTA À VISTA -->
-
-      <path
-        class="path green"
-        marker-end="url(#arrow)"
-        d="M760 115 C850 30 1700 30 1925 130"
-      />
-
-      <!-- TODAS AS PARCELAS -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1465 248 V345"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1590 390 C1610 390 1615 330 1615 300"
-      />
-
-      <!-- QUEBRA PARA LINHA DE BAIXO -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1930 315 C1930 520 95 520 95 675"
-      />
-
-      <!-- LINHA INFERIOR -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M190 735 H235"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M425 735 H470"
-      />
-
-      <path
-        class="path orange"
-        marker-end="url(#arrow)"
-        d="M660 735 H725"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M915 735 H1020"
-      />
-
-      <!-- GERENCIAMENTO -->
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1290 735 H1330"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1290 750 C1315 750 1315 825 1330 825"
-      />
-
-      <path
-        class="path green"
-        marker-end="url(#arrow)"
-        d="M1290 765 C1315 765 1315 955 1330 955"
-      />
-
-      <path
-        class="path"
-        marker-end="url(#arrow)"
-        d="M1290 780 C1315 780 1315 1085 1330 1085"
-      />
-
-      <path
-        class="path green"
-        marker-end="url(#arrow)"
-        d="M1535 955 H1595"
-      />
-
-      <path
-        class="path green"
-        marker-end="url(#arrow)"
-        d="M1705 740 V785"
-      />
-
-      <path
-        class="path green"
-        marker-end="url(#arrow)"
-        d="M1705 870 V915"
-      />
-
-    </svg>
-
-    <!-- 1 -->
-
-    <div class="card white a1">
-
-      <div class="step">
-        1 · Acesso
-      </div>
-
-      <div class="title">
-        Cliente acessa o Acordo no app
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row medium"></div>
-        <div class="screen-row"></div>
-        <div class="screen-row short"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
+  <header class="header">
+    <div class="identity">
+      <div class="avatar">BR</div>
+      <span>Tribo Retenção: Parcele | Acordo</span>
     </div>
 
-    <!-- 2 -->
+    <div class="tags">
+      <span class="tag-label">Etapas de design</span>
+      <span class="tag green">Entender / Definir</span>
+      <span class="tag-label">Status</span>
+      <span class="tag dark">Em finalização</span>
+    </div>
+  </header>
 
-    <div class="card white a2">
+  <div class="case-title">
+    <h2>Dashboard <span class="accent">Parcele & Acordo</span></h2>
+  </div>
 
-      <div class="step">
-        2 · Consulta da dívida e ofertas
-      </div>
+  <div class="case-content">
 
-      <div class="title">
-        Visualiza a dívida e as ofertas disponíveis
-      </div>
+    <div class="main-visual">
+      <label class="upload-area" id="dropDashboard">
+        <input type="file" id="dashboardInput" accept="image/*">
 
-      <div class="screen">
+        <div class="upload-instructions">
+          <div style="font-size:38px">▧</div>
+          <strong>Inserir print do dashboard</strong>
+          <span>Looker Studio · Clique para selecionar imagem</span>
+        </div>
 
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-        <div class="screen-row"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
+        <img id="dashboardPreview" alt="Dashboard Parcele e Acordo">
+      </label>
     </div>
 
-    <!-- FAQ -->
+    <aside class="details">
 
-    <div class="card blue compact faq">
-
-      <div class="title">
-        Dúvidas frequentes
+      <div class="detail">
+        <h3>Necessidade do negócio</h3>
+        <p>
+          Consolidar em uma única visão os
+          principais indicadores de Parcele e
+          Acordo para análise e acompanhamento.
+        </p>
       </div>
 
-      <div class="text">
-        Acesso pelo cabeçalho do app
+      <div class="detail">
+        <h3>Valor para o negócio</h3>
+        <p>
+          Facilitar a leitura do público, do risco,
+          da conversão e do comportamento dos
+          produtos em uma estrutura analítica.
+        </p>
       </div>
 
+      <div class="detail">
+        <h3>Visões desenvolvidas</h3>
+        <p>
+          Ficha do cliente · Inadimplência e risco ·
+          Conversão e elegibilidade ·
+          Visão interna e externa · Produto e UX.
+        </p>
+      </div>
+
+      <div class="numbers">
+        <div class="metric">
+          <strong>5</strong>
+          <span>visões analíticas</span>
+        </div>
+        <div class="metric">
+          <strong>2</strong>
+          <span>produtos</span>
+        </div>
+        <div class="metric">
+          <strong>1</strong>
+          <span>dashboard</span>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <footer class="caption-area">
+    <div>
+      <span class="status-pill">Em finalização</span>
+      <p>
+        Estruturação de um dashboard com visão
+        integrada dos produtos Parcele e Acordo,
+        reunindo análises de público, inadimplência,
+        conversão, comportamento e experiência.
+      </p>
+    </div>
+  </footer>
+
+</section>
+
+
+<!-- SLIDE 3 -->
+<section class="slide">
+
+  <header class="header">
+    <div class="identity">
+      <div class="avatar">BR</div>
+      <span>Tribo Retenção: Parcele | Acordo</span>
     </div>
 
-    <!-- 3 -->
-
-    <div class="card white a3">
-
-      <div class="step">
-        3 · Iniciar negociação
-      </div>
-
-      <div class="title">
-        Cliente clica em “Conferir opções”
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
+    <div class="tags">
+      <span class="tag-label">Etapas de design</span>
+      <span class="tag green">Entender / Definir</span>
+      <span class="tag-label">Momento</span>
+      <span class="tag dark">Discovery</span>
     </div>
+  </header>
 
-    <!-- DECISÃO -->
-
-    <div class="decision d1">
-
-      <span>
-        Existe oferta à vista?
+  <div class="case-title">
+    <h2>
+      Discovery para unificação<br>
+      <span class="accent">
+        dos fluxos de Parcele & Acordo
       </span>
+    </h2>
+  </div>
 
-    </div>
+  <div class="case-content">
 
-    <div class="label green l1">
-      Oferta à vista
-    </div>
+    <div class="main-visual panel discovery">
 
-    <div class="label gray l2">
-      Negociação parcelada
-    </div>
+      <div class="flow-row">
 
-    <!-- 4 -->
+        <div class="flow-group">
+          <h3>Parcele</h3>
+          <div class="flow-step">Mapeamento da jornada atual</div>
+          <div class="flow-step">Análise dos pontos de contato</div>
+          <div class="flow-step">Identificação de oportunidades</div>
+        </div>
 
-    <div class="card white a4">
-
-      <div class="step">
-        4 · Data do vencimento
-      </div>
-
-      <div class="title">
-        App sugere D+8
-      </div>
-
-      <div class="text">
-        Pode ser alterada até D+29
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row medium"></div>
-        <div class="screen-row short"></div>
-
-        <div class="screen-button"></div>
+        <div class="flow-group agreement">
+          <h3>Acordo</h3>
+          <div class="flow-step">Mapeamento da jornada atual</div>
+          <div class="flow-step">Análise dos pontos de contato</div>
+          <div class="flow-step">Identificação de oportunidades</div>
+        </div>
 
       </div>
 
-    </div>
+      <div class="flow-connector">↓</div>
 
-    <!-- 5 -->
-
-    <div class="card white a5">
-
-      <div class="step">
-        5 · Valor da entrada
-      </div>
-
-      <div class="title">
-        Entrada opcional
-      </div>
-
-      <div class="text">
-        Dentro da faixa permitida
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-
-        <div class="screen-button"></div>
-
+      <div class="flow-bottom">
+        Análise comparativa das jornadas<br>
+        <span style="font-weight:400;font-size:12px">
+          Investigação de oportunidades de convergência
+        </span>
       </div>
 
     </div>
 
-    <!-- 6 -->
+    <aside class="details">
 
-    <div class="card white a6">
-
-      <div class="step">
-        6 · Ofertas
+      <div class="detail">
+        <h3>Necessidade do cliente</h3>
+        <p>
+          Ter uma experiência mais clara e
+          consistente para negociação e
+          regularização financeira.
+        </p>
       </div>
 
-      <div class="title">
-        Cliente visualiza as ofertas disponíveis
+      <div class="detail">
+        <h3>Valor para o negócio</h3>
+        <p>
+          Investigar oportunidades de convergência
+          entre os fluxos para apoiar futuras
+          evoluções de produto e experiência.
+        </p>
       </div>
 
-      <div class="screen">
+      <div class="detail">
+        <h3>Etapa atual · Discovery</h3>
 
-        <div class="screen-row"></div>
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-
-        <div class="screen-button"></div>
-
+        <div class="discovery-list">
+          <div>
+            <b>01</b>
+            Mapeamento dos fluxos atuais
+            de Parcele e Acordo.
+          </div>
+          <div>
+            <b>02</b>
+            Análise de semelhanças e
+            diferenças entre as jornadas.
+          </div>
+          <div>
+            <b>03</b>
+            Identificação de oportunidades
+            de simplificação e consistência.
+          </div>
+        </div>
       </div>
 
-    </div>
-
-    <!-- TODAS AS PARCELAS -->
-
-    <div class="card blue compact a6b">
-
-      <div class="title">
-        Conferir todas as parcelas
-      </div>
-
-      <div class="text">
-        Visualiza todas as opções quando houver mais de duas ofertas
-      </div>
-
-    </div>
-
-    <!-- 7 -->
-
-    <div class="card white a7">
-
-      <div class="step">
-        7 · Selecionar oferta
-      </div>
-
-      <div class="title">
-        Cliente escolhe a condição desejada
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-        <div class="screen-row"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-    <!-- 8 -->
-
-    <div class="card white a8">
-
-      <div class="step">
-        8 · Tela de resumo
-      </div>
-
-      <div class="title">
-        Confira todos os detalhes da negociação
-      </div>
-
-      <div class="text">
-        Dívida, desconto, IOF, valor total e condição escolhida
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-        <div class="screen-row short"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-    <!-- 9 -->
-
-    <div class="card white a9">
-
-      <div class="step">
-        9 · Forma de pagamento
-      </div>
-
-      <div class="title">
-        Cliente escolhe a forma
-      </div>
-
-      <div class="text">
-        PIX ou boleto
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-    <!-- 10 -->
-
-    <div class="card white a10">
-
-      <div class="step">
-        10 · Processando
-      </div>
-
-      <div class="title">
-        Gerando a negociação
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row short"></div>
-        <div class="screen-row medium"></div>
-
-      </div>
-
-    </div>
-
-    <!-- 11 -->
-
-    <div class="card green a11">
-
-      <div class="step">
-        11 · Negociação realizada
-      </div>
-
-      <div class="title">
-        Sua negociação foi realizada!
-      </div>
-
-      <div class="text">
-        Número do acordo, valor total, condição e vencimento
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-    <!-- 12 -->
-
-    <div class="card orange a12">
-
-      <div class="step">
-        12 · Pagamento
-      </div>
-
-      <div class="title">
-        Escolha como deseja pagar agora
-      </div>
-
-      <div class="text">
-        PIX: copiar código
-        <br>
-        Boleto: copiar linha digitável ou compartilhar
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-    <!-- 13 -->
-
-    <div class="card white wide a13">
-
-      <div class="step">
-        13 · Acordo ativo / Gerenciamento
-      </div>
-
-      <div class="title">
-        Após a baixa do pagamento, o acordo aparece na área de gerenciamento
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row medium"></div>
-        <div class="screen-row short"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-    <!-- GERENCIAMENTO -->
-
-    <div class="card blue compact m1">
-
-      <div class="title">
-        Detalhes da negociação
-      </div>
-
-      <div class="text">
-        Veja todas as informações
-      </div>
-
-    </div>
-
-    <div class="card blue compact m2">
-
-      <div class="title">
-        Status das parcelas
-      </div>
-
-      <div class="text">
-        Acompanhe pagamentos e vencimentos
-      </div>
-
-    </div>
-
-    <div class="card green compact m3">
-
-      <div class="title">
-        Pagar parcela atual
-      </div>
-
-      <div class="text">
-        Emite o pagamento da próxima parcela
-      </div>
-
-    </div>
-
-    <div class="card compact m4">
-
-      <div class="title">
-        Antecipar parcelas
-      </div>
-
-      <div class="text">
-        Quite parcelas à frente
-      </div>
-
-    </div>
-
-    <!-- PAGAR PARCELA -->
-
-    <div class="card green a14">
-
-      <div class="step">
-        Pagar parcela atual — fluxo
-      </div>
-
-      <div class="title">
-        Forma de pagamento
-      </div>
-
-      <div class="text">
-        PIX ou boleto
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row medium"></div>
-
-        <div class="screen-button"></div>
-
-      </div>
-
-    </div>
-
-    <div class="card green a15">
-
-      <div class="title">
-        Pagamento pronto
-      </div>
-
-      <div class="text">
-        PIX: código disponível
-        <br>
-        Boleto: linha digitável ou compartilhamento
-      </div>
-
-      <div class="screen">
-
-        <div class="screen-row"></div>
-        <div class="screen-row short"></div>
-
-      </div>
-
-    </div>
-
-    <!-- NOTAS -->
-
-    <div class="note blue n1">
-      Dívida ≤ R$ 50: somente 1x (parcela única).
-    </div>
-
-    <div class="note blue n2">
-      A data sugerida no app é D+8 e pode ser alterada até D+29.
-    </div>
-
-    <div class="note blue n3">
-      Após gerar a negociação, o pagamento ocorre fora do fluxo; não há confirmação imediata no app.
-    </div>
-
-    <div class="note red n4">
-      Se houver falha na geração, o cliente permanece na tela e pode tentar novamente.
-    </div>
-
-    <!-- RODAPÉ -->
-
-    <div class="footer-box f1">
-
-      <div class="footer-title">
-        Regras e pontos de atenção
-      </div>
-
-      <ul>
-        <li>Data sugerida no app: D+8.</li>
-        <li>Alteração de vencimento até D+29.</li>
-        <li>Dívida até R$ 50: somente 1x.</li>
-        <li>Entrada opcional, respeitando a faixa permitida.</li>
-      </ul>
-
-    </div>
-
-    <div class="footer-box f2">
-
-      <div class="footer-title">
-        No app
-      </div>
-
-      <ul>
-        <li>Foco somente na jornada mobile.</li>
-        <li>Não incluir etapas exclusivas do portal.</li>
-        <li>Compartilhamento de boleto usa apps do celular.</li>
-      </ul>
-
-    </div>
-
-    <div class="footer-box f3">
-
-      <div class="footer-title">
-        Após a negociação
-      </div>
-
-      <ul>
-        <li>Pagamento acontece fora do fluxo.</li>
-        <li>Acordo aparece depois na área de gerenciamento.</li>
-        <li>Cliente pode pagar parcela atual e antecipar parcelas.</li>
-      </ul>
-
-    </div>
-
-    <div class="footer-box f4">
-
-      <div class="footer-title">
-        Gap conhecido
-      </div>
-
-      <ul>
-        <li>Não há confirmação imediata do pagamento dentro do fluxo.</li>
-        <li>Se o acordo quebrar, o cliente volta ao fluxo de negociação.</li>
-        <li>Os valores já pagos devem ser considerados na nova negociação.</li>
-      </ul>
-
-    </div>
+    </aside>
 
   </div>
 
-</div>
+  <footer class="caption-area">
+    <div>
+      <span class="status-pill">Em andamento · Discovery</span>
+      <p>
+        Mentoria focada na investigação e
+        aproximação das jornadas de Parcele
+        e Acordo, buscando oportunidades
+        de simplificação, consistência e
+        evolução da experiência.
+      </p>
+    </div>
+  </footer>
+
+</section>
+
+</main>
+
+<script>
+const input = document.getElementById("dashboardInput");
+const preview = document.getElementById("dashboardPreview");
+const area = document.getElementById("dropDashboard");
+
+input.addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function (event) {
+    preview.src = event.target.result;
+    area.classList.add("has-image");
+  };
+
+  reader.readAsDataURL(file);
+});
+</script>
 
 </body>
 </html>
