@@ -3,793 +3,962 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retenção | Parcele & Acordo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrefour Banco — Dicas e Histórico do Score</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 :root {
-  --blue: #2365dc;
-  --blue-light: #eff6ff;
-  --blue-mid: #dcecff;
-  --ink: #111318;
-  --muted: #535d6b;
-  --line: #d8e0ed;
-  --green: #dcebd2;
+  --navy: #071747;
+  --blue: #0752dc;
+  --muted: #75809a;
+  --line: #e3e8f1;
+  --light: #f3f6fb;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: #e9edf3;
-  font-family: Inter, Arial, sans-serif;
-  color: var(--ink);
+  background: #e9edf4;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--navy);
 }
 
-.deck {
-  width: min(96vw, 1500px);
-  margin: 32px auto;
-}
-
-.slide {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #fff;
-  border-radius: 10px;
-  margin-bottom: 32px;
-  padding: 3.2%;
+.workspace {
   display: flex;
-  flex-direction: column;
-  gap: 3%;
-  overflow: hidden;
-  box-shadow: 0 8px 30px #182d4b12;
-}
-
-/* CABEÇALHO */
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  min-height: 6%;
-}
-
-.identity {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: clamp(11px, 1.2vw, 17px);
-  font-weight: 500;
-}
-
-.avatar {
-  height: 42px;
-  width: 42px;
-  background: #17191d;
-  color: #fff;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 13px;
-}
-
-.tags {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  font-size: clamp(9px, .85vw, 12px);
-}
-
-.tag {
-  padding: 10px 18px;
-  border-radius: 7px;
-  background: #eef0f5;
-  white-space: nowrap;
-}
-
-.tag.green { background: var(--green); }
-.tag.dark { background: #28282b; color: white; }
-.tag.blue { background: #dce7ff; }
-
-.tag-label {
-  color: #424752;
-  font-weight: 600;
-}
-
-/* TIPOGRAFIA */
-
-h1, h2, h3, p { margin: 0; }
-
-h1 {
-  font-size: clamp(29px, 3.7vw, 53px);
-  line-height: 1.08;
-  letter-spacing: -.055em;
-}
-
-h2 {
-  font-size: clamp(26px, 3vw, 45px);
-  line-height: 1.08;
-  letter-spacing: -.045em;
-}
-
-h3 {
-  font-size: clamp(14px, 1.35vw, 19px);
-  line-height: 1.3;
-}
-
-p {
-  line-height: 1.55;
-  font-size: clamp(11px, 1.15vw, 16px);
-}
-
-.accent { color: var(--blue); }
-.muted { color: var(--muted); }
-
-.eyebrow {
-  font-size: 12px;
-  color: var(--blue);
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.panel {
-  background: linear-gradient(135deg, #edf6ff, #e3f0ff);
-  border-radius: 22px;
-}
-
-/* SLIDE 1 */
-
-.intro {
-  display: grid;
-  grid-template-columns: 40% 1fr;
-  gap: 4%;
-  flex: 1;
-  align-items: center;
-}
-
-.intro-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.intro-copy p {
-  max-width: 440px;
-  font-size: clamp(13px, 1.4vw, 20px);
-}
-
-.projects {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  height: 82%;
-}
-
-.project {
-  padding: 8%;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.project .number {
-  color: var(--blue);
-  font-size: 27px;
-  font-weight: 400;
-}
-
-.project .status {
-  align-self: flex-start;
-  border-radius: 6px;
-  padding: 7px 12px;
-  background: #cbdefd;
-  font-size: 12px;
-  color: #17458c;
-}
-
-.project h3 {
-  font-size: clamp(19px, 1.9vw, 27px);
-  letter-spacing: -.04em;
-}
-
-.project p {
-  color: #3f4854;
-}
-
-.project .arrow {
-  margin-top: auto;
-  font-size: 26px;
-}
-
-/* SLIDES 2 E 3 */
-
-.case-title {
-  padding-top: 12px;
-}
-
-.case-content {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: 59% 1fr;
-  gap: 2.4%;
-}
-
-.main-visual {
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.upload-area {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  border-radius: 20px;
-  border: 2px dashed #b4cdec;
-  background: #e8f3ff;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 12px;
-  color: #255ba6;
-  cursor: pointer;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding: 28px;
+}
+
+.phone {
+  width: 390px;
+  height: 844px;
+  background: white;
   position: relative;
   overflow: hidden;
-  text-align: center;
+  border-radius: 22px;
+  box-shadow: 0 14px 34px #172b4f24;
 }
 
-.upload-area strong {
-  font-size: clamp(15px, 1.4vw, 21px);
-}
-
-.upload-area span {
-  font-size: 13px;
-}
-
-.upload-area img {
-  display: none;
-  width: 100%;
+.screen {
   height: 100%;
-  object-fit: contain;
-  position: absolute;
-  inset: 0;
-  background: #f6faff;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding-bottom: 30px;
 }
 
-.upload-area.has-image img {
-  display: block;
+.screen::-webkit-scrollbar { display: none; }
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.upload-area.has-image .upload-instructions {
-  display: none;
-}
-
-.upload-area input { display: none; }
-
-.details {
-  border-left: 1px solid var(--line);
-  padding-left: 6%;
+.status {
+  height: 42px;
+  padding: 14px 27px 0;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  gap: 15px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #111;
 }
 
-.detail {
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line);
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.detail:last-child { border-bottom: none; }
-
-.detail h3 {
-  color: #1c59bf;
-  margin-bottom: 8px;
+.battery {
+  width: 21px;
+  height: 11px;
+  border: 1.5px solid #111;
+  border-radius: 3px;
+  padding: 2px;
 }
 
-.detail p {
-  font-size: clamp(10px, 1vw, 15px);
-}
-
-.numbers {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.metric {
-  background: #edf5ff;
-  border-radius: 12px;
-  padding: 15px 8px;
-  text-align: center;
-}
-
-.metric strong {
+.battery::after {
+  content: "";
   display: block;
-  font-size: clamp(27px, 3.4vw, 49px);
-  font-weight: 700;
-  color: var(--blue);
-  line-height: 1;
-  margin-bottom: 8px;
+  height: 5px;
+  width: 14px;
+  background: #111;
+  border-radius: 1px;
 }
 
-.metric span {
-  font-size: clamp(9px, .8vw, 12px);
-  line-height: 1.3;
-}
-
-.caption-area {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.caption-area p {
-  max-width: 85%;
-  color: #4b5563;
-}
-
-.status-pill {
-  display: inline-block;
-  background: #cfecc5;
-  color: #245129;
-  padding: 7px 13px;
-  border-radius: 8px;
-  font-size: 11px;
-  font-weight: 700;
-  margin-bottom: 9px;
-}
-
-/* DISCOVERY */
-
-.discovery {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 24px;
-  padding: 6%;
-}
-
-.flow-row {
+.header {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  height: 66px;
+  padding: 0 20px;
 }
 
-.flow-group {
-  background: white;
-  border-radius: 14px;
-  padding: 19px;
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-}
-
-.flow-group h3 {
-  font-size: 20px;
-}
-
-.flow-step {
-  background: #e8f2ff;
-  color: #27394e;
-  border-radius: 8px;
-  padding: 11px;
-  font-size: 13px;
+.header h1 {
   text-align: center;
-}
-
-.flow-group.agreement .flow-step {
-  background: #e9f1e4;
-}
-
-.flow-bottom {
-  align-self: center;
-  width: 75%;
-  background: #cfe2fb;
-  text-align: center;
-  padding: 20px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 15px;
-  color: #1e4c90;
-}
-
-.flow-connector {
-  text-align: center;
-  font-size: 24px;
-  color: var(--blue);
-  line-height: 1;
-}
-
-.discovery-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.discovery-list div {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  font-size: clamp(10px, 1vw, 14px);
-  line-height: 1.4;
-}
-
-.discovery-list b {
-  background: #e5f0ff;
-  color: var(--blue);
-  padding: 7px 9px;
-  border-radius: 7px;
-  font-size: 11px;
-}
-
-/* RESPONSIVIDADE */
-
-@media(max-width: 800px) {
-  .tags { gap: 4px; }
-  .tag { padding: 5px; }
-  .avatar { width: 28px; height: 28px; }
-  .project { gap: 8px; }
-  .project .status { font-size: 9px; padding: 5px; }
-  .flow-group { padding: 9px; gap: 7px; }
-  .flow-step { padding: 7px; font-size: 9px; }
-  .flow-group h3 { font-size: 12px; }
-  .discovery { gap: 10px; }
-  .flow-bottom { padding: 10px; font-size: 10px; }
-}
-
-/* IMPRESSÃO */
-
-@page {
-  size: 16in 9in;
+  font-size: 17px;
   margin: 0;
 }
 
-@media print {
-  body { background: white; }
-  .deck { margin: 0; width: 100%; }
-  .slide {
-    width: 16in;
-    height: 9in;
-    border-radius: 0;
-    box-shadow: none;
-    margin: 0;
-    break-after: page;
-    page-break-after: always;
-  }
+.icon-button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: 29px;
+  color: var(--blue);
 }
 
+.help {
+  width: 27px;
+  height: 27px;
+  border: 1.5px solid var(--blue);
+  border-radius: 50%;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro {
+  padding: 10px 22px 0;
+}
+
+.intro h2 {
+  font-size: 30px;
+  letter-spacing: -1px;
+  line-height: 1.08;
+  margin: 12px 0 12px;
+}
+
+.intro p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ABAS */
+
+.tabs {
+  display: flex;
+  margin: 25px 18px 17px;
+  padding: 3px;
+  gap: 2px;
+  background: #f1f3f8;
+  border-radius: 24px;
+}
+
+.tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  border-radius: 22px;
+  min-height: 38px;
+  font-size: 12.5px;
+  color: #66718e;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #0c1c52;
+  color: white;
+  font-weight: bold;
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ABA NO DIA A DIA */
+
+.tips {
+  padding: 0 22px;
+}
+
+.tip {
+  display: grid;
+  grid-template-columns: 40px 1fr 18px;
+  gap: 10px;
+  align-items: start;
+  padding: 19px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.tip-number {
+  color: #5680cb;
+  font-size: 14px;
+  padding-top: 3px;
+}
+
+.tip-title {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.tip-description {
+  margin: 6px 0 0;
+  font-size: 12.8px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.arrow {
+  font-size: 25px;
+  color: var(--navy);
+  align-self: center;
+}
+
+.banner {
+  margin: 13px 18px 8px;
+  padding: 17px;
+  background: linear-gradient(115deg, #153985, #245fe0);
+  color: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  cursor: pointer;
+}
+
+.banner-content { flex: 1; }
+
+.banner-tag {
+  display: inline-block;
+  background: #ffffff28;
+  padding: 4px 9px;
+  border-radius: 12px;
+  font-size: 10px;
+}
+
+.banner h3 {
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 8px 0 5px;
+}
+
+.banner p {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #e1eaff;
+  margin: 0;
+}
+
+.banner-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+/* PARA VOCÊ */
+
+.personal {
+  padding: 0 22px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin: 18px 0 12px;
+}
+
+.personal-item {
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.personal-item strong {
+  font-size: 15px;
+}
+
+.personal-item p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.status-label {
+  display: inline-block;
+  margin-top: 7px;
+  color: #e66d22;
+  font-size: 12px;
+}
+
+/* SAIBA MAIS */
+
+.faq {
+  margin: 0 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.faq summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 19px 0;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.faq summary::-webkit-details-marker { display: none; }
+
+.faq summary::after {
+  content: "⌄";
+  font-size: 20px;
+  color: var(--blue);
+}
+
+.faq[open] summary::after { content: "⌃"; }
+
+.faq p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* HISTÓRICO DO SCORE */
+
+.hero {
+  background: linear-gradient(125deg, #fff 50%, #f0f5ff 100%);
+  padding: 24px 30px 25px;
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.score-value {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 5px 0;
+}
+
+.score-value strong {
+  font-size: 54px;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.score-value span {
+  color: #68748d;
+  font-size: 17px;
+}
+
+.score-label {
+  display: inline-block;
+  background: #e4edff;
+  color: #1261cd;
+  padding: 5px 11px;
+  border-radius: 16px;
+  font-size: 12px;
+}
+
+.updated {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 11px;
+}
+
+.history-content {
+  padding: 20px 25px 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-header h2,
+.history-content h2 {
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.period {
+  color: var(--blue);
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.chart {
+  height: 205px;
+  margin-top: 17px;
+}
+
+.chart svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.score-summary {
+  margin: 12px 0 25px;
+  padding: 14px;
+  background: #f4f7fc;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.trend-icon {
+  background: #dff5ec;
+  color: #129762;
+  font-size: 23px;
+  padding: 5px 9px;
+  border-radius: 50%;
+}
+
+.score-summary strong {
+  color: #119663;
+  font-size: 17px;
+}
+
+.score-summary small {
+  display: block;
+  color: #67728b;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.month-list {
+  margin-top: 13px;
+}
+
+.month {
+  height: 42px;
+  display: grid;
+  grid-template-columns: 1fr 55px 46px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.month-name { color: #65708a; }
+.month-score { font-weight: bold; }
+.month-change { text-align: right; color: #16a358; }
+
+.history-banner {
+  margin-top: 20px;
+  min-height: 85px;
+}
+
+.home-indicator {
+  height: 4px;
+  width: 120px;
+  background: #111;
+  border-radius: 4px;
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  transform: translateX(-50%);
+}
+
+@media(max-width: 850px) {
+  .workspace { padding: 15px; }
+}
+
+@media(max-width: 420px) {
+  .workspace { padding: 0; gap: 0; }
+  .phone {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .label { display: none; }
+}
 </style>
 </head>
 
 <body>
 
-<main class="deck">
+<div class="workspace">
 
-<!-- SLIDE 1 -->
-<section class="slide">
+<!-- TELA 01: DICAS -->
 
-  <header class="header">
-    <div class="identity">
-      <div class="avatar">BR</div>
-      <span>Tribo Retenção<br>Parcele & Acordo</span>
-    </div>
+<section>
+  <div class="label">01 — Dicas</div>
 
-    <div class="tags">
-      <span class="tag-label">Design de produtos</span>
-      <span class="tag green">Retenção</span>
-    </div>
-  </header>
+  <div class="phone">
+    <div class="screen">
 
-  <div class="intro">
-
-    <div class="intro-copy">
-      <div class="eyebrow">Atuação transversal</div>
-
-      <h1>
-        Minha atuação<br>
-        <span class="accent">
-          em Parcele<br>& Acordo
-        </span>
-      </h1>
-
-      <p>
-        Atuação transversal entre os produtos
-        Parcele e Acordo, com foco em inteligência
-        de dados e experiência, contribuindo para
-        análises do público e evolução das jornadas.
-      </p>
-    </div>
-
-    <div class="projects">
-
-      <article class="project panel">
-        <div class="number">01</div>
-        <span class="status">Em finalização</span>
-
-        <h3>Dashboard<br>Parcele & Acordo</h3>
-
-        <p>
-          Estruturação de uma visão analítica
-          integrada dos produtos, reunindo
-          indicadores de público, inadimplência,
-          conversão e experiência.
-        </p>
-
-        <div class="arrow">→</div>
-      </article>
-
-      <article class="project panel">
-        <div class="number">02</div>
-        <span class="status">Em Discovery</span>
-
-        <h3>Unificação dos<br>fluxos</h3>
-
-        <p>
-          Mentoria dedicada à investigação das
-          jornadas atuais de Parcele e Acordo,
-          buscando oportunidades de
-          simplificação e consistência.
-        </p>
-
-        <div class="arrow">→</div>
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- SLIDE 2 -->
-<section class="slide">
-
-  <header class="header">
-    <div class="identity">
-      <div class="avatar">BR</div>
-      <span>Tribo Retenção: Parcele | Acordo</span>
-    </div>
-
-    <div class="tags">
-      <span class="tag-label">Etapas de design</span>
-      <span class="tag green">Entender / Definir</span>
-      <span class="tag-label">Status</span>
-      <span class="tag dark">Em finalização</span>
-    </div>
-  </header>
-
-  <div class="case-title">
-    <h2>Dashboard <span class="accent">Parcele & Acordo</span></h2>
-  </div>
-
-  <div class="case-content">
-
-    <div class="main-visual">
-      <label class="upload-area" id="dropDashboard">
-        <input type="file" id="dashboardInput" accept="image/*">
-
-        <div class="upload-instructions">
-          <div style="font-size:38px">▧</div>
-          <strong>Inserir print do dashboard</strong>
-          <span>Looker Studio · Clique para selecionar imagem</span>
-        </div>
-
-        <img id="dashboardPreview" alt="Dashboard Parcele e Acordo">
-      </label>
-    </div>
-
-    <aside class="details">
-
-      <div class="detail">
-        <h3>Necessidade do negócio</h3>
-        <p>
-          Consolidar em uma única visão os
-          principais indicadores de Parcele e
-          Acordo para análise e acompanhamento.
-        </p>
-      </div>
-
-      <div class="detail">
-        <h3>Valor para o negócio</h3>
-        <p>
-          Facilitar a leitura do público, do risco,
-          da conversão e do comportamento dos
-          produtos em uma estrutura analítica.
-        </p>
-      </div>
-
-      <div class="detail">
-        <h3>Visões desenvolvidas</h3>
-        <p>
-          Ficha do cliente · Inadimplência e risco ·
-          Conversão e elegibilidade ·
-          Visão interna e externa · Produto e UX.
-        </p>
-      </div>
-
-      <div class="numbers">
-        <div class="metric">
-          <strong>5</strong>
-          <span>visões analíticas</span>
-        </div>
-        <div class="metric">
-          <strong>2</strong>
-          <span>produtos</span>
-        </div>
-        <div class="metric">
-          <strong>1</strong>
-          <span>dashboard</span>
-        </div>
-      </div>
-
-    </aside>
-
-  </div>
-
-  <footer class="caption-area">
-    <div>
-      <span class="status-pill">Em finalização</span>
-      <p>
-        Estruturação de um dashboard com visão
-        integrada dos produtos Parcele e Acordo,
-        reunindo análises de público, inadimplência,
-        conversão, comportamento e experiência.
-      </p>
-    </div>
-  </footer>
-
-</section>
-
-
-<!-- SLIDE 3 -->
-<section class="slide">
-
-  <header class="header">
-    <div class="identity">
-      <div class="avatar">BR</div>
-      <span>Tribo Retenção: Parcele | Acordo</span>
-    </div>
-
-    <div class="tags">
-      <span class="tag-label">Etapas de design</span>
-      <span class="tag green">Entender / Definir</span>
-      <span class="tag-label">Momento</span>
-      <span class="tag dark">Discovery</span>
-    </div>
-  </header>
-
-  <div class="case-title">
-    <h2>
-      Discovery para unificação<br>
-      <span class="accent">
-        dos fluxos de Parcele & Acordo
-      </span>
-    </h2>
-  </div>
-
-  <div class="case-content">
-
-    <div class="main-visual panel discovery">
-
-      <div class="flow-row">
-
-        <div class="flow-group">
-          <h3>Parcele</h3>
-          <div class="flow-step">Mapeamento da jornada atual</div>
-          <div class="flow-step">Análise dos pontos de contato</div>
-          <div class="flow-step">Identificação de oportunidades</div>
-        </div>
-
-        <div class="flow-group agreement">
-          <h3>Acordo</h3>
-          <div class="flow-step">Mapeamento da jornada atual</div>
-          <div class="flow-step">Análise dos pontos de contato</div>
-          <div class="flow-step">Identificação de oportunidades</div>
-        </div>
-
-      </div>
-
-      <div class="flow-connector">↓</div>
-
-      <div class="flow-bottom">
-        Análise comparativa das jornadas<br>
-        <span style="font-weight:400;font-size:12px">
-          Investigação de oportunidades de convergência
+      <div class="status">
+        <span>9:41</span>
+        <span class="status-icons">
+          <span>▂▄▆</span>
+          <span>◕</span>
+          <span class="battery"></span>
         </span>
       </div>
 
-    </div>
+      <header class="header">
+        <button class="icon-button" aria-label="Voltar">‹</button>
+        <h1>Dicas</h1>
+        <button class="icon-button help" aria-label="Ajuda">?</button>
+      </header>
 
-    <aside class="details">
-
-      <div class="detail">
-        <h3>Necessidade do cliente</h3>
+      <div class="intro">
+        <h2>Melhore seu<br>Score</h2>
         <p>
-          Ter uma experiência mais clara e
-          consistente para negociação e
-          regularização financeira.
+          Pequenas ações no seu dia a dia podem<br>
+          fazer a diferença na sua pontuação.
         </p>
       </div>
 
-      <div class="detail">
-        <h3>Valor para o negócio</h3>
-        <p>
-          Investigar oportunidades de convergência
-          entre os fluxos para apoiar futuras
-          evoluções de produto e experiência.
-        </p>
-      </div>
+      <nav class="tabs" aria-label="Categorias de dicas">
+        <button class="tab" data-tab="para">Para você</button>
+        <button class="tab active" data-tab="dia">No dia a dia</button>
+        <button class="tab" data-tab="saiba">Saiba mais</button>
+      </nav>
 
-      <div class="detail">
-        <h3>Etapa atual · Discovery</h3>
+      <!-- PARA VOCÊ -->
 
-        <div class="discovery-list">
-          <div>
-            <b>01</b>
-            Mapeamento dos fluxos atuais
-            de Parcele e Acordo.
+      <div class="tab-content" id="para">
+        <div class="personal">
+
+          <h3 class="section-title">O que você pode melhorar</h3>
+
+          <div class="personal-item">
+            <strong>Cadastro e renda</strong><br>
+            <span class="status-label">Precisa melhorar</span>
+            <p>Mantenha suas informações atualizadas.</p>
           </div>
-          <div>
-            <b>02</b>
-            Análise de semelhanças e
-            diferenças entre as jornadas.
+
+          <div class="personal-item">
+            <strong>Uso do cartão</strong>
+            <p>Acompanhe seu limite utilizado.</p>
           </div>
-          <div>
-            <b>03</b>
-            Identificação de oportunidades
-            de simplificação e consistência.
+
+          <div class="personal-item">
+            <strong>Pagamentos</strong>
+            <p>Continue mantendo seus pagamentos em dia.</p>
           </div>
+
         </div>
       </div>
 
-    </aside>
+      <!-- NO DIA A DIA -->
 
-  </div>
+      <div class="tab-content active" id="dia">
+        <div class="tips">
 
-  <footer class="caption-area">
-    <div>
-      <span class="status-pill">Em andamento · Discovery</span>
-      <p>
-        Mentoria focada na investigação e
-        aproximação das jornadas de Parcele
-        e Acordo, buscando oportunidades
-        de simplificação, consistência e
-        evolução da experiência.
-      </p>
+          <div class="tip">
+            <span class="tip-number">01</span>
+            <div>
+              <div class="tip-title">
+                Mantenha seus<br>pagamentos em dia
+              </div>
+              <p class="tip-description">
+                Evite atrasos na fatura e em outros
+                compromissos financeiros.
+              </p>
+            </div>
+            <span class="arrow">›</span>
+          </div>
+
+          <div class="tip">
+            <span class="tip-number">02</span>
+            <div>
+              <div class="tip-title">
+                Use seu cartão<br>de forma consciente
+              </div>
+              <p class="tip-description">
+                Manter o uso do limite em um nível
+                saudável ajuda na sua avaliação.
+              </p>
+            </div>
+            <span class="arrow">›</span>
+          </div>
+
+          <div class="tip">
+            <span class="tip-number">03</span>
+            <div>
+              <div class="tip-title">Atualize seus dados</div>
+              <p class="tip-description">
+                Informações de contato, endereço e
+                renda atualizados contribuem para
+                um perfil mais confiável.
+              </p>
+            </div>
+            <span class="arrow">›</span>
+          </div>
+
+          <div class="tip">
+            <span class="tip-number">04</span>
+            <div>
+              <div class="tip-title">
+                Evite muitos pedidos<br>de crédito
+              </div>
+              <p class="tip-description">
+                Solicitações frequentes podem
+                indicar maior risco e impactar seu Score.
+              </p>
+            </div>
+            <span class="arrow">›</span>
+          </div>
+
+        </div>
+
+        <div class="banner" id="open-history">
+          <div class="banner-content">
+            <span class="banner-tag">ACOMPANHE</span>
+            <h3>Veja a evolução<br>do seu Score</h3>
+            <p>
+              Entenda como suas ações podem impactar
+              a sua pontuação ao longo do tempo.
+            </p>
+          </div>
+          <span class="banner-arrow">›</span>
+        </div>
+      </div>
+
+      <!-- SAIBA MAIS -->
+
+      <div class="tab-content" id="saiba">
+
+        <details class="faq" open>
+          <summary>O que é o Score de crédito?</summary>
+          <p>
+            É uma pontuação que representa aspectos
+            do perfil de crédito do cliente.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Quais fatores influenciam meu Score?</summary>
+          <p>
+            O Carrefour Score apresenta indicadores
+            de pagamentos, uso do cartão, cadastro
+            e renda.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Como o uso do cartão impacta o Score?</summary>
+          <p>
+            O uso do cartão é um dos indicadores
+            apresentados na avaliação.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Como acompanhar a evolução?</summary>
+          <p>
+            Consulte o Histórico do Score para
+            visualizar alterações na sua pontuação.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Com que frequência ele é atualizado?</summary>
+          <p>
+            A periodicidade depende das regras
+            de avaliação do Carrefour Score.
+          </p>
+        </details>
+
+      </div>
+
     </div>
-  </footer>
 
+    <div class="home-indicator"></div>
+  </div>
 </section>
 
-</main>
+
+<!-- TELA 02: HISTÓRICO DO SCORE -->
+
+<section id="history-section">
+  <div class="label">02 — Histórico do Score</div>
+
+  <div class="phone">
+    <div class="screen">
+
+      <div class="status">
+        <span>9:41</span>
+        <span class="status-icons">
+          <span>▂▄▆</span>
+          <span>◕</span>
+          <span class="battery"></span>
+        </span>
+      </div>
+
+      <header class="header">
+        <button class="icon-button" aria-label="Voltar">‹</button>
+        <h1>Histórico do Score</h1>
+        <button class="icon-button help" aria-label="Ajuda">?</button>
+      </header>
+
+      <div class="hero">
+        <div class="eyebrow">Pontuação atual</div>
+
+        <div class="score-value">
+          <strong>782</strong>
+          <span>/ 1.000</span>
+        </div>
+
+        <span class="score-label">Muito bom</span>
+
+        <div class="updated">
+          Última atualização: 14 de agosto de 2025
+        </div>
+      </div>
+
+      <div class="history-content">
+
+        <div class="section-header">
+          <h2>Evolução do Score</h2>
+          <select class="period" id="period">
+            <option value="6">6 meses</option>
+            <option value="3">3 meses</option>
+          </select>
+        </div>
+
+        <div class="chart">
+          <svg id="score-chart" viewBox="0 0 350 210"></svg>
+        </div>
+
+        <div class="score-summary">
+          <span class="trend-icon">↗</span>
+          <div>
+            <strong id="summary-value">+92 pontos</strong>
+            <small id="summary-period">nos últimos 6 meses</small>
+          </div>
+        </div>
+
+        <h2>Histórico mensal</h2>
+
+        <div class="month-list">
+
+          <div class="month">
+            <span class="month-name">Agosto 2025</span>
+            <span class="month-score">782</span>
+            <span class="month-change">+14</span>
+          </div>
+
+          <div class="month">
+            <span class="month-name">Julho 2025</span>
+            <span class="month-score">768</span>
+            <span class="month-change">+18</span>
+          </div>
+
+          <div class="month">
+            <span class="month-name">Junho 2025</span>
+            <span class="month-score">750</span>
+            <span class="month-change">+15</span>
+          </div>
+
+          <div class="month">
+            <span class="month-name">Maio 2025</span>
+            <span class="month-score">735</span>
+            <span class="month-change">+17</span>
+          </div>
+
+          <div class="month">
+            <span class="month-name">Abril 2025</span>
+            <span class="month-score">718</span>
+            <span class="month-change">+16</span>
+          </div>
+
+          <div class="month">
+            <span class="month-name">Março 2025</span>
+            <span class="month-score">702</span>
+            <span class="month-change">+12</span>
+          </div>
+
+          <div class="month">
+            <span class="month-name">Fevereiro 2025</span>
+            <span class="month-score">690</span>
+            <span class="month-change">—</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="banner history-banner" id="open-tips">
+        <div class="banner-content">
+          <h3>Como aumentar meu Score</h3>
+          <p>Veja dicas personalizadas para continuar evoluindo.</p>
+        </div>
+        <span class="banner-arrow">›</span>
+      </div>
+
+    </div>
+
+    <div class="home-indicator"></div>
+  </div>
+</section>
+
+</div>
 
 <script>
-const input = document.getElementById("dashboardInput");
-const preview = document.getElementById("dashboardPreview");
-const area = document.getElementById("dropDashboard");
+/* NAVEGAÇÃO DAS ABAS */
 
-input.addEventListener("change", function () {
-  const file = this.files[0];
-  if (!file) return;
+const tabs = document.querySelectorAll(".tab");
+const contents = document.querySelectorAll(".tab-content");
 
-  const reader = new FileReader();
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    tabs.forEach(item => item.classList.remove("active"));
+    contents.forEach(item => item.classList.remove("active"));
 
-  reader.onload = function (event) {
-    preview.src = event.target.result;
-    area.classList.add("has-image");
-  };
+    tab.classList.add("active");
+    document.getElementById(tab.dataset.tab).classList.add("active");
+  });
+});
 
-  reader.readAsDataURL(file);
+/* GRÁFICO DO HISTÓRICO */
+
+const scoreData = [
+  { month: "Fev", value: 690 },
+  { month: "Mar", value: 702 },
+  { month: "Abr", value: 718 },
+  { month: "Mai", value: 735 },
+  { month: "Jun", value: 750 },
+  { month: "Jul", value: 768 },
+  { month: "Ago", value: 782 }
+];
+
+function drawChart(period = "6") {
+  const data = period === "3"
+    ? scoreData.slice(-4)
+    : scoreData;
+
+  const svg = document.getElementById("score-chart");
+
+  const left = 34;
+  const right = 333;
+  const top = 18;
+  const bottom = 160;
+
+  const x = index =>
+    left + ((right - left) * index) / (data.length - 1);
+
+  const y = value =>
+    bottom - ((value - 650) / 150) * (bottom - top);
+
+  let html = "";
+
+  [650, 700, 750, 800].forEach(tick => {
+    const yy = y(tick);
+
+    html += `
+      <line
+        x1="${left}" y1="${yy}"
+        x2="${right}" y2="${yy}"
+        stroke="#dfe6f1"
+        stroke-dasharray="4 5"
+      />
+      <text
+        x="2" y="${yy + 4}"
+        font-size="11"
+        fill="#75819b"
+      >${tick}</text>
+    `;
+  });
+
+  const coords = data.map((point, index) => [
+    x(index),
+    y(point.value)
+  ]);
+
+  const path = coords.map((point, index) =>
+    `${index === 0 ? "M" : "L"}${point[0]} ${point[1]}`
+  ).join(" ");
+
+  html += `
+    <path
+      d="${path} L${coords[coords.length - 1][0]} ${bottom}
+      L${coords[0][0]} ${bottom} Z"
+      fill="#4f8efa"
+      fill-opacity="0.09"
+    />
+    <path
+      d="${path}"
+      fill="none"
+      stroke="#3975dd"
+      stroke-width="2.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  `;
+
+  coords.forEach((point, index) => {
+    const last = index === coords.length - 1;
+
+    html += `
+      <circle
+        cx="${point[0]}"
+        cy="${point[1]}"
+        r="${last ? 5.5 : 4}"
+        fill="${last ? "#1765de" : "#7d9ed6"}"
+        stroke="white"
+        stroke-width="1.5"
+      />
+      <text
+        x="${point[0]}"
+        y="${point[1] - 11}"
+        text-anchor="middle"
+        font-size="11"
+        fill="#64718b"
+      >${data[index].value}</text>
+      <text
+        x="${point[0]}"
+        y="187"
+        text-anchor="middle"
+        font-size="11"
+        fill="#64718b"
+      >${data[index].month}</text>
+    `;
+  });
+
+  svg.innerHTML = html;
+
+  const change = data[data.length - 1].value - data[0].value;
+  document.getElementById("summary-value").textContent =
+    `${change >= 0 ? "+" : ""}${change} pontos`;
+  document.getElementById("summary-period").textContent =
+    `nos últimos ${period} meses`;
+}
+
+drawChart();
+
+document.getElementById("period").addEventListener("change", event => {
+  drawChart(event.target.value);
+});
+
+/* NAVEGAÇÃO ENTRE AS TELAS */
+
+document.getElementById("open-history").addEventListener("click", () => {
+  document.getElementById("history-section").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+});
+
+document.getElementById("open-tips").addEventListener("click", () => {
+  document.querySelector(".workspace").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 });
 </script>
 
